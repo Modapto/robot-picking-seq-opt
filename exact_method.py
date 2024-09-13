@@ -294,29 +294,6 @@ def plot_tour(optimal_tour, distances, set_a, set_b, possible_edges, title):
     # Display the graph
     plt.show()
 
-
-# def main(json_file):
-#     """Main function to load data, solve TSP, and plot the result."""
-#     distance_matrix = load_data(json_file)
-#
-#     set_aa, set_bb, set_a, set_b = classify_nodes(distance_matrix)
-#
-#     distances = create_distances_dict(distance_matrix, set_a, set_b)
-#     possible_edges = extract_possible_edges(distances)
-#
-#     check_connectivity(set_a, set_b, distances)
-#     analyze_sets(set_a, set_b, distances)
-#
-#     optimal_tour = iterative_subtour_elimination(distances, possible_edges, set_a, set_b)
-#
-#     if optimal_tour is None:
-#         return
-#
-#     print("Optimal Tour:")
-#     for idx, (i, j) in enumerate(optimal_tour):
-#         print(f"{idx + 1}: {i} -> {j}, Distance: {distances.get((i, j), 'Unknown')}")
-
-
 def run_exact_tsp_remote(json_data):
     """
     Main function to run the exact TSP solver.
@@ -336,30 +313,14 @@ def run_exact_tsp_remote(json_data):
 
         # Solve the TSP with iterative subtour elimination
         exact_tour = iterative_subtour_elimination(distances, possible_edges, set_a, set_b)
-        # Build a mapping from each node to its successor
-        successors = {}
-        for i, j in exact_tour:
-            successors[i] = j
 
-        # Reconstruct the tour starting from '0.0.0' and build time_details
-        time_details = []
-        exact_tour_cost = 0
-        current_node = '0.0.0'
-        visited = set()
-        while True:
-            if current_node in visited:
-                break
-            visited.add(current_node)
-            next_node = successors.get(current_node)
-            if next_node is None:
-                break
-            distance = distances.get((current_node, next_node), 'Unknown')
-            time_details.append({"from": current_node, "to": next_node, "distance": distance})
-            if isinstance(distance, (int, float)):
-                exact_tour_cost += distance
-            current_node = next_node
-            if current_node == '0.0.0':
-                break
+        # Reconstruct the tour in order starting from '0.0.0'
+        ordered_tour = reconstruct_tour(exact_tour, start_node='0.0.0')
+
+        # Calculate the total cost of the exact tour
+        exact_tour_cost = sum(distances.get((i, j), 0) for i, j in ordered_tour)
+        time_details = [{"from": i, "to": j, "distance": distances.get((i, j), 'Unknown')} for i, j in ordered_tour]
+
         # # Calculate the total cost of the exact tour
         # exact_tour_cost = sum(distances.get((i, j), 0) for i, j in exact_tour)
         # time_details = [{"from": i, "to": j, "distance": distances.get((i, j), 'Unknown')} for i, j in exact_tour]
@@ -369,7 +330,6 @@ def run_exact_tsp_remote(json_data):
     except ValueError as e:
         print(f"Error in exact method: {e}")
         return None, None, None
-
 
 def run_exact_tsp_local(json_file_path):
     """
@@ -390,36 +350,46 @@ def run_exact_tsp_local(json_file_path):
 
         # Solve the TSP with iterative subtour elimination
         exact_tour = iterative_subtour_elimination(distances, possible_edges, set_a, set_b)
-        # Build a mapping from each node to its successor
-        successors = {}
-        for i, j in exact_tour:
-            successors[i] = j
 
-        # Reconstruct the tour starting from '0.0.0' and build time_details
-        time_details = []
-        exact_tour_cost = 0
-        current_node = '0.0.0'
-        visited = set()
-        while True:
-            if current_node in visited:
-                break
-            visited.add(current_node)
-            next_node = successors.get(current_node)
-            if next_node is None:
-                break
-            distance = distances.get((current_node, next_node), 'Unknown')
-            time_details.append({"from": current_node, "to": next_node, "distance": distance})
-            if isinstance(distance, (int, float)):
-                exact_tour_cost += distance
-            current_node = next_node
-            if current_node == '0.0.0':
-                break
+        # Reconstruct the tour in order starting from '0.0.0'
+        ordered_tour = reconstruct_tour(exact_tour, start_node='0.0.0')
 
-        return exact_tour, exact_tour_cost, time_details
+        # Calculate the total cost of the exact tour
+        exact_tour_cost = sum(distances.get((i, j), 0) for i, j in ordered_tour)
+        time_details = [{"from": i, "to": j, "distance": distances.get((i, j), 'Unknown')} for i, j in ordered_tour]
+
+        return ordered_tour, exact_tour_cost, time_details
 
     except ValueError as e:
         print(f"Error in exact method: {e}")
         return None, None, None
+
+def reconstruct_tour(tour_edges, start_node):
+    """
+    Reconstructs the tour starting from the given start_node.
+    """
+    # Build a mapping from each node to its neighbor, nodes_sequence
+    nodes_seq = {}
+    for i, j in tour_edges:
+        nodes_seq[i] = j
+
+    # Reconstruct the ordered tour
+    ordered_tour = []
+    current_node = start_node
+    visited = set()
+    while True:
+        if current_node in visited:
+            break
+        visited.add(current_node)
+        next_node = nodes_seq.get(current_node)
+        if next_node is None:
+            break
+        ordered_tour.append((current_node, next_node))
+        current_node = next_node
+        if current_node == start_node:
+            break
+
+    return ordered_tour
 
 
 # # Run the main function with the provided JSON file

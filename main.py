@@ -6,11 +6,11 @@ import pika
 import sys
 import pandas as pd
 import numpy as np
-from GraphCreation import create_bipartite_graph, plot_bipartite_graph
-from Solver import nearest_tsp, opt2, q_learning_tsp, total_cost, is_valid_bipartite_tour
-from generate_random_input import generate_random_json_input
-from parse_json_input import create_distance_matrices_from_json, create_distance_matrices_from_postman
-from exact_method import run_exact_tsp_remote, run_exact_tsp_local
+from GraphCreation import *
+from Solver import *
+from generate_random_input import *
+from parse_json_input import *
+from exact_method import *
 
 online = sys.argv[1]
 
@@ -30,7 +30,6 @@ def run_tsp_for_size(json_file_path, output_json_file_path):
     total_time_start = int(time() * 1000)
     # generate the random JSON input
     random_json_input = generate_random_json_input()
-    # output_file_path = "small20x10.json"
     #save the JSON input to a file
     output_file_path = "random_json_input.json"
     with open(output_file_path, 'w') as json_file:
@@ -143,7 +142,7 @@ def run_tsp_for_size(json_file_path, output_json_file_path):
     end_time = int(time() * 1000)
 
     picking_seq = []
-    total_loading_time = 0
+
     for method, result in results.items():
         if "time_details" in result:
             picking_seq.append({

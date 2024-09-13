@@ -1,6 +1,6 @@
 import random
 import uuid
-import time
+from time import *
 
 def generate_random_json_input():
     methods = ["exact"]
@@ -85,7 +85,7 @@ def generate_random_json_input():
     random_json_input = {
         "route": "robot-pick-seq-opt",
         "uuid": str(uuid.uuid4()),
-        "generated_at": int(time.time()),
+        "generated_at": int(time()),
         "data": {
             "method": random.choice(methods),
             "start_node": "0.0.0",

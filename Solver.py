@@ -79,12 +79,6 @@ def total_cost(G, tour):
                 })
     return cost, time_details
 
-#Sample Function
-def sample(population, n, seed=42):
-    random.seed(seed)
-    return random.sample(population, min(n, len(population)))
-
-
 # 2-Opt Optimization
 def find_best_two_opt_move(tour, graph, set_1, set_2):
     """
@@ -126,7 +120,6 @@ def find_best_two_opt_move(tour, graph, set_1, set_2):
 
     return best_tour, best_move_cost
 
-
 def apply_two_opt_move(tour, i, k):
     """
     This function applies the best 2-opt move by reversing the segment between two nodes.
@@ -167,20 +160,6 @@ def opt2(tour, graph, set_1, set_2, start=None, end=None):
 
     print(f"Final optimized tour cost: {best_cost}")
     return best_tour
-
-# Function to check bipartite constraint
-def is_valid_bipartite_tour(tour, set_1, set_2):
-    """
-    Check if the new tour is valid within the bipartite constraints.
-    A valid tour must alternate between nodes in set_1 and set_2.
-    """
-    for i in range(1, len(tour)):
-        u = tour[i - 1]
-        v = tour[i]
-        # Ensure that we are alternating between nodes in set_1 and set_2
-        if (u in set_1 and v not in set_2) or (u in set_2 and v not in set_1):
-            return False
-    return True
 
 # Q-Learning Parameters
 ALPHA = 0.1  # Learning rate
@@ -269,7 +248,3 @@ def best_q_tour(q_table, G, start, end, set_1, set_2, large_value):
 
     tour.append(end)
     return tour
-
-@functools.lru_cache(None)
-def subsegments(N):
-    return tuple((i, i + length) for length in reversed(range(2, N - 1)) for i in range(N - length))
