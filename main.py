@@ -325,7 +325,7 @@ def process_json_data(input_data):
                 "method": method
             })
             picking_seq.extend(result["time_details"])
-
+            total_loading_time = result["totalLoadingTime"]
     print("Picking Sequence:")
     for pick in picking_seq:
         print(pick)
@@ -335,7 +335,7 @@ def process_json_data(input_data):
         "produced_at": int(time() * 1000),
         "data": {
             "pickingSeq": picking_seq,
-            "totalLoadingTime": str(sum(pick["totalTime"] for pick in picking_seq if isinstance(pick, dict) and "totalTime" in pick)),
+            "totalLoadingTime": str(total_loading_time),
             "solutionTime": (end_time - solution_time_start),
             "totalTime": (end_time - total_time_start)
         }
