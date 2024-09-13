@@ -291,7 +291,7 @@ def process_json_data(input_data):
             print("Running Exact Method TSP...")
 
             # Call the exact TSP function from exact_method.py
-            exact_tour, exact_tour_cost, time_details = run_exact_tsp(json_file_path)
+            exact_tour, exact_tour_cost, time_details = run_exact_tsp(input_data)
 
             if exact_tour:
                 results["exact"] = {
