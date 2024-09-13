@@ -336,10 +336,33 @@ def run_exact_tsp_remote(json_data):
 
         # Solve the TSP with iterative subtour elimination
         exact_tour = iterative_subtour_elimination(distances, possible_edges, set_a, set_b)
+        # Build a mapping from each node to its successor
+        successors = {}
+        for i, j in exact_tour:
+            successors[i] = j
 
-        # Calculate the total cost of the exact tour
-        exact_tour_cost = sum(distances.get((i, j), 0) for i, j in exact_tour)
-        time_details = [{"from": i, "to": j, "distance": distances.get((i, j), 'Unknown')} for i, j in exact_tour]
+        # Reconstruct the tour starting from '0.0.0' and build time_details
+        time_details = []
+        exact_tour_cost = 0
+        current_node = '0.0.0'
+        visited = set()
+        while True:
+            if current_node in visited:
+                break
+            visited.add(current_node)
+            next_node = successors.get(current_node)
+            if next_node is None:
+                break
+            distance = distances.get((current_node, next_node), 'Unknown')
+            time_details.append({"from": current_node, "to": next_node, "distance": distance})
+            if isinstance(distance, (int, float)):
+                exact_tour_cost += distance
+            current_node = next_node
+            if current_node == '0.0.0':
+                break
+        # # Calculate the total cost of the exact tour
+        # exact_tour_cost = sum(distances.get((i, j), 0) for i, j in exact_tour)
+        # time_details = [{"from": i, "to": j, "distance": distances.get((i, j), 'Unknown')} for i, j in exact_tour]
 
         return exact_tour, exact_tour_cost, time_details
 
@@ -367,10 +390,30 @@ def run_exact_tsp_local(json_file_path):
 
         # Solve the TSP with iterative subtour elimination
         exact_tour = iterative_subtour_elimination(distances, possible_edges, set_a, set_b)
+        # Build a mapping from each node to its successor
+        successors = {}
+        for i, j in exact_tour:
+            successors[i] = j
 
-        # Calculate the total cost of the exact tour
-        exact_tour_cost = sum(distances.get((i, j), 0) for i, j in exact_tour)
-        time_details = [{"from": i, "to": j, "distance": distances.get((i, j), 'Unknown')} for i, j in exact_tour]
+        # Reconstruct the tour starting from '0.0.0' and build time_details
+        time_details = []
+        exact_tour_cost = 0
+        current_node = '0.0.0'
+        visited = set()
+        while True:
+            if current_node in visited:
+                break
+            visited.add(current_node)
+            next_node = successors.get(current_node)
+            if next_node is None:
+                break
+            distance = distances.get((current_node, next_node), 'Unknown')
+            time_details.append({"from": current_node, "to": next_node, "distance": distance})
+            if isinstance(distance, (int, float)):
+                exact_tour_cost += distance
+            current_node = next_node
+            if current_node == '0.0.0':
+                break
 
         return exact_tour, exact_tour_cost, time_details
 
