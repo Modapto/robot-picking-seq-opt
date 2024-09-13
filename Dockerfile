@@ -9,4 +9,4 @@ WORKDIR /robot-picking-seq-opt
 COPY ./ ./
 RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
-ENTRYPOINT python main2.py $REMOTE $RB_HOST $RB_PORT $RB_USER $RB_PASS
+ENTRYPOINT python main.py $REMOTE $RB_HOST $RB_PORT $RB_USER $RB_PASS
