@@ -317,7 +317,38 @@ def plot_tour(optimal_tour, distances, set_a, set_b, possible_edges, title):
 #         print(f"{idx + 1}: {i} -> {j}, Distance: {distances.get((i, j), 'Unknown')}")
 
 
-def run_exact_tsp(json_file_path):
+def run_exact_tsp_remote(json_data):
+    """
+    Main function to run the exact TSP solver.
+    This function loads data, classifies nodes, checks connectivity,
+    and solves the TSP using iterative subtour elimination.
+    """
+    try:
+        # Load the distance matrix and classify nodes
+        distance_matrix = json_data['data']['distanceMatrix']
+        set_aa, set_bb, set_a, set_b = classify_nodes(distance_matrix)
+        distances = create_distances_dict(distance_matrix, set_a, set_b)
+        possible_edges = extract_possible_edges(distances)
+
+        # Check connectivity and analyze sets
+        check_connectivity(set_a, set_b, distances)
+        analyze_sets(set_a, set_b, distances)
+
+        # Solve the TSP with iterative subtour elimination
+        exact_tour = iterative_subtour_elimination(distances, possible_edges, set_a, set_b)
+
+        # Calculate the total cost of the exact tour
+        exact_tour_cost = sum(distances.get((i, j), 0) for i, j in exact_tour)
+        time_details = [{"from": i, "to": j, "distance": distances.get((i, j), 'Unknown')} for i, j in exact_tour]
+
+        return exact_tour, exact_tour_cost, time_details
+
+    except ValueError as e:
+        print(f"Error in exact method: {e}")
+        return None, None, None
+
+
+def run_exact_tsp_local(json_file_path):
     """
     Main function to run the exact TSP solver.
     This function loads data, classifies nodes, checks connectivity,
@@ -346,7 +377,6 @@ def run_exact_tsp(json_file_path):
     except ValueError as e:
         print(f"Error in exact method: {e}")
         return None, None, None
-
 
 
 # # Run the main function with the provided JSON file

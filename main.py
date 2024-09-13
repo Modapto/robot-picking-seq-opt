@@ -10,7 +10,7 @@ from GraphCreation import create_bipartite_graph, plot_bipartite_graph
 from Solver import nearest_tsp, opt2, q_learning_tsp, total_cost, is_valid_bipartite_tour
 from generate_random_input import generate_random_json_input
 from parse_json_input import create_distance_matrices_from_json, create_distance_matrices_from_postman
-from exact_method import run_exact_tsp
+from exact_method import run_exact_tsp_remote, run_exact_tsp_local
 
 online = sys.argv[1]
 
@@ -120,7 +120,7 @@ def run_tsp_for_size(json_file_path, output_json_file_path):
             print("Running Exact Method TSP...")
 
             # Call the exact TSP function from exact_method.py
-            exact_tour, exact_tour_cost, time_details = run_exact_tsp(json_file_path)
+            exact_tour, exact_tour_cost, time_details = run_exact_tsp_local(json_file_path)
 
             if exact_tour:
                 results["exact"] = {
@@ -291,7 +291,7 @@ def process_json_data(input_data):
             print("Running Exact Method TSP...")
 
             # Call the exact TSP function from exact_method.py
-            exact_tour, exact_tour_cost, time_details = run_exact_tsp(input_data)
+            exact_tour, exact_tour_cost, time_details = run_exact_tsp_remote(input_data)
 
             if exact_tour:
                 results["exact"] = {

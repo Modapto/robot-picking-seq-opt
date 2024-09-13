@@ -3,7 +3,7 @@ import uuid
 import time
 
 def generate_random_json_input():
-    methods = [ "nearest"]
+    methods = ["exact"]
     # , "q-learning", "exact", "nearest", "2-opt"
     # Dummy - Baby Example
     # #Gravity rack positions
