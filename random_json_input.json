@@ -1,0 +1,5172 @@
+{
+    "route": "robot-pick-seq-opt",
+    "uuid": "929c7fbc-10d9-492d-b666-dd4f70937a5c",
+    "generated_at": 1726237023,
+    "data": {
+        "method": "nearest",
+        "start_node": "0.0.0",
+        "end_node": "0.0.0",
+        "distanceMatrix": [
+            {
+                "pointA": "1.1.1",
+                "pointB": "1.1",
+                "aToBDist": 1246,
+                "bToADist": 1474
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "1.2",
+                "aToBDist": 1197,
+                "bToADist": 1982
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "1.3",
+                "aToBDist": 1145,
+                "bToADist": 1522
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "1.4",
+                "aToBDist": 1440,
+                "bToADist": 1566
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "1.5",
+                "aToBDist": 1999,
+                "bToADist": 1386
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "2.1",
+                "aToBDist": 1694,
+                "bToADist": 1689
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "2.2",
+                "aToBDist": 1140,
+                "bToADist": 1668
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "2.3",
+                "aToBDist": 1356,
+                "bToADist": 1442
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "2.4",
+                "aToBDist": 1310,
+                "bToADist": 1362
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "2.5",
+                "aToBDist": 1002,
+                "bToADist": 1050
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "3.1",
+                "aToBDist": 1127,
+                "bToADist": 1652
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "3.2",
+                "aToBDist": 1369,
+                "bToADist": 1681
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "3.3",
+                "aToBDist": 1539,
+                "bToADist": 1498
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "3.4",
+                "aToBDist": 1526,
+                "bToADist": 1789
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "3.5",
+                "aToBDist": 1618,
+                "bToADist": 1750
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "4.1",
+                "aToBDist": 1204,
+                "bToADist": 1076
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "4.2",
+                "aToBDist": 1949,
+                "bToADist": 1829
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "4.3",
+                "aToBDist": 1614,
+                "bToADist": 1878
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "4.4",
+                "aToBDist": 1616,
+                "bToADist": 1913
+            },
+            {
+                "pointA": "1.1.1",
+                "pointB": "4.5",
+                "aToBDist": 1421,
+                "bToADist": 1238
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "1.1",
+                "aToBDist": 1637,
+                "bToADist": 1777
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "1.2",
+                "aToBDist": 1538,
+                "bToADist": 1284
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "1.3",
+                "aToBDist": 1073,
+                "bToADist": 1595
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "1.4",
+                "aToBDist": 1363,
+                "bToADist": 1157
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "1.5",
+                "aToBDist": 1372,
+                "bToADist": 1625
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "2.1",
+                "aToBDist": 1298,
+                "bToADist": 1003
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "2.2",
+                "aToBDist": 1907,
+                "bToADist": 1652
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "2.3",
+                "aToBDist": 1875,
+                "bToADist": 1059
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "2.4",
+                "aToBDist": 1809,
+                "bToADist": 1650
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "2.5",
+                "aToBDist": 1534,
+                "bToADist": 1217
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "3.1",
+                "aToBDist": 1854,
+                "bToADist": 1300
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "3.2",
+                "aToBDist": 1283,
+                "bToADist": 1408
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "3.3",
+                "aToBDist": 1131,
+                "bToADist": 1028
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "3.4",
+                "aToBDist": 1179,
+                "bToADist": 1736
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "3.5",
+                "aToBDist": 1555,
+                "bToADist": 1072
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "4.1",
+                "aToBDist": 1277,
+                "bToADist": 1940
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "4.2",
+                "aToBDist": 1857,
+                "bToADist": 1480
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "4.3",
+                "aToBDist": 1332,
+                "bToADist": 1020
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "4.4",
+                "aToBDist": 1775,
+                "bToADist": 1330
+            },
+            {
+                "pointA": "1.1.2",
+                "pointB": "4.5",
+                "aToBDist": 1588,
+                "bToADist": 1128
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "1.1",
+                "aToBDist": 1647,
+                "bToADist": 1976
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "1.2",
+                "aToBDist": 1664,
+                "bToADist": 1996
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "1.3",
+                "aToBDist": 1180,
+                "bToADist": 1740
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "1.4",
+                "aToBDist": 1493,
+                "bToADist": 1753
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "1.5",
+                "aToBDist": 1583,
+                "bToADist": 1935
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "2.1",
+                "aToBDist": 1360,
+                "bToADist": 1189
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "2.2",
+                "aToBDist": 1112,
+                "bToADist": 1347
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "2.3",
+                "aToBDist": 1597,
+                "bToADist": 1159
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "2.4",
+                "aToBDist": 1427,
+                "bToADist": 1243
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "2.5",
+                "aToBDist": 1586,
+                "bToADist": 1710
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "3.1",
+                "aToBDist": 1910,
+                "bToADist": 1254
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "3.2",
+                "aToBDist": 1435,
+                "bToADist": 1458
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "3.3",
+                "aToBDist": 1992,
+                "bToADist": 1601
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "3.4",
+                "aToBDist": 1220,
+                "bToADist": 1081
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "3.5",
+                "aToBDist": 1946,
+                "bToADist": 1009
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "4.1",
+                "aToBDist": 1094,
+                "bToADist": 1910
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "4.2",
+                "aToBDist": 2000,
+                "bToADist": 1550
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "4.3",
+                "aToBDist": 1569,
+                "bToADist": 1957
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "4.4",
+                "aToBDist": 1412,
+                "bToADist": 1515
+            },
+            {
+                "pointA": "1.1.3",
+                "pointB": "4.5",
+                "aToBDist": 1396,
+                "bToADist": 1081
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "1.1",
+                "aToBDist": 1194,
+                "bToADist": 1762
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "1.2",
+                "aToBDist": 1437,
+                "bToADist": 1369
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "1.3",
+                "aToBDist": 1682,
+                "bToADist": 1264
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "1.4",
+                "aToBDist": 1125,
+                "bToADist": 1687
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "1.5",
+                "aToBDist": 1855,
+                "bToADist": 1193
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "2.1",
+                "aToBDist": 1765,
+                "bToADist": 1263
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "2.2",
+                "aToBDist": 1465,
+                "bToADist": 1235
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "2.3",
+                "aToBDist": 1620,
+                "bToADist": 1295
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "2.4",
+                "aToBDist": 1527,
+                "bToADist": 1241
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "2.5",
+                "aToBDist": 1703,
+                "bToADist": 1575
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "3.1",
+                "aToBDist": 1772,
+                "bToADist": 1249
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "3.2",
+                "aToBDist": 1610,
+                "bToADist": 1033
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "3.3",
+                "aToBDist": 1150,
+                "bToADist": 1792
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "3.4",
+                "aToBDist": 1817,
+                "bToADist": 1988
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "3.5",
+                "aToBDist": 1839,
+                "bToADist": 1729
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "4.1",
+                "aToBDist": 1890,
+                "bToADist": 1803
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "4.2",
+                "aToBDist": 1789,
+                "bToADist": 1718
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "4.3",
+                "aToBDist": 1446,
+                "bToADist": 1505
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "4.4",
+                "aToBDist": 1948,
+                "bToADist": 1589
+            },
+            {
+                "pointA": "1.1.4",
+                "pointB": "4.5",
+                "aToBDist": 1557,
+                "bToADist": 1312
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "1.1",
+                "aToBDist": 1061,
+                "bToADist": 1292
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "1.2",
+                "aToBDist": 1507,
+                "bToADist": 1281
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "1.3",
+                "aToBDist": 1380,
+                "bToADist": 1822
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "1.4",
+                "aToBDist": 1054,
+                "bToADist": 1907
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "1.5",
+                "aToBDist": 1107,
+                "bToADist": 1440
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "2.1",
+                "aToBDist": 1483,
+                "bToADist": 1750
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "2.2",
+                "aToBDist": 1729,
+                "bToADist": 1031
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "2.3",
+                "aToBDist": 1677,
+                "bToADist": 1547
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "2.4",
+                "aToBDist": 1120,
+                "bToADist": 1723
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "2.5",
+                "aToBDist": 1437,
+                "bToADist": 1353
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "3.1",
+                "aToBDist": 1889,
+                "bToADist": 1567
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "3.2",
+                "aToBDist": 1117,
+                "bToADist": 1086
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "3.3",
+                "aToBDist": 1298,
+                "bToADist": 1950
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "3.4",
+                "aToBDist": 1278,
+                "bToADist": 1730
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "3.5",
+                "aToBDist": 1226,
+                "bToADist": 1804
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "4.1",
+                "aToBDist": 1794,
+                "bToADist": 1463
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "4.2",
+                "aToBDist": 1942,
+                "bToADist": 1364
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "4.3",
+                "aToBDist": 1746,
+                "bToADist": 1163
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "4.4",
+                "aToBDist": 1072,
+                "bToADist": 1478
+            },
+            {
+                "pointA": "1.1.5",
+                "pointB": "4.5",
+                "aToBDist": 1024,
+                "bToADist": 1008
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "1.1",
+                "aToBDist": 1015,
+                "bToADist": 1230
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "1.2",
+                "aToBDist": 1809,
+                "bToADist": 1959
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "1.3",
+                "aToBDist": 1682,
+                "bToADist": 1407
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "1.4",
+                "aToBDist": 1242,
+                "bToADist": 1077
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "1.5",
+                "aToBDist": 1880,
+                "bToADist": 1981
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "2.1",
+                "aToBDist": 1266,
+                "bToADist": 1013
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "2.2",
+                "aToBDist": 1236,
+                "bToADist": 1204
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "2.3",
+                "aToBDist": 1122,
+                "bToADist": 1643
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "2.4",
+                "aToBDist": 1729,
+                "bToADist": 1187
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "2.5",
+                "aToBDist": 1304,
+                "bToADist": 1783
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "3.1",
+                "aToBDist": 1955,
+                "bToADist": 1351
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "3.2",
+                "aToBDist": 1466,
+                "bToADist": 1036
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "3.3",
+                "aToBDist": 1891,
+                "bToADist": 1388
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "3.4",
+                "aToBDist": 1456,
+                "bToADist": 1280
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "3.5",
+                "aToBDist": 1162,
+                "bToADist": 1269
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "4.1",
+                "aToBDist": 1920,
+                "bToADist": 1540
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "4.2",
+                "aToBDist": 1706,
+                "bToADist": 1765
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "4.3",
+                "aToBDist": 1566,
+                "bToADist": 1248
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "4.4",
+                "aToBDist": 1114,
+                "bToADist": 1959
+            },
+            {
+                "pointA": "1.1.6",
+                "pointB": "4.5",
+                "aToBDist": 1955,
+                "bToADist": 1956
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "1.1",
+                "aToBDist": 1527,
+                "bToADist": 1710
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "1.2",
+                "aToBDist": 1253,
+                "bToADist": 1631
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "1.3",
+                "aToBDist": 1529,
+                "bToADist": 1064
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "1.4",
+                "aToBDist": 1648,
+                "bToADist": 1547
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "1.5",
+                "aToBDist": 1636,
+                "bToADist": 1508
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "2.1",
+                "aToBDist": 1687,
+                "bToADist": 1658
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "2.2",
+                "aToBDist": 1822,
+                "bToADist": 1287
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "2.3",
+                "aToBDist": 1075,
+                "bToADist": 1594
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "2.4",
+                "aToBDist": 1066,
+                "bToADist": 1013
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "2.5",
+                "aToBDist": 1321,
+                "bToADist": 1097
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "3.1",
+                "aToBDist": 1076,
+                "bToADist": 1040
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "3.2",
+                "aToBDist": 1898,
+                "bToADist": 1508
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "3.3",
+                "aToBDist": 1848,
+                "bToADist": 1029
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "3.4",
+                "aToBDist": 1571,
+                "bToADist": 1626
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "3.5",
+                "aToBDist": 1952,
+                "bToADist": 1279
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "4.1",
+                "aToBDist": 1466,
+                "bToADist": 1478
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "4.2",
+                "aToBDist": 1133,
+                "bToADist": 1771
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "4.3",
+                "aToBDist": 1587,
+                "bToADist": 1296
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "4.4",
+                "aToBDist": 1480,
+                "bToADist": 1403
+            },
+            {
+                "pointA": "1.1.7",
+                "pointB": "4.5",
+                "aToBDist": 1534,
+                "bToADist": 1387
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "1.1",
+                "aToBDist": 1758,
+                "bToADist": 1440
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "1.2",
+                "aToBDist": 1399,
+                "bToADist": 1684
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "1.3",
+                "aToBDist": 1022,
+                "bToADist": 1454
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "1.4",
+                "aToBDist": 1947,
+                "bToADist": 1200
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "1.5",
+                "aToBDist": 1309,
+                "bToADist": 1682
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "2.1",
+                "aToBDist": 1102,
+                "bToADist": 1649
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "2.2",
+                "aToBDist": 1963,
+                "bToADist": 1087
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "2.3",
+                "aToBDist": 1965,
+                "bToADist": 1817
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "2.4",
+                "aToBDist": 1088,
+                "bToADist": 1907
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "2.5",
+                "aToBDist": 1521,
+                "bToADist": 1360
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "3.1",
+                "aToBDist": 1172,
+                "bToADist": 1109
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "3.2",
+                "aToBDist": 1205,
+                "bToADist": 1595
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "3.3",
+                "aToBDist": 1739,
+                "bToADist": 1137
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "3.4",
+                "aToBDist": 1215,
+                "bToADist": 1283
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "3.5",
+                "aToBDist": 1020,
+                "bToADist": 1679
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "4.1",
+                "aToBDist": 1093,
+                "bToADist": 1639
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "4.2",
+                "aToBDist": 1415,
+                "bToADist": 1011
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "4.3",
+                "aToBDist": 1616,
+                "bToADist": 1221
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "4.4",
+                "aToBDist": 1691,
+                "bToADist": 1233
+            },
+            {
+                "pointA": "1.1.8",
+                "pointB": "4.5",
+                "aToBDist": 1027,
+                "bToADist": 1273
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "1.1",
+                "aToBDist": 1841,
+                "bToADist": 1985
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "1.2",
+                "aToBDist": 1693,
+                "bToADist": 1961
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "1.3",
+                "aToBDist": 1892,
+                "bToADist": 1704
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "1.4",
+                "aToBDist": 1098,
+                "bToADist": 1845
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "1.5",
+                "aToBDist": 1579,
+                "bToADist": 1049
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "2.1",
+                "aToBDist": 1908,
+                "bToADist": 1284
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "2.2",
+                "aToBDist": 1801,
+                "bToADist": 1325
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "2.3",
+                "aToBDist": 1050,
+                "bToADist": 1885
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "2.4",
+                "aToBDist": 1698,
+                "bToADist": 1813
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "2.5",
+                "aToBDist": 1202,
+                "bToADist": 1595
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "3.1",
+                "aToBDist": 1959,
+                "bToADist": 1412
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "3.2",
+                "aToBDist": 1657,
+                "bToADist": 1666
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "3.3",
+                "aToBDist": 1392,
+                "bToADist": 1828
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "3.4",
+                "aToBDist": 1223,
+                "bToADist": 1123
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "3.5",
+                "aToBDist": 1974,
+                "bToADist": 1264
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "4.1",
+                "aToBDist": 1438,
+                "bToADist": 1565
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "4.2",
+                "aToBDist": 1827,
+                "bToADist": 1381
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "4.3",
+                "aToBDist": 1348,
+                "bToADist": 1422
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "4.4",
+                "aToBDist": 1550,
+                "bToADist": 1768
+            },
+            {
+                "pointA": "1.1.9",
+                "pointB": "4.5",
+                "aToBDist": 1358,
+                "bToADist": 1858
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "1.1",
+                "aToBDist": 1989,
+                "bToADist": 1246
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "1.2",
+                "aToBDist": 1075,
+                "bToADist": 1316
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "1.3",
+                "aToBDist": 1423,
+                "bToADist": 1755
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "1.4",
+                "aToBDist": 1107,
+                "bToADist": 1310
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "1.5",
+                "aToBDist": 1736,
+                "bToADist": 1570
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "2.1",
+                "aToBDist": 1948,
+                "bToADist": 1285
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "2.2",
+                "aToBDist": 1329,
+                "bToADist": 1308
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "2.3",
+                "aToBDist": 1341,
+                "bToADist": 1260
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "2.4",
+                "aToBDist": 1149,
+                "bToADist": 1656
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "2.5",
+                "aToBDist": 1732,
+                "bToADist": 1011
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "3.1",
+                "aToBDist": 1510,
+                "bToADist": 1599
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "3.2",
+                "aToBDist": 1261,
+                "bToADist": 1309
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "3.3",
+                "aToBDist": 1545,
+                "bToADist": 1401
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "3.4",
+                "aToBDist": 1990,
+                "bToADist": 1445
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "3.5",
+                "aToBDist": 1857,
+                "bToADist": 1400
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "4.1",
+                "aToBDist": 1269,
+                "bToADist": 1053
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "4.2",
+                "aToBDist": 1843,
+                "bToADist": 1761
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "4.3",
+                "aToBDist": 1700,
+                "bToADist": 1210
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "4.4",
+                "aToBDist": 1160,
+                "bToADist": 1233
+            },
+            {
+                "pointA": "1.1.10",
+                "pointB": "4.5",
+                "aToBDist": 1668,
+                "bToADist": 1120
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "1.1",
+                "aToBDist": 1994,
+                "bToADist": 1493
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "1.2",
+                "aToBDist": 1324,
+                "bToADist": 1519
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "1.3",
+                "aToBDist": 1589,
+                "bToADist": 1106
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "1.4",
+                "aToBDist": 1218,
+                "bToADist": 1074
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "1.5",
+                "aToBDist": 1083,
+                "bToADist": 1228
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "2.1",
+                "aToBDist": 1148,
+                "bToADist": 1355
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "2.2",
+                "aToBDist": 1517,
+                "bToADist": 1584
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "2.3",
+                "aToBDist": 1898,
+                "bToADist": 1252
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "2.4",
+                "aToBDist": 1154,
+                "bToADist": 1314
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "2.5",
+                "aToBDist": 1972,
+                "bToADist": 1648
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "3.1",
+                "aToBDist": 1549,
+                "bToADist": 1834
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "3.2",
+                "aToBDist": 1696,
+                "bToADist": 1812
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "3.3",
+                "aToBDist": 1487,
+                "bToADist": 1810
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "3.4",
+                "aToBDist": 1221,
+                "bToADist": 1396
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "3.5",
+                "aToBDist": 1376,
+                "bToADist": 1044
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "4.1",
+                "aToBDist": 1033,
+                "bToADist": 1264
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "4.2",
+                "aToBDist": 1926,
+                "bToADist": 1738
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "4.3",
+                "aToBDist": 1061,
+                "bToADist": 1728
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "4.4",
+                "aToBDist": 1870,
+                "bToADist": 1396
+            },
+            {
+                "pointA": "1.2.1",
+                "pointB": "4.5",
+                "aToBDist": 1837,
+                "bToADist": 1077
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "1.1",
+                "aToBDist": 1124,
+                "bToADist": 1183
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "1.2",
+                "aToBDist": 1767,
+                "bToADist": 1088
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "1.3",
+                "aToBDist": 1635,
+                "bToADist": 1913
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "1.4",
+                "aToBDist": 1708,
+                "bToADist": 1447
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "1.5",
+                "aToBDist": 1339,
+                "bToADist": 1262
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "2.1",
+                "aToBDist": 1332,
+                "bToADist": 1013
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "2.2",
+                "aToBDist": 1323,
+                "bToADist": 1185
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "2.3",
+                "aToBDist": 1153,
+                "bToADist": 1404
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "2.4",
+                "aToBDist": 1896,
+                "bToADist": 1136
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "2.5",
+                "aToBDist": 1224,
+                "bToADist": 1039
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "3.1",
+                "aToBDist": 1036,
+                "bToADist": 1896
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "3.2",
+                "aToBDist": 1717,
+                "bToADist": 1886
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "3.3",
+                "aToBDist": 1024,
+                "bToADist": 1609
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "3.4",
+                "aToBDist": 1831,
+                "bToADist": 1523
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "3.5",
+                "aToBDist": 1529,
+                "bToADist": 1725
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "4.1",
+                "aToBDist": 1964,
+                "bToADist": 1120
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "4.2",
+                "aToBDist": 1354,
+                "bToADist": 1686
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "4.3",
+                "aToBDist": 1572,
+                "bToADist": 1410
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "4.4",
+                "aToBDist": 1350,
+                "bToADist": 1114
+            },
+            {
+                "pointA": "1.2.2",
+                "pointB": "4.5",
+                "aToBDist": 1370,
+                "bToADist": 1925
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "1.1",
+                "aToBDist": 1632,
+                "bToADist": 1338
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "1.2",
+                "aToBDist": 1302,
+                "bToADist": 1156
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "1.3",
+                "aToBDist": 1900,
+                "bToADist": 1578
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "1.4",
+                "aToBDist": 1016,
+                "bToADist": 1913
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "1.5",
+                "aToBDist": 1565,
+                "bToADist": 1589
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "2.1",
+                "aToBDist": 1299,
+                "bToADist": 1300
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "2.2",
+                "aToBDist": 1363,
+                "bToADist": 1424
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "2.3",
+                "aToBDist": 1526,
+                "bToADist": 1953
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "2.4",
+                "aToBDist": 1120,
+                "bToADist": 1337
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "2.5",
+                "aToBDist": 1423,
+                "bToADist": 1504
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "3.1",
+                "aToBDist": 1632,
+                "bToADist": 1278
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "3.2",
+                "aToBDist": 1587,
+                "bToADist": 1938
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "3.3",
+                "aToBDist": 1382,
+                "bToADist": 1831
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "3.4",
+                "aToBDist": 1728,
+                "bToADist": 1158
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "3.5",
+                "aToBDist": 1510,
+                "bToADist": 1134
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "4.1",
+                "aToBDist": 1564,
+                "bToADist": 1648
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "4.2",
+                "aToBDist": 1678,
+                "bToADist": 1764
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "4.3",
+                "aToBDist": 1735,
+                "bToADist": 1449
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "4.4",
+                "aToBDist": 1317,
+                "bToADist": 1855
+            },
+            {
+                "pointA": "1.2.3",
+                "pointB": "4.5",
+                "aToBDist": 1612,
+                "bToADist": 1168
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "1.1",
+                "aToBDist": 1795,
+                "bToADist": 1673
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "1.2",
+                "aToBDist": 1793,
+                "bToADist": 1663
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "1.3",
+                "aToBDist": 1474,
+                "bToADist": 1070
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "1.4",
+                "aToBDist": 1792,
+                "bToADist": 1699
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "1.5",
+                "aToBDist": 1212,
+                "bToADist": 1801
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "2.1",
+                "aToBDist": 1709,
+                "bToADist": 1671
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "2.2",
+                "aToBDist": 1910,
+                "bToADist": 1171
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "2.3",
+                "aToBDist": 1064,
+                "bToADist": 1688
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "2.4",
+                "aToBDist": 1404,
+                "bToADist": 1059
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "2.5",
+                "aToBDist": 1343,
+                "bToADist": 1582
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "3.1",
+                "aToBDist": 1611,
+                "bToADist": 1699
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "3.2",
+                "aToBDist": 1897,
+                "bToADist": 1475
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "3.3",
+                "aToBDist": 1342,
+                "bToADist": 1553
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "3.4",
+                "aToBDist": 1738,
+                "bToADist": 1034
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "3.5",
+                "aToBDist": 1835,
+                "bToADist": 1251
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "4.1",
+                "aToBDist": 1158,
+                "bToADist": 1248
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "4.2",
+                "aToBDist": 1920,
+                "bToADist": 1317
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "4.3",
+                "aToBDist": 1303,
+                "bToADist": 1756
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "4.4",
+                "aToBDist": 1503,
+                "bToADist": 1087
+            },
+            {
+                "pointA": "1.2.4",
+                "pointB": "4.5",
+                "aToBDist": 1692,
+                "bToADist": 1567
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "1.1",
+                "aToBDist": 1445,
+                "bToADist": 1161
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "1.2",
+                "aToBDist": 1165,
+                "bToADist": 1114
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "1.3",
+                "aToBDist": 1323,
+                "bToADist": 1476
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "1.4",
+                "aToBDist": 1730,
+                "bToADist": 1644
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "1.5",
+                "aToBDist": 1822,
+                "bToADist": 1297
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "2.1",
+                "aToBDist": 1951,
+                "bToADist": 1882
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "2.2",
+                "aToBDist": 1096,
+                "bToADist": 1027
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "2.3",
+                "aToBDist": 1336,
+                "bToADist": 1509
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "2.4",
+                "aToBDist": 1232,
+                "bToADist": 1002
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "2.5",
+                "aToBDist": 1486,
+                "bToADist": 1818
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "3.1",
+                "aToBDist": 1908,
+                "bToADist": 1479
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "3.2",
+                "aToBDist": 1676,
+                "bToADist": 1483
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "3.3",
+                "aToBDist": 1293,
+                "bToADist": 1832
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "3.4",
+                "aToBDist": 1602,
+                "bToADist": 1571
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "3.5",
+                "aToBDist": 1014,
+                "bToADist": 1526
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "4.1",
+                "aToBDist": 1812,
+                "bToADist": 1074
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "4.2",
+                "aToBDist": 1487,
+                "bToADist": 1718
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "4.3",
+                "aToBDist": 1607,
+                "bToADist": 1608
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "4.4",
+                "aToBDist": 1737,
+                "bToADist": 1646
+            },
+            {
+                "pointA": "1.2.5",
+                "pointB": "4.5",
+                "aToBDist": 1571,
+                "bToADist": 1781
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "1.1",
+                "aToBDist": 1853,
+                "bToADist": 1257
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "1.2",
+                "aToBDist": 1522,
+                "bToADist": 1296
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "1.3",
+                "aToBDist": 1686,
+                "bToADist": 1813
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "1.4",
+                "aToBDist": 1392,
+                "bToADist": 1994
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "1.5",
+                "aToBDist": 1937,
+                "bToADist": 1377
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "2.1",
+                "aToBDist": 1949,
+                "bToADist": 1698
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "2.2",
+                "aToBDist": 1138,
+                "bToADist": 1035
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "2.3",
+                "aToBDist": 1527,
+                "bToADist": 1266
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "2.4",
+                "aToBDist": 1925,
+                "bToADist": 1285
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "2.5",
+                "aToBDist": 1668,
+                "bToADist": 1276
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "3.1",
+                "aToBDist": 1522,
+                "bToADist": 1372
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "3.2",
+                "aToBDist": 1172,
+                "bToADist": 1151
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "3.3",
+                "aToBDist": 1237,
+                "bToADist": 1281
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "3.4",
+                "aToBDist": 1374,
+                "bToADist": 1319
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "3.5",
+                "aToBDist": 1501,
+                "bToADist": 1248
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "4.1",
+                "aToBDist": 1178,
+                "bToADist": 1816
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "4.2",
+                "aToBDist": 1666,
+                "bToADist": 1084
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "4.3",
+                "aToBDist": 1620,
+                "bToADist": 1405
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "4.4",
+                "aToBDist": 1077,
+                "bToADist": 1524
+            },
+            {
+                "pointA": "1.2.6",
+                "pointB": "4.5",
+                "aToBDist": 1203,
+                "bToADist": 1905
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "1.1",
+                "aToBDist": 1796,
+                "bToADist": 1735
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "1.2",
+                "aToBDist": 1863,
+                "bToADist": 1553
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "1.3",
+                "aToBDist": 1570,
+                "bToADist": 1216
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "1.4",
+                "aToBDist": 1877,
+                "bToADist": 1016
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "1.5",
+                "aToBDist": 1911,
+                "bToADist": 1912
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "2.1",
+                "aToBDist": 1243,
+                "bToADist": 1168
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "2.2",
+                "aToBDist": 1812,
+                "bToADist": 1781
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "2.3",
+                "aToBDist": 1798,
+                "bToADist": 1147
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "2.4",
+                "aToBDist": 1180,
+                "bToADist": 1068
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "2.5",
+                "aToBDist": 1286,
+                "bToADist": 1654
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "3.1",
+                "aToBDist": 1925,
+                "bToADist": 1744
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "3.2",
+                "aToBDist": 1169,
+                "bToADist": 1320
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "3.3",
+                "aToBDist": 1220,
+                "bToADist": 1791
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "3.4",
+                "aToBDist": 1820,
+                "bToADist": 1311
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "3.5",
+                "aToBDist": 1456,
+                "bToADist": 1070
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "4.1",
+                "aToBDist": 1399,
+                "bToADist": 1406
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "4.2",
+                "aToBDist": 1888,
+                "bToADist": 1842
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "4.3",
+                "aToBDist": 1570,
+                "bToADist": 1763
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "4.4",
+                "aToBDist": 1614,
+                "bToADist": 1034
+            },
+            {
+                "pointA": "1.2.7",
+                "pointB": "4.5",
+                "aToBDist": 1509,
+                "bToADist": 1925
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "1.1",
+                "aToBDist": 1802,
+                "bToADist": 1470
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "1.2",
+                "aToBDist": 1658,
+                "bToADist": 1609
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "1.3",
+                "aToBDist": 1266,
+                "bToADist": 1405
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "1.4",
+                "aToBDist": 1528,
+                "bToADist": 1348
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "1.5",
+                "aToBDist": 1289,
+                "bToADist": 1288
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "2.1",
+                "aToBDist": 1213,
+                "bToADist": 1616
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "2.2",
+                "aToBDist": 1268,
+                "bToADist": 1600
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "2.3",
+                "aToBDist": 1850,
+                "bToADist": 1629
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "2.4",
+                "aToBDist": 1383,
+                "bToADist": 1647
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "2.5",
+                "aToBDist": 1444,
+                "bToADist": 1018
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "3.1",
+                "aToBDist": 1722,
+                "bToADist": 1559
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "3.2",
+                "aToBDist": 1489,
+                "bToADist": 1658
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "3.3",
+                "aToBDist": 1864,
+                "bToADist": 1405
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "3.4",
+                "aToBDist": 1615,
+                "bToADist": 1739
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "3.5",
+                "aToBDist": 1385,
+                "bToADist": 1972
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "4.1",
+                "aToBDist": 1240,
+                "bToADist": 1338
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "4.2",
+                "aToBDist": 1038,
+                "bToADist": 1372
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "4.3",
+                "aToBDist": 1494,
+                "bToADist": 1040
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "4.4",
+                "aToBDist": 1843,
+                "bToADist": 1627
+            },
+            {
+                "pointA": "1.2.8",
+                "pointB": "4.5",
+                "aToBDist": 1687,
+                "bToADist": 1764
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "1.1",
+                "aToBDist": 1079,
+                "bToADist": 1682
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "1.2",
+                "aToBDist": 1113,
+                "bToADist": 1931
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "1.3",
+                "aToBDist": 1362,
+                "bToADist": 1418
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "1.4",
+                "aToBDist": 1698,
+                "bToADist": 1499
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "1.5",
+                "aToBDist": 1068,
+                "bToADist": 1030
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "2.1",
+                "aToBDist": 1709,
+                "bToADist": 1770
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "2.2",
+                "aToBDist": 1827,
+                "bToADist": 1426
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "2.3",
+                "aToBDist": 1891,
+                "bToADist": 1872
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "2.4",
+                "aToBDist": 1213,
+                "bToADist": 1842
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "2.5",
+                "aToBDist": 1986,
+                "bToADist": 1003
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "3.1",
+                "aToBDist": 1473,
+                "bToADist": 1130
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "3.2",
+                "aToBDist": 1772,
+                "bToADist": 1980
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "3.3",
+                "aToBDist": 1120,
+                "bToADist": 1897
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "3.4",
+                "aToBDist": 1637,
+                "bToADist": 1951
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "3.5",
+                "aToBDist": 1658,
+                "bToADist": 1276
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "4.1",
+                "aToBDist": 1582,
+                "bToADist": 1563
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "4.2",
+                "aToBDist": 1555,
+                "bToADist": 1383
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "4.3",
+                "aToBDist": 1251,
+                "bToADist": 1285
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "4.4",
+                "aToBDist": 1954,
+                "bToADist": 1264
+            },
+            {
+                "pointA": "1.2.9",
+                "pointB": "4.5",
+                "aToBDist": 1102,
+                "bToADist": 1408
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "1.1",
+                "aToBDist": 1788,
+                "bToADist": 1265
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "1.2",
+                "aToBDist": 1899,
+                "bToADist": 1765
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "1.3",
+                "aToBDist": 1601,
+                "bToADist": 1908
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "1.4",
+                "aToBDist": 1702,
+                "bToADist": 1595
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "1.5",
+                "aToBDist": 1904,
+                "bToADist": 1798
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "2.1",
+                "aToBDist": 1943,
+                "bToADist": 1603
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "2.2",
+                "aToBDist": 1610,
+                "bToADist": 1186
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "2.3",
+                "aToBDist": 1143,
+                "bToADist": 1591
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "2.4",
+                "aToBDist": 1956,
+                "bToADist": 1607
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "2.5",
+                "aToBDist": 1380,
+                "bToADist": 1710
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "3.1",
+                "aToBDist": 1715,
+                "bToADist": 1956
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "3.2",
+                "aToBDist": 1484,
+                "bToADist": 1839
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "3.3",
+                "aToBDist": 1478,
+                "bToADist": 1600
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "3.4",
+                "aToBDist": 1725,
+                "bToADist": 1252
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "3.5",
+                "aToBDist": 1080,
+                "bToADist": 1209
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "4.1",
+                "aToBDist": 1363,
+                "bToADist": 1243
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "4.2",
+                "aToBDist": 1932,
+                "bToADist": 1675
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "4.3",
+                "aToBDist": 1255,
+                "bToADist": 1616
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "4.4",
+                "aToBDist": 1882,
+                "bToADist": 1068
+            },
+            {
+                "pointA": "1.2.10",
+                "pointB": "4.5",
+                "aToBDist": 1245,
+                "bToADist": 1125
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "1.1",
+                "aToBDist": 1282,
+                "bToADist": 1671
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "1.2",
+                "aToBDist": 1721,
+                "bToADist": 1410
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "1.3",
+                "aToBDist": 1671,
+                "bToADist": 1659
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "1.4",
+                "aToBDist": 1951,
+                "bToADist": 1011
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "1.5",
+                "aToBDist": 1017,
+                "bToADist": 1321
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "2.1",
+                "aToBDist": 1466,
+                "bToADist": 1573
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "2.2",
+                "aToBDist": 1657,
+                "bToADist": 1834
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "2.3",
+                "aToBDist": 1178,
+                "bToADist": 1274
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "2.4",
+                "aToBDist": 1024,
+                "bToADist": 1977
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "2.5",
+                "aToBDist": 1292,
+                "bToADist": 1053
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "3.1",
+                "aToBDist": 1394,
+                "bToADist": 1356
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "3.2",
+                "aToBDist": 1438,
+                "bToADist": 1647
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "3.3",
+                "aToBDist": 1904,
+                "bToADist": 1445
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "3.4",
+                "aToBDist": 1958,
+                "bToADist": 1827
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "3.5",
+                "aToBDist": 1467,
+                "bToADist": 1243
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "4.1",
+                "aToBDist": 1383,
+                "bToADist": 1560
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "4.2",
+                "aToBDist": 1801,
+                "bToADist": 1518
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "4.3",
+                "aToBDist": 1269,
+                "bToADist": 1338
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "4.4",
+                "aToBDist": 1506,
+                "bToADist": 1671
+            },
+            {
+                "pointA": "2.1.1",
+                "pointB": "4.5",
+                "aToBDist": 1621,
+                "bToADist": 1212
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "1.1",
+                "aToBDist": 1601,
+                "bToADist": 1762
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "1.2",
+                "aToBDist": 1150,
+                "bToADist": 1551
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "1.3",
+                "aToBDist": 1665,
+                "bToADist": 1160
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "1.4",
+                "aToBDist": 1099,
+                "bToADist": 1382
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "1.5",
+                "aToBDist": 1502,
+                "bToADist": 1361
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "2.1",
+                "aToBDist": 1604,
+                "bToADist": 1765
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "2.2",
+                "aToBDist": 1842,
+                "bToADist": 1089
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "2.3",
+                "aToBDist": 1251,
+                "bToADist": 1648
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "2.4",
+                "aToBDist": 1695,
+                "bToADist": 1530
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "2.5",
+                "aToBDist": 1039,
+                "bToADist": 1476
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "3.1",
+                "aToBDist": 1246,
+                "bToADist": 1490
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "3.2",
+                "aToBDist": 1825,
+                "bToADist": 1924
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "3.3",
+                "aToBDist": 1013,
+                "bToADist": 1416
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "3.4",
+                "aToBDist": 1137,
+                "bToADist": 1399
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "3.5",
+                "aToBDist": 1126,
+                "bToADist": 1855
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "4.1",
+                "aToBDist": 1587,
+                "bToADist": 1164
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "4.2",
+                "aToBDist": 1034,
+                "bToADist": 1938
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "4.3",
+                "aToBDist": 1128,
+                "bToADist": 1132
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "4.4",
+                "aToBDist": 1588,
+                "bToADist": 1378
+            },
+            {
+                "pointA": "2.1.2",
+                "pointB": "4.5",
+                "aToBDist": 1537,
+                "bToADist": 1349
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "1.1",
+                "aToBDist": 1631,
+                "bToADist": 1608
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "1.2",
+                "aToBDist": 1100,
+                "bToADist": 1663
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "1.3",
+                "aToBDist": 1560,
+                "bToADist": 1942
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "1.4",
+                "aToBDist": 1783,
+                "bToADist": 1228
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "1.5",
+                "aToBDist": 1115,
+                "bToADist": 1132
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "2.1",
+                "aToBDist": 1298,
+                "bToADist": 1352
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "2.2",
+                "aToBDist": 1634,
+                "bToADist": 1732
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "2.3",
+                "aToBDist": 1000,
+                "bToADist": 1731
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "2.4",
+                "aToBDist": 1703,
+                "bToADist": 1030
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "2.5",
+                "aToBDist": 1036,
+                "bToADist": 1801
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "3.1",
+                "aToBDist": 1463,
+                "bToADist": 1662
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "3.2",
+                "aToBDist": 1328,
+                "bToADist": 1286
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "3.3",
+                "aToBDist": 1168,
+                "bToADist": 1527
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "3.4",
+                "aToBDist": 1974,
+                "bToADist": 1304
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "3.5",
+                "aToBDist": 1960,
+                "bToADist": 1964
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "4.1",
+                "aToBDist": 1303,
+                "bToADist": 1034
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "4.2",
+                "aToBDist": 1058,
+                "bToADist": 1437
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "4.3",
+                "aToBDist": 1679,
+                "bToADist": 1081
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "4.4",
+                "aToBDist": 1994,
+                "bToADist": 1179
+            },
+            {
+                "pointA": "2.1.3",
+                "pointB": "4.5",
+                "aToBDist": 1801,
+                "bToADist": 1069
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "1.1",
+                "aToBDist": 1028,
+                "bToADist": 1829
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "1.2",
+                "aToBDist": 1644,
+                "bToADist": 1751
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "1.3",
+                "aToBDist": 1813,
+                "bToADist": 1547
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "1.4",
+                "aToBDist": 1814,
+                "bToADist": 1508
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "1.5",
+                "aToBDist": 1407,
+                "bToADist": 1480
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "2.1",
+                "aToBDist": 1109,
+                "bToADist": 1238
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "2.2",
+                "aToBDist": 1014,
+                "bToADist": 1797
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "2.3",
+                "aToBDist": 1866,
+                "bToADist": 1127
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "2.4",
+                "aToBDist": 1601,
+                "bToADist": 1311
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "2.5",
+                "aToBDist": 1298,
+                "bToADist": 1459
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "3.1",
+                "aToBDist": 1982,
+                "bToADist": 1579
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "3.2",
+                "aToBDist": 1300,
+                "bToADist": 1241
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "3.3",
+                "aToBDist": 1361,
+                "bToADist": 1676
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "3.4",
+                "aToBDist": 1347,
+                "bToADist": 1295
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "3.5",
+                "aToBDist": 1168,
+                "bToADist": 1956
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "4.1",
+                "aToBDist": 1950,
+                "bToADist": 1656
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "4.2",
+                "aToBDist": 1185,
+                "bToADist": 1887
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "4.3",
+                "aToBDist": 1982,
+                "bToADist": 1864
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "4.4",
+                "aToBDist": 1793,
+                "bToADist": 1623
+            },
+            {
+                "pointA": "2.1.4",
+                "pointB": "4.5",
+                "aToBDist": 1144,
+                "bToADist": 1609
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "1.1",
+                "aToBDist": 1619,
+                "bToADist": 1604
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "1.2",
+                "aToBDist": 1903,
+                "bToADist": 1812
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "1.3",
+                "aToBDist": 1622,
+                "bToADist": 1318
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "1.4",
+                "aToBDist": 1970,
+                "bToADist": 1547
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "1.5",
+                "aToBDist": 1562,
+                "bToADist": 1313
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "2.1",
+                "aToBDist": 1029,
+                "bToADist": 1167
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "2.2",
+                "aToBDist": 1710,
+                "bToADist": 1525
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "2.3",
+                "aToBDist": 1172,
+                "bToADist": 1646
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "2.4",
+                "aToBDist": 1063,
+                "bToADist": 1474
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "2.5",
+                "aToBDist": 1848,
+                "bToADist": 1283
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "3.1",
+                "aToBDist": 1932,
+                "bToADist": 1509
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "3.2",
+                "aToBDist": 1435,
+                "bToADist": 1625
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "3.3",
+                "aToBDist": 1254,
+                "bToADist": 1562
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "3.4",
+                "aToBDist": 1778,
+                "bToADist": 1340
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "3.5",
+                "aToBDist": 1060,
+                "bToADist": 1226
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "4.1",
+                "aToBDist": 1028,
+                "bToADist": 1980
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "4.2",
+                "aToBDist": 1000,
+                "bToADist": 1981
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "4.3",
+                "aToBDist": 1602,
+                "bToADist": 1843
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "4.4",
+                "aToBDist": 1674,
+                "bToADist": 1436
+            },
+            {
+                "pointA": "2.1.5",
+                "pointB": "4.5",
+                "aToBDist": 1234,
+                "bToADist": 1300
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "1.1",
+                "aToBDist": 1582,
+                "bToADist": 1296
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "1.2",
+                "aToBDist": 1961,
+                "bToADist": 1473
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "1.3",
+                "aToBDist": 1355,
+                "bToADist": 1519
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "1.4",
+                "aToBDist": 1365,
+                "bToADist": 1031
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "1.5",
+                "aToBDist": 1747,
+                "bToADist": 1624
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "2.1",
+                "aToBDist": 1493,
+                "bToADist": 1729
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "2.2",
+                "aToBDist": 1216,
+                "bToADist": 1570
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "2.3",
+                "aToBDist": 1700,
+                "bToADist": 1057
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "2.4",
+                "aToBDist": 1415,
+                "bToADist": 1178
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "2.5",
+                "aToBDist": 1598,
+                "bToADist": 1556
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "3.1",
+                "aToBDist": 1037,
+                "bToADist": 1427
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "3.2",
+                "aToBDist": 1442,
+                "bToADist": 1796
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "3.3",
+                "aToBDist": 1056,
+                "bToADist": 1561
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "3.4",
+                "aToBDist": 1331,
+                "bToADist": 1953
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "3.5",
+                "aToBDist": 1222,
+                "bToADist": 1484
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "4.1",
+                "aToBDist": 1572,
+                "bToADist": 1309
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "4.2",
+                "aToBDist": 1134,
+                "bToADist": 1017
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "4.3",
+                "aToBDist": 1881,
+                "bToADist": 1933
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "4.4",
+                "aToBDist": 1515,
+                "bToADist": 1392
+            },
+            {
+                "pointA": "2.1.6",
+                "pointB": "4.5",
+                "aToBDist": 1933,
+                "bToADist": 1105
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "1.1",
+                "aToBDist": 1716,
+                "bToADist": 1636
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "1.2",
+                "aToBDist": 1573,
+                "bToADist": 1233
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "1.3",
+                "aToBDist": 1648,
+                "bToADist": 1249
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "1.4",
+                "aToBDist": 1868,
+                "bToADist": 1233
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "1.5",
+                "aToBDist": 1882,
+                "bToADist": 1952
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "2.1",
+                "aToBDist": 1880,
+                "bToADist": 1998
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "2.2",
+                "aToBDist": 1911,
+                "bToADist": 1981
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "2.3",
+                "aToBDist": 1751,
+                "bToADist": 1540
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "2.4",
+                "aToBDist": 1728,
+                "bToADist": 1092
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "2.5",
+                "aToBDist": 1471,
+                "bToADist": 1604
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "3.1",
+                "aToBDist": 1523,
+                "bToADist": 1258
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "3.2",
+                "aToBDist": 1463,
+                "bToADist": 1922
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "3.3",
+                "aToBDist": 1675,
+                "bToADist": 1500
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "3.4",
+                "aToBDist": 1606,
+                "bToADist": 1697
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "3.5",
+                "aToBDist": 1971,
+                "bToADist": 1497
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "4.1",
+                "aToBDist": 1486,
+                "bToADist": 1863
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "4.2",
+                "aToBDist": 1021,
+                "bToADist": 1631
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "4.3",
+                "aToBDist": 1611,
+                "bToADist": 1958
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "4.4",
+                "aToBDist": 1902,
+                "bToADist": 1564
+            },
+            {
+                "pointA": "2.1.7",
+                "pointB": "4.5",
+                "aToBDist": 1958,
+                "bToADist": 1049
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "1.1",
+                "aToBDist": 1954,
+                "bToADist": 1822
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "1.2",
+                "aToBDist": 1816,
+                "bToADist": 1735
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "1.3",
+                "aToBDist": 1246,
+                "bToADist": 1222
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "1.4",
+                "aToBDist": 1491,
+                "bToADist": 1275
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "1.5",
+                "aToBDist": 1925,
+                "bToADist": 1881
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "2.1",
+                "aToBDist": 1262,
+                "bToADist": 1971
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "2.2",
+                "aToBDist": 1331,
+                "bToADist": 1055
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "2.3",
+                "aToBDist": 1369,
+                "bToADist": 1257
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "2.4",
+                "aToBDist": 1804,
+                "bToADist": 1608
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "2.5",
+                "aToBDist": 1210,
+                "bToADist": 1297
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "3.1",
+                "aToBDist": 1545,
+                "bToADist": 1767
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "3.2",
+                "aToBDist": 1055,
+                "bToADist": 1732
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "3.3",
+                "aToBDist": 1482,
+                "bToADist": 1174
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "3.4",
+                "aToBDist": 1374,
+                "bToADist": 1501
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "3.5",
+                "aToBDist": 1928,
+                "bToADist": 1231
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "4.1",
+                "aToBDist": 1914,
+                "bToADist": 1346
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "4.2",
+                "aToBDist": 1706,
+                "bToADist": 1266
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "4.3",
+                "aToBDist": 1342,
+                "bToADist": 1447
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "4.4",
+                "aToBDist": 1165,
+                "bToADist": 1695
+            },
+            {
+                "pointA": "2.1.8",
+                "pointB": "4.5",
+                "aToBDist": 1428,
+                "bToADist": 1709
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "1.1",
+                "aToBDist": 1872,
+                "bToADist": 1516
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "1.2",
+                "aToBDist": 1050,
+                "bToADist": 1764
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "1.3",
+                "aToBDist": 1511,
+                "bToADist": 1961
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "1.4",
+                "aToBDist": 1432,
+                "bToADist": 1568
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "1.5",
+                "aToBDist": 1720,
+                "bToADist": 1953
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "2.1",
+                "aToBDist": 1450,
+                "bToADist": 1093
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "2.2",
+                "aToBDist": 1835,
+                "bToADist": 1793
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "2.3",
+                "aToBDist": 1566,
+                "bToADist": 1192
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "2.4",
+                "aToBDist": 1031,
+                "bToADist": 1661
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "2.5",
+                "aToBDist": 1408,
+                "bToADist": 1411
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "3.1",
+                "aToBDist": 1773,
+                "bToADist": 1922
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "3.2",
+                "aToBDist": 1480,
+                "bToADist": 1019
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "3.3",
+                "aToBDist": 1409,
+                "bToADist": 1681
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "3.4",
+                "aToBDist": 1552,
+                "bToADist": 1809
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "3.5",
+                "aToBDist": 1187,
+                "bToADist": 1337
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "4.1",
+                "aToBDist": 1621,
+                "bToADist": 1812
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "4.2",
+                "aToBDist": 1010,
+                "bToADist": 1932
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "4.3",
+                "aToBDist": 1170,
+                "bToADist": 1760
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "4.4",
+                "aToBDist": 1842,
+                "bToADist": 1986
+            },
+            {
+                "pointA": "2.1.9",
+                "pointB": "4.5",
+                "aToBDist": 1826,
+                "bToADist": 1554
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "1.1",
+                "aToBDist": 1815,
+                "bToADist": 1088
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "1.2",
+                "aToBDist": 1855,
+                "bToADist": 1285
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "1.3",
+                "aToBDist": 1728,
+                "bToADist": 1712
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "1.4",
+                "aToBDist": 1760,
+                "bToADist": 1449
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "1.5",
+                "aToBDist": 1526,
+                "bToADist": 1982
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "2.1",
+                "aToBDist": 1570,
+                "bToADist": 1493
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "2.2",
+                "aToBDist": 1408,
+                "bToADist": 1268
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "2.3",
+                "aToBDist": 1369,
+                "bToADist": 1264
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "2.4",
+                "aToBDist": 1964,
+                "bToADist": 1742
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "2.5",
+                "aToBDist": 1959,
+                "bToADist": 1276
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "3.1",
+                "aToBDist": 1802,
+                "bToADist": 1079
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "3.2",
+                "aToBDist": 1459,
+                "bToADist": 1490
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "3.3",
+                "aToBDist": 1025,
+                "bToADist": 1758
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "3.4",
+                "aToBDist": 1131,
+                "bToADist": 1726
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "3.5",
+                "aToBDist": 1809,
+                "bToADist": 1940
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "4.1",
+                "aToBDist": 1289,
+                "bToADist": 1193
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "4.2",
+                "aToBDist": 1119,
+                "bToADist": 1116
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "4.3",
+                "aToBDist": 1646,
+                "bToADist": 1048
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "4.4",
+                "aToBDist": 1534,
+                "bToADist": 1933
+            },
+            {
+                "pointA": "2.1.10",
+                "pointB": "4.5",
+                "aToBDist": 1655,
+                "bToADist": 1740
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "1.1",
+                "aToBDist": 1883,
+                "bToADist": 1810
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "1.2",
+                "aToBDist": 1462,
+                "bToADist": 1210
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "1.3",
+                "aToBDist": 1823,
+                "bToADist": 1924
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "1.4",
+                "aToBDist": 1674,
+                "bToADist": 1405
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "1.5",
+                "aToBDist": 1936,
+                "bToADist": 1606
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "2.1",
+                "aToBDist": 1824,
+                "bToADist": 1570
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "2.2",
+                "aToBDist": 1299,
+                "bToADist": 1365
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "2.3",
+                "aToBDist": 1881,
+                "bToADist": 1656
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "2.4",
+                "aToBDist": 1384,
+                "bToADist": 1761
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "2.5",
+                "aToBDist": 1790,
+                "bToADist": 1405
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "3.1",
+                "aToBDist": 1807,
+                "bToADist": 1432
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "3.2",
+                "aToBDist": 1590,
+                "bToADist": 1736
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "3.3",
+                "aToBDist": 1313,
+                "bToADist": 1913
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "3.4",
+                "aToBDist": 1092,
+                "bToADist": 1773
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "3.5",
+                "aToBDist": 1764,
+                "bToADist": 1545
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "4.1",
+                "aToBDist": 1231,
+                "bToADist": 1974
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "4.2",
+                "aToBDist": 1993,
+                "bToADist": 1387
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "4.3",
+                "aToBDist": 1977,
+                "bToADist": 1194
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "4.4",
+                "aToBDist": 1827,
+                "bToADist": 1898
+            },
+            {
+                "pointA": "2.2.1",
+                "pointB": "4.5",
+                "aToBDist": 1405,
+                "bToADist": 1090
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "1.1",
+                "aToBDist": 1817,
+                "bToADist": 1709
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "1.2",
+                "aToBDist": 1369,
+                "bToADist": 1959
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "1.3",
+                "aToBDist": 1499,
+                "bToADist": 1950
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "1.4",
+                "aToBDist": 1773,
+                "bToADist": 1624
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "1.5",
+                "aToBDist": 1442,
+                "bToADist": 1154
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "2.1",
+                "aToBDist": 1568,
+                "bToADist": 1460
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "2.2",
+                "aToBDist": 1179,
+                "bToADist": 1180
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "2.3",
+                "aToBDist": 1183,
+                "bToADist": 1442
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "2.4",
+                "aToBDist": 1216,
+                "bToADist": 1766
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "2.5",
+                "aToBDist": 1197,
+                "bToADist": 1459
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "3.1",
+                "aToBDist": 1271,
+                "bToADist": 1625
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "3.2",
+                "aToBDist": 1227,
+                "bToADist": 1945
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "3.3",
+                "aToBDist": 1220,
+                "bToADist": 1472
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "3.4",
+                "aToBDist": 1355,
+                "bToADist": 1784
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "3.5",
+                "aToBDist": 1279,
+                "bToADist": 1519
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "4.1",
+                "aToBDist": 1066,
+                "bToADist": 1356
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "4.2",
+                "aToBDist": 1573,
+                "bToADist": 1168
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "4.3",
+                "aToBDist": 1856,
+                "bToADist": 1834
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "4.4",
+                "aToBDist": 1665,
+                "bToADist": 1698
+            },
+            {
+                "pointA": "2.2.2",
+                "pointB": "4.5",
+                "aToBDist": 1098,
+                "bToADist": 1660
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "1.1",
+                "aToBDist": 1419,
+                "bToADist": 1646
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "1.2",
+                "aToBDist": 1588,
+                "bToADist": 1729
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "1.3",
+                "aToBDist": 1234,
+                "bToADist": 1340
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "1.4",
+                "aToBDist": 1687,
+                "bToADist": 1690
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "1.5",
+                "aToBDist": 1379,
+                "bToADist": 1825
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "2.1",
+                "aToBDist": 1012,
+                "bToADist": 1182
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "2.2",
+                "aToBDist": 1850,
+                "bToADist": 1183
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "2.3",
+                "aToBDist": 1239,
+                "bToADist": 1129
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "2.4",
+                "aToBDist": 1665,
+                "bToADist": 1016
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "2.5",
+                "aToBDist": 1647,
+                "bToADist": 1859
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "3.1",
+                "aToBDist": 1922,
+                "bToADist": 1949
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "3.2",
+                "aToBDist": 1080,
+                "bToADist": 1607
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "3.3",
+                "aToBDist": 1917,
+                "bToADist": 1600
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "3.4",
+                "aToBDist": 1289,
+                "bToADist": 1869
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "3.5",
+                "aToBDist": 1330,
+                "bToADist": 1561
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "4.1",
+                "aToBDist": 1926,
+                "bToADist": 1928
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "4.2",
+                "aToBDist": 1153,
+                "bToADist": 1986
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "4.3",
+                "aToBDist": 1501,
+                "bToADist": 1069
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "4.4",
+                "aToBDist": 1024,
+                "bToADist": 1912
+            },
+            {
+                "pointA": "2.2.3",
+                "pointB": "4.5",
+                "aToBDist": 1981,
+                "bToADist": 1135
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "1.1",
+                "aToBDist": 1417,
+                "bToADist": 1043
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "1.2",
+                "aToBDist": 1068,
+                "bToADist": 1134
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "1.3",
+                "aToBDist": 1910,
+                "bToADist": 1209
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "1.4",
+                "aToBDist": 1080,
+                "bToADist": 1504
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "1.5",
+                "aToBDist": 1207,
+                "bToADist": 1461
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "2.1",
+                "aToBDist": 1774,
+                "bToADist": 1757
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "2.2",
+                "aToBDist": 1025,
+                "bToADist": 1791
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "2.3",
+                "aToBDist": 1665,
+                "bToADist": 1338
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "2.4",
+                "aToBDist": 1933,
+                "bToADist": 1014
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "2.5",
+                "aToBDist": 1737,
+                "bToADist": 1392
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "3.1",
+                "aToBDist": 1675,
+                "bToADist": 1296
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "3.2",
+                "aToBDist": 1146,
+                "bToADist": 1366
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "3.3",
+                "aToBDist": 1756,
+                "bToADist": 1471
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "3.4",
+                "aToBDist": 1538,
+                "bToADist": 1675
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "3.5",
+                "aToBDist": 1622,
+                "bToADist": 1966
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "4.1",
+                "aToBDist": 1071,
+                "bToADist": 1952
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "4.2",
+                "aToBDist": 1516,
+                "bToADist": 1192
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "4.3",
+                "aToBDist": 1871,
+                "bToADist": 1932
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "4.4",
+                "aToBDist": 1519,
+                "bToADist": 1776
+            },
+            {
+                "pointA": "2.2.4",
+                "pointB": "4.5",
+                "aToBDist": 1576,
+                "bToADist": 1305
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "1.1",
+                "aToBDist": 1408,
+                "bToADist": 1933
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "1.2",
+                "aToBDist": 1218,
+                "bToADist": 1985
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "1.3",
+                "aToBDist": 1269,
+                "bToADist": 1652
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "1.4",
+                "aToBDist": 1092,
+                "bToADist": 1581
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "1.5",
+                "aToBDist": 1656,
+                "bToADist": 1966
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "2.1",
+                "aToBDist": 1348,
+                "bToADist": 1851
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "2.2",
+                "aToBDist": 1154,
+                "bToADist": 1752
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "2.3",
+                "aToBDist": 1915,
+                "bToADist": 1399
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "2.4",
+                "aToBDist": 1309,
+                "bToADist": 1283
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "2.5",
+                "aToBDist": 1764,
+                "bToADist": 1223
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "3.1",
+                "aToBDist": 1303,
+                "bToADist": 1105
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "3.2",
+                "aToBDist": 1341,
+                "bToADist": 1458
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "3.3",
+                "aToBDist": 1367,
+                "bToADist": 1722
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "3.4",
+                "aToBDist": 1970,
+                "bToADist": 1003
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "3.5",
+                "aToBDist": 1019,
+                "bToADist": 1976
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "4.1",
+                "aToBDist": 1031,
+                "bToADist": 1851
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "4.2",
+                "aToBDist": 1095,
+                "bToADist": 1830
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "4.3",
+                "aToBDist": 1754,
+                "bToADist": 1222
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "4.4",
+                "aToBDist": 1792,
+                "bToADist": 1409
+            },
+            {
+                "pointA": "2.2.5",
+                "pointB": "4.5",
+                "aToBDist": 1996,
+                "bToADist": 1763
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "1.1",
+                "aToBDist": 1690,
+                "bToADist": 1221
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "1.2",
+                "aToBDist": 1383,
+                "bToADist": 1637
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "1.3",
+                "aToBDist": 1373,
+                "bToADist": 1322
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "1.4",
+                "aToBDist": 1795,
+                "bToADist": 1774
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "1.5",
+                "aToBDist": 1655,
+                "bToADist": 1667
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "2.1",
+                "aToBDist": 1139,
+                "bToADist": 1208
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "2.2",
+                "aToBDist": 1503,
+                "bToADist": 1357
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "2.3",
+                "aToBDist": 1801,
+                "bToADist": 1220
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "2.4",
+                "aToBDist": 1016,
+                "bToADist": 1255
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "2.5",
+                "aToBDist": 1835,
+                "bToADist": 1845
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "3.1",
+                "aToBDist": 1410,
+                "bToADist": 1184
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "3.2",
+                "aToBDist": 1259,
+                "bToADist": 1088
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "3.3",
+                "aToBDist": 1509,
+                "bToADist": 1752
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "3.4",
+                "aToBDist": 1915,
+                "bToADist": 1833
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "3.5",
+                "aToBDist": 1110,
+                "bToADist": 1387
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "4.1",
+                "aToBDist": 1210,
+                "bToADist": 1889
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "4.2",
+                "aToBDist": 1066,
+                "bToADist": 1204
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "4.3",
+                "aToBDist": 1958,
+                "bToADist": 1117
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "4.4",
+                "aToBDist": 1549,
+                "bToADist": 1240
+            },
+            {
+                "pointA": "2.2.6",
+                "pointB": "4.5",
+                "aToBDist": 1971,
+                "bToADist": 1956
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "1.1",
+                "aToBDist": 1564,
+                "bToADist": 1890
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "1.2",
+                "aToBDist": 1774,
+                "bToADist": 1142
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "1.3",
+                "aToBDist": 1615,
+                "bToADist": 1966
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "1.4",
+                "aToBDist": 1213,
+                "bToADist": 1317
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "1.5",
+                "aToBDist": 1086,
+                "bToADist": 1432
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "2.1",
+                "aToBDist": 1430,
+                "bToADist": 1720
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "2.2",
+                "aToBDist": 1096,
+                "bToADist": 1700
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "2.3",
+                "aToBDist": 1581,
+                "bToADist": 1648
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "2.4",
+                "aToBDist": 1795,
+                "bToADist": 1593
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "2.5",
+                "aToBDist": 1332,
+                "bToADist": 1224
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "3.1",
+                "aToBDist": 1784,
+                "bToADist": 1244
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "3.2",
+                "aToBDist": 1806,
+                "bToADist": 1930
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "3.3",
+                "aToBDist": 1023,
+                "bToADist": 1456
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "3.4",
+                "aToBDist": 1829,
+                "bToADist": 1869
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "3.5",
+                "aToBDist": 1702,
+                "bToADist": 1070
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "4.1",
+                "aToBDist": 1025,
+                "bToADist": 1436
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "4.2",
+                "aToBDist": 1983,
+                "bToADist": 1712
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "4.3",
+                "aToBDist": 1922,
+                "bToADist": 1954
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "4.4",
+                "aToBDist": 1436,
+                "bToADist": 1159
+            },
+            {
+                "pointA": "2.2.7",
+                "pointB": "4.5",
+                "aToBDist": 1516,
+                "bToADist": 1344
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "1.1",
+                "aToBDist": 1447,
+                "bToADist": 1667
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "1.2",
+                "aToBDist": 1074,
+                "bToADist": 1160
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "1.3",
+                "aToBDist": 1482,
+                "bToADist": 1230
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "1.4",
+                "aToBDist": 1391,
+                "bToADist": 1538
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "1.5",
+                "aToBDist": 1530,
+                "bToADist": 1184
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "2.1",
+                "aToBDist": 1156,
+                "bToADist": 1371
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "2.2",
+                "aToBDist": 1918,
+                "bToADist": 1041
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "2.3",
+                "aToBDist": 1403,
+                "bToADist": 1711
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "2.4",
+                "aToBDist": 1516,
+                "bToADist": 1887
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "2.5",
+                "aToBDist": 1941,
+                "bToADist": 1436
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "3.1",
+                "aToBDist": 1245,
+                "bToADist": 1614
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "3.2",
+                "aToBDist": 1853,
+                "bToADist": 1432
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "3.3",
+                "aToBDist": 1085,
+                "bToADist": 1441
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "3.4",
+                "aToBDist": 1072,
+                "bToADist": 1750
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "3.5",
+                "aToBDist": 1262,
+                "bToADist": 1178
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "4.1",
+                "aToBDist": 1399,
+                "bToADist": 1546
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "4.2",
+                "aToBDist": 1875,
+                "bToADist": 1808
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "4.3",
+                "aToBDist": 1676,
+                "bToADist": 1848
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "4.4",
+                "aToBDist": 1849,
+                "bToADist": 1032
+            },
+            {
+                "pointA": "2.2.8",
+                "pointB": "4.5",
+                "aToBDist": 1363,
+                "bToADist": 1924
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "1.1",
+                "aToBDist": 1845,
+                "bToADist": 1409
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "1.2",
+                "aToBDist": 1511,
+                "bToADist": 1103
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "1.3",
+                "aToBDist": 1192,
+                "bToADist": 1303
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "1.4",
+                "aToBDist": 1430,
+                "bToADist": 1119
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "1.5",
+                "aToBDist": 1627,
+                "bToADist": 1730
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "2.1",
+                "aToBDist": 1479,
+                "bToADist": 1799
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "2.2",
+                "aToBDist": 1563,
+                "bToADist": 1767
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "2.3",
+                "aToBDist": 1487,
+                "bToADist": 1428
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "2.4",
+                "aToBDist": 1123,
+                "bToADist": 1727
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "2.5",
+                "aToBDist": 1753,
+                "bToADist": 1982
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "3.1",
+                "aToBDist": 1985,
+                "bToADist": 1917
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "3.2",
+                "aToBDist": 1370,
+                "bToADist": 1051
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "3.3",
+                "aToBDist": 1357,
+                "bToADist": 1863
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "3.4",
+                "aToBDist": 1639,
+                "bToADist": 1692
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "3.5",
+                "aToBDist": 1692,
+                "bToADist": 1394
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "4.1",
+                "aToBDist": 1979,
+                "bToADist": 1619
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "4.2",
+                "aToBDist": 1550,
+                "bToADist": 1587
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "4.3",
+                "aToBDist": 1905,
+                "bToADist": 1837
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "4.4",
+                "aToBDist": 1443,
+                "bToADist": 1655
+            },
+            {
+                "pointA": "2.2.9",
+                "pointB": "4.5",
+                "aToBDist": 1652,
+                "bToADist": 1671
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "1.1",
+                "aToBDist": 1208,
+                "bToADist": 1825
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "1.2",
+                "aToBDist": 1924,
+                "bToADist": 1561
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "1.3",
+                "aToBDist": 1126,
+                "bToADist": 1490
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "1.4",
+                "aToBDist": 1816,
+                "bToADist": 1905
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "1.5",
+                "aToBDist": 1770,
+                "bToADist": 1164
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "2.1",
+                "aToBDist": 1029,
+                "bToADist": 1949
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "2.2",
+                "aToBDist": 1129,
+                "bToADist": 1377
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "2.3",
+                "aToBDist": 1536,
+                "bToADist": 1043
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "2.4",
+                "aToBDist": 1932,
+                "bToADist": 1391
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "2.5",
+                "aToBDist": 1018,
+                "bToADist": 1680
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "3.1",
+                "aToBDist": 1271,
+                "bToADist": 1911
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "3.2",
+                "aToBDist": 1433,
+                "bToADist": 1497
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "3.3",
+                "aToBDist": 1284,
+                "bToADist": 1286
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "3.4",
+                "aToBDist": 1849,
+                "bToADist": 1028
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "3.5",
+                "aToBDist": 1802,
+                "bToADist": 1481
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "4.1",
+                "aToBDist": 1605,
+                "bToADist": 1201
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "4.2",
+                "aToBDist": 1902,
+                "bToADist": 1501
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "4.3",
+                "aToBDist": 1722,
+                "bToADist": 1887
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "4.4",
+                "aToBDist": 1586,
+                "bToADist": 1202
+            },
+            {
+                "pointA": "2.2.10",
+                "pointB": "4.5",
+                "aToBDist": 1870,
+                "bToADist": 1764
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.1.1",
+                "aToBDist": 1056,
+                "bToADist": 1154
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.1.2",
+                "aToBDist": 619,
+                "bToADist": 914
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.1.3",
+                "aToBDist": 1430,
+                "bToADist": 874
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.1.4",
+                "aToBDist": 964,
+                "bToADist": 1177
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.1.5",
+                "aToBDist": 1167,
+                "bToADist": 825
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.1.6",
+                "aToBDist": 670,
+                "bToADist": 554
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.1.7",
+                "aToBDist": 730,
+                "bToADist": 1150
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.1.8",
+                "aToBDist": 1065,
+                "bToADist": 1139
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.1.9",
+                "aToBDist": 997,
+                "bToADist": 1467
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.1.10",
+                "aToBDist": 1394,
+                "bToADist": 674
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.2.1",
+                "aToBDist": 1362,
+                "bToADist": 950
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.2.2",
+                "aToBDist": 664,
+                "bToADist": 792
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.2.3",
+                "aToBDist": 830,
+                "bToADist": 604
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.2.4",
+                "aToBDist": 1061,
+                "bToADist": 611
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.2.5",
+                "aToBDist": 958,
+                "bToADist": 731
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.2.6",
+                "aToBDist": 894,
+                "bToADist": 719
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.2.7",
+                "aToBDist": 567,
+                "bToADist": 857
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.2.8",
+                "aToBDist": 1481,
+                "bToADist": 1441
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.2.9",
+                "aToBDist": 824,
+                "bToADist": 1108
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.2.10",
+                "aToBDist": 1455,
+                "bToADist": 1362
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.1.1",
+                "aToBDist": 950,
+                "bToADist": 1374
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.1.2",
+                "aToBDist": 1226,
+                "bToADist": 1248
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.1.3",
+                "aToBDist": 1447,
+                "bToADist": 1162
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.1.4",
+                "aToBDist": 921,
+                "bToADist": 655
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.1.5",
+                "aToBDist": 1297,
+                "bToADist": 1478
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.1.6",
+                "aToBDist": 743,
+                "bToADist": 1247
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.1.7",
+                "aToBDist": 676,
+                "bToADist": 1473
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.1.8",
+                "aToBDist": 706,
+                "bToADist": 1420
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.1.9",
+                "aToBDist": 1461,
+                "bToADist": 881
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.1.10",
+                "aToBDist": 1478,
+                "bToADist": 879
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.2.1",
+                "aToBDist": 1270,
+                "bToADist": 806
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.2.2",
+                "aToBDist": 839,
+                "bToADist": 1399
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.2.3",
+                "aToBDist": 526,
+                "bToADist": 590
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.2.4",
+                "aToBDist": 1178,
+                "bToADist": 1448
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.2.5",
+                "aToBDist": 1426,
+                "bToADist": 1113
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.2.6",
+                "aToBDist": 1118,
+                "bToADist": 991
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.2.7",
+                "aToBDist": 1102,
+                "bToADist": 631
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.2.8",
+                "aToBDist": 516,
+                "bToADist": 1334
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.2.9",
+                "aToBDist": 778,
+                "bToADist": 821
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.2.10",
+                "aToBDist": 512,
+                "bToADist": 697
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.1",
+                "aToBDist": 1385,
+                "bToADist": 1405
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.2",
+                "aToBDist": 859,
+                "bToADist": 502
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.3",
+                "aToBDist": 919,
+                "bToADist": 1100
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.4",
+                "aToBDist": 1223,
+                "bToADist": 1454
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "1.5",
+                "aToBDist": 1344,
+                "bToADist": 696
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.1",
+                "aToBDist": 1069,
+                "bToADist": 511
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.2",
+                "aToBDist": 1353,
+                "bToADist": 1464
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.3",
+                "aToBDist": 633,
+                "bToADist": 971
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.4",
+                "aToBDist": 693,
+                "bToADist": 891
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "2.5",
+                "aToBDist": 1313,
+                "bToADist": 1199
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "3.1",
+                "aToBDist": 889,
+                "bToADist": 1087
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "3.2",
+                "aToBDist": 658,
+                "bToADist": 1048
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "3.3",
+                "aToBDist": 1434,
+                "bToADist": 619
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "3.4",
+                "aToBDist": 744,
+                "bToADist": 549
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "3.5",
+                "aToBDist": 1451,
+                "bToADist": 710
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "4.1",
+                "aToBDist": 1369,
+                "bToADist": 1194
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "4.2",
+                "aToBDist": 860,
+                "bToADist": 535
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "4.3",
+                "aToBDist": 1350,
+                "bToADist": 788
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "4.4",
+                "aToBDist": 1178,
+                "bToADist": 535
+            },
+            {
+                "pointA": "0.0.0",
+                "pointB": "4.5",
+                "aToBDist": 1462,
+                "bToADist": 576
+            }
+        ]
+    }
+}
