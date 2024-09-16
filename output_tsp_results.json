@@ -1,219 +1,219 @@
 {
-    "uuid": "0a6b3776-c050-4ce4-b170-7d98d093992a",
-    "produced_at": 1726254703935,
+    "uuid": "11eab49a-bf2c-4c61-8467-ef222d8efaa5",
+    "produced_at": 1726495318976,
     "data": {
         "pickingSeq": [
             {
-                "method": "exact"
+                "method": "nearest"
             },
             {
                 "from": "0.0.0",
-                "to": "1.1.8",
-                "distance": 567
+                "to": "2.1.1",
+                "totalTime": 953
             },
             {
-                "from": "1.1.8",
-                "to": "4.5",
-                "distance": 1041
+                "from": "2.1.1",
+                "to": "1.3",
+                "totalTime": 1001
             },
             {
-                "from": "4.5",
-                "to": "2.2.4",
-                "distance": 1046
-            },
-            {
-                "from": "2.2.4",
-                "to": "2.5",
-                "distance": 1011
-            },
-            {
-                "from": "2.5",
-                "to": "2.2.5",
-                "distance": 1024
-            },
-            {
-                "from": "2.2.5",
-                "to": "3.2",
-                "distance": 1044
-            },
-            {
-                "from": "3.2",
-                "to": "1.2.3",
-                "distance": 1009
-            },
-            {
-                "from": "1.2.3",
-                "to": "2.2",
-                "distance": 1058
-            },
-            {
-                "from": "2.2",
-                "to": "2.1.5",
-                "distance": 1054
-            },
-            {
-                "from": "2.1.5",
-                "to": "4.1",
-                "distance": 1100
-            },
-            {
-                "from": "4.1",
-                "to": "1.2.10",
-                "distance": 1002
-            },
-            {
-                "from": "1.2.10",
-                "to": "3.1",
-                "distance": 1027
-            },
-            {
-                "from": "3.1",
-                "to": "1.1.4",
-                "distance": 1024
-            },
-            {
-                "from": "1.1.4",
-                "to": "4.4",
-                "distance": 1021
-            },
-            {
-                "from": "4.4",
-                "to": "1.1.3",
-                "distance": 1040
-            },
-            {
-                "from": "1.1.3",
-                "to": "1.5",
-                "distance": 1039
-            },
-            {
-                "from": "1.5",
-                "to": "1.2.4",
-                "distance": 1048
-            },
-            {
-                "from": "1.2.4",
-                "to": "1.1",
-                "distance": 1044
-            },
-            {
-                "from": "1.1",
+                "from": "1.3",
                 "to": "2.2.2",
-                "distance": 1025
+                "totalTime": 1853
             },
             {
                 "from": "2.2.2",
-                "to": "2.4",
-                "distance": 1023
+                "to": "4.4",
+                "totalTime": 1383
             },
             {
-                "from": "2.4",
-                "to": "1.2.7",
-                "distance": 1080
+                "from": "4.4",
+                "to": "2.2.1",
+                "totalTime": 1100
             },
             {
-                "from": "1.2.7",
+                "from": "2.2.1",
                 "to": "2.3",
-                "distance": 1001
+                "totalTime": 1581
             },
             {
                 "from": "2.3",
                 "to": "2.1.3",
-                "distance": 1041
+                "totalTime": 1031
             },
             {
                 "from": "2.1.3",
-                "to": "1.3",
-                "distance": 1001
-            },
-            {
-                "from": "1.3",
-                "to": "1.1.1",
-                "distance": 1018
-            },
-            {
-                "from": "1.1.1",
-                "to": "2.1",
-                "distance": 1042
-            },
-            {
-                "from": "2.1",
-                "to": "1.2.8",
-                "distance": 1070
-            },
-            {
-                "from": "1.2.8",
-                "to": "3.5",
-                "distance": 1008
-            },
-            {
-                "from": "3.5",
-                "to": "1.1.9",
-                "distance": 1009
-            },
-            {
-                "from": "1.1.9",
-                "to": "1.2",
-                "distance": 1075
-            },
-            {
-                "from": "1.2",
-                "to": "1.2.9",
-                "distance": 1016
-            },
-            {
-                "from": "1.2.9",
-                "to": "3.3",
-                "distance": 1012
-            },
-            {
-                "from": "3.3",
-                "to": "2.2.10",
-                "distance": 1009
-            },
-            {
-                "from": "2.2.10",
-                "to": "4.3",
-                "distance": 1108
-            },
-            {
-                "from": "4.3",
-                "to": "2.1.9",
-                "distance": 1086
-            },
-            {
-                "from": "2.1.9",
-                "to": "1.4",
-                "distance": 1050
-            },
-            {
-                "from": "1.4",
-                "to": "1.1.2",
-                "distance": 1071
-            },
-            {
-                "from": "1.1.2",
-                "to": "3.4",
-                "distance": 1078
-            },
-            {
-                "from": "3.4",
-                "to": "2.1.6",
-                "distance": 1017
-            },
-            {
-                "from": "2.1.6",
                 "to": "4.2",
-                "distance": 1025
+                "totalTime": 1521
             },
             {
                 "from": "4.2",
+                "to": "1.1.4",
+                "totalTime": 1442
+            },
+            {
+                "from": "1.1.4",
+                "to": "4.5",
+                "totalTime": 1516
+            },
+            {
+                "from": "4.5",
+                "to": "1.1.8",
+                "totalTime": 1759
+            },
+            {
+                "from": "1.1.8",
+                "to": "3.3",
+                "totalTime": 1623
+            },
+            {
+                "from": "3.3",
+                "to": "2.1.8",
+                "totalTime": 1258
+            },
+            {
+                "from": "2.1.8",
+                "to": "2.4",
+                "totalTime": 1148
+            },
+            {
+                "from": "2.4",
+                "to": "1.1.2",
+                "totalTime": 1633
+            },
+            {
+                "from": "1.1.2",
+                "to": "3.2",
+                "totalTime": 1119
+            },
+            {
+                "from": "3.2",
+                "to": "1.2.7",
+                "totalTime": 1234
+            },
+            {
+                "from": "1.2.7",
+                "to": "3.5",
+                "totalTime": 1794
+            },
+            {
+                "from": "3.5",
+                "to": "1.2.10",
+                "totalTime": 1108
+            },
+            {
+                "from": "1.2.10",
+                "to": "4.1",
+                "totalTime": 1587
+            },
+            {
+                "from": "4.1",
+                "to": "2.2.3",
+                "totalTime": 1484
+            },
+            {
+                "from": "2.2.3",
+                "to": "1.5",
+                "totalTime": 1436
+            },
+            {
+                "from": "1.5",
+                "to": "1.1.1",
+                "totalTime": 1728
+            },
+            {
+                "from": "1.1.1",
+                "to": "4.3",
+                "totalTime": 1697
+            },
+            {
+                "from": "4.3",
+                "to": "2.1.10",
+                "totalTime": 1663
+            },
+            {
+                "from": "2.1.10",
+                "to": "2.5",
+                "totalTime": 1793
+            },
+            {
+                "from": "2.5",
+                "to": "2.1.2",
+                "totalTime": 1087
+            },
+            {
+                "from": "2.1.2",
+                "to": "1.4",
+                "totalTime": 1857
+            },
+            {
+                "from": "1.4",
+                "to": "1.2.6",
+                "totalTime": 1537
+            },
+            {
+                "from": "1.2.6",
+                "to": "2.2",
+                "totalTime": 1931
+            },
+            {
+                "from": "2.2",
+                "to": "1.2.1",
+                "totalTime": 1354
+            },
+            {
+                "from": "1.2.1",
+                "to": "2.1",
+                "totalTime": 1123
+            },
+            {
+                "from": "2.1",
+                "to": "1.2.2",
+                "totalTime": 1493
+            },
+            {
+                "from": "1.2.2",
+                "to": "3.1",
+                "totalTime": 1680
+            },
+            {
+                "from": "3.1",
+                "to": "1.1.6",
+                "totalTime": 1000
+            },
+            {
+                "from": "1.1.6",
+                "to": "1.2",
+                "totalTime": 1854
+            },
+            {
+                "from": "1.2",
+                "to": "1.1.3",
+                "totalTime": 1494
+            },
+            {
+                "from": "1.1.3",
+                "to": "3.4",
+                "totalTime": 1045
+            },
+            {
+                "from": "3.4",
+                "to": "1.2.5",
+                "totalTime": 1251
+            },
+            {
+                "from": "1.2.5",
+                "to": "1.1",
+                "totalTime": 1095
+            },
+            {
+                "from": "1.1",
                 "to": "0.0.0",
-                "distance": 615
+                "totalTime": 769
             }
         ],
-        "totalLoadingTime": "41679",
-        "solutionTime": 333,
-        "totalTime": 404
+        "totalLoadingTime": "58015",
+        "solutionTime": 2,
+        "totalTime": 83
     }
 }

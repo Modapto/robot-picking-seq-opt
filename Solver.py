@@ -47,12 +47,13 @@ def nearest_tsp(G, start, end, set_1, set_2, large_value=1000000):
         # print(f"Current: {current}, Next: {next_node}, Tour: {tour}")
 
         if all(visit[node] for node in kit_holders):
+            tour.append(end)
             # print(f"All nodes in set_1 have been visited. Preparing to return to {end}.")
             break
 
-    if tour[-1] != end:
-        tour.append(end)
-        # print(f"Added end node {end} to complete the tour.")
+    # if tour[-1] != end:
+    #     tour.append(end)
+    #     # print(f"Added end node {end} to complete the tour.")
 
     return tour
 
