@@ -5,11 +5,11 @@ from time import time
 import pandas as pd
 import numpy as np
 import os
-from parse_json_input import create_distance_matrices_from_json
-from GraphCreation import create_bipartite_graph
-from Solver import nearest_tsp, opt2, q_learning_tsp, total_cost
-from exact_method import run_exact_tsp
-from Test_generate_random_input import generate_random_json_input
+from parse_json_input import *
+from GraphCreation import *
+from Solver import *
+from exact_method import *
+from Test_generate_random_input import *
 
 
 def convert_to_native_types(data):
@@ -87,7 +87,7 @@ def run_tsp_for_size(json_file_path, output_json_file_path, gravity_rack_positio
     try:
         print("Running Exact Method TSP...")
         start_time_exact = (time() * 1000)
-        exact_tour, exact_tour_cost, time_details = run_exact_tsp(json_file_path)  # Use the exact method
+        exact_tour, exact_tour_cost, time_details = run_exact_tsp_local(json_file_path)  # Use the exact method
         exec_time_exact = (time() * 1000) - start_time_exact
         results["exact"] = {
             "tour": exact_tour,

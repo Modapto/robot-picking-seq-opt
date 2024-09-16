@@ -5,7 +5,7 @@ import pandas as pd
 # Define the problem configurations
 gravity_rack_configs = [
     # Gravity Rack Test with KH 4x5 case
-    # (1, 2, 10),  # 1x2x10 = 20
+    (1, 2, 10),  # 1x2x10 = 20
     # (2, 2, 10),  # 2x2x10 = 40
     # (5, 2, 10),  # 5x2x10 = 100
     # (10, 2, 10),  # 10x2x10 = 200
@@ -35,7 +35,7 @@ gravity_rack_configs = [
 ]
 
 kit_holder_configs = [
-    # (4, 5)  # 4x5 = 20
+    (4, 5)  # 4x5 = 20
     # (4, 25)  # 4x25 = 100
 
     # Symmetric Instances
@@ -43,12 +43,12 @@ kit_holder_configs = [
     # (4, 25)  # 4x25 = 100
     # (4, 50) # 4x50 = 200
     # (4, 75) # 4x75 = 300
-    (4, 100) # 4x100 = 400
+    # (4, 100) # 4x100 = 400
     # (4, 125) # 4x125 = 500
 ]
 
 # Base directory for experiment results
-base_dir = "Experiment Results Symmetric"
+base_dir = "Experiment Results v2"
 os.makedirs(base_dir, exist_ok=True)
 
 # Master summary list to gather all experiments results
@@ -139,11 +139,7 @@ for (rows, cols, components) in gravity_rack_configs:
 
             print(f"Results and files for run {run_id} saved to {run_dir}")
 
-# After all experiments, save the master summary to a CSV file
-summary_csv_file = f"{base_dir}/Experiment Summary Table 2.csv"
+
 df_summary = pd.DataFrame(experiment_summary, columns=[
     'Gravity Rack', 'Kit Holder', 'Run', 'Method', 'Cost', 'Exec time', 'Optimality Gap (%)'
 ])
-df_summary.to_csv(summary_csv_file, index=False)
-
-print(f"Master experiment summary saved to {summary_csv_file}")
