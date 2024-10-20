@@ -9,7 +9,7 @@ import numpy as np
 from GraphCreation import *
 from Solver import *
 from instances_generator import *
-from parse_json_input import *
+from parse_json import *
 from old_exact_method import *
 
 online = sys.argv[1]
