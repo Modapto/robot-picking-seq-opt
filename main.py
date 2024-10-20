@@ -11,7 +11,7 @@ from parse_json import *
 from GraphCreation import *
 from heuristic_methods import *
 from reinforcement_learning import *
-from exact_final import *
+from exact_method import *
 
 online = sys.argv[1]  # This argument will differentiate between local and remote runs
 
@@ -172,7 +172,7 @@ def run_tsp(json_file_path=None, input_data=None, generate_new_instance=True):
     output_data = convert_to_native_types(output_data)
 
     if json_file_path:
-        output_json_file_path = "output_local.json"
+        output_json_file_path = "output_tsp_results.json"
         with open(output_json_file_path, 'w') as json_file:
             json.dump(output_data, json_file, indent=4)
         print(f"Local output saved to {output_json_file_path}")

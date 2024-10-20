@@ -1,5171 +1,2223 @@
 {
     "route": "robot-pick-seq-opt",
-    "uuid": "81e90636-fe01-4e1c-9eef-9ecac5842ac6",
-    "generated_at": 1728004624,
+    "uuid": "67b945db-0bf4-45dc-b864-66ee438533a2",
+    "generated_at": 1729463398,
     "data": {
-        "method": "exact",
-        "start_node": "0.0.0",
+        "method": "2-opt",
+        "start_node": "0.0",
         "end_node": "0.0.0",
         "distanceMatrix": [
             {
-                "pointA": "1.1.1",
-                "pointB": "1.1",
-                "aToBDist": 1903,
-                "bToADist": 1726
+                "edge": "(1.1.1, 1.1)",
+                "distance": 10066
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "1.2",
-                "aToBDist": 1834,
-                "bToADist": 1714
+                "edge": "(1.1, 1.1.1)",
+                "distance": 10543
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "1.3",
-                "aToBDist": 1097,
-                "bToADist": 1311
+                "edge": "(1.1.1, 1.2)",
+                "distance": 19985
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "1.4",
-                "aToBDist": 1620,
-                "bToADist": 1662
+                "edge": "(1.2, 1.1.1)",
+                "distance": 10028
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "1.5",
-                "aToBDist": 1017,
-                "bToADist": 1507
+                "edge": "(1.1.1, 2.1)",
+                "distance": 17219
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "2.1",
-                "aToBDist": 1754,
-                "bToADist": 1086
+                "edge": "(2.1, 1.1.1)",
+                "distance": 10016
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "2.2",
-                "aToBDist": 1191,
-                "bToADist": 1383
+                "edge": "(1.1.1, 2.2)",
+                "distance": 19557
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "2.3",
-                "aToBDist": 1637,
-                "bToADist": 1998
+                "edge": "(2.2, 1.1.1)",
+                "distance": 13941
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "2.4",
-                "aToBDist": 1169,
-                "bToADist": 1892
+                "edge": "(1.1.1, 3.1)",
+                "distance": 14289
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "2.5",
-                "aToBDist": 1469,
-                "bToADist": 1916
+                "edge": "(3.1, 1.1.1)",
+                "distance": 11065
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "3.1",
-                "aToBDist": 1548,
-                "bToADist": 1172
+                "edge": "(1.1.1, 3.2)",
+                "distance": 14400
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "3.2",
-                "aToBDist": 1534,
-                "bToADist": 1741
+                "edge": "(3.2, 1.1.1)",
+                "distance": 11863
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "3.3",
-                "aToBDist": 1503,
-                "bToADist": 1182
+                "edge": "(1.1.1, 4.1)",
+                "distance": 17843
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "3.4",
-                "aToBDist": 1313,
-                "bToADist": 1782
+                "edge": "(4.1, 1.1.1)",
+                "distance": 10335
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "3.5",
-                "aToBDist": 1424,
-                "bToADist": 1320
+                "edge": "(1.1.1, 4.2)",
+                "distance": 16012
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "4.1",
-                "aToBDist": 1992,
-                "bToADist": 1244
+                "edge": "(4.2, 1.1.1)",
+                "distance": 11342
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "4.2",
-                "aToBDist": 1635,
-                "bToADist": 1204
+                "edge": "(1.1.2, 1.1)",
+                "distance": 16820
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "4.3",
-                "aToBDist": 1531,
-                "bToADist": 1611
+                "edge": "(1.1, 1.1.2)",
+                "distance": 16798
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "4.4",
-                "aToBDist": 1520,
-                "bToADist": 1095
+                "edge": "(1.1.2, 1.2)",
+                "distance": 13088
             },
             {
-                "pointA": "1.1.1",
-                "pointB": "4.5",
-                "aToBDist": 1809,
-                "bToADist": 1473
+                "edge": "(1.2, 1.1.2)",
+                "distance": 15167
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "1.1",
-                "aToBDist": 1769,
-                "bToADist": 1144
+                "edge": "(1.1.2, 2.1)",
+                "distance": 11477
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "1.2",
-                "aToBDist": 1393,
-                "bToADist": 1097
+                "edge": "(2.1, 1.1.2)",
+                "distance": 13684
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "1.3",
-                "aToBDist": 1615,
-                "bToADist": 1682
+                "edge": "(1.1.2, 2.2)",
+                "distance": 11550
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "1.4",
-                "aToBDist": 1026,
-                "bToADist": 1905
+                "edge": "(2.2, 1.1.2)",
+                "distance": 14355
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "1.5",
-                "aToBDist": 1299,
-                "bToADist": 1497
+                "edge": "(1.1.2, 3.1)",
+                "distance": 13437
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "2.1",
-                "aToBDist": 1498,
-                "bToADist": 1913
+                "edge": "(3.1, 1.1.2)",
+                "distance": 14702
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "2.2",
-                "aToBDist": 1259,
-                "bToADist": 1525
+                "edge": "(1.1.2, 3.2)",
+                "distance": 10876
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "2.3",
-                "aToBDist": 1542,
-                "bToADist": 1871
+                "edge": "(3.2, 1.1.2)",
+                "distance": 17294
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "2.4",
-                "aToBDist": 1194,
-                "bToADist": 1452
+                "edge": "(1.1.2, 4.1)",
+                "distance": 17677
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "2.5",
-                "aToBDist": 1683,
-                "bToADist": 1896
+                "edge": "(4.1, 1.1.2)",
+                "distance": 15910
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "3.1",
-                "aToBDist": 1047,
-                "bToADist": 1693
+                "edge": "(1.1.2, 4.2)",
+                "distance": 14177
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "3.2",
-                "aToBDist": 1215,
-                "bToADist": 1324
+                "edge": "(4.2, 1.1.2)",
+                "distance": 15472
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "3.3",
-                "aToBDist": 1596,
-                "bToADist": 1395
+                "edge": "(1.1.3, 1.1)",
+                "distance": 16965
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "3.4",
-                "aToBDist": 1415,
-                "bToADist": 1418
+                "edge": "(1.1, 1.1.3)",
+                "distance": 18582
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "3.5",
-                "aToBDist": 1280,
-                "bToADist": 1034
+                "edge": "(1.1.3, 1.2)",
+                "distance": 18856
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "4.1",
-                "aToBDist": 1379,
-                "bToADist": 1288
+                "edge": "(1.2, 1.1.3)",
+                "distance": 15473
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "4.2",
-                "aToBDist": 1580,
-                "bToADist": 1176
+                "edge": "(1.1.3, 2.1)",
+                "distance": 15821
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "4.3",
-                "aToBDist": 1111,
-                "bToADist": 1963
+                "edge": "(2.1, 1.1.3)",
+                "distance": 18072
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "4.4",
-                "aToBDist": 1342,
-                "bToADist": 1734
+                "edge": "(1.1.3, 2.2)",
+                "distance": 12680
             },
             {
-                "pointA": "1.1.2",
-                "pointB": "4.5",
-                "aToBDist": 1322,
-                "bToADist": 1308
+                "edge": "(2.2, 1.1.3)",
+                "distance": 14152
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "1.1",
-                "aToBDist": 1861,
-                "bToADist": 1860
+                "edge": "(1.1.3, 3.1)",
+                "distance": 12947
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "1.2",
-                "aToBDist": 1785,
-                "bToADist": 1132
+                "edge": "(3.1, 1.1.3)",
+                "distance": 14108
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "1.3",
-                "aToBDist": 1428,
-                "bToADist": 1557
+                "edge": "(1.1.3, 3.2)",
+                "distance": 12661
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "1.4",
-                "aToBDist": 1274,
-                "bToADist": 1125
+                "edge": "(3.2, 1.1.3)",
+                "distance": 19793
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "1.5",
-                "aToBDist": 1502,
-                "bToADist": 1982
+                "edge": "(1.1.3, 4.1)",
+                "distance": 16978
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "2.1",
-                "aToBDist": 1871,
-                "bToADist": 1999
+                "edge": "(4.1, 1.1.3)",
+                "distance": 13589
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "2.2",
-                "aToBDist": 1713,
-                "bToADist": 1257
+                "edge": "(1.1.3, 4.2)",
+                "distance": 14772
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "2.3",
-                "aToBDist": 1718,
-                "bToADist": 1898
+                "edge": "(4.2, 1.1.3)",
+                "distance": 12085
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "2.4",
-                "aToBDist": 1822,
-                "bToADist": 1893
+                "edge": "(1.1.4, 1.1)",
+                "distance": 12466
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "2.5",
-                "aToBDist": 1684,
-                "bToADist": 1134
+                "edge": "(1.1, 1.1.4)",
+                "distance": 15104
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "3.1",
-                "aToBDist": 1514,
-                "bToADist": 1560
+                "edge": "(1.1.4, 1.2)",
+                "distance": 18315
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "3.2",
-                "aToBDist": 1098,
-                "bToADist": 1146
+                "edge": "(1.2, 1.1.4)",
+                "distance": 16394
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "3.3",
-                "aToBDist": 1384,
-                "bToADist": 1018
+                "edge": "(1.1.4, 2.1)",
+                "distance": 19194
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "3.4",
-                "aToBDist": 1824,
-                "bToADist": 1705
+                "edge": "(2.1, 1.1.4)",
+                "distance": 19428
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "3.5",
-                "aToBDist": 1157,
-                "bToADist": 1242
+                "edge": "(1.1.4, 2.2)",
+                "distance": 14129
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "4.1",
-                "aToBDist": 1937,
-                "bToADist": 1724
+                "edge": "(2.2, 1.1.4)",
+                "distance": 16310
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "4.2",
-                "aToBDist": 1413,
-                "bToADist": 1509
+                "edge": "(1.1.4, 3.1)",
+                "distance": 12493
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "4.3",
-                "aToBDist": 1496,
-                "bToADist": 1362
+                "edge": "(3.1, 1.1.4)",
+                "distance": 19362
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "4.4",
-                "aToBDist": 1707,
-                "bToADist": 1765
+                "edge": "(1.1.4, 3.2)",
+                "distance": 15114
             },
             {
-                "pointA": "1.1.3",
-                "pointB": "4.5",
-                "aToBDist": 1232,
-                "bToADist": 1747
+                "edge": "(3.2, 1.1.4)",
+                "distance": 16210
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "1.1",
-                "aToBDist": 1059,
-                "bToADist": 1103
+                "edge": "(1.1.4, 4.1)",
+                "distance": 11112
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "1.2",
-                "aToBDist": 1604,
-                "bToADist": 1077
+                "edge": "(4.1, 1.1.4)",
+                "distance": 16262
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "1.3",
-                "aToBDist": 1625,
-                "bToADist": 1426
+                "edge": "(1.1.4, 4.2)",
+                "distance": 17090
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "1.4",
-                "aToBDist": 1687,
-                "bToADist": 1595
+                "edge": "(4.2, 1.1.4)",
+                "distance": 19141
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "1.5",
-                "aToBDist": 1633,
-                "bToADist": 1536
+                "edge": "(1.2.1, 1.1)",
+                "distance": 11628
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "2.1",
-                "aToBDist": 1921,
-                "bToADist": 1030
+                "edge": "(1.1, 1.2.1)",
+                "distance": 17509
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "2.2",
-                "aToBDist": 1219,
-                "bToADist": 1603
+                "edge": "(1.2.1, 1.2)",
+                "distance": 16374
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "2.3",
-                "aToBDist": 1284,
-                "bToADist": 1562
+                "edge": "(1.2, 1.2.1)",
+                "distance": 15377
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "2.4",
-                "aToBDist": 1497,
-                "bToADist": 1603
+                "edge": "(1.2.1, 2.1)",
+                "distance": 16865
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "2.5",
-                "aToBDist": 1507,
-                "bToADist": 1267
+                "edge": "(2.1, 1.2.1)",
+                "distance": 16557
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "3.1",
-                "aToBDist": 1975,
-                "bToADist": 1883
+                "edge": "(1.2.1, 2.2)",
+                "distance": 14847
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "3.2",
-                "aToBDist": 1554,
-                "bToADist": 1996
+                "edge": "(2.2, 1.2.1)",
+                "distance": 13887
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "3.3",
-                "aToBDist": 1463,
-                "bToADist": 1064
+                "edge": "(1.2.1, 3.1)",
+                "distance": 10231
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "3.4",
-                "aToBDist": 1916,
-                "bToADist": 1858
+                "edge": "(3.1, 1.2.1)",
+                "distance": 13333
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "3.5",
-                "aToBDist": 1572,
-                "bToADist": 1260
+                "edge": "(1.2.1, 3.2)",
+                "distance": 16426
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "4.1",
-                "aToBDist": 1787,
-                "bToADist": 1842
+                "edge": "(3.2, 1.2.1)",
+                "distance": 10419
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "4.2",
-                "aToBDist": 1172,
-                "bToADist": 1865
+                "edge": "(1.2.1, 4.1)",
+                "distance": 16156
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "4.3",
-                "aToBDist": 1715,
-                "bToADist": 1936
+                "edge": "(4.1, 1.2.1)",
+                "distance": 10488
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "4.4",
-                "aToBDist": 1948,
-                "bToADist": 1644
+                "edge": "(1.2.1, 4.2)",
+                "distance": 16843
             },
             {
-                "pointA": "1.1.4",
-                "pointB": "4.5",
-                "aToBDist": 1428,
-                "bToADist": 1301
+                "edge": "(4.2, 1.2.1)",
+                "distance": 12563
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "1.1",
-                "aToBDist": 1882,
-                "bToADist": 1565
+                "edge": "(1.2.2, 1.1)",
+                "distance": 14227
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "1.2",
-                "aToBDist": 1705,
-                "bToADist": 1449
+                "edge": "(1.1, 1.2.2)",
+                "distance": 16346
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "1.3",
-                "aToBDist": 1128,
-                "bToADist": 1445
+                "edge": "(1.2.2, 1.2)",
+                "distance": 18122
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "1.4",
-                "aToBDist": 1379,
-                "bToADist": 1853
+                "edge": "(1.2, 1.2.2)",
+                "distance": 14725
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "1.5",
-                "aToBDist": 1402,
-                "bToADist": 1181
+                "edge": "(1.2.2, 2.1)",
+                "distance": 18014
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "2.1",
-                "aToBDist": 1257,
-                "bToADist": 1505
+                "edge": "(2.1, 1.2.2)",
+                "distance": 11064
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "2.2",
-                "aToBDist": 1641,
-                "bToADist": 1059
+                "edge": "(1.2.2, 2.2)",
+                "distance": 17890
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "2.3",
-                "aToBDist": 1547,
-                "bToADist": 1063
+                "edge": "(2.2, 1.2.2)",
+                "distance": 15884
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "2.4",
-                "aToBDist": 1790,
-                "bToADist": 1755
+                "edge": "(1.2.2, 3.1)",
+                "distance": 15972
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "2.5",
-                "aToBDist": 1344,
-                "bToADist": 1352
+                "edge": "(3.1, 1.2.2)",
+                "distance": 10180
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "3.1",
-                "aToBDist": 1070,
-                "bToADist": 1685
+                "edge": "(1.2.2, 3.2)",
+                "distance": 10588
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "3.2",
-                "aToBDist": 1785,
-                "bToADist": 1907
+                "edge": "(3.2, 1.2.2)",
+                "distance": 11612
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "3.3",
-                "aToBDist": 1860,
-                "bToADist": 1697
+                "edge": "(1.2.2, 4.1)",
+                "distance": 11013
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "3.4",
-                "aToBDist": 1119,
-                "bToADist": 1746
+                "edge": "(4.1, 1.2.2)",
+                "distance": 17822
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "3.5",
-                "aToBDist": 1349,
-                "bToADist": 1291
+                "edge": "(1.2.2, 4.2)",
+                "distance": 14515
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "4.1",
-                "aToBDist": 1011,
-                "bToADist": 1143
+                "edge": "(4.2, 1.2.2)",
+                "distance": 18887
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "4.2",
-                "aToBDist": 1627,
-                "bToADist": 1702
+                "edge": "(1.2.3, 1.1)",
+                "distance": 17025
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "4.3",
-                "aToBDist": 1251,
-                "bToADist": 1120
+                "edge": "(1.1, 1.2.3)",
+                "distance": 18205
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "4.4",
-                "aToBDist": 1280,
-                "bToADist": 1812
+                "edge": "(1.2.3, 1.2)",
+                "distance": 15938
             },
             {
-                "pointA": "1.1.5",
-                "pointB": "4.5",
-                "aToBDist": 1940,
-                "bToADist": 1467
+                "edge": "(1.2, 1.2.3)",
+                "distance": 16140
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "1.1",
-                "aToBDist": 1181,
-                "bToADist": 1444
+                "edge": "(1.2.3, 2.1)",
+                "distance": 17552
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "1.2",
-                "aToBDist": 1791,
-                "bToADist": 1025
+                "edge": "(2.1, 1.2.3)",
+                "distance": 13342
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "1.3",
-                "aToBDist": 1486,
-                "bToADist": 1895
+                "edge": "(1.2.3, 2.2)",
+                "distance": 11457
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "1.4",
-                "aToBDist": 1188,
-                "bToADist": 1637
+                "edge": "(2.2, 1.2.3)",
+                "distance": 16623
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "1.5",
-                "aToBDist": 1807,
-                "bToADist": 1085
+                "edge": "(1.2.3, 3.1)",
+                "distance": 17028
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "2.1",
-                "aToBDist": 1609,
-                "bToADist": 1156
+                "edge": "(3.1, 1.2.3)",
+                "distance": 10673
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "2.2",
-                "aToBDist": 1419,
-                "bToADist": 1154
+                "edge": "(1.2.3, 3.2)",
+                "distance": 16199
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "2.3",
-                "aToBDist": 1274,
-                "bToADist": 1091
+                "edge": "(3.2, 1.2.3)",
+                "distance": 17196
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "2.4",
-                "aToBDist": 1689,
-                "bToADist": 1249
+                "edge": "(1.2.3, 4.1)",
+                "distance": 17919
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "2.5",
-                "aToBDist": 1281,
-                "bToADist": 1187
+                "edge": "(4.1, 1.2.3)",
+                "distance": 18930
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "3.1",
-                "aToBDist": 1983,
-                "bToADist": 1835
+                "edge": "(1.2.3, 4.2)",
+                "distance": 16342
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "3.2",
-                "aToBDist": 1110,
-                "bToADist": 1467
+                "edge": "(4.2, 1.2.3)",
+                "distance": 19588
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "3.3",
-                "aToBDist": 1290,
-                "bToADist": 1077
+                "edge": "(1.2.4, 1.1)",
+                "distance": 13714
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "3.4",
-                "aToBDist": 1541,
-                "bToADist": 1906
+                "edge": "(1.1, 1.2.4)",
+                "distance": 12489
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "3.5",
-                "aToBDist": 1861,
-                "bToADist": 1274
+                "edge": "(1.2.4, 1.2)",
+                "distance": 16508
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "4.1",
-                "aToBDist": 1826,
-                "bToADist": 1375
+                "edge": "(1.2, 1.2.4)",
+                "distance": 16884
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "4.2",
-                "aToBDist": 1475,
-                "bToADist": 1360
+                "edge": "(1.2.4, 2.1)",
+                "distance": 18446
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "4.3",
-                "aToBDist": 1220,
-                "bToADist": 1928
+                "edge": "(2.1, 1.2.4)",
+                "distance": 15031
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "4.4",
-                "aToBDist": 1283,
-                "bToADist": 1143
+                "edge": "(1.2.4, 2.2)",
+                "distance": 17397
             },
             {
-                "pointA": "1.1.6",
-                "pointB": "4.5",
-                "aToBDist": 1940,
-                "bToADist": 1703
+                "edge": "(2.2, 1.2.4)",
+                "distance": 13388
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "1.1",
-                "aToBDist": 1879,
-                "bToADist": 1927
+                "edge": "(1.2.4, 3.1)",
+                "distance": 18002
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "1.2",
-                "aToBDist": 1892,
-                "bToADist": 1543
+                "edge": "(3.1, 1.2.4)",
+                "distance": 15308
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "1.3",
-                "aToBDist": 1481,
-                "bToADist": 1891
+                "edge": "(1.2.4, 3.2)",
+                "distance": 15878
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "1.4",
-                "aToBDist": 1157,
-                "bToADist": 1428
+                "edge": "(3.2, 1.2.4)",
+                "distance": 15672
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "1.5",
-                "aToBDist": 1621,
-                "bToADist": 1132
+                "edge": "(1.2.4, 4.1)",
+                "distance": 18100
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "2.1",
-                "aToBDist": 1825,
-                "bToADist": 1410
+                "edge": "(4.1, 1.2.4)",
+                "distance": 17099
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "2.2",
-                "aToBDist": 1597,
-                "bToADist": 1613
+                "edge": "(1.2.4, 4.2)",
+                "distance": 16815
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "2.3",
-                "aToBDist": 1776,
-                "bToADist": 1421
+                "edge": "(4.2, 1.2.4)",
+                "distance": 11700
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "2.4",
-                "aToBDist": 1721,
-                "bToADist": 1503
+                "edge": "(2.1.1, 1.1)",
+                "distance": 15952
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "2.5",
-                "aToBDist": 1483,
-                "bToADist": 1023
+                "edge": "(1.1, 2.1.1)",
+                "distance": 15662
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "3.1",
-                "aToBDist": 1043,
-                "bToADist": 1595
+                "edge": "(2.1.1, 1.2)",
+                "distance": 12686
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "3.2",
-                "aToBDist": 1713,
-                "bToADist": 1483
+                "edge": "(1.2, 2.1.1)",
+                "distance": 17838
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "3.3",
-                "aToBDist": 1651,
-                "bToADist": 1978
+                "edge": "(2.1.1, 2.1)",
+                "distance": 16455
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "3.4",
-                "aToBDist": 1947,
-                "bToADist": 1227
+                "edge": "(2.1, 2.1.1)",
+                "distance": 15173
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "3.5",
-                "aToBDist": 1376,
-                "bToADist": 1307
+                "edge": "(2.1.1, 2.2)",
+                "distance": 17279
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "4.1",
-                "aToBDist": 1927,
-                "bToADist": 1612
+                "edge": "(2.2, 2.1.1)",
+                "distance": 16243
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "4.2",
-                "aToBDist": 1685,
-                "bToADist": 1470
+                "edge": "(2.1.1, 3.1)",
+                "distance": 12085
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "4.3",
-                "aToBDist": 1431,
-                "bToADist": 1445
+                "edge": "(3.1, 2.1.1)",
+                "distance": 17984
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "4.4",
-                "aToBDist": 1297,
-                "bToADist": 1070
+                "edge": "(2.1.1, 3.2)",
+                "distance": 17822
             },
             {
-                "pointA": "1.1.7",
-                "pointB": "4.5",
-                "aToBDist": 1058,
-                "bToADist": 1468
+                "edge": "(3.2, 2.1.1)",
+                "distance": 10659
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "1.1",
-                "aToBDist": 1801,
-                "bToADist": 1086
+                "edge": "(2.1.1, 4.1)",
+                "distance": 17076
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "1.2",
-                "aToBDist": 1626,
-                "bToADist": 1581
+                "edge": "(4.1, 2.1.1)",
+                "distance": 12685
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "1.3",
-                "aToBDist": 1343,
-                "bToADist": 1440
+                "edge": "(2.1.1, 4.2)",
+                "distance": 18117
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "1.4",
-                "aToBDist": 1620,
-                "bToADist": 1592
+                "edge": "(4.2, 2.1.1)",
+                "distance": 12612
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "1.5",
-                "aToBDist": 1263,
-                "bToADist": 1603
+                "edge": "(2.1.2, 1.1)",
+                "distance": 13439
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "2.1",
-                "aToBDist": 1669,
-                "bToADist": 1462
+                "edge": "(1.1, 2.1.2)",
+                "distance": 19776
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "2.2",
-                "aToBDist": 1508,
-                "bToADist": 1431
+                "edge": "(2.1.2, 1.2)",
+                "distance": 17209
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "2.3",
-                "aToBDist": 1483,
-                "bToADist": 1826
+                "edge": "(1.2, 2.1.2)",
+                "distance": 10229
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "2.4",
-                "aToBDist": 1327,
-                "bToADist": 1550
+                "edge": "(2.1.2, 2.1)",
+                "distance": 19881
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "2.5",
-                "aToBDist": 1301,
-                "bToADist": 1578
+                "edge": "(2.1, 2.1.2)",
+                "distance": 16054
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "3.1",
-                "aToBDist": 1008,
-                "bToADist": 1079
+                "edge": "(2.1.2, 2.2)",
+                "distance": 15640
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "3.2",
-                "aToBDist": 1529,
-                "bToADist": 1646
+                "edge": "(2.2, 2.1.2)",
+                "distance": 17144
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "3.3",
-                "aToBDist": 1545,
-                "bToADist": 1962
+                "edge": "(2.1.2, 3.1)",
+                "distance": 12177
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "3.4",
-                "aToBDist": 1019,
-                "bToADist": 1415
+                "edge": "(3.1, 2.1.2)",
+                "distance": 10305
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "3.5",
-                "aToBDist": 1142,
-                "bToADist": 1018
+                "edge": "(2.1.2, 3.2)",
+                "distance": 15999
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "4.1",
-                "aToBDist": 1734,
-                "bToADist": 1937
+                "edge": "(3.2, 2.1.2)",
+                "distance": 11634
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "4.2",
-                "aToBDist": 1919,
-                "bToADist": 1208
+                "edge": "(2.1.2, 4.1)",
+                "distance": 10246
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "4.3",
-                "aToBDist": 1539,
-                "bToADist": 1995
+                "edge": "(4.1, 2.1.2)",
+                "distance": 19904
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "4.4",
-                "aToBDist": 1604,
-                "bToADist": 1162
+                "edge": "(2.1.2, 4.2)",
+                "distance": 10944
             },
             {
-                "pointA": "1.1.8",
-                "pointB": "4.5",
-                "aToBDist": 1723,
-                "bToADist": 1545
+                "edge": "(4.2, 2.1.2)",
+                "distance": 10380
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "1.1",
-                "aToBDist": 1443,
-                "bToADist": 1710
+                "edge": "(2.1.3, 1.1)",
+                "distance": 11718
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "1.2",
-                "aToBDist": 1817,
-                "bToADist": 1302
+                "edge": "(1.1, 2.1.3)",
+                "distance": 11159
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "1.3",
-                "aToBDist": 1885,
-                "bToADist": 1341
+                "edge": "(2.1.3, 1.2)",
+                "distance": 18263
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "1.4",
-                "aToBDist": 1537,
-                "bToADist": 1360
+                "edge": "(1.2, 2.1.3)",
+                "distance": 17420
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "1.5",
-                "aToBDist": 1112,
-                "bToADist": 1853
+                "edge": "(2.1.3, 2.1)",
+                "distance": 18327
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "2.1",
-                "aToBDist": 1412,
-                "bToADist": 1125
+                "edge": "(2.1, 2.1.3)",
+                "distance": 15176
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "2.2",
-                "aToBDist": 1865,
-                "bToADist": 1672
+                "edge": "(2.1.3, 2.2)",
+                "distance": 15702
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "2.3",
-                "aToBDist": 1406,
-                "bToADist": 1370
+                "edge": "(2.2, 2.1.3)",
+                "distance": 16034
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "2.4",
-                "aToBDist": 1500,
-                "bToADist": 1152
+                "edge": "(2.1.3, 3.1)",
+                "distance": 19759
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "2.5",
-                "aToBDist": 1219,
-                "bToADist": 1972
+                "edge": "(3.1, 2.1.3)",
+                "distance": 11857
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "3.1",
-                "aToBDist": 1659,
-                "bToADist": 1311
+                "edge": "(2.1.3, 3.2)",
+                "distance": 15652
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "3.2",
-                "aToBDist": 1351,
-                "bToADist": 1802
+                "edge": "(3.2, 2.1.3)",
+                "distance": 12265
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "3.3",
-                "aToBDist": 1301,
-                "bToADist": 1387
+                "edge": "(2.1.3, 4.1)",
+                "distance": 15769
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "3.4",
-                "aToBDist": 1129,
-                "bToADist": 1178
+                "edge": "(4.1, 2.1.3)",
+                "distance": 16264
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "3.5",
-                "aToBDist": 1673,
-                "bToADist": 1266
+                "edge": "(2.1.3, 4.2)",
+                "distance": 13326
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "4.1",
-                "aToBDist": 1890,
-                "bToADist": 1401
+                "edge": "(4.2, 2.1.3)",
+                "distance": 19022
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "4.2",
-                "aToBDist": 1029,
-                "bToADist": 1686
+                "edge": "(2.1.4, 1.1)",
+                "distance": 12508
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "4.3",
-                "aToBDist": 2000,
-                "bToADist": 1558
+                "edge": "(1.1, 2.1.4)",
+                "distance": 19282
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "4.4",
-                "aToBDist": 1335,
-                "bToADist": 1066
+                "edge": "(2.1.4, 1.2)",
+                "distance": 10808
             },
             {
-                "pointA": "1.1.9",
-                "pointB": "4.5",
-                "aToBDist": 1867,
-                "bToADist": 1390
+                "edge": "(1.2, 2.1.4)",
+                "distance": 12219
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "1.1",
-                "aToBDist": 1744,
-                "bToADist": 1594
+                "edge": "(2.1.4, 2.1)",
+                "distance": 16856
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "1.2",
-                "aToBDist": 1050,
-                "bToADist": 1476
+                "edge": "(2.1, 2.1.4)",
+                "distance": 17091
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "1.3",
-                "aToBDist": 1303,
-                "bToADist": 1582
+                "edge": "(2.1.4, 2.2)",
+                "distance": 15193
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "1.4",
-                "aToBDist": 1153,
-                "bToADist": 1391
+                "edge": "(2.2, 2.1.4)",
+                "distance": 12753
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "1.5",
-                "aToBDist": 1401,
-                "bToADist": 1253
+                "edge": "(2.1.4, 3.1)",
+                "distance": 16566
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "2.1",
-                "aToBDist": 1046,
-                "bToADist": 1630
+                "edge": "(3.1, 2.1.4)",
+                "distance": 15983
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "2.2",
-                "aToBDist": 1104,
-                "bToADist": 1002
+                "edge": "(2.1.4, 3.2)",
+                "distance": 15480
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "2.3",
-                "aToBDist": 1186,
-                "bToADist": 1409
+                "edge": "(3.2, 2.1.4)",
+                "distance": 15900
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "2.4",
-                "aToBDist": 1061,
-                "bToADist": 1805
+                "edge": "(2.1.4, 4.1)",
+                "distance": 10039
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "2.5",
-                "aToBDist": 1942,
-                "bToADist": 1258
+                "edge": "(4.1, 2.1.4)",
+                "distance": 17643
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "3.1",
-                "aToBDist": 1935,
-                "bToADist": 1846
+                "edge": "(2.1.4, 4.2)",
+                "distance": 15957
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "3.2",
-                "aToBDist": 1565,
-                "bToADist": 1289
+                "edge": "(4.2, 2.1.4)",
+                "distance": 14816
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "3.3",
-                "aToBDist": 1987,
-                "bToADist": 1535
+                "edge": "(2.2.1, 1.1)",
+                "distance": 10417
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "3.4",
-                "aToBDist": 1101,
-                "bToADist": 1831
+                "edge": "(1.1, 2.2.1)",
+                "distance": 14416
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "3.5",
-                "aToBDist": 1780,
-                "bToADist": 1783
+                "edge": "(2.2.1, 1.2)",
+                "distance": 17075
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "4.1",
-                "aToBDist": 1247,
-                "bToADist": 1558
+                "edge": "(1.2, 2.2.1)",
+                "distance": 10898
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "4.2",
-                "aToBDist": 1295,
-                "bToADist": 1242
+                "edge": "(2.2.1, 2.1)",
+                "distance": 18981
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "4.3",
-                "aToBDist": 1523,
-                "bToADist": 1579
+                "edge": "(2.1, 2.2.1)",
+                "distance": 19549
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "4.4",
-                "aToBDist": 1045,
-                "bToADist": 1766
+                "edge": "(2.2.1, 2.2)",
+                "distance": 19727
             },
             {
-                "pointA": "1.1.10",
-                "pointB": "4.5",
-                "aToBDist": 1620,
-                "bToADist": 1282
+                "edge": "(2.2, 2.2.1)",
+                "distance": 14328
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "1.1",
-                "aToBDist": 1289,
-                "bToADist": 1943
+                "edge": "(2.2.1, 3.1)",
+                "distance": 11781
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "1.2",
-                "aToBDist": 1168,
-                "bToADist": 1001
+                "edge": "(3.1, 2.2.1)",
+                "distance": 12853
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "1.3",
-                "aToBDist": 1028,
-                "bToADist": 1453
+                "edge": "(2.2.1, 3.2)",
+                "distance": 11747
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "1.4",
-                "aToBDist": 1009,
-                "bToADist": 1722
+                "edge": "(3.2, 2.2.1)",
+                "distance": 10607
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "1.5",
-                "aToBDist": 1961,
-                "bToADist": 1517
+                "edge": "(2.2.1, 4.1)",
+                "distance": 13061
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "2.1",
-                "aToBDist": 1754,
-                "bToADist": 1062
+                "edge": "(4.1, 2.2.1)",
+                "distance": 17274
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "2.2",
-                "aToBDist": 1113,
-                "bToADist": 1973
+                "edge": "(2.2.1, 4.2)",
+                "distance": 14240
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "2.3",
-                "aToBDist": 1987,
-                "bToADist": 1624
+                "edge": "(4.2, 2.2.1)",
+                "distance": 11115
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "2.4",
-                "aToBDist": 1762,
-                "bToADist": 1828
+                "edge": "(2.2.2, 1.1)",
+                "distance": 18812
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "2.5",
-                "aToBDist": 1078,
-                "bToADist": 1248
+                "edge": "(1.1, 2.2.2)",
+                "distance": 17466
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "3.1",
-                "aToBDist": 1149,
-                "bToADist": 1098
+                "edge": "(2.2.2, 1.2)",
+                "distance": 10054
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "3.2",
-                "aToBDist": 1228,
-                "bToADist": 1343
+                "edge": "(1.2, 2.2.2)",
+                "distance": 14098
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "3.3",
-                "aToBDist": 1312,
-                "bToADist": 1337
+                "edge": "(2.2.2, 2.1)",
+                "distance": 12005
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "3.4",
-                "aToBDist": 1145,
-                "bToADist": 1906
+                "edge": "(2.1, 2.2.2)",
+                "distance": 14971
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "3.5",
-                "aToBDist": 1556,
-                "bToADist": 1709
+                "edge": "(2.2.2, 2.2)",
+                "distance": 13844
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "4.1",
-                "aToBDist": 1006,
-                "bToADist": 1651
+                "edge": "(2.2, 2.2.2)",
+                "distance": 10137
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "4.2",
-                "aToBDist": 1948,
-                "bToADist": 1171
+                "edge": "(2.2.2, 3.1)",
+                "distance": 16630
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "4.3",
-                "aToBDist": 1516,
-                "bToADist": 1432
+                "edge": "(3.1, 2.2.2)",
+                "distance": 10374
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "4.4",
-                "aToBDist": 1628,
-                "bToADist": 1419
+                "edge": "(2.2.2, 3.2)",
+                "distance": 16737
             },
             {
-                "pointA": "1.2.1",
-                "pointB": "4.5",
-                "aToBDist": 1875,
-                "bToADist": 1855
+                "edge": "(3.2, 2.2.2)",
+                "distance": 18373
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "1.1",
-                "aToBDist": 1135,
-                "bToADist": 1949
+                "edge": "(2.2.2, 4.1)",
+                "distance": 13483
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "1.2",
-                "aToBDist": 1257,
-                "bToADist": 1654
+                "edge": "(4.1, 2.2.2)",
+                "distance": 13204
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "1.3",
-                "aToBDist": 1156,
-                "bToADist": 1917
+                "edge": "(2.2.2, 4.2)",
+                "distance": 17174
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "1.4",
-                "aToBDist": 1469,
-                "bToADist": 1540
+                "edge": "(4.2, 2.2.2)",
+                "distance": 11881
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "1.5",
-                "aToBDist": 1918,
-                "bToADist": 1408
+                "edge": "(2.2.3, 1.1)",
+                "distance": 12511
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "2.1",
-                "aToBDist": 1927,
-                "bToADist": 1605
+                "edge": "(1.1, 2.2.3)",
+                "distance": 18066
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "2.2",
-                "aToBDist": 1990,
-                "bToADist": 1388
+                "edge": "(2.2.3, 1.2)",
+                "distance": 14509
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "2.3",
-                "aToBDist": 1238,
-                "bToADist": 1793
+                "edge": "(1.2, 2.2.3)",
+                "distance": 17481
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "2.4",
-                "aToBDist": 1968,
-                "bToADist": 1789
+                "edge": "(2.2.3, 2.1)",
+                "distance": 14255
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "2.5",
-                "aToBDist": 1523,
-                "bToADist": 1817
+                "edge": "(2.1, 2.2.3)",
+                "distance": 12004
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "3.1",
-                "aToBDist": 1848,
-                "bToADist": 1366
+                "edge": "(2.2.3, 2.2)",
+                "distance": 11479
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "3.2",
-                "aToBDist": 1070,
-                "bToADist": 1423
+                "edge": "(2.2, 2.2.3)",
+                "distance": 11449
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "3.3",
-                "aToBDist": 1262,
-                "bToADist": 1645
+                "edge": "(2.2.3, 3.1)",
+                "distance": 17019
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "3.4",
-                "aToBDist": 1585,
-                "bToADist": 1824
+                "edge": "(3.1, 2.2.3)",
+                "distance": 17303
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "3.5",
-                "aToBDist": 1460,
-                "bToADist": 1650
+                "edge": "(2.2.3, 3.2)",
+                "distance": 15663
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "4.1",
-                "aToBDist": 1847,
-                "bToADist": 1988
+                "edge": "(3.2, 2.2.3)",
+                "distance": 15577
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "4.2",
-                "aToBDist": 1205,
-                "bToADist": 1933
+                "edge": "(2.2.3, 4.1)",
+                "distance": 19695
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "4.3",
-                "aToBDist": 1647,
-                "bToADist": 1731
+                "edge": "(4.1, 2.2.3)",
+                "distance": 13056
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "4.4",
-                "aToBDist": 1485,
-                "bToADist": 1290
+                "edge": "(2.2.3, 4.2)",
+                "distance": 14178
             },
             {
-                "pointA": "1.2.2",
-                "pointB": "4.5",
-                "aToBDist": 1350,
-                "bToADist": 1206
+                "edge": "(4.2, 2.2.3)",
+                "distance": 13343
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "1.1",
-                "aToBDist": 1252,
-                "bToADist": 1057
+                "edge": "(2.2.4, 1.1)",
+                "distance": 15720
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "1.2",
-                "aToBDist": 1443,
-                "bToADist": 1783
+                "edge": "(1.1, 2.2.4)",
+                "distance": 16375
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "1.3",
-                "aToBDist": 1260,
-                "bToADist": 1386
+                "edge": "(2.2.4, 1.2)",
+                "distance": 13413
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "1.4",
-                "aToBDist": 1471,
-                "bToADist": 1226
+                "edge": "(1.2, 2.2.4)",
+                "distance": 19041
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "1.5",
-                "aToBDist": 1517,
-                "bToADist": 1149
+                "edge": "(2.2.4, 2.1)",
+                "distance": 15319
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "2.1",
-                "aToBDist": 1118,
-                "bToADist": 1309
+                "edge": "(2.1, 2.2.4)",
+                "distance": 17232
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "2.2",
-                "aToBDist": 1600,
-                "bToADist": 1924
+                "edge": "(2.2.4, 2.2)",
+                "distance": 15976
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "2.3",
-                "aToBDist": 1695,
-                "bToADist": 1946
+                "edge": "(2.2, 2.2.4)",
+                "distance": 10163
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "2.4",
-                "aToBDist": 1774,
-                "bToADist": 1028
+                "edge": "(2.2.4, 3.1)",
+                "distance": 16358
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "2.5",
-                "aToBDist": 1615,
-                "bToADist": 1556
+                "edge": "(3.1, 2.2.4)",
+                "distance": 12769
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "3.1",
-                "aToBDist": 1769,
-                "bToADist": 1092
+                "edge": "(2.2.4, 3.2)",
+                "distance": 14118
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "3.2",
-                "aToBDist": 1453,
-                "bToADist": 1692
+                "edge": "(3.2, 2.2.4)",
+                "distance": 13383
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "3.3",
-                "aToBDist": 1267,
-                "bToADist": 1756
+                "edge": "(2.2.4, 4.1)",
+                "distance": 10507
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "3.4",
-                "aToBDist": 1526,
-                "bToADist": 1047
+                "edge": "(4.1, 2.2.4)",
+                "distance": 19124
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "3.5",
-                "aToBDist": 1664,
-                "bToADist": 1921
+                "edge": "(2.2.4, 4.2)",
+                "distance": 19589
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "4.1",
-                "aToBDist": 1169,
-                "bToADist": 1657
+                "edge": "(4.2, 2.2.4)",
+                "distance": 10089
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "4.2",
-                "aToBDist": 1886,
-                "bToADist": 1901
+                "edge": "(3.1.1, 1.1)",
+                "distance": 18245
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "4.3",
-                "aToBDist": 1131,
-                "bToADist": 1540
+                "edge": "(1.1, 3.1.1)",
+                "distance": 14505
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "4.4",
-                "aToBDist": 1054,
-                "bToADist": 1329
+                "edge": "(3.1.1, 1.2)",
+                "distance": 18052
             },
             {
-                "pointA": "1.2.3",
-                "pointB": "4.5",
-                "aToBDist": 1518,
-                "bToADist": 1304
+                "edge": "(1.2, 3.1.1)",
+                "distance": 19665
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "1.1",
-                "aToBDist": 1664,
-                "bToADist": 1721
+                "edge": "(3.1.1, 2.1)",
+                "distance": 13255
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "1.2",
-                "aToBDist": 1104,
-                "bToADist": 1957
+                "edge": "(2.1, 3.1.1)",
+                "distance": 15500
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "1.3",
-                "aToBDist": 1526,
-                "bToADist": 1624
+                "edge": "(3.1.1, 2.2)",
+                "distance": 19810
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "1.4",
-                "aToBDist": 1047,
-                "bToADist": 1784
+                "edge": "(2.2, 3.1.1)",
+                "distance": 18360
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "1.5",
-                "aToBDist": 1250,
-                "bToADist": 1927
+                "edge": "(3.1.1, 3.1)",
+                "distance": 10343
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "2.1",
-                "aToBDist": 1196,
-                "bToADist": 1934
+                "edge": "(3.1, 3.1.1)",
+                "distance": 10066
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "2.2",
-                "aToBDist": 1882,
-                "bToADist": 1743
+                "edge": "(3.1.1, 3.2)",
+                "distance": 18655
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "2.3",
-                "aToBDist": 1291,
-                "bToADist": 1233
+                "edge": "(3.2, 3.1.1)",
+                "distance": 16395
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "2.4",
-                "aToBDist": 1981,
-                "bToADist": 1300
+                "edge": "(3.1.1, 4.1)",
+                "distance": 12193
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "2.5",
-                "aToBDist": 1755,
-                "bToADist": 1461
+                "edge": "(4.1, 3.1.1)",
+                "distance": 10437
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "3.1",
-                "aToBDist": 1439,
-                "bToADist": 1650
+                "edge": "(3.1.1, 4.2)",
+                "distance": 18369
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "3.2",
-                "aToBDist": 1129,
-                "bToADist": 1509
+                "edge": "(4.2, 3.1.1)",
+                "distance": 18253
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "3.3",
-                "aToBDist": 1121,
-                "bToADist": 1477
+                "edge": "(3.1.2, 1.1)",
+                "distance": 14210
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "3.4",
-                "aToBDist": 1744,
-                "bToADist": 1037
+                "edge": "(1.1, 3.1.2)",
+                "distance": 12574
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "3.5",
-                "aToBDist": 1908,
-                "bToADist": 1874
+                "edge": "(3.1.2, 1.2)",
+                "distance": 17389
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "4.1",
-                "aToBDist": 1131,
-                "bToADist": 1664
+                "edge": "(1.2, 3.1.2)",
+                "distance": 14865
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "4.2",
-                "aToBDist": 1167,
-                "bToADist": 1911
+                "edge": "(3.1.2, 2.1)",
+                "distance": 14248
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "4.3",
-                "aToBDist": 1020,
-                "bToADist": 1109
+                "edge": "(2.1, 3.1.2)",
+                "distance": 10019
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "4.4",
-                "aToBDist": 1277,
-                "bToADist": 1738
+                "edge": "(3.1.2, 2.2)",
+                "distance": 15883
             },
             {
-                "pointA": "1.2.4",
-                "pointB": "4.5",
-                "aToBDist": 1391,
-                "bToADist": 1000
+                "edge": "(2.2, 3.1.2)",
+                "distance": 11556
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "1.1",
-                "aToBDist": 1904,
-                "bToADist": 1308
+                "edge": "(3.1.2, 3.1)",
+                "distance": 10227
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "1.2",
-                "aToBDist": 1733,
-                "bToADist": 1866
+                "edge": "(3.1, 3.1.2)",
+                "distance": 17335
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "1.3",
-                "aToBDist": 1433,
-                "bToADist": 1728
+                "edge": "(3.1.2, 3.2)",
+                "distance": 12518
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "1.4",
-                "aToBDist": 1989,
-                "bToADist": 1785
+                "edge": "(3.2, 3.1.2)",
+                "distance": 14097
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "1.5",
-                "aToBDist": 1868,
-                "bToADist": 1249
+                "edge": "(3.1.2, 4.1)",
+                "distance": 12258
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "2.1",
-                "aToBDist": 1912,
-                "bToADist": 1923
+                "edge": "(4.1, 3.1.2)",
+                "distance": 12692
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "2.2",
-                "aToBDist": 1407,
-                "bToADist": 1519
+                "edge": "(3.1.2, 4.2)",
+                "distance": 13524
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "2.3",
-                "aToBDist": 1751,
-                "bToADist": 1372
+                "edge": "(4.2, 3.1.2)",
+                "distance": 12932
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "2.4",
-                "aToBDist": 1906,
-                "bToADist": 1102
+                "edge": "(3.1.3, 1.1)",
+                "distance": 12847
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "2.5",
-                "aToBDist": 1407,
-                "bToADist": 1645
+                "edge": "(1.1, 3.1.3)",
+                "distance": 16863
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "3.1",
-                "aToBDist": 1627,
-                "bToADist": 1905
+                "edge": "(3.1.3, 1.2)",
+                "distance": 17022
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "3.2",
-                "aToBDist": 1701,
-                "bToADist": 1222
+                "edge": "(1.2, 3.1.3)",
+                "distance": 16814
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "3.3",
-                "aToBDist": 1330,
-                "bToADist": 1212
+                "edge": "(3.1.3, 2.1)",
+                "distance": 12112
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "3.4",
-                "aToBDist": 1636,
-                "bToADist": 1192
+                "edge": "(2.1, 3.1.3)",
+                "distance": 19803
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "3.5",
-                "aToBDist": 1379,
-                "bToADist": 1913
+                "edge": "(3.1.3, 2.2)",
+                "distance": 11171
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "4.1",
-                "aToBDist": 1674,
-                "bToADist": 1440
+                "edge": "(2.2, 3.1.3)",
+                "distance": 18899
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "4.2",
-                "aToBDist": 1345,
-                "bToADist": 1289
+                "edge": "(3.1.3, 3.1)",
+                "distance": 11847
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "4.3",
-                "aToBDist": 1186,
-                "bToADist": 1234
+                "edge": "(3.1, 3.1.3)",
+                "distance": 16948
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "4.4",
-                "aToBDist": 1567,
-                "bToADist": 1227
+                "edge": "(3.1.3, 3.2)",
+                "distance": 14190
             },
             {
-                "pointA": "1.2.5",
-                "pointB": "4.5",
-                "aToBDist": 1493,
-                "bToADist": 1207
+                "edge": "(3.2, 3.1.3)",
+                "distance": 10776
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "1.1",
-                "aToBDist": 1447,
-                "bToADist": 1922
+                "edge": "(3.1.3, 4.1)",
+                "distance": 11365
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "1.2",
-                "aToBDist": 1592,
-                "bToADist": 1650
+                "edge": "(4.1, 3.1.3)",
+                "distance": 14875
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "1.3",
-                "aToBDist": 1683,
-                "bToADist": 1978
+                "edge": "(3.1.3, 4.2)",
+                "distance": 10489
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "1.4",
-                "aToBDist": 1878,
-                "bToADist": 1079
+                "edge": "(4.2, 3.1.3)",
+                "distance": 11150
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "1.5",
-                "aToBDist": 1464,
-                "bToADist": 1121
+                "edge": "(3.1.4, 1.1)",
+                "distance": 13672
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "2.1",
-                "aToBDist": 1937,
-                "bToADist": 1046
+                "edge": "(1.1, 3.1.4)",
+                "distance": 18798
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "2.2",
-                "aToBDist": 1233,
-                "bToADist": 1230
+                "edge": "(3.1.4, 1.2)",
+                "distance": 19118
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "2.3",
-                "aToBDist": 1083,
-                "bToADist": 1553
+                "edge": "(1.2, 3.1.4)",
+                "distance": 17056
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "2.4",
-                "aToBDist": 1254,
-                "bToADist": 1382
+                "edge": "(3.1.4, 2.1)",
+                "distance": 12264
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "2.5",
-                "aToBDist": 1253,
-                "bToADist": 1179
+                "edge": "(2.1, 3.1.4)",
+                "distance": 19551
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "3.1",
-                "aToBDist": 1663,
-                "bToADist": 1096
+                "edge": "(3.1.4, 2.2)",
+                "distance": 19132
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "3.2",
-                "aToBDist": 1232,
-                "bToADist": 1637
+                "edge": "(2.2, 3.1.4)",
+                "distance": 18163
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "3.3",
-                "aToBDist": 1835,
-                "bToADist": 1834
+                "edge": "(3.1.4, 3.1)",
+                "distance": 11591
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "3.4",
-                "aToBDist": 1400,
-                "bToADist": 1843
+                "edge": "(3.1, 3.1.4)",
+                "distance": 16171
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "3.5",
-                "aToBDist": 1278,
-                "bToADist": 1198
+                "edge": "(3.1.4, 3.2)",
+                "distance": 13062
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "4.1",
-                "aToBDist": 1486,
-                "bToADist": 1063
+                "edge": "(3.2, 3.1.4)",
+                "distance": 17520
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "4.2",
-                "aToBDist": 1107,
-                "bToADist": 1142
+                "edge": "(3.1.4, 4.1)",
+                "distance": 10256
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "4.3",
-                "aToBDist": 1345,
-                "bToADist": 1673
+                "edge": "(4.1, 3.1.4)",
+                "distance": 10903
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "4.4",
-                "aToBDist": 1283,
-                "bToADist": 1681
+                "edge": "(3.1.4, 4.2)",
+                "distance": 17092
             },
             {
-                "pointA": "1.2.6",
-                "pointB": "4.5",
-                "aToBDist": 1642,
-                "bToADist": 1596
+                "edge": "(4.2, 3.1.4)",
+                "distance": 10424
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "1.1",
-                "aToBDist": 1859,
-                "bToADist": 1039
+                "edge": "(3.2.1, 1.1)",
+                "distance": 19634
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "1.2",
-                "aToBDist": 1146,
-                "bToADist": 1377
+                "edge": "(1.1, 3.2.1)",
+                "distance": 10660
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "1.3",
-                "aToBDist": 1574,
-                "bToADist": 1828
+                "edge": "(3.2.1, 1.2)",
+                "distance": 19726
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "1.4",
-                "aToBDist": 1993,
-                "bToADist": 1872
+                "edge": "(1.2, 3.2.1)",
+                "distance": 12880
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "1.5",
-                "aToBDist": 1413,
-                "bToADist": 1031
+                "edge": "(3.2.1, 2.1)",
+                "distance": 18805
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "2.1",
-                "aToBDist": 1584,
-                "bToADist": 1213
+                "edge": "(2.1, 3.2.1)",
+                "distance": 10261
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "2.2",
-                "aToBDist": 1547,
-                "bToADist": 1907
+                "edge": "(3.2.1, 2.2)",
+                "distance": 10254
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "2.3",
-                "aToBDist": 1890,
-                "bToADist": 1461
+                "edge": "(2.2, 3.2.1)",
+                "distance": 19563
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "2.4",
-                "aToBDist": 1124,
-                "bToADist": 1666
+                "edge": "(3.2.1, 3.1)",
+                "distance": 18169
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "2.5",
-                "aToBDist": 1302,
-                "bToADist": 1341
+                "edge": "(3.1, 3.2.1)",
+                "distance": 18976
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "3.1",
-                "aToBDist": 1183,
-                "bToADist": 1161
+                "edge": "(3.2.1, 3.2)",
+                "distance": 10147
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "3.2",
-                "aToBDist": 1508,
-                "bToADist": 1248
+                "edge": "(3.2, 3.2.1)",
+                "distance": 10073
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "3.3",
-                "aToBDist": 1864,
-                "bToADist": 1270
+                "edge": "(3.2.1, 4.1)",
+                "distance": 12289
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "3.4",
-                "aToBDist": 1547,
-                "bToADist": 1114
+                "edge": "(4.1, 3.2.1)",
+                "distance": 18829
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "3.5",
-                "aToBDist": 1029,
-                "bToADist": 1525
+                "edge": "(3.2.1, 4.2)",
+                "distance": 19112
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "4.1",
-                "aToBDist": 1340,
-                "bToADist": 1907
+                "edge": "(4.2, 3.2.1)",
+                "distance": 13978
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "4.2",
-                "aToBDist": 1346,
-                "bToADist": 1943
+                "edge": "(3.2.2, 1.1)",
+                "distance": 17621
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "4.3",
-                "aToBDist": 1162,
-                "bToADist": 1976
+                "edge": "(1.1, 3.2.2)",
+                "distance": 17248
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "4.4",
-                "aToBDist": 1047,
-                "bToADist": 1171
+                "edge": "(3.2.2, 1.2)",
+                "distance": 10306
             },
             {
-                "pointA": "1.2.7",
-                "pointB": "4.5",
-                "aToBDist": 1612,
-                "bToADist": 1684
+                "edge": "(1.2, 3.2.2)",
+                "distance": 15676
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "1.1",
-                "aToBDist": 1025,
-                "bToADist": 1370
+                "edge": "(3.2.2, 2.1)",
+                "distance": 12944
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "1.2",
-                "aToBDist": 1123,
-                "bToADist": 1654
+                "edge": "(2.1, 3.2.2)",
+                "distance": 10245
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "1.3",
-                "aToBDist": 1362,
-                "bToADist": 1863
+                "edge": "(3.2.2, 2.2)",
+                "distance": 10682
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "1.4",
-                "aToBDist": 1535,
-                "bToADist": 1494
+                "edge": "(2.2, 3.2.2)",
+                "distance": 17319
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "1.5",
-                "aToBDist": 1259,
-                "bToADist": 1885
+                "edge": "(3.2.2, 3.1)",
+                "distance": 14428
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "2.1",
-                "aToBDist": 1943,
-                "bToADist": 1283
+                "edge": "(3.1, 3.2.2)",
+                "distance": 13340
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "2.2",
-                "aToBDist": 1904,
-                "bToADist": 1431
+                "edge": "(3.2.2, 3.2)",
+                "distance": 17759
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "2.3",
-                "aToBDist": 1319,
-                "bToADist": 1089
+                "edge": "(3.2, 3.2.2)",
+                "distance": 15100
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "2.4",
-                "aToBDist": 1619,
-                "bToADist": 1237
+                "edge": "(3.2.2, 4.1)",
+                "distance": 15856
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "2.5",
-                "aToBDist": 1716,
-                "bToADist": 1699
+                "edge": "(4.1, 3.2.2)",
+                "distance": 10996
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "3.1",
-                "aToBDist": 1691,
-                "bToADist": 1885
+                "edge": "(3.2.2, 4.2)",
+                "distance": 16927
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "3.2",
-                "aToBDist": 1955,
-                "bToADist": 1613
+                "edge": "(4.2, 3.2.2)",
+                "distance": 10827
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "3.3",
-                "aToBDist": 1543,
-                "bToADist": 1739
+                "edge": "(3.2.3, 1.1)",
+                "distance": 13973
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "3.4",
-                "aToBDist": 1494,
-                "bToADist": 1573
+                "edge": "(1.1, 3.2.3)",
+                "distance": 11083
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "3.5",
-                "aToBDist": 1857,
-                "bToADist": 1506
+                "edge": "(3.2.3, 1.2)",
+                "distance": 18702
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "4.1",
-                "aToBDist": 1298,
-                "bToADist": 1415
+                "edge": "(1.2, 3.2.3)",
+                "distance": 17099
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "4.2",
-                "aToBDist": 1401,
-                "bToADist": 1003
+                "edge": "(3.2.3, 2.1)",
+                "distance": 15166
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "4.3",
-                "aToBDist": 1528,
-                "bToADist": 1430
+                "edge": "(2.1, 3.2.3)",
+                "distance": 13394
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "4.4",
-                "aToBDist": 1682,
-                "bToADist": 1968
+                "edge": "(3.2.3, 2.2)",
+                "distance": 14732
             },
             {
-                "pointA": "1.2.8",
-                "pointB": "4.5",
-                "aToBDist": 1370,
-                "bToADist": 1227
+                "edge": "(2.2, 3.2.3)",
+                "distance": 17536
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "1.1",
-                "aToBDist": 1373,
-                "bToADist": 1332
+                "edge": "(3.2.3, 3.1)",
+                "distance": 17991
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "1.2",
-                "aToBDist": 1683,
-                "bToADist": 1160
+                "edge": "(3.1, 3.2.3)",
+                "distance": 15447
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "1.3",
-                "aToBDist": 1635,
-                "bToADist": 1237
+                "edge": "(3.2.3, 3.2)",
+                "distance": 19055
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "1.4",
-                "aToBDist": 1753,
-                "bToADist": 1739
+                "edge": "(3.2, 3.2.3)",
+                "distance": 11970
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "1.5",
-                "aToBDist": 1794,
-                "bToADist": 1022
+                "edge": "(3.2.3, 4.1)",
+                "distance": 17617
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "2.1",
-                "aToBDist": 1396,
-                "bToADist": 1430
+                "edge": "(4.1, 3.2.3)",
+                "distance": 13706
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "2.2",
-                "aToBDist": 1442,
-                "bToADist": 1285
+                "edge": "(3.2.3, 4.2)",
+                "distance": 13409
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "2.3",
-                "aToBDist": 1628,
-                "bToADist": 1348
+                "edge": "(4.2, 3.2.3)",
+                "distance": 16345
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "2.4",
-                "aToBDist": 1114,
-                "bToADist": 1348
+                "edge": "(3.2.4, 1.1)",
+                "distance": 19397
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "2.5",
-                "aToBDist": 1421,
-                "bToADist": 1427
+                "edge": "(1.1, 3.2.4)",
+                "distance": 13249
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "3.1",
-                "aToBDist": 1152,
-                "bToADist": 1548
+                "edge": "(3.2.4, 1.2)",
+                "distance": 15969
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "3.2",
-                "aToBDist": 1983,
-                "bToADist": 1632
+                "edge": "(1.2, 3.2.4)",
+                "distance": 16205
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "3.3",
-                "aToBDist": 1441,
-                "bToADist": 1872
+                "edge": "(3.2.4, 2.1)",
+                "distance": 12602
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "3.4",
-                "aToBDist": 1850,
-                "bToADist": 1205
+                "edge": "(2.1, 3.2.4)",
+                "distance": 19413
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "3.5",
-                "aToBDist": 1801,
-                "bToADist": 1400
+                "edge": "(3.2.4, 2.2)",
+                "distance": 10592
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "4.1",
-                "aToBDist": 1638,
-                "bToADist": 1648
+                "edge": "(2.2, 3.2.4)",
+                "distance": 12720
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "4.2",
-                "aToBDist": 1595,
-                "bToADist": 1356
+                "edge": "(3.2.4, 3.1)",
+                "distance": 19536
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "4.3",
-                "aToBDist": 1873,
-                "bToADist": 1300
+                "edge": "(3.1, 3.2.4)",
+                "distance": 10682
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "4.4",
-                "aToBDist": 1172,
-                "bToADist": 1610
+                "edge": "(3.2.4, 3.2)",
+                "distance": 10154
             },
             {
-                "pointA": "1.2.9",
-                "pointB": "4.5",
-                "aToBDist": 1101,
-                "bToADist": 1566
+                "edge": "(3.2, 3.2.4)",
+                "distance": 10832
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "1.1",
-                "aToBDist": 1903,
-                "bToADist": 1645
+                "edge": "(3.2.4, 4.1)",
+                "distance": 11861
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "1.2",
-                "aToBDist": 1385,
-                "bToADist": 1228
+                "edge": "(4.1, 3.2.4)",
+                "distance": 16995
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "1.3",
-                "aToBDist": 1430,
-                "bToADist": 1488
+                "edge": "(3.2.4, 4.2)",
+                "distance": 10648
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "1.4",
-                "aToBDist": 1114,
-                "bToADist": 1849
+                "edge": "(4.2, 3.2.4)",
+                "distance": 15839
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "1.5",
-                "aToBDist": 1558,
-                "bToADist": 1637
+                "edge": "(4.1.1, 1.1)",
+                "distance": 14875
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "2.1",
-                "aToBDist": 1633,
-                "bToADist": 1465
+                "edge": "(1.1, 4.1.1)",
+                "distance": 18114
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "2.2",
-                "aToBDist": 1552,
-                "bToADist": 1077
+                "edge": "(4.1.1, 1.2)",
+                "distance": 11072
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "2.3",
-                "aToBDist": 1803,
-                "bToADist": 1263
+                "edge": "(1.2, 4.1.1)",
+                "distance": 18142
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "2.4",
-                "aToBDist": 1782,
-                "bToADist": 1704
+                "edge": "(4.1.1, 2.1)",
+                "distance": 16669
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "2.5",
-                "aToBDist": 1300,
-                "bToADist": 1492
+                "edge": "(2.1, 4.1.1)",
+                "distance": 17946
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "3.1",
-                "aToBDist": 1099,
-                "bToADist": 1586
+                "edge": "(4.1.1, 2.2)",
+                "distance": 16262
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "3.2",
-                "aToBDist": 1454,
-                "bToADist": 1777
+                "edge": "(2.2, 4.1.1)",
+                "distance": 19615
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "3.3",
-                "aToBDist": 1701,
-                "bToADist": 1181
+                "edge": "(4.1.1, 3.1)",
+                "distance": 15407
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "3.4",
-                "aToBDist": 1667,
-                "bToADist": 1101
+                "edge": "(3.1, 4.1.1)",
+                "distance": 15728
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "3.5",
-                "aToBDist": 1465,
-                "bToADist": 1545
+                "edge": "(4.1.1, 3.2)",
+                "distance": 12078
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "4.1",
-                "aToBDist": 1053,
-                "bToADist": 1208
+                "edge": "(3.2, 4.1.1)",
+                "distance": 13397
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "4.2",
-                "aToBDist": 1469,
-                "bToADist": 1063
+                "edge": "(4.1.1, 4.1)",
+                "distance": 12057
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "4.3",
-                "aToBDist": 1779,
-                "bToADist": 1466
+                "edge": "(4.1, 4.1.1)",
+                "distance": 17709
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "4.4",
-                "aToBDist": 1047,
-                "bToADist": 1888
+                "edge": "(4.1.1, 4.2)",
+                "distance": 16391
             },
             {
-                "pointA": "1.2.10",
-                "pointB": "4.5",
-                "aToBDist": 1584,
-                "bToADist": 1835
+                "edge": "(4.2, 4.1.1)",
+                "distance": 18036
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "1.1",
-                "aToBDist": 1324,
-                "bToADist": 1632
+                "edge": "(4.1.2, 1.1)",
+                "distance": 17093
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "1.2",
-                "aToBDist": 1331,
-                "bToADist": 1859
+                "edge": "(1.1, 4.1.2)",
+                "distance": 15032
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "1.3",
-                "aToBDist": 1456,
-                "bToADist": 1391
+                "edge": "(4.1.2, 1.2)",
+                "distance": 10619
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "1.4",
-                "aToBDist": 1261,
-                "bToADist": 1372
+                "edge": "(1.2, 4.1.2)",
+                "distance": 19238
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "1.5",
-                "aToBDist": 1298,
-                "bToADist": 1882
+                "edge": "(4.1.2, 2.1)",
+                "distance": 13551
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "2.1",
-                "aToBDist": 1953,
-                "bToADist": 1521
+                "edge": "(2.1, 4.1.2)",
+                "distance": 16967
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "2.2",
-                "aToBDist": 1834,
-                "bToADist": 1220
+                "edge": "(4.1.2, 2.2)",
+                "distance": 19677
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "2.3",
-                "aToBDist": 1398,
-                "bToADist": 1457
+                "edge": "(2.2, 4.1.2)",
+                "distance": 13512
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "2.4",
-                "aToBDist": 1664,
-                "bToADist": 1889
+                "edge": "(4.1.2, 3.1)",
+                "distance": 16260
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "2.5",
-                "aToBDist": 1239,
-                "bToADist": 1468
+                "edge": "(3.1, 4.1.2)",
+                "distance": 12591
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "3.1",
-                "aToBDist": 1985,
-                "bToADist": 1926
+                "edge": "(4.1.2, 3.2)",
+                "distance": 16305
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "3.2",
-                "aToBDist": 1325,
-                "bToADist": 1500
+                "edge": "(3.2, 4.1.2)",
+                "distance": 16931
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "3.3",
-                "aToBDist": 1667,
-                "bToADist": 1444
+                "edge": "(4.1.2, 4.1)",
+                "distance": 10283
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "3.4",
-                "aToBDist": 1814,
-                "bToADist": 1761
+                "edge": "(4.1, 4.1.2)",
+                "distance": 14041
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "3.5",
-                "aToBDist": 1008,
-                "bToADist": 1513
+                "edge": "(4.1.2, 4.2)",
+                "distance": 12174
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "4.1",
-                "aToBDist": 1886,
-                "bToADist": 1215
+                "edge": "(4.2, 4.1.2)",
+                "distance": 16881
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "4.2",
-                "aToBDist": 1800,
-                "bToADist": 1533
+                "edge": "(4.1.3, 1.1)",
+                "distance": 10567
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "4.3",
-                "aToBDist": 1124,
-                "bToADist": 1723
+                "edge": "(1.1, 4.1.3)",
+                "distance": 18099
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "4.4",
-                "aToBDist": 1718,
-                "bToADist": 1185
+                "edge": "(4.1.3, 1.2)",
+                "distance": 19308
             },
             {
-                "pointA": "2.1.1",
-                "pointB": "4.5",
-                "aToBDist": 1204,
-                "bToADist": 1967
+                "edge": "(1.2, 4.1.3)",
+                "distance": 11154
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "1.1",
-                "aToBDist": 1698,
-                "bToADist": 1066
+                "edge": "(4.1.3, 2.1)",
+                "distance": 17497
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "1.2",
-                "aToBDist": 1365,
-                "bToADist": 1932
+                "edge": "(2.1, 4.1.3)",
+                "distance": 18275
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "1.3",
-                "aToBDist": 1942,
-                "bToADist": 1529
+                "edge": "(4.1.3, 2.2)",
+                "distance": 18174
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "1.4",
-                "aToBDist": 1495,
-                "bToADist": 1217
+                "edge": "(2.2, 4.1.3)",
+                "distance": 16470
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "1.5",
-                "aToBDist": 1940,
-                "bToADist": 1673
+                "edge": "(4.1.3, 3.1)",
+                "distance": 14282
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "2.1",
-                "aToBDist": 1453,
-                "bToADist": 1995
+                "edge": "(3.1, 4.1.3)",
+                "distance": 19732
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "2.2",
-                "aToBDist": 1550,
-                "bToADist": 1708
+                "edge": "(4.1.3, 3.2)",
+                "distance": 16054
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "2.3",
-                "aToBDist": 1393,
-                "bToADist": 1394
+                "edge": "(3.2, 4.1.3)",
+                "distance": 10384
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "2.4",
-                "aToBDist": 1208,
-                "bToADist": 1777
+                "edge": "(4.1.3, 4.1)",
+                "distance": 19800
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "2.5",
-                "aToBDist": 1989,
-                "bToADist": 1241
+                "edge": "(4.1, 4.1.3)",
+                "distance": 15644
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "3.1",
-                "aToBDist": 1846,
-                "bToADist": 1591
+                "edge": "(4.1.3, 4.2)",
+                "distance": 14541
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "3.2",
-                "aToBDist": 1174,
-                "bToADist": 1282
+                "edge": "(4.2, 4.1.3)",
+                "distance": 18761
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "3.3",
-                "aToBDist": 1033,
-                "bToADist": 1951
+                "edge": "(4.1.4, 1.1)",
+                "distance": 16418
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "3.4",
-                "aToBDist": 1290,
-                "bToADist": 1039
+                "edge": "(1.1, 4.1.4)",
+                "distance": 11893
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "3.5",
-                "aToBDist": 1710,
-                "bToADist": 1495
+                "edge": "(4.1.4, 1.2)",
+                "distance": 10138
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "4.1",
-                "aToBDist": 1164,
-                "bToADist": 1216
+                "edge": "(1.2, 4.1.4)",
+                "distance": 17507
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "4.2",
-                "aToBDist": 1617,
-                "bToADist": 1175
+                "edge": "(4.1.4, 2.1)",
+                "distance": 13097
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "4.3",
-                "aToBDist": 1505,
-                "bToADist": 1460
+                "edge": "(2.1, 4.1.4)",
+                "distance": 19572
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "4.4",
-                "aToBDist": 1243,
-                "bToADist": 1372
+                "edge": "(4.1.4, 2.2)",
+                "distance": 16795
             },
             {
-                "pointA": "2.1.2",
-                "pointB": "4.5",
-                "aToBDist": 1081,
-                "bToADist": 1188
+                "edge": "(2.2, 4.1.4)",
+                "distance": 11826
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "1.1",
-                "aToBDist": 1751,
-                "bToADist": 1701
+                "edge": "(4.1.4, 3.1)",
+                "distance": 12057
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "1.2",
-                "aToBDist": 1578,
-                "bToADist": 1861
+                "edge": "(3.1, 4.1.4)",
+                "distance": 11393
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "1.3",
-                "aToBDist": 1482,
-                "bToADist": 1553
+                "edge": "(4.1.4, 3.2)",
+                "distance": 18616
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "1.4",
-                "aToBDist": 1354,
-                "bToADist": 1081
+                "edge": "(3.2, 4.1.4)",
+                "distance": 11685
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "1.5",
-                "aToBDist": 1122,
-                "bToADist": 1960
+                "edge": "(4.1.4, 4.1)",
+                "distance": 14500
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "2.1",
-                "aToBDist": 1466,
-                "bToADist": 1179
+                "edge": "(4.1, 4.1.4)",
+                "distance": 14225
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "2.2",
-                "aToBDist": 1252,
-                "bToADist": 1707
+                "edge": "(4.1.4, 4.2)",
+                "distance": 18910
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "2.3",
-                "aToBDist": 1204,
-                "bToADist": 1250
+                "edge": "(4.2, 4.1.4)",
+                "distance": 18584
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "2.4",
-                "aToBDist": 1632,
-                "bToADist": 1391
+                "edge": "(4.2.1, 1.1)",
+                "distance": 12071
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "2.5",
-                "aToBDist": 1436,
-                "bToADist": 1289
+                "edge": "(1.1, 4.2.1)",
+                "distance": 13575
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "3.1",
-                "aToBDist": 1208,
-                "bToADist": 1525
+                "edge": "(4.2.1, 1.2)",
+                "distance": 13999
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "3.2",
-                "aToBDist": 1316,
-                "bToADist": 1732
+                "edge": "(1.2, 4.2.1)",
+                "distance": 18099
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "3.3",
-                "aToBDist": 1839,
-                "bToADist": 1788
+                "edge": "(4.2.1, 2.1)",
+                "distance": 19825
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "3.4",
-                "aToBDist": 1509,
-                "bToADist": 1116
+                "edge": "(2.1, 4.2.1)",
+                "distance": 18732
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "3.5",
-                "aToBDist": 1791,
-                "bToADist": 1948
+                "edge": "(4.2.1, 2.2)",
+                "distance": 19338
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "4.1",
-                "aToBDist": 1330,
-                "bToADist": 1412
+                "edge": "(2.2, 4.2.1)",
+                "distance": 19283
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "4.2",
-                "aToBDist": 1663,
-                "bToADist": 1851
+                "edge": "(4.2.1, 3.1)",
+                "distance": 14639
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "4.3",
-                "aToBDist": 1751,
-                "bToADist": 1144
+                "edge": "(3.1, 4.2.1)",
+                "distance": 12923
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "4.4",
-                "aToBDist": 1844,
-                "bToADist": 1112
+                "edge": "(4.2.1, 3.2)",
+                "distance": 18850
             },
             {
-                "pointA": "2.1.3",
-                "pointB": "4.5",
-                "aToBDist": 1217,
-                "bToADist": 1047
+                "edge": "(3.2, 4.2.1)",
+                "distance": 17525
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "1.1",
-                "aToBDist": 1802,
-                "bToADist": 1244
+                "edge": "(4.2.1, 4.1)",
+                "distance": 13186
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "1.2",
-                "aToBDist": 1993,
-                "bToADist": 1108
+                "edge": "(4.1, 4.2.1)",
+                "distance": 19234
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "1.3",
-                "aToBDist": 1604,
-                "bToADist": 1135
+                "edge": "(4.2.1, 4.2)",
+                "distance": 18048
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "1.4",
-                "aToBDist": 1841,
-                "bToADist": 1130
+                "edge": "(4.2, 4.2.1)",
+                "distance": 13251
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "1.5",
-                "aToBDist": 1892,
-                "bToADist": 1647
+                "edge": "(4.2.2, 1.1)",
+                "distance": 13759
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "2.1",
-                "aToBDist": 1861,
-                "bToADist": 1336
+                "edge": "(1.1, 4.2.2)",
+                "distance": 15197
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "2.2",
-                "aToBDist": 1637,
-                "bToADist": 1019
+                "edge": "(4.2.2, 1.2)",
+                "distance": 11944
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "2.3",
-                "aToBDist": 1156,
-                "bToADist": 1611
+                "edge": "(1.2, 4.2.2)",
+                "distance": 15350
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "2.4",
-                "aToBDist": 1494,
-                "bToADist": 1371
+                "edge": "(4.2.2, 2.1)",
+                "distance": 19600
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "2.5",
-                "aToBDist": 1971,
-                "bToADist": 1251
+                "edge": "(2.1, 4.2.2)",
+                "distance": 15918
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "3.1",
-                "aToBDist": 1214,
-                "bToADist": 1594
+                "edge": "(4.2.2, 2.2)",
+                "distance": 16667
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "3.2",
-                "aToBDist": 1546,
-                "bToADist": 1528
+                "edge": "(2.2, 4.2.2)",
+                "distance": 17759
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "3.3",
-                "aToBDist": 1669,
-                "bToADist": 1557
+                "edge": "(4.2.2, 3.1)",
+                "distance": 11930
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "3.4",
-                "aToBDist": 1952,
-                "bToADist": 1940
+                "edge": "(3.1, 4.2.2)",
+                "distance": 19070
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "3.5",
-                "aToBDist": 1372,
-                "bToADist": 1640
+                "edge": "(4.2.2, 3.2)",
+                "distance": 15816
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "4.1",
-                "aToBDist": 1383,
-                "bToADist": 1028
+                "edge": "(3.2, 4.2.2)",
+                "distance": 19270
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "4.2",
-                "aToBDist": 1482,
-                "bToADist": 1112
+                "edge": "(4.2.2, 4.1)",
+                "distance": 12931
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "4.3",
-                "aToBDist": 1882,
-                "bToADist": 1925
+                "edge": "(4.1, 4.2.2)",
+                "distance": 10267
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "4.4",
-                "aToBDist": 1957,
-                "bToADist": 1956
+                "edge": "(4.2.2, 4.2)",
+                "distance": 19791
             },
             {
-                "pointA": "2.1.4",
-                "pointB": "4.5",
-                "aToBDist": 1416,
-                "bToADist": 1131
+                "edge": "(4.2, 4.2.2)",
+                "distance": 16376
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "1.1",
-                "aToBDist": 1636,
-                "bToADist": 1018
+                "edge": "(4.2.3, 1.1)",
+                "distance": 12925
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "1.2",
-                "aToBDist": 1306,
-                "bToADist": 1187
+                "edge": "(1.1, 4.2.3)",
+                "distance": 10146
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "1.3",
-                "aToBDist": 1071,
-                "bToADist": 1754
+                "edge": "(4.2.3, 1.2)",
+                "distance": 19186
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "1.4",
-                "aToBDist": 1808,
-                "bToADist": 1110
+                "edge": "(1.2, 4.2.3)",
+                "distance": 14522
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "1.5",
-                "aToBDist": 1371,
-                "bToADist": 1784
+                "edge": "(4.2.3, 2.1)",
+                "distance": 14159
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "2.1",
-                "aToBDist": 1896,
-                "bToADist": 1327
+                "edge": "(2.1, 4.2.3)",
+                "distance": 17243
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "2.2",
-                "aToBDist": 1644,
-                "bToADist": 1966
+                "edge": "(4.2.3, 2.2)",
+                "distance": 15310
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "2.3",
-                "aToBDist": 1781,
-                "bToADist": 1136
+                "edge": "(2.2, 4.2.3)",
+                "distance": 13695
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "2.4",
-                "aToBDist": 1753,
-                "bToADist": 1189
+                "edge": "(4.2.3, 3.1)",
+                "distance": 16460
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "2.5",
-                "aToBDist": 1153,
-                "bToADist": 1600
+                "edge": "(3.1, 4.2.3)",
+                "distance": 18407
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "3.1",
-                "aToBDist": 1556,
-                "bToADist": 1388
+                "edge": "(4.2.3, 3.2)",
+                "distance": 13343
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "3.2",
-                "aToBDist": 1033,
-                "bToADist": 1858
+                "edge": "(3.2, 4.2.3)",
+                "distance": 12624
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "3.3",
-                "aToBDist": 1067,
-                "bToADist": 1434
+                "edge": "(4.2.3, 4.1)",
+                "distance": 12790
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "3.4",
-                "aToBDist": 1964,
-                "bToADist": 1154
+                "edge": "(4.1, 4.2.3)",
+                "distance": 12958
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "3.5",
-                "aToBDist": 1302,
-                "bToADist": 1254
+                "edge": "(4.2.3, 4.2)",
+                "distance": 17734
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "4.1",
-                "aToBDist": 1295,
-                "bToADist": 1787
+                "edge": "(4.2, 4.2.3)",
+                "distance": 13778
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "4.2",
-                "aToBDist": 1603,
-                "bToADist": 1593
+                "edge": "(4.2.4, 1.1)",
+                "distance": 16026
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "4.3",
-                "aToBDist": 1543,
-                "bToADist": 1598
+                "edge": "(1.1, 4.2.4)",
+                "distance": 19400
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "4.4",
-                "aToBDist": 1242,
-                "bToADist": 1602
+                "edge": "(4.2.4, 1.2)",
+                "distance": 15785
             },
             {
-                "pointA": "2.1.5",
-                "pointB": "4.5",
-                "aToBDist": 1818,
-                "bToADist": 1510
+                "edge": "(1.2, 4.2.4)",
+                "distance": 12903
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "1.1",
-                "aToBDist": 1283,
-                "bToADist": 1352
+                "edge": "(4.2.4, 2.1)",
+                "distance": 18392
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "1.2",
-                "aToBDist": 1198,
-                "bToADist": 1859
+                "edge": "(2.1, 4.2.4)",
+                "distance": 12718
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "1.3",
-                "aToBDist": 1510,
-                "bToADist": 1606
+                "edge": "(4.2.4, 2.2)",
+                "distance": 17288
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "1.4",
-                "aToBDist": 1193,
-                "bToADist": 1873
+                "edge": "(2.2, 4.2.4)",
+                "distance": 11331
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "1.5",
-                "aToBDist": 1653,
-                "bToADist": 1737
+                "edge": "(4.2.4, 3.1)",
+                "distance": 13856
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "2.1",
-                "aToBDist": 1937,
-                "bToADist": 1427
+                "edge": "(3.1, 4.2.4)",
+                "distance": 11288
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "2.2",
-                "aToBDist": 1612,
-                "bToADist": 1956
+                "edge": "(4.2.4, 3.2)",
+                "distance": 13180
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "2.3",
-                "aToBDist": 1699,
-                "bToADist": 1971
+                "edge": "(3.2, 4.2.4)",
+                "distance": 16731
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "2.4",
-                "aToBDist": 1045,
-                "bToADist": 1328
+                "edge": "(4.2.4, 4.1)",
+                "distance": 16164
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "2.5",
-                "aToBDist": 1761,
-                "bToADist": 1521
+                "edge": "(4.1, 4.2.4)",
+                "distance": 13112
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "3.1",
-                "aToBDist": 1381,
-                "bToADist": 1534
+                "edge": "(4.2.4, 4.2)",
+                "distance": 11093
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "3.2",
-                "aToBDist": 1910,
-                "bToADist": 1118
+                "edge": "(4.2, 4.2.4)",
+                "distance": 14098
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "3.3",
-                "aToBDist": 1669,
-                "bToADist": 1825
+                "edge": "(0.0, 1.1.1)",
+                "distance": 8278
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "3.4",
-                "aToBDist": 1409,
-                "bToADist": 1832
+                "edge": "(0.0, 1.1.2)",
+                "distance": 6007
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "3.5",
-                "aToBDist": 1757,
-                "bToADist": 1620
+                "edge": "(0.0, 1.1.3)",
+                "distance": 14818
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "4.1",
-                "aToBDist": 1518,
-                "bToADist": 1540
+                "edge": "(0.0, 1.1.4)",
+                "distance": 14332
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "4.2",
-                "aToBDist": 1408,
-                "bToADist": 1055
+                "edge": "(0.0, 1.2.1)",
+                "distance": 10935
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "4.3",
-                "aToBDist": 1699,
-                "bToADist": 1010
+                "edge": "(0.0, 1.2.2)",
+                "distance": 8823
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "4.4",
-                "aToBDist": 1046,
-                "bToADist": 1820
+                "edge": "(0.0, 1.2.3)",
+                "distance": 14515
             },
             {
-                "pointA": "2.1.6",
-                "pointB": "4.5",
-                "aToBDist": 1000,
-                "bToADist": 1202
+                "edge": "(0.0, 1.2.4)",
+                "distance": 14314
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "1.1",
-                "aToBDist": 1510,
-                "bToADist": 1618
+                "edge": "(0.0, 2.1.1)",
+                "distance": 9895
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "1.2",
-                "aToBDist": 1146,
-                "bToADist": 1703
+                "edge": "(0.0, 2.1.2)",
+                "distance": 7631
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "1.3",
-                "aToBDist": 1056,
-                "bToADist": 1277
+                "edge": "(0.0, 2.1.3)",
+                "distance": 7513
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "1.4",
-                "aToBDist": 1883,
-                "bToADist": 1402
+                "edge": "(0.0, 2.1.4)",
+                "distance": 10465
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "1.5",
-                "aToBDist": 1987,
-                "bToADist": 1973
+                "edge": "(0.0, 2.2.1)",
+                "distance": 12037
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "2.1",
-                "aToBDist": 1465,
-                "bToADist": 1156
+                "edge": "(0.0, 2.2.2)",
+                "distance": 6158
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "2.2",
-                "aToBDist": 1453,
-                "bToADist": 1229
+                "edge": "(0.0, 2.2.3)",
+                "distance": 7026
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "2.3",
-                "aToBDist": 1456,
-                "bToADist": 1296
+                "edge": "(0.0, 2.2.4)",
+                "distance": 10914
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "2.4",
-                "aToBDist": 1055,
-                "bToADist": 1087
+                "edge": "(0.0, 3.1.1)",
+                "distance": 12563
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "2.5",
-                "aToBDist": 1206,
-                "bToADist": 1176
+                "edge": "(0.0, 3.1.2)",
+                "distance": 10011
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "3.1",
-                "aToBDist": 1517,
-                "bToADist": 1880
+                "edge": "(0.0, 3.1.3)",
+                "distance": 12727
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "3.2",
-                "aToBDist": 1143,
-                "bToADist": 1569
+                "edge": "(0.0, 3.1.4)",
+                "distance": 10877
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "3.3",
-                "aToBDist": 1151,
-                "bToADist": 1444
+                "edge": "(0.0, 3.2.1)",
+                "distance": 14649
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "3.4",
-                "aToBDist": 1812,
-                "bToADist": 1067
+                "edge": "(0.0, 3.2.2)",
+                "distance": 12223
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "3.5",
-                "aToBDist": 1885,
-                "bToADist": 1236
+                "edge": "(0.0, 3.2.3)",
+                "distance": 6570
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "4.1",
-                "aToBDist": 1896,
-                "bToADist": 1809
+                "edge": "(0.0, 3.2.4)",
+                "distance": 14172
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "4.2",
-                "aToBDist": 1298,
-                "bToADist": 1005
+                "edge": "(0.0, 4.1.1)",
+                "distance": 8283
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "4.3",
-                "aToBDist": 1672,
-                "bToADist": 1996
+                "edge": "(0.0, 4.1.2)",
+                "distance": 8943
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "4.4",
-                "aToBDist": 1020,
-                "bToADist": 1152
+                "edge": "(0.0, 4.1.3)",
+                "distance": 13832
             },
             {
-                "pointA": "2.1.7",
-                "pointB": "4.5",
-                "aToBDist": 1192,
-                "bToADist": 1269
+                "edge": "(0.0, 4.1.4)",
+                "distance": 12666
             },
             {
-                "pointA": "2.1.8",
-                "pointB": "1.1",
-                "aToBDist": 1756,
-                "bToADist": 1714
+                "edge": "(0.0, 4.2.1)",
+                "distance": 10758
             },
             {
-                "pointA": "2.1.8",
-                "pointB": "1.2",
-                "aToBDist": 1990,
-                "bToADist": 1519
+                "edge": "(0.0, 4.2.2)",
+                "distance": 13983
             },
             {
-                "pointA": "2.1.8",
-                "pointB": "1.3",
-                "aToBDist": 1712,
-                "bToADist": 1057
+                "edge": "(0.0, 4.2.3)",
+                "distance": 13827
             },
             {
-                "pointA": "2.1.8",
-                "pointB": "1.4",
-                "aToBDist": 1453,
-                "bToADist": 1797
+                "edge": "(0.0, 4.2.4)",
+                "distance": 14890
             },
             {
-                "pointA": "2.1.8",
-                "pointB": "1.5",
-                "aToBDist": 1303,
-                "bToADist": 1124
+                "edge": "(1.1, 0.0.0)",
+                "distance": 8129
             },
             {
-                "pointA": "2.1.8",
-                "pointB": "2.1",
-                "aToBDist": 1373,
-                "bToADist": 1274
+                "edge": "(1.2, 0.0.0)",
+                "distance": 12914
             },
             {
-                "pointA": "2.1.8",
-                "pointB": "2.2",
-                "aToBDist": 1140,
-                "bToADist": 1073
+                "edge": "(2.1, 0.0.0)",
+                "distance": 8904
             },
             {
-                "pointA": "2.1.8",
-                "pointB": "2.3",
-                "aToBDist": 1219,
-                "bToADist": 1874
+                "edge": "(2.2, 0.0.0)",
+                "distance": 13192
             },
             {
-                "pointA": "2.1.8",
-                "pointB": "2.4",
-                "aToBDist": 1018,
-                "bToADist": 1178
+                "edge": "(3.1, 0.0.0)",
+                "distance": 9674
             },
             {
-                "pointA": "2.1.8",
-                "pointB": "2.5",
-                "aToBDist": 1734,
-                "bToADist": 1380
+                "edge": "(3.2, 0.0.0)",
+                "distance": 13861
             },
             {
-                "pointA": "2.1.8",
-                "pointB": "3.1",
-                "aToBDist": 1976,
-                "bToADist": 1504
+                "edge": "(4.1, 0.0.0)",
+                "distance": 14200
             },
             {
-                "pointA": "2.1.8",
-                "pointB": "3.2",
-                "aToBDist": 1673,
-                "bToADist": 1390
+                "edge": "(4.2, 0.0.0)",
+                "distance": 9882
             },
             {
-                "pointA": "2.1.8",
-                "pointB": "3.3",
-                "aToBDist": 1937,
-                "bToADist": 1190
-            },
-            {
-                "pointA": "2.1.8",
-                "pointB": "3.4",
-                "aToBDist": 1628,
-                "bToADist": 1923
-            },
-            {
-                "pointA": "2.1.8",
-                "pointB": "3.5",
-                "aToBDist": 1076,
-                "bToADist": 1812
-            },
-            {
-                "pointA": "2.1.8",
-                "pointB": "4.1",
-                "aToBDist": 1886,
-                "bToADist": 1778
-            },
-            {
-                "pointA": "2.1.8",
-                "pointB": "4.2",
-                "aToBDist": 1218,
-                "bToADist": 1530
-            },
-            {
-                "pointA": "2.1.8",
-                "pointB": "4.3",
-                "aToBDist": 1730,
-                "bToADist": 1692
-            },
-            {
-                "pointA": "2.1.8",
-                "pointB": "4.4",
-                "aToBDist": 1944,
-                "bToADist": 1841
-            },
-            {
-                "pointA": "2.1.8",
-                "pointB": "4.5",
-                "aToBDist": 1798,
-                "bToADist": 1762
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "1.1",
-                "aToBDist": 1493,
-                "bToADist": 1134
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "1.2",
-                "aToBDist": 1658,
-                "bToADist": 1501
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "1.3",
-                "aToBDist": 1678,
-                "bToADist": 1583
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "1.4",
-                "aToBDist": 1980,
-                "bToADist": 1948
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "1.5",
-                "aToBDist": 1164,
-                "bToADist": 1769
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "2.1",
-                "aToBDist": 1067,
-                "bToADist": 1447
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "2.2",
-                "aToBDist": 1274,
-                "bToADist": 1930
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "2.3",
-                "aToBDist": 1484,
-                "bToADist": 1956
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "2.4",
-                "aToBDist": 1672,
-                "bToADist": 1352
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "2.5",
-                "aToBDist": 1018,
-                "bToADist": 1320
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "3.1",
-                "aToBDist": 1164,
-                "bToADist": 1329
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "3.2",
-                "aToBDist": 1137,
-                "bToADist": 1578
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "3.3",
-                "aToBDist": 1600,
-                "bToADist": 1365
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "3.4",
-                "aToBDist": 1494,
-                "bToADist": 1368
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "3.5",
-                "aToBDist": 1503,
-                "bToADist": 1580
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "4.1",
-                "aToBDist": 1663,
-                "bToADist": 1384
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "4.2",
-                "aToBDist": 1848,
-                "bToADist": 1644
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "4.3",
-                "aToBDist": 1715,
-                "bToADist": 1046
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "4.4",
-                "aToBDist": 1793,
-                "bToADist": 1720
-            },
-            {
-                "pointA": "2.1.9",
-                "pointB": "4.5",
-                "aToBDist": 1089,
-                "bToADist": 1424
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "1.1",
-                "aToBDist": 1359,
-                "bToADist": 1363
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "1.2",
-                "aToBDist": 1503,
-                "bToADist": 1326
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "1.3",
-                "aToBDist": 1124,
-                "bToADist": 1574
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "1.4",
-                "aToBDist": 1595,
-                "bToADist": 1605
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "1.5",
-                "aToBDist": 1822,
-                "bToADist": 1887
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "2.1",
-                "aToBDist": 1616,
-                "bToADist": 1006
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "2.2",
-                "aToBDist": 1166,
-                "bToADist": 1717
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "2.3",
-                "aToBDist": 1689,
-                "bToADist": 1453
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "2.4",
-                "aToBDist": 1761,
-                "bToADist": 1033
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "2.5",
-                "aToBDist": 1355,
-                "bToADist": 1795
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "3.1",
-                "aToBDist": 1768,
-                "bToADist": 1711
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "3.2",
-                "aToBDist": 1054,
-                "bToADist": 1172
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "3.3",
-                "aToBDist": 1982,
-                "bToADist": 1445
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "3.4",
-                "aToBDist": 1661,
-                "bToADist": 1192
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "3.5",
-                "aToBDist": 1814,
-                "bToADist": 1623
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "4.1",
-                "aToBDist": 1087,
-                "bToADist": 1006
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "4.2",
-                "aToBDist": 1810,
-                "bToADist": 1588
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "4.3",
-                "aToBDist": 1387,
-                "bToADist": 1841
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "4.4",
-                "aToBDist": 1299,
-                "bToADist": 1246
-            },
-            {
-                "pointA": "2.1.10",
-                "pointB": "4.5",
-                "aToBDist": 1949,
-                "bToADist": 1082
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "1.1",
-                "aToBDist": 1673,
-                "bToADist": 1834
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "1.2",
-                "aToBDist": 1871,
-                "bToADist": 1020
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "1.3",
-                "aToBDist": 1883,
-                "bToADist": 1556
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "1.4",
-                "aToBDist": 1286,
-                "bToADist": 1271
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "1.5",
-                "aToBDist": 1279,
-                "bToADist": 1479
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "2.1",
-                "aToBDist": 1053,
-                "bToADist": 1574
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "2.2",
-                "aToBDist": 1985,
-                "bToADist": 1687
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "2.3",
-                "aToBDist": 1943,
-                "bToADist": 1696
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "2.4",
-                "aToBDist": 1556,
-                "bToADist": 1282
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "2.5",
-                "aToBDist": 1092,
-                "bToADist": 1980
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "3.1",
-                "aToBDist": 1640,
-                "bToADist": 1730
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "3.2",
-                "aToBDist": 1152,
-                "bToADist": 1501
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "3.3",
-                "aToBDist": 1158,
-                "bToADist": 1695
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "3.4",
-                "aToBDist": 1430,
-                "bToADist": 1974
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "3.5",
-                "aToBDist": 1417,
-                "bToADist": 1057
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "4.1",
-                "aToBDist": 1429,
-                "bToADist": 1170
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "4.2",
-                "aToBDist": 1673,
-                "bToADist": 1453
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "4.3",
-                "aToBDist": 1315,
-                "bToADist": 1851
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "4.4",
-                "aToBDist": 1205,
-                "bToADist": 1274
-            },
-            {
-                "pointA": "2.2.1",
-                "pointB": "4.5",
-                "aToBDist": 1808,
-                "bToADist": 1947
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "1.1",
-                "aToBDist": 1100,
-                "bToADist": 1335
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "1.2",
-                "aToBDist": 1535,
-                "bToADist": 1841
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "1.3",
-                "aToBDist": 1978,
-                "bToADist": 1328
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "1.4",
-                "aToBDist": 1336,
-                "bToADist": 1878
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "1.5",
-                "aToBDist": 1854,
-                "bToADist": 1563
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "2.1",
-                "aToBDist": 1332,
-                "bToADist": 1001
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "2.2",
-                "aToBDist": 1500,
-                "bToADist": 1736
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "2.3",
-                "aToBDist": 1577,
-                "bToADist": 1172
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "2.4",
-                "aToBDist": 1790,
-                "bToADist": 1916
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "2.5",
-                "aToBDist": 1603,
-                "bToADist": 1238
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "3.1",
-                "aToBDist": 1523,
-                "bToADist": 1447
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "3.2",
-                "aToBDist": 1021,
-                "bToADist": 1758
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "3.3",
-                "aToBDist": 1482,
-                "bToADist": 1508
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "3.4",
-                "aToBDist": 1612,
-                "bToADist": 1720
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "3.5",
-                "aToBDist": 1208,
-                "bToADist": 1959
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "4.1",
-                "aToBDist": 1404,
-                "bToADist": 1172
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "4.2",
-                "aToBDist": 1569,
-                "bToADist": 1946
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "4.3",
-                "aToBDist": 1067,
-                "bToADist": 1934
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "4.4",
-                "aToBDist": 1442,
-                "bToADist": 1189
-            },
-            {
-                "pointA": "2.2.2",
-                "pointB": "4.5",
-                "aToBDist": 1725,
-                "bToADist": 1709
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "1.1",
-                "aToBDist": 1486,
-                "bToADist": 1721
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "1.2",
-                "aToBDist": 1818,
-                "bToADist": 1785
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "1.3",
-                "aToBDist": 1426,
-                "bToADist": 1716
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "1.4",
-                "aToBDist": 1648,
-                "bToADist": 1857
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "1.5",
-                "aToBDist": 1589,
-                "bToADist": 1190
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "2.1",
-                "aToBDist": 1435,
-                "bToADist": 1681
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "2.2",
-                "aToBDist": 1706,
-                "bToADist": 1156
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "2.3",
-                "aToBDist": 1955,
-                "bToADist": 1825
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "2.4",
-                "aToBDist": 1991,
-                "bToADist": 1184
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "2.5",
-                "aToBDist": 1463,
-                "bToADist": 1638
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "3.1",
-                "aToBDist": 1667,
-                "bToADist": 1481
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "3.2",
-                "aToBDist": 1091,
-                "bToADist": 1178
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "3.3",
-                "aToBDist": 1067,
-                "bToADist": 1322
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "3.4",
-                "aToBDist": 1897,
-                "bToADist": 1572
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "3.5",
-                "aToBDist": 1455,
-                "bToADist": 1876
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "4.1",
-                "aToBDist": 1769,
-                "bToADist": 1789
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "4.2",
-                "aToBDist": 1533,
-                "bToADist": 1168
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "4.3",
-                "aToBDist": 1207,
-                "bToADist": 1296
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "4.4",
-                "aToBDist": 1952,
-                "bToADist": 1478
-            },
-            {
-                "pointA": "2.2.3",
-                "pointB": "4.5",
-                "aToBDist": 1937,
-                "bToADist": 1754
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "1.1",
-                "aToBDist": 1335,
-                "bToADist": 1482
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "1.2",
-                "aToBDist": 1250,
-                "bToADist": 1527
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "1.3",
-                "aToBDist": 1974,
-                "bToADist": 1603
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "1.4",
-                "aToBDist": 1378,
-                "bToADist": 1015
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "1.5",
-                "aToBDist": 1725,
-                "bToADist": 1971
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "2.1",
-                "aToBDist": 1696,
-                "bToADist": 1798
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "2.2",
-                "aToBDist": 1567,
-                "bToADist": 1896
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "2.3",
-                "aToBDist": 1037,
-                "bToADist": 1167
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "2.4",
-                "aToBDist": 1859,
-                "bToADist": 1088
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "2.5",
-                "aToBDist": 1390,
-                "bToADist": 1448
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "3.1",
-                "aToBDist": 1503,
-                "bToADist": 1591
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "3.2",
-                "aToBDist": 1951,
-                "bToADist": 1695
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "3.3",
-                "aToBDist": 1835,
-                "bToADist": 1955
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "3.4",
-                "aToBDist": 1500,
-                "bToADist": 1174
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "3.5",
-                "aToBDist": 1629,
-                "bToADist": 1604
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "4.1",
-                "aToBDist": 1570,
-                "bToADist": 1445
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "4.2",
-                "aToBDist": 1059,
-                "bToADist": 1396
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "4.3",
-                "aToBDist": 1769,
-                "bToADist": 1181
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "4.4",
-                "aToBDist": 1147,
-                "bToADist": 1716
-            },
-            {
-                "pointA": "2.2.4",
-                "pointB": "4.5",
-                "aToBDist": 1323,
-                "bToADist": 1279
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "1.1",
-                "aToBDist": 1121,
-                "bToADist": 1648
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "1.2",
-                "aToBDist": 1422,
-                "bToADist": 1224
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "1.3",
-                "aToBDist": 1028,
-                "bToADist": 1657
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "1.4",
-                "aToBDist": 1343,
-                "bToADist": 1108
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "1.5",
-                "aToBDist": 1900,
-                "bToADist": 1200
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "2.1",
-                "aToBDist": 1633,
-                "bToADist": 1245
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "2.2",
-                "aToBDist": 1530,
-                "bToADist": 1817
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "2.3",
-                "aToBDist": 1222,
-                "bToADist": 1662
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "2.4",
-                "aToBDist": 1690,
-                "bToADist": 1483
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "2.5",
-                "aToBDist": 1033,
-                "bToADist": 1169
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "3.1",
-                "aToBDist": 1917,
-                "bToADist": 1736
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "3.2",
-                "aToBDist": 1166,
-                "bToADist": 1922
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "3.3",
-                "aToBDist": 1205,
-                "bToADist": 1851
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "3.4",
-                "aToBDist": 1462,
-                "bToADist": 1329
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "3.5",
-                "aToBDist": 1817,
-                "bToADist": 1723
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "4.1",
-                "aToBDist": 1651,
-                "bToADist": 1943
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "4.2",
-                "aToBDist": 1339,
-                "bToADist": 1485
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "4.3",
-                "aToBDist": 1054,
-                "bToADist": 1919
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "4.4",
-                "aToBDist": 1624,
-                "bToADist": 1051
-            },
-            {
-                "pointA": "2.2.5",
-                "pointB": "4.5",
-                "aToBDist": 1731,
-                "bToADist": 1740
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "1.1",
-                "aToBDist": 1968,
-                "bToADist": 1099
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "1.2",
-                "aToBDist": 1540,
-                "bToADist": 1833
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "1.3",
-                "aToBDist": 1427,
-                "bToADist": 1612
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "1.4",
-                "aToBDist": 1450,
-                "bToADist": 1624
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "1.5",
-                "aToBDist": 1312,
-                "bToADist": 1986
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "2.1",
-                "aToBDist": 1648,
-                "bToADist": 1125
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "2.2",
-                "aToBDist": 1286,
-                "bToADist": 1921
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "2.3",
-                "aToBDist": 1921,
-                "bToADist": 1106
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "2.4",
-                "aToBDist": 1786,
-                "bToADist": 1035
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "2.5",
-                "aToBDist": 1022,
-                "bToADist": 1010
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "3.1",
-                "aToBDist": 1987,
-                "bToADist": 1469
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "3.2",
-                "aToBDist": 1968,
-                "bToADist": 1029
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "3.3",
-                "aToBDist": 1853,
-                "bToADist": 1699
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "3.4",
-                "aToBDist": 1587,
-                "bToADist": 1619
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "3.5",
-                "aToBDist": 1895,
-                "bToADist": 1754
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "4.1",
-                "aToBDist": 1650,
-                "bToADist": 1042
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "4.2",
-                "aToBDist": 1975,
-                "bToADist": 1655
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "4.3",
-                "aToBDist": 1178,
-                "bToADist": 1454
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "4.4",
-                "aToBDist": 1753,
-                "bToADist": 1299
-            },
-            {
-                "pointA": "2.2.6",
-                "pointB": "4.5",
-                "aToBDist": 1491,
-                "bToADist": 1823
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "1.1",
-                "aToBDist": 1010,
-                "bToADist": 1350
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "1.2",
-                "aToBDist": 1076,
-                "bToADist": 1450
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "1.3",
-                "aToBDist": 1260,
-                "bToADist": 1946
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "1.4",
-                "aToBDist": 1681,
-                "bToADist": 1300
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "1.5",
-                "aToBDist": 1544,
-                "bToADist": 1981
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "2.1",
-                "aToBDist": 1750,
-                "bToADist": 1785
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "2.2",
-                "aToBDist": 1815,
-                "bToADist": 1810
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "2.3",
-                "aToBDist": 1917,
-                "bToADist": 1941
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "2.4",
-                "aToBDist": 1393,
-                "bToADist": 1139
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "2.5",
-                "aToBDist": 1333,
-                "bToADist": 1641
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "3.1",
-                "aToBDist": 1544,
-                "bToADist": 1912
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "3.2",
-                "aToBDist": 1255,
-                "bToADist": 1282
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "3.3",
-                "aToBDist": 1512,
-                "bToADist": 1709
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "3.4",
-                "aToBDist": 1407,
-                "bToADist": 1002
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "3.5",
-                "aToBDist": 1347,
-                "bToADist": 1606
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "4.1",
-                "aToBDist": 1605,
-                "bToADist": 1086
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "4.2",
-                "aToBDist": 1921,
-                "bToADist": 1007
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "4.3",
-                "aToBDist": 1273,
-                "bToADist": 1294
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "4.4",
-                "aToBDist": 1289,
-                "bToADist": 1076
-            },
-            {
-                "pointA": "2.2.7",
-                "pointB": "4.5",
-                "aToBDist": 1634,
-                "bToADist": 1398
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "1.1",
-                "aToBDist": 1159,
-                "bToADist": 1848
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "1.2",
-                "aToBDist": 1230,
-                "bToADist": 1973
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "1.3",
-                "aToBDist": 1376,
-                "bToADist": 1047
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "1.4",
-                "aToBDist": 1837,
-                "bToADist": 1981
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "1.5",
-                "aToBDist": 1099,
-                "bToADist": 1121
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "2.1",
-                "aToBDist": 1653,
-                "bToADist": 1287
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "2.2",
-                "aToBDist": 1665,
-                "bToADist": 1630
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "2.3",
-                "aToBDist": 1786,
-                "bToADist": 1074
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "2.4",
-                "aToBDist": 1551,
-                "bToADist": 1100
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "2.5",
-                "aToBDist": 1615,
-                "bToADist": 1095
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "3.1",
-                "aToBDist": 1300,
-                "bToADist": 1317
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "3.2",
-                "aToBDist": 1924,
-                "bToADist": 1548
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "3.3",
-                "aToBDist": 1916,
-                "bToADist": 1283
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "3.4",
-                "aToBDist": 1962,
-                "bToADist": 1500
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "3.5",
-                "aToBDist": 1658,
-                "bToADist": 1668
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "4.1",
-                "aToBDist": 1839,
-                "bToADist": 1249
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "4.2",
-                "aToBDist": 1869,
-                "bToADist": 1892
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "4.3",
-                "aToBDist": 1598,
-                "bToADist": 1149
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "4.4",
-                "aToBDist": 1674,
-                "bToADist": 1491
-            },
-            {
-                "pointA": "2.2.8",
-                "pointB": "4.5",
-                "aToBDist": 1428,
-                "bToADist": 1558
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "1.1",
-                "aToBDist": 1907,
-                "bToADist": 1396
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "1.2",
-                "aToBDist": 1458,
-                "bToADist": 1919
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "1.3",
-                "aToBDist": 1928,
-                "bToADist": 1178
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "1.4",
-                "aToBDist": 1431,
-                "bToADist": 1451
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "1.5",
-                "aToBDist": 1712,
-                "bToADist": 1237
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "2.1",
-                "aToBDist": 1654,
-                "bToADist": 1460
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "2.2",
-                "aToBDist": 1656,
-                "bToADist": 1452
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "2.3",
-                "aToBDist": 1542,
-                "bToADist": 1381
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "2.4",
-                "aToBDist": 1432,
-                "bToADist": 1725
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "2.5",
-                "aToBDist": 1196,
-                "bToADist": 1424
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "3.1",
-                "aToBDist": 1334,
-                "bToADist": 1016
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "3.2",
-                "aToBDist": 1826,
-                "bToADist": 1551
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "3.3",
-                "aToBDist": 1225,
-                "bToADist": 1819
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "3.4",
-                "aToBDist": 1949,
-                "bToADist": 1688
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "3.5",
-                "aToBDist": 1054,
-                "bToADist": 1765
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "4.1",
-                "aToBDist": 1135,
-                "bToADist": 1875
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "4.2",
-                "aToBDist": 1180,
-                "bToADist": 1316
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "4.3",
-                "aToBDist": 1587,
-                "bToADist": 1160
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "4.4",
-                "aToBDist": 1573,
-                "bToADist": 1052
-            },
-            {
-                "pointA": "2.2.9",
-                "pointB": "4.5",
-                "aToBDist": 1479,
-                "bToADist": 1912
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "1.1",
-                "aToBDist": 1685,
-                "bToADist": 1122
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "1.2",
-                "aToBDist": 1825,
-                "bToADist": 1420
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "1.3",
-                "aToBDist": 1779,
-                "bToADist": 1042
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "1.4",
-                "aToBDist": 1868,
-                "bToADist": 1753
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "1.5",
-                "aToBDist": 1011,
-                "bToADist": 1729
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "2.1",
-                "aToBDist": 1510,
-                "bToADist": 1453
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "2.2",
-                "aToBDist": 1312,
-                "bToADist": 1404
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "2.3",
-                "aToBDist": 1374,
-                "bToADist": 1158
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "2.4",
-                "aToBDist": 1957,
-                "bToADist": 1876
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "2.5",
-                "aToBDist": 1153,
-                "bToADist": 1143
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "3.1",
-                "aToBDist": 1037,
-                "bToADist": 1661
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "3.2",
-                "aToBDist": 1367,
-                "bToADist": 1878
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "3.3",
-                "aToBDist": 1176,
-                "bToADist": 1487
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "3.4",
-                "aToBDist": 1553,
-                "bToADist": 1537
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "3.5",
-                "aToBDist": 1010,
-                "bToADist": 1193
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "4.1",
-                "aToBDist": 1733,
-                "bToADist": 1663
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "4.2",
-                "aToBDist": 1224,
-                "bToADist": 1805
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "4.3",
-                "aToBDist": 1293,
-                "bToADist": 1056
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "4.4",
-                "aToBDist": 1364,
-                "bToADist": 1737
-            },
-            {
-                "pointA": "2.2.10",
-                "pointB": "4.5",
-                "aToBDist": 1575,
-                "bToADist": 1999
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.1.1",
-                "aToBDist": 1461,
-                "bToADist": 553
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.1.2",
-                "aToBDist": 987,
-                "bToADist": 637
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.1.3",
-                "aToBDist": 958,
-                "bToADist": 568
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.1.4",
-                "aToBDist": 1284,
-                "bToADist": 791
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.1.5",
-                "aToBDist": 1293,
-                "bToADist": 749
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.1.6",
-                "aToBDist": 519,
-                "bToADist": 969
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.1.7",
-                "aToBDist": 1228,
-                "bToADist": 509
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.1.8",
-                "aToBDist": 530,
-                "bToADist": 1387
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.1.9",
-                "aToBDist": 699,
-                "bToADist": 1367
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.1.10",
-                "aToBDist": 509,
-                "bToADist": 996
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.2.1",
-                "aToBDist": 982,
-                "bToADist": 1005
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.2.2",
-                "aToBDist": 1024,
-                "bToADist": 1252
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.2.3",
-                "aToBDist": 936,
-                "bToADist": 1423
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.2.4",
-                "aToBDist": 1351,
-                "bToADist": 504
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.2.5",
-                "aToBDist": 1335,
-                "bToADist": 547
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.2.6",
-                "aToBDist": 938,
-                "bToADist": 1252
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.2.7",
-                "aToBDist": 599,
-                "bToADist": 757
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.2.8",
-                "aToBDist": 1066,
-                "bToADist": 1063
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.2.9",
-                "aToBDist": 900,
-                "bToADist": 875
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.2.10",
-                "aToBDist": 676,
-                "bToADist": 642
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.1.1",
-                "aToBDist": 754,
-                "bToADist": 834
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.1.2",
-                "aToBDist": 777,
-                "bToADist": 1487
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.1.3",
-                "aToBDist": 1037,
-                "bToADist": 873
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.1.4",
-                "aToBDist": 654,
-                "bToADist": 1186
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.1.5",
-                "aToBDist": 1327,
-                "bToADist": 987
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.1.6",
-                "aToBDist": 1265,
-                "bToADist": 662
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.1.7",
-                "aToBDist": 544,
-                "bToADist": 988
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.1.8",
-                "aToBDist": 744,
-                "bToADist": 724
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.1.9",
-                "aToBDist": 625,
-                "bToADist": 990
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.1.10",
-                "aToBDist": 914,
-                "bToADist": 1212
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.2.1",
-                "aToBDist": 561,
-                "bToADist": 722
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.2.2",
-                "aToBDist": 1032,
-                "bToADist": 648
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.2.3",
-                "aToBDist": 1048,
-                "bToADist": 1320
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.2.4",
-                "aToBDist": 600,
-                "bToADist": 964
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.2.5",
-                "aToBDist": 858,
-                "bToADist": 684
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.2.6",
-                "aToBDist": 1400,
-                "bToADist": 718
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.2.7",
-                "aToBDist": 1422,
-                "bToADist": 1260
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.2.8",
-                "aToBDist": 1184,
-                "bToADist": 1045
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.2.9",
-                "aToBDist": 1461,
-                "bToADist": 1326
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.2.10",
-                "aToBDist": 1049,
-                "bToADist": 1153
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.1",
-                "aToBDist": 1151,
-                "bToADist": 1371
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.2",
-                "aToBDist": 1325,
-                "bToADist": 1084
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.3",
-                "aToBDist": 626,
-                "bToADist": 1254
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.4",
-                "aToBDist": 551,
-                "bToADist": 1451
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "1.5",
-                "aToBDist": 500,
-                "bToADist": 1444
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.1",
-                "aToBDist": 673,
-                "bToADist": 1178
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.2",
-                "aToBDist": 1333,
-                "bToADist": 1040
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.3",
-                "aToBDist": 1486,
-                "bToADist": 1182
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.4",
-                "aToBDist": 1024,
-                "bToADist": 928
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "2.5",
-                "aToBDist": 1498,
-                "bToADist": 1023
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "3.1",
-                "aToBDist": 647,
-                "bToADist": 867
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "3.2",
-                "aToBDist": 1134,
-                "bToADist": 1028
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "3.3",
-                "aToBDist": 1231,
-                "bToADist": 870
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "3.4",
-                "aToBDist": 864,
-                "bToADist": 806
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "3.5",
-                "aToBDist": 580,
-                "bToADist": 718
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "4.1",
-                "aToBDist": 908,
-                "bToADist": 993
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "4.2",
-                "aToBDist": 711,
-                "bToADist": 1259
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "4.3",
-                "aToBDist": 875,
-                "bToADist": 1389
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "4.4",
-                "aToBDist": 673,
-                "bToADist": 656
-            },
-            {
-                "pointA": "0.0.0",
-                "pointB": "4.5",
-                "aToBDist": 577,
-                "bToADist": 874
+                "edge": "(0.0.0, 0.0)",
+                "distance": 1
             }
         ]
     }
