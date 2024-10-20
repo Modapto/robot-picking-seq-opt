@@ -8,9 +8,9 @@ import pandas as pd
 import numpy as np
 from GraphCreation import *
 from Solver import *
-from generate_random_input import *
+from instances_generator import *
 from parse_json_input import *
-from exact_method import *
+from old_exact_method import *
 
 online = sys.argv[1]
 
@@ -118,7 +118,7 @@ def run_tsp_for_size(json_file_path, output_json_file_path):
         try:
             print("Running Exact Method TSP...")
 
-            # Call the exact TSP function from exact_method.py
+            # Call the exact TSP function from old_exact_method.py
             exact_tour, exact_tour_cost, time_details = run_exact_tsp_local(json_file_path)
 
             if exact_tour:
@@ -289,7 +289,7 @@ def process_json_data(input_data):
         try:
             print("Running Exact Method TSP...")
 
-            # Call the exact TSP function from exact_method.py
+            # Call the exact TSP function from old_exact_method.py
             exact_tour, exact_tour_cost, time_details = run_exact_tsp_remote(input_data)
 
             if exact_tour:
