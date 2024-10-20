@@ -1,86 +1,87 @@
 import random
 import uuid
 from time import *
+import json
 
 def generate_random_json_input():
-    methods = ["exact"]
-    # , "q-learning", "exact", "nearest", "2-opt"
-    # Dummy - Baby Example
-    # #Gravity rack positions
+    methods = ["2-opt"]
+    # "nearest",, "q_learning", "exact", "2-opt"
+    # # Gravity rack positions
     # gravity_rack_positions = [f"{row}.{level}.{comp}"
     #                           for row in range(1, 2)
     #                           for level in range(1, 2)
     #                           for comp in range(1, 3)]
     #
-    # #Kit holder positions
+    # # Kit holder positions
     # kit_holder_positions = [f"{holder}.{block}"
     #                         for holder in range(1, 2)
     #                         for block in range(1, 3)]
-    #Gravity rack positions
-    # gravity_rack_positions = [f"{row}.{level}.{comp}"
-    #                           for row in range(1, 7)
-    #                           for level in range(1, 3)
-    #                           for comp in range(1, 9)]
-    #
-    # #Kit holder positions
-    # kit_holder_positions = [f"{holder}.{block}"
-    #                         for holder in range(1, 5)
-    #                         for block in range(1, 7)]
-
-    # gravity_rack_positions = [f"{row}.{level}.{comp}"
-    #                           for row in range(1, 11)
-    #                           for level in range(1, 3)
-    #                           for comp in range(1, 11)]
-    #
-    # # Kit holder positions
-    # kit_holder_positions = [f"{holder}.{block}"
-    #                         for holder in range(1, 5)
-    #                         for block in range(1, 6)]
-
+    # Increase Gravity rack positions
     gravity_rack_positions = [f"{row}.{level}.{comp}"
-                              for row in range(1, 3)
+                              for row in range(1, 5)
                               for level in range(1, 3)
-                              for comp in range(1, 11)]
+                              for comp in range(1, 5)]
 
-    #Kit holder positions
+    # Increase Kit holder positions
     kit_holder_positions = [f"{holder}.{block}"
                             for holder in range(1, 5)
-                            for block in range(1, 6)]
-
-    #Generate distance matrix with random distances
+                            for block in range(1, 3)]
+    # 10 Gravity rack positions
+    # gravity_rack_positions = [f"{row}.{level}.{comp}"
+    #                           for row in range(1, 2)
+    #                           for level in range(1, 2)
+    #                           for comp in range(1, 5)]  # 10 gravity rack nodes
+    #
+    # # 6 Kit holder positions
+    # kit_holder_positions = [f"{holder}.{block}"
+    #                         for holder in range(1, 2)
+    #                         for block in range(1, 3)]  # 6 kit holder nodes
+    # Generate the new distance matrix format
     distance_matrix = []
+
+    # Define edges between gravity racks and kit holders (bipartite graph)
     for pointA in gravity_rack_positions:
         for pointB in kit_holder_positions:
-            aToBDist = random.randint(1000, 2000)
-            bToADist = random.randint(1000, 2000)
+            aToBDist = random.randint(10000, 20000)
+            bToADist = random.randint(10000, 20000)
+
+            # Add forward direction
             distance_matrix.append({
-                "pointA": pointA,
-                "pointB": pointB,
-                "aToBDist": aToBDist,
-                "bToADist": bToADist
+                "edge": f"({pointA}, {pointB})",
+                "distance": aToBDist
             })
 
-    for pointA in ["0.0.0"]:
-        for pointB in gravity_rack_positions[:]:  #Exclude the start node itself
-            aToBDist = random.randint(500, 1500)
-            bToADist = random.randint(500, 1500)
+            # Add reverse direction
             distance_matrix.append({
-                "pointA": pointA,
-                "pointB": pointB,
-                "aToBDist": aToBDist,
-                "bToADist": bToADist
+                "edge": f"({pointB}, {pointA})",
+                "distance": bToADist
             })
 
-    for pointA in ["0.0.0"]:
-        for pointB in kit_holder_positions[:]:  #Exclude the start node itself
-            aToBDist = random.randint(500, 1500)
-            bToADist = random.randint(500, 1500)
-            distance_matrix.append({
-                "pointA": pointA,
-                "pointB": pointB,
-                "aToBDist": aToBDist,
-                "bToADist": bToADist
-            })
+    # Handle the start node (0.0): connects only to gravity rack positions (not kit holders)
+    for pointB in gravity_rack_positions:
+        aToBDist = random.randint(5000, 15000)
+
+        # Add forward direction (from 0.0 to pointB, gravity racks only)
+        distance_matrix.append({
+            "edge": f"(0.0, {pointB})",
+            "distance": aToBDist
+        })
+
+    # Handle the 0.0.0 pseudonode: can only get edges from kit holders and connect back to 0.0 with cost = 1
+    for pointB in kit_holder_positions:
+        aToBDist = random.randint(5000, 15000)
+
+        # Add edge from kit holders to 0.0.0
+        distance_matrix.append({
+            "edge": f"({pointB}, 0.0.0)",
+            "distance": aToBDist
+        })
+
+    # Add the edge from 0.0.0 to 0.0 with cost = 1
+    distance_matrix.append({
+        "edge": "(0.0.0, 0.0)",
+        "distance": 1
+    })
 
     random_json_input = {
         "route": "robot-pick-seq-opt",
@@ -88,7 +89,7 @@ def generate_random_json_input():
         "generated_at": int(time()),
         "data": {
             "method": random.choice(methods),
-            "start_node": "0.0.0",
+            "start_node": "0.0",
             "end_node": "0.0.0",
             "distanceMatrix": distance_matrix
         }
