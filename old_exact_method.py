@@ -2,82 +2,87 @@ import json
 import pulp
 import networkx as nx
 import matplotlib.pyplot as plt
-import pandas as pd
-from parse_json import create_distance_matrices
 
 
+def load_data(json_file):
+    """Load the JSON file and extract the distance matrix."""
+    with open(json_file, 'r') as file:
+        data = json.load(file)
+    distance_matrix = data['data']['distanceMatrix']
+    return distance_matrix
 
-def classify_nodes(a_to_b_matrix):
-    """Classify nodes into set_1 (kit holders) and set_2 (gravity racks) excluding '0.0' and '0.0.0'."""
-    set_1 = [node for node in a_to_b_matrix.index if len(node.split('.')) == 2 and node != '0.0']  # Kit holders
-    set_2 = [node for node in a_to_b_matrix.index if len(node.split('.')) == 3 and node != '0.0.0']  # Gravity racks
-    return set_1, set_2
 
-def create_distances_dict(a_to_b_matrix, set_1, set_2):
-    """Create a dictionary of distances from the matrix with specific rules applied."""
+def classify_nodes(distance_matrix):
+    """Classify nodes into set A and set B dynamically based on the distance matrix."""
+    set_aa = set()
+    set_bb = set()
+    set_a = list()
+    set_b = list()
+
+    for entry in distance_matrix:
+        pointA = entry['pointA']
+        pointB = entry['pointB']
+
+        # Skip the entry if either pointA or pointB is '0.0.0'
+        if pointA == '0.0.0' or pointB == '0.0.0':
+            continue
+
+        # Add pointA to set_a and pointB to set_b
+        set_aa.add(pointA)
+        set_bb.add(pointB)
+
+    for i in set_aa:
+        set_a.append(i)
+
+    for j in set_bb:
+        set_b.append(j)
+
+    return set_aa, set_bb, set_a, set_b
+
+
+def create_distances_dict(distance_matrix, set_a, set_b):
+    """Create a dictionary of distances from the distance matrix with specific rules applied."""
     distances = {}
 
-    # Add connections between kit holders (set_1) and gravity racks (set_2)
-    for point_a in set_1:
-        for point_b in set_2:
-            dist_a_to_b = a_to_b_matrix.at[point_a, point_b]
-            dist_b_to_a = a_to_b_matrix.at[point_b, point_a]
+    for entry in distance_matrix:
+        pointA = entry['pointA']
+        pointB = entry['pointB']
+        aToBDist = entry['aToBDist']
+        bToADist = entry['bToADist']
 
-            # Allow connections from kit holders (set_1) to '0.0.0'
-            if point_b == '0.0.0':
-                distances[(point_a, point_b)] = dist_a_to_b
-                continue
+        # Rule A: Do not allow connections from Set A to the starting point (0.0.0)
+        if pointA in set_a and pointB == '0.0.0':
+            continue  # Skip this connection
 
-            # Ensure the move from '0.0.0' to '0.0' is included with a valid distance
-            if point_a == '0.0.0' and point_b == '0.0':
-                distances[(
-                point_a, point_b)] = dist_a_to_b if dist_a_to_b != 0 else 1  # Default distance is 1 if not provided
-                continue
+        # Rule B: Allow connections from 0.0.0 to Set A only if aToBDist is non-zero
+        if pointB in set_a and pointA == '0.0.0' and aToBDist != 0:
+            distances[(pointA, pointB)] = aToBDist
+            continue
 
-            # Allow connections from '0.0' to gravity racks
-            if point_a == '0.0' and point_b in set_2:
-                distances[(point_a, point_b)] = dist_a_to_b
-                continue
+        # Rule C: Allow connections from Set B to 0.0.0 based on bToADist
+        if pointA in set_b and pointB == '0.0.0' and bToADist != 0:
+            distances[(pointA, pointB)] = bToADist  # Capture the Set B to 0.0.0 connections
+            continue
 
-            # Allow connections from kit holders to gravity racks (set_2)
-            if point_a in set_1 and point_b in set_2 and dist_a_to_b != 0:
-                distances[(point_a, point_b)] = dist_a_to_b
-                distances[(point_b, point_a)] = dist_b_to_a
-                continue
+        # Allow reverse connections from 0.0.0 to Set B if bToADist is non-zero (to capture 1.1 -> 0.0.0, etc.)
+        if pointB in set_b and pointA == '0.0.0' and bToADist != 0:
+            distances[(pointB, pointA)] = bToADist  # Capture reverse connections
+            continue
 
-    # Add connections from '0.0' to all gravity racks (set_2)
-    for point_b in set_2:
-        dist_0_to_b = a_to_b_matrix.at['0.0', point_b]
-        if dist_0_to_b != 0:  # Make sure the distance is non-zero
-            distances[('0.0', point_b)] = dist_0_to_b
-
-    # Add connections from all kit holders (set_1) to '0.0.0'
-    for point_a in set_1:
-        dist_a_to_0_0_0 = a_to_b_matrix.at[point_a, '0.0.0']
-        if dist_a_to_0_0_0 != 0:  # Make sure the distance is non-zero
-            distances[(point_a, '0.0.0')] = dist_a_to_0_0_0
-
-    # Ensure '0.0.0' to '0.0' is always present with a distance of 1
-    if ('0.0.0', '0.0') not in distances:
-        distances[('0.0.0', '0.0')] = 1
-    if ('0.0', '0.0.0') in distances:
-        del distances['0.0', '0.0.0']  # Ensure no direct return from '0.0' to '0.0.0'
+        # Rule D: Allow connections between Set A and Set B and vice versa, provided distances are non-zero
+        if (pointA in set_a and pointB in set_b) or (pointA in set_b and pointB in set_a):
+            if aToBDist != 0:
+                distances[(pointA, pointB)] = aToBDist
+            if bToADist != 0:
+                distances[(pointB, pointA)] = bToADist
 
     return distances
 
+
 def extract_possible_edges(distances):
-    """Extract possible edges based on the provided distances dictionary."""
-    possible_edges = [(i, j) for (i, j) in distances.keys()]
+    """Extract possible edges based on the provided distances."""
+    return [(i, j) for (i, j) in distances.keys()]
 
-    # Remove the edge from '0.0' to '0.0.0', if present
-    if ('0.0', '0.0.0') in possible_edges:
-        possible_edges.remove(('0.0', '0.0.0'))
-
-    # Ensure the final move from '0.0.0' to '0.0' is present
-    if ('0.0.0', '0.0') not in possible_edges:
-        possible_edges.append(('0.0.0', '0.0'))
-
-    return possible_edges
 
 def check_connectivity(SetA, SetB, distances):
     # Check if there are connections between Set A and Set B
@@ -116,6 +121,7 @@ def analyze_sets(set_a, set_b, distances):
         print("All nodes in Set A and Set B have at least one connection.")
         print("-------------------------------------------------------------------")
 
+
 def eliminate_subtour(subtour, prob, x):
     """Add constraints to eliminate the specific subtour."""
     constraint_name = f"subtour_elimination_{len(prob.constraints)}"  # Give each constraint a unique name
@@ -123,89 +129,42 @@ def eliminate_subtour(subtour, prob, x):
     prob += constraint, constraint_name
     return prob.constraints[constraint_name]
 
-def check_edges_in_distances(possible_edges, distances):
-    """Check if all edges in possible_edges exist in the distances dictionary."""
-    missing_edges = []
 
-    for edge in possible_edges:
-        if edge in distances:
-            print(f"Edge {edge} has distance: {distances[edge]}")
-        else:
-            print(f"Edge {edge} is missing in distances")
-            missing_edges.append(edge)
-
-    return missing_edges
-
-def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
-    """Solve the TSP ensuring alternating connections between set_1 and set_2."""
+def solve_tsp(distances, possible_edges, SetA, SetB, plot_initial=True):
+    """Solve the TSP without subtour elimination, ensuring feasible connections."""
     nodes = list(set([key[0] for key in distances.keys()] + [key[1] for key in distances.keys()]))
-
-    # Remove node '0.0.0' because it is specifically visited at the end
     nodes.remove('0.0.0')
-    # Check for missing edges
-    missing_edges = check_edges_in_distances(possible_edges, distances)
-
-    # If there are missing edges, you might want to handle them before solving the TSP
-    if missing_edges:
-        print("The following edges are missing from the distances dictionary:", missing_edges)
 
     # Define the problem
     prob = pulp.LpProblem("Bipartite_TSP", pulp.LpMinimize)
 
     # Decision variables
-    x = pulp.LpVariable.dicts("x", (nodes + ['0.0', '0.0.0'], nodes + ['0.0', '0.0.0']), cat='Binary')
+    x = pulp.LpVariable.dicts("x", (nodes + ['0.0.0'], nodes + ['0.0.0']), cat='Binary')
 
     # Objective function: Minimize the total distance using valid edges from possible_edges
     prob += pulp.lpSum([distances[(i, j)] * x[i][j] for i, j in possible_edges])
+    # DEFAULT_LARGE_VALUE = 1000000
+    # prob += pulp.lpSum([distances[(i, j)] * x[i][j] for i, j in possible_edges if
+    #                     distances.get((i, j), DEFAULT_LARGE_VALUE) != 0 and i != j])
 
+    # Constraints for the starting point 0.0.0 and sets
+    prob += pulp.lpSum([x['0.0.0'][j] for j in SetA if ('0.0.0', j) in possible_edges]) == 1
+    prob += pulp.lpSum([x[i]['0.0.0'] for i in SetB if (i, '0.0.0') in possible_edges]) == 1
 
-    print("1----------------------------------------------------")   # _C1: x_0.0_1.1.1 + x_0.0_1.1.2 = 1
-    # Constraints for the starting point 0.0 and ending point 0.0.0
-    prob += pulp.lpSum([x['0.0'][j] for j in set_2 if ('0.0', j) in possible_edges]) == 1  # Start at 0.0 and go to set_2
-    print("Constraints:")
-    for name, constraint in prob.constraints.items():
-        print(f"{name}: {constraint}")
+    # Flow conservation constraints for Set A:
+    for node in SetA:
+        prob += pulp.lpSum([x[node][j] for j in SetB if (node, j) in possible_edges]) <= 1
+        prob += pulp.lpSum([x[i][node] for i in SetB if (i, node) in possible_edges]) <= 1
 
-
-    print("2----------------------------------------------------")   # _C2: x_1.1_0.0.0 + x_1.2_0.0.0 = 1
-    prob += pulp.lpSum([x[i]['0.0.0'] for i in set_1 if (i, '0.0.0') in possible_edges]) == 1  # Go from set_1 to 0.0.0
-    print("Constraints:")
-    for name, constraint in prob.constraints.items():
-        print(f"{name}: {constraint}")
-
-
-    print("4----------------------------------------------------")
-    for node in set_2:
-        prob += pulp.lpSum([x[node][j] for j in set_1 if (node, j) in possible_edges]) <= 1  # Outgoing from set_2 to set_1
-        prob += pulp.lpSum([x[i][node] for i in set_1 if (i, node) in possible_edges]) <= 1  # Incoming from set_1 to set_2
-        print("Constraints:")
-        for name, constraint in prob.constraints.items():
-            print(f"{name}: {constraint}")
-
-    print("5----------------------------------------------------")
     # Flow conservation constraints for Set B:
-    for node in set_1:
-        prob += pulp.lpSum([x[i][node] for i in set_2 if (i, node) in possible_edges]) == 1  # Incoming to Set 2
-        prob += pulp.lpSum([x[node][j] for j in set_2 + ['0.0.0'] if (node, j) in possible_edges]) == 1  # Outgoing from Set 2
-        print("Constraints:")
-        for name, constraint in prob.constraints.items():
-            print(f"{name}: {constraint}")
+    for node in SetB:
+        prob += pulp.lpSum([x[i][node] for i in SetA if (i, node) in possible_edges]) == 1  # Incoming to Set B
+        prob += pulp.lpSum([x[node][j] for j in SetA + ['0.0.0'] if (node, j) in possible_edges]) == 1  # Outgoing from Set B
 
-    print("6----------------------------------------------------")
     # Incoming = Outgoing
-    for node in set_2:
-        prob += pulp.lpSum([x[i][node] for i in set_1 + ['0.0'] if i != node and (i, node) in possible_edges]) - pulp.lpSum(
-              [x[node][j] for j in set_1 + ['0.0'] if j != node and (node, j) in possible_edges]) == 0
-    print("Constraints:")
-    for name, constraint in prob.constraints.items():
-        print(f"{name}: {constraint}")
-
-    print("7----------------------------------------------------")
-    # Ensure the tour closes by traveling from `0.0.0` back to `0.0`
-    prob += pulp.lpSum([x['0.0.0']['0.0']]) == 1 # x_0.0.0_0.0 = 1
-    print("Constraints:")
-    for name, constraint in prob.constraints.items():
-        print(f"{name}: {constraint}")
+    for node in SetA:
+        prob += pulp.lpSum([x[i][node] for i in SetB + ['0.0.0'] if i != node and (i, node) in possible_edges]) - pulp.lpSum(
+              [x[node][j] for j in SetB + ['0.0.0'] if j != node and (node, j) in possible_edges]) == 0
 
     # Solve the problem without Subtour Elimination
     prob.solve(pulp.PULP_CBC_CMD(msg=True))
@@ -229,16 +188,19 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
             print(f"{idx + 1}: {i} -> {j}, Distance: {distances.get((i, j), 'Unknown')}")
         print(f"Initial Optimal objective value without subtour elimination: {initial_obj_value}")
         print("-------------------------------------------------------------------")
+        # plot_tour(optimal_tour, distances, SetA, SetB, possible_edges,
+        #           title=f"Initial Solution Without Subtour Elimination\nObjective Value: {pulp.value(prob.objective)}")
 
     return optimal_tour, nodes, x, prob
 
-def find_subtours(optimal_tour, nodes, set_1, set_2):
+
+def find_subtours(optimal_tour, nodes, setA, setB):
     """Find subtours in the current solution."""
     graph = nx.DiGraph()
     graph.add_edges_from(optimal_tour)
 
     subtours = list(nx.simple_cycles(graph))
-    return [subtour for subtour in subtours if len(subtour) < len(nodes) - abs(len(set_1) - len(set_2))]
+    return [subtour for subtour in subtours if len(subtour) < len(nodes)-(len(setA) - len(setB)) ] # length of Grav. Racks - length of Kit Holders for (unequal case)
 
 def iterative_subtour_elimination(distances, possible_edges, set_a, set_b):
     """Solve the TSP with iterative subtour elimination."""
@@ -332,43 +294,73 @@ def plot_tour(optimal_tour, distances, set_a, set_b, possible_edges, title):
     # Display the graph
     plt.show()
 
-def run_exact_tsp(input_data):
+def run_exact_tsp_remote(json_data):
     """
     Main function to run the exact TSP solver.
-    This function loads data from input_data (dict) and solves the TSP using iterative subtour elimination.
+    This function loads data, classifies nodes, checks connectivity,
+    and solves the TSP using iterative subtour elimination.
     """
     try:
-        # Create the distance matrix from input data (which should now be a dictionary)
-        a_to_b_matrix = create_distance_matrices(input_data)  # Adapt this to handle dict input properly
-
-        # Classify nodes into set_1 and set_2
-        set_a, set_b = classify_nodes(a_to_b_matrix)
-
-        # Create the distances dictionary using your logic
-        distances = create_distances_dict(a_to_b_matrix, set_a, set_b)
-
-        # Extract possible edges
+        # Load the distance matrix and classify nodes
+        distance_matrix = json_data['data']['distanceMatrix']
+        set_aa, set_bb, set_a, set_b = classify_nodes(distance_matrix)
+        distances = create_distances_dict(distance_matrix, set_a, set_b)
         possible_edges = extract_possible_edges(distances)
-        print(possible_edges)
 
-        # Check connectivity and analyze sets for issues
+        # Check connectivity and analyze sets
         check_connectivity(set_a, set_b, distances)
         analyze_sets(set_a, set_b, distances)
 
         # Solve the TSP with iterative subtour elimination
         exact_tour = iterative_subtour_elimination(distances, possible_edges, set_a, set_b)
 
-        if exact_tour:
-            # Reconstruct the tour and calculate total cost
-            ordered_tour = reconstruct_tour(exact_tour, start_node='0.0')
-            exact_tour_cost = sum(distances.get((i, j), 0) for i, j in ordered_tour)
-            time_details = [{"from": i, "to": j, "distance": distances.get((i, j), 'Unknown')} for i, j in ordered_tour]
+        # Reconstruct the tour in order starting from '0.0.0'
+        ordered_tour = reconstruct_tour(exact_tour, start_node='0.0.0')
 
-            return ordered_tour, exact_tour_cost, time_details
-        else:
-            return None, None, None
+        # Calculate the total cost of the exact tour
+        exact_tour_cost = sum(distances.get((i, j), 0) for i, j in ordered_tour)
+        time_details = [{"from": i, "to": j, "distance": distances.get((i, j), 'Unknown')} for i, j in ordered_tour]
 
-    except Exception as e:
+        # # Calculate the total cost of the exact tour
+        # exact_tour_cost = sum(distances.get((i, j), 0) for i, j in exact_tour)
+        # time_details = [{"from": i, "to": j, "distance": distances.get((i, j), 'Unknown')} for i, j in exact_tour]
+
+        return exact_tour, exact_tour_cost, time_details
+
+    except ValueError as e:
+        print(f"Error in exact method: {e}")
+        return None, None, None
+
+def run_exact_tsp_local(json_file_path):
+    """
+    Main function to run the exact TSP solver.
+    This function loads data, classifies nodes, checks connectivity,
+    and solves the TSP using iterative subtour elimination.
+    """
+    try:
+        # Load the distance matrix and classify nodes
+        distance_matrix = load_data(json_file_path)
+        set_aa, set_bb, set_a, set_b = classify_nodes(distance_matrix)
+        distances = create_distances_dict(distance_matrix, set_a, set_b)
+        possible_edges = extract_possible_edges(distances)
+
+        # Check connectivity and analyze sets
+        check_connectivity(set_a, set_b, distances)
+        analyze_sets(set_a, set_b, distances)
+
+        # Solve the TSP with iterative subtour elimination
+        exact_tour = iterative_subtour_elimination(distances, possible_edges, set_a, set_b)
+
+        # Reconstruct the tour in order starting from '0.0.0'
+        ordered_tour = reconstruct_tour(exact_tour, start_node='0.0.0')
+
+        # Calculate the total cost of the exact tour
+        exact_tour_cost = sum(distances.get((i, j), 0) for i, j in ordered_tour)
+        time_details = [{"from": i, "to": j, "distance": distances.get((i, j), 'Unknown')} for i, j in ordered_tour]
+
+        return ordered_tour, exact_tour_cost, time_details
+
+    except ValueError as e:
         print(f"Error in exact method: {e}")
         return None, None, None
 
@@ -399,29 +391,20 @@ def reconstruct_tour(tour_edges, start_node):
 
     return ordered_tour
 
-# def create_distance_matrices_from_json(json_file_path, large_number=1000000):
-#     with open(json_file_path, 'r') as f:
-#         input_data = json.load(f)
-#     # Distance matrix from the JSON
-#     distance_matrix = input_data['data']['distanceMatrix']
-#     a_to_b_data = {}
-#
-#     # Parse each entry in the distance matrix
-#     for entry in distance_matrix:
-#         edge = entry.get('edge')
-#         if edge:
-#             pointA, pointB = edge.strip('()').split(', ')
-#             distance = entry['distance']
-#             if pointB not in a_to_b_data:
-#                 a_to_b_data[pointB] = {}
-#             a_to_b_data[pointB][pointA] = distance
-#
-#     # Create a DataFrame for the distance matrix
-#     a_to_b_matrix = pd.DataFrame(a_to_b_data).fillna(large_number).astype(int)
-#     kit_holders = sorted([node for node in a_to_b_matrix.index if len(node.split('.')) == 2 or node == '0.0'])
-#     gravity_racks = sorted([node for node in a_to_b_matrix.index if len(node.split('.')) == 3 or node == '0.0.0'])
-#
-#     node_order = kit_holders + gravity_racks
-#     a_to_b_matrix = a_to_b_matrix.reindex(index=node_order, columns=node_order, fill_value = large_number)
-#
-#     return a_to_b_matrix
+
+# # Run the main function with the provided JSON file
+# json_file = 'random_json_input.json'
+
+
+
+### Run the main function with the provided JSON file
+# json_file = 'baby_example.json' # Equal Sets A and B
+# json_file = 'small2x4.json' # Not Equal Sets A and B
+# json_file = 'small.json' # Equal Sets A and B # 8x8
+# json_file = 'big.json'
+# json_file = 'gr40xkh20.json'  # 40x20
+# json_file = 'gr40xkh40.json' # 40x40
+# json_file = 'input_GR_20x2x10_KH_4x5_Run_2.json' # 400 x 20
+# json_file = 'input_GR_50x2x10_KH_4x5_Run_2.json' # 1000 x 20
+# json_file = 'input_GR_100x2x10_KH_4x5_Run_3.json' # 2000 x 20
+# main(json_file)
