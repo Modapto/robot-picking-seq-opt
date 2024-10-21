@@ -16,26 +16,36 @@ def generate_random_json_input():
     # kit_holder_positions = [f"{holder}.{block}"
     #                         for holder in range(1, 2)
     #                         for block in range(1, 3)]
-    # Increase Gravity rack positions
-    gravity_rack_positions = [f"{row}.{level}.{comp}"
-                              for row in range(1, 5)
-                              for level in range(1, 3)
-                              for comp in range(1, 5)]
-
-    # Increase Kit holder positions
-    kit_holder_positions = [f"{holder}.{block}"
-                            for holder in range(1, 5)
-                            for block in range(1, 3)]
-    # 10 Gravity rack positions
+    # # Increase Gravity rack positions
     # gravity_rack_positions = [f"{row}.{level}.{comp}"
-    #                           for row in range(1, 2)
-    #                           for level in range(1, 2)
-    #                           for comp in range(1, 5)]  # 10 gravity rack nodes
+    #                           for row in range(1, 5)
+    #                           for level in range(1, 3)
+    #                           for comp in range(1, 5)]
     #
-    # # 6 Kit holder positions
+    # # Increase Kit holder positions
     # kit_holder_positions = [f"{holder}.{block}"
-    #                         for holder in range(1, 2)
-    #                         for block in range(1, 3)]  # 6 kit holder nodes
+    #                         for holder in range(1, 5)
+    #                         for block in range(1, 3)]
+    # # Gravity rack positions
+    # gravity_rack_positions = [f"{row}.{level}.{comp}"
+    #                           for row in range(1, 7)
+    #                           for level in range(1, 3)
+    #                           for comp in range(1, 9)]
+    #
+    # #Kit holder positions
+    # kit_holder_positions = [f"{holder}.{block}"
+    #                         for holder in range(1, 5)
+    #                         for block in range(1, 7)]
+    # 10 Gravity rack positions
+    gravity_rack_positions = [f"{row}.{level}.{comp}"
+                              for row in range(1, 2)
+                              for level in range(1, 3)
+                              for comp in range(1, 6)]  # 8 gravity rack nodes
+
+    # 6 Kit holder positions
+    kit_holder_positions = [f"{holder}.{block}"
+                            for holder in range(1, 3)
+                            for block in range(1, 3)]  # 4 kit holder nodes
     # Generate the new distance matrix format
     distance_matrix = []
 
