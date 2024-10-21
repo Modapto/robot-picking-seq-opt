@@ -49,11 +49,12 @@ def total_cost(G, tour):
     for i in range(len(tour) - 1):
         u, v = tour[i], tour[i + 1]
         if u in G and v in G[u]:
-            cost += G[u][v]['weight']
+            weight = G[u][v]['weight']
+            cost += weight
             time_details.append({
                 "from": u,
                 "to": v,
-                "totalTime": G[u][v]['weight']
+                "totalTime": weight
             })
     return cost, time_details
 
@@ -90,7 +91,7 @@ def find_best_two_opt_move(tour, graph, set_1, set_2):
             move_cost = new_cost - current_cost
             print(f"Move cost: {move_cost}")
 
-            if move_cost < best_move_cost and new_cost_AK < float('inf') and new_cost_BL < float('inf'):
+            if move_cost < 0 and new_cost_AK < float('inf') and new_cost_BL < float('inf'):
                 print(f"Found better tour by swapping edges: ({A}, {B}) with ({K}, {L})")
                 best_move_cost = move_cost
                 best_tour = apply_two_opt_move(tour, first_index, second_index)
@@ -107,6 +108,34 @@ def apply_two_opt_move(tour, i, k):
     new_tour += tour[k + 1:]  # Keep the rest of the tour unchanged
     return new_tour
 
+# def opt2(tour, graph, set_1, set_2, start=None, end=None):
+#     """
+#     Improved 2-opt function with an iteration limit to ensure all possible improvements are explored.
+#     """
+#     if tour is None and start is not None and end is not None:
+#         print("Generating initial tour using Nearest Neighbor TSP...")
+#         tour = nearest_tsp(graph, start, end, set_1, set_2)
+#
+#     best_tour = tour
+#     best_cost = total_cost(graph, best_tour)[0]
+#     print(f"Initial tour cost: {best_cost}")
+#
+#     improved = True
+#     iteration = 0
+#     while improved and iteration < 1000:
+#         improved = False
+#         new_tour, move_cost = find_best_two_opt_move(best_tour, graph, set_1, set_2)
+#
+#         if move_cost < 0:
+#             best_tour = new_tour
+#             best_cost += move_cost
+#             improved = True
+#             print(f"Improved tour found with cost: {best_cost}")
+#         iteration += 1
+#
+#     print(f"Final optimized tour cost: {best_cost}")
+#     return best_tour
+
 def opt2(tour, graph, set_1, set_2, start=None, end=None):
     """
     Improved 2-opt function with an iteration limit to ensure all possible improvements are explored.
@@ -116,25 +145,32 @@ def opt2(tour, graph, set_1, set_2, start=None, end=None):
         tour = nearest_tsp(graph, start, end, set_1, set_2)
 
     best_tour = tour
-    best_cost = total_cost(graph, best_tour)[0]
+    best_cost = total_cost(graph, best_tour)[0]  # Calculate initial cost based on nearest neighbor tour
     print(f"Initial tour cost: {best_cost}")
 
     improved = True
     iteration = 0
-    while improved and iteration < 1000:
+
+    # Loop to optimize the tour using 2-opt algorithm
+    while improved and iteration < 5000:  # Setting a limit of 1000 iterations
         improved = False
+
+        # Try to find a better tour by 2-opt
         new_tour, move_cost = find_best_two_opt_move(best_tour, graph, set_1, set_2)
 
-        if move_cost < 0:
+        if move_cost < 0:  # If we find a better tour, update it
             best_tour = new_tour
-            best_cost += move_cost
+            best_cost += move_cost  # Adjust the best cost with the improvement
             improved = True
             print(f"Improved tour found with cost: {best_cost}")
         iteration += 1
 
-    print(f"Final optimized tour cost: {best_cost}")
-    return best_tour
+    # After the optimization is done, print and save the best tour and cost
+    final_cost = total_cost(graph, best_tour)[0]  # Recalculate the total cost of the best tour
+    print(f"Final optimized tour cost: {final_cost}")
 
+    # Make sure we return the **best_tour** after 2-opt, not the original tour
+    return best_tour, final_cost  # Ensure we're returning the optimized tour and cost
 
 
 

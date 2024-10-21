@@ -96,7 +96,7 @@ def run_tsp(json_file_path, input_data, generate_new_instance):
                 print("Nearest neighbor tour not found, generating it for 2-opt...")
                 simple_tour = nearest_tsp(B, start_node, end_node, set_1, set_2)
 
-            optimized_tour = opt2(simple_tour, B, set_1, set_2, start_node, end_node)
+            optimized_tour, optimized_tour_cost = opt2(simple_tour, B, set_1, set_2, start_node, end_node)
             optimized_tour_cost, time_details = total_cost(B, optimized_tour)
             results["2-opt"] = {
                 "tour": optimized_tour,
@@ -112,7 +112,7 @@ def run_tsp(json_file_path, input_data, generate_new_instance):
         try:
             print("Running Q-Learning TSP...")
             q_learning_tour = q_learning_tsp(B, start_node, end_node, set_1, set_2)
-            q_learning_tour_cost, time_details = total_cost(B, q_learning_tour)
+            q_learning_tour_cost, time_details = total_costRL(B, q_learning_tour)
             results["q-learning"] = {
                 "tour": q_learning_tour,
                 "cost": q_learning_tour_cost,

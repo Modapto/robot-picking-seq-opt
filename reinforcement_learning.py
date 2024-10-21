@@ -117,7 +117,7 @@ def best_q_tour(q_table, G, start, end, set_1, set_2, large_value):
     tour.append(start)
     return tour
 
-def total_cost(G, tour):
+def total_costRL(G, tour):
     cost = 0
     time_details = []
     for i in range(len(tour) - 1):
