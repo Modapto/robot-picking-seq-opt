@@ -1,6 +1,6 @@
 {
     "uuid": "6b8b13cc-be20-4e2d-bbc3-d2dbde1a9ba0",
-    "produced_at": 1729515638606,
+    "produced_at": 1729533800172,
     "data": {
         "pickingSeq": [
             {
@@ -18,28 +18,8 @@
             },
             {
                 "from": "2.2",
-                "to": "1.1.4",
-                "totalTime": 13028
-            },
-            {
-                "from": "1.1.4",
-                "to": "1.2",
-                "totalTime": 14217
-            },
-            {
-                "from": "1.2",
-                "to": "1.2.4",
-                "totalTime": 10842
-            },
-            {
-                "from": "1.2.4",
-                "to": "2.1",
-                "totalTime": 15197
-            },
-            {
-                "from": "2.1",
                 "to": "1.1.1",
-                "totalTime": 10909
+                "totalTime": 15790
             },
             {
                 "from": "1.1.1",
@@ -48,8 +28,28 @@
             },
             {
                 "from": "1.1",
+                "to": "1.1.4",
+                "totalTime": 13540
+            },
+            {
+                "from": "1.1.4",
+                "to": "2.1",
+                "totalTime": 14881
+            },
+            {
+                "from": "2.1",
+                "to": "1.2.4",
+                "totalTime": 18178
+            },
+            {
+                "from": "1.2.4",
+                "to": "1.2",
+                "totalTime": 12223
+            },
+            {
+                "from": "1.2",
                 "to": "0.0.0",
-                "totalTime": 11994
+                "totalTime": 6428
             },
             {
                 "from": "0.0.0",
@@ -57,8 +57,8 @@
                 "totalTime": 1
             }
         ],
-        "totalLoadingTime": "103734",
-        "solutionTime": 0,
-        "totalTime": 13
+        "totalLoadingTime": "108587",
+        "solutionTime": 4,
+        "totalTime": 17
     }
 }
