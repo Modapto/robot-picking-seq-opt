@@ -27,7 +27,7 @@ def convert_to_native_types(data):
     else:
         return data
 
-def run_tsp(json_file_path=None, input_data=None, generate_new_instance=True):
+def run_tsp(json_file_path, input_data, generate_new_instance):
     total_time_start = int(time() * 1000)
     total_loading_time = None  # Initialize here to avoid UnboundLocalError
 
@@ -189,7 +189,7 @@ def callback(ch, method, properties, body):
         input_postman_file_path = "input_postman.json"
         output_postman_file_path = "output_postman.json"
         #Run the TSP algorithm for the JSON input
-        output = run_tsp(input_file)
+        output = run_tsp(None, input_file, False)
 
         print("%s: Publishing results to queue." % (datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 
@@ -221,12 +221,4 @@ if online == "1":  # Remote mode with RabbitMQ
 
 elif online == "0":  # Local mode with JSON file input
     filename = sys.argv[2]
-    with open(filename) as f:
-        input = json.load(f)
-    print(datetime.now(), " - Data Received Successfully.")
-    uuid = input['uuid']
-    print(f"Process UUID: {input['uuid']}")
-    # print(input['data'])
-    input_data = input['data']
-    run_tsp(json_file_path=filename)
-
+    run_tsp(json_file_path=filename, input_data=None, generate_new_instance=True)
