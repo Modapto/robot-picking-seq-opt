@@ -52,7 +52,6 @@ def run_tsp(json_file_path, input_data, generate_new_instance):
         else:
             raise ValueError("Input data is required, either via JSON file or directly.")
 
-
     # Parse the distance matrices
     a_to_b_matrix = create_distance_matrices(input_data)
     print(a_to_b_matrix)
@@ -221,4 +220,4 @@ if online == "1":  # Remote mode with RabbitMQ
 
 elif online == "0":  # Local mode with JSON file input
     filename = sys.argv[2]
-    run_tsp(json_file_path=filename, input_data=None, generate_new_instance=True)
+    run_tsp(json_file_path=filename, input_data=None, generate_new_instance=False)
