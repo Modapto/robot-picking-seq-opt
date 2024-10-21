@@ -1,6 +1,6 @@
 {
-    "uuid": "67b945db-0bf4-45dc-b864-66ee438533a2",
-    "produced_at": 1729463398294,
+    "uuid": "eeea1cf6-18ba-461c-8d2b-6307ab24f0cd",
+    "produced_at": 1729494912864,
     "data": {
         "pickingSeq": [
             {
@@ -8,88 +8,88 @@
             },
             {
                 "from": "0.0",
-                "to": "1.1.2",
-                "totalTime": 6007
+                "to": "3.1.2",
+                "totalTime": 5016
             },
             {
-                "from": "1.1.2",
+                "from": "3.1.2",
                 "to": "3.2",
-                "totalTime": 10876
+                "totalTime": 11760
             },
             {
                 "from": "3.2",
                 "to": "3.2.1",
-                "totalTime": 10073
+                "totalTime": 14529
             },
             {
                 "from": "3.2.1",
                 "to": "2.2",
-                "totalTime": 10254
+                "totalTime": 12344
             },
             {
                 "from": "2.2",
-                "to": "2.2.2",
-                "totalTime": 10137
+                "to": "4.2.1",
+                "totalTime": 10312
             },
             {
-                "from": "2.2.2",
-                "to": "1.2",
-                "totalTime": 10054
-            },
-            {
-                "from": "1.2",
-                "to": "1.1.1",
-                "totalTime": 10028
-            },
-            {
-                "from": "1.1.1",
-                "to": "1.1",
-                "totalTime": 10066
-            },
-            {
-                "from": "1.1",
-                "to": "4.2.3",
-                "totalTime": 10146
-            },
-            {
-                "from": "4.2.3",
+                "from": "4.2.1",
                 "to": "4.1",
-                "totalTime": 12790
+                "totalTime": 10298
             },
             {
                 "from": "4.1",
-                "to": "4.2.2",
-                "totalTime": 10267
+                "to": "2.1.4",
+                "totalTime": 10930
             },
             {
-                "from": "4.2.2",
-                "to": "3.1",
-                "totalTime": 11930
-            },
-            {
-                "from": "3.1",
-                "to": "3.1.1",
-                "totalTime": 10066
-            },
-            {
-                "from": "3.1.1",
-                "to": "2.1",
-                "totalTime": 13255
-            },
-            {
-                "from": "2.1",
-                "to": "3.1.2",
-                "totalTime": 10019
-            },
-            {
-                "from": "3.1.2",
+                "from": "2.1.4",
                 "to": "4.2",
-                "totalTime": 13524
+                "totalTime": 14497
             },
             {
                 "from": "4.2",
+                "to": "4.2.2",
+                "totalTime": 10298
+            },
+            {
+                "from": "4.2.2",
+                "to": "1.1",
+                "totalTime": 12435
+            },
+            {
+                "from": "1.1",
+                "to": "3.1.4",
+                "totalTime": 14702
+            },
+            {
+                "from": "3.1.4",
+                "to": "2.1",
+                "totalTime": 12957
+            },
+            {
+                "from": "2.1",
+                "to": "1.2.2",
+                "totalTime": 14974
+            },
+            {
+                "from": "1.2.2",
+                "to": "1.2",
+                "totalTime": 12074
+            },
+            {
+                "from": "1.2",
+                "to": "2.1.1",
+                "totalTime": 10099
+            },
+            {
+                "from": "2.1.1",
+                "to": "3.1",
+                "totalTime": 13981
+            },
+            {
+                "from": "3.1",
                 "to": "0.0.0",
-                "totalTime": 9882
+                "totalTime": 6687
             },
             {
                 "from": "0.0.0",
@@ -97,8 +97,8 @@
                 "totalTime": 1
             }
         ],
-        "totalLoadingTime": "179375",
-        "solutionTime": 1,
-        "totalTime": 30
+        "totalLoadingTime": "197894",
+        "solutionTime": 5,
+        "totalTime": 42
     }
 }

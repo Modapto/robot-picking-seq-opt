@@ -189,7 +189,7 @@ def callback(ch, method, properties, body):
         input_postman_file_path = "input_postman.json"
         output_postman_file_path = "output_postman.json"
         #Run the TSP algorithm for the JSON input
-        output = process_json_data(input_file)
+        output = run_tsp(input_file)
 
         print("%s: Publishing results to queue." % (datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 
