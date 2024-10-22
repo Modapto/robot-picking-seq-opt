@@ -58,119 +58,118 @@ def total_cost(G, tour):
             })
     return cost, time_details
 
+def FindBestTwoOptMoveForBipartite(top, tour, G, set_1, set_2, start_node='0.0'):
+    number_of_neighboring_solutions = 0
 
-# 2-Opt Optimization
-def find_best_two_opt_move(tour, graph, set_1, set_2):
-    """
-    This function identifies the best 2-opt move by comparing the current and new tour costs
-    while ensuring valid transitions between kit holders (set_1) and gravity racks (set_2).
-    """
-    best_move_cost = 0  # Start with no improvement
-    best_tour = tour[:]  # Initialize with the original tour
+    # Traverse through the sequence of nodes (tour), including the start node
+    for firstIndex in range(0, len(tour) - 2):  # Start from 0 to include the starting node
+        A = tour[firstIndex]
+        B = tour[firstIndex + 1]
 
-    for first_index in range(0, len(tour) - 2):
-        A = tour[first_index]
-        B = tour[first_index + 1]
-        print(f"Checking edges ({A}, {B})")
+        for secondIndex in range(firstIndex + 2, len(tour) - 1):
+            K = tour[secondIndex]
+            L = tour[secondIndex + 1]
 
-        for second_index in range(first_index + 2, len(tour) - 1):
-            K = tour[second_index]
-            L = tour[second_index + 1]
-            print(f"Considering swap between ({A}, {B}) and ({K}, {L})")
+            # Ensure the 2-opt move does not violate bipartite constraints
+            if (A in set_1 and K in set_2) or (A in set_2 and K in set_1) or A == start_node:
+                number_of_neighboring_solutions += 1
 
-            current_cost_AB = graph[A][B]['weight'] if graph.has_edge(A, B) else float('inf')
-            current_cost_KL = graph[K][L]['weight'] if graph.has_edge(K, L) else float('inf')
-            current_cost = current_cost_AB + current_cost_KL
-            print(f"Current edge costs: AB = {current_cost_AB}, KL = {current_cost_KL}, Total = {current_cost}")
+                # Only proceed if the edges exist in the graph
+                if G.has_edge(A, K) and G.has_edge(B, L):
+                    costAdded = G[A][K]['weight'] + G[B][L]['weight']
+                    costRemoved = G[A][B]['weight'] + G[K][L]['weight']
 
-            new_cost_AK = graph[A][K]['weight'] if graph.has_edge(A, K) else float('inf')
-            new_cost_BL = graph[B][L]['weight'] if graph.has_edge(B, L) else float('inf')
-            new_cost = new_cost_AK + new_cost_BL
-            print(f"New edge costs: AK = {new_cost_AK}, BL = {new_cost_BL}, Total = {new_cost}")
+                    moveCost = costAdded - costRemoved
 
-            move_cost = new_cost - current_cost
-            print(f"Move cost: {move_cost}")
+                    if moveCost < top['moveCost']:
+                        top['moveCost'] = moveCost
+                        top['positionOfFirst'] = firstIndex
+                        top['positionOfSecond'] = secondIndex
+                    else:
+                        # Add the detailed debugging output here
+                        print(f"Edge missing between {A}->{K} or {B}->{L}")
+                        print(f"Current tour: {tour}")
+                        if G.has_edge(A, K):
+                            print(f"Distance from {A} to {K}: {G[A][K]['weight']}")
+                        else:
+                            print(f"Distance from {A} to {K} is missing.")
+                        if G.has_edge(B, L):
+                            print(f"Distance from {B} to {L}: {G[B][L]['weight']}")
+                        else:
+                            print(f"Distance from {B} to {L} is missing.")
 
-            if move_cost < 0 and new_cost_AK < float('inf') and new_cost_BL < float('inf'):
-                print(f"Found better tour by swapping edges: ({A}, {B}) with ({K}, {L})")
-                best_move_cost = move_cost
-                best_tour = apply_two_opt_move(tour, first_index, second_index)
+    # Additional debugging information for starting node consideration
+    if start_node in tour:
+        print(f"Swaps including the start node {start_node} are considered.")
+    else:
+        print(f"Start node {start_node} is not in the current tour.")
 
-    return best_tour, best_move_cost
+def ApplyTwoOptMoveForBipartite(top, tour):
+    # Apply the 2-opt swap, maintaining the alternating structure between set_1 and set_2
+    modifiedSequence = []
+    i = 0
+    while i <= top['positionOfFirst']:
+        modifiedSequence.append(tour[i])
+        i += 1
+    i = top['positionOfSecond']
+    while i > top['positionOfFirst']:
+        modifiedSequence.append(tour[i])
+        i -= 1
+    i = top['positionOfSecond'] + 1
+    while i < len(tour):
+        modifiedSequence.append(tour[i])
+        i += 1
 
+    # Update the tour with the new sequence
+    for idx in range(len(tour)):
+        tour[idx] = modifiedSequence[idx]  # Update original tour list with modified one
 
-def apply_two_opt_move(tour, i, k):
-    """
-    This function applies the best 2-opt move by reversing the segment between two nodes.
-    """
-    new_tour = tour[:i + 1]  # Keep the part before the reversed segment
-    new_tour += tour[i + 1:k + 1][::-1]  # Reverse the segment between i and k
-    new_tour += tour[k + 1:]  # Keep the rest of the tour unchanged
-    return new_tour
+class TwoOptMove:
+    def __init__(self):
+        self.positionOfFirst = None
+        self.positionOfSecond = None
+        self.moveCost = float('inf')  # Initialize with a high value to minimize
 
-# def opt2(tour, graph, set_1, set_2, start=None, end=None):
-#     """
-#     Improved 2-opt function with an iteration limit to ensure all possible improvements are explored.
-#     """
-#     if tour is None and start is not None and end is not None:
-#         print("Generating initial tour using Nearest Neighbor TSP...")
-#         tour = nearest_tsp(graph, start, end, set_1, set_2)
-#
-#     best_tour = tour
-#     best_cost = total_cost(graph, best_tour)[0]
-#     print(f"Initial tour cost: {best_cost}")
-#
-#     improved = True
-#     iteration = 0
-#     while improved and iteration < 1000:
-#         improved = False
-#         new_tour, move_cost = find_best_two_opt_move(best_tour, graph, set_1, set_2)
-#
-#         if move_cost < 0:
-#             best_tour = new_tour
-#             best_cost += move_cost
-#             improved = True
-#             print(f"Improved tour found with cost: {best_cost}")
-#         iteration += 1
-#
-#     print(f"Final optimized tour cost: {best_cost}")
-#     return best_tour
+    def Initialize(self):
+        self.positionOfFirst = None
+        self.positionOfSecond = None
+        self.moveCost = float('inf')  # Reset the move cost to infinity before each iteration
 
-def opt2(tour, graph, set_1, set_2, start=None, end=None):
-    """
-    Improved 2-opt function with an iteration limit to ensure all possible improvements are explored.
-    """
-    if tour is None and start is not None and end is not None:
-        print("Generating initial tour using Nearest Neighbor TSP...")
-        tour = nearest_tsp(graph, start, end, set_1, set_2)
+def two_opt_for_bipartite(tour, G, set_1, set_2, max_iterations=1000):
+    best_tour = tour[:]
+    best_cost, _ = total_cost(G, best_tour)  # Calculate the cost of the initial tour
+    iteration = 0  # Counter to track the number of iterations
 
-    best_tour = tour
-    best_cost = total_cost(graph, best_tour)[0]  # Calculate initial cost based on nearest neighbor tour
-    print(f"Initial tour cost: {best_cost}")
-
-    improved = True
-    iteration = 0
-
-    # Loop to optimize the tour using 2-opt algorithm
-    while improved and iteration < 5000:  # Setting a limit of 1000 iterations
+    improved = True  # Flag to check if further improvements are possible
+    while improved and iteration < max_iterations:
         improved = False
 
-        # Try to find a better tour by 2-opt
-        new_tour, move_cost = find_best_two_opt_move(best_tour, graph, set_1, set_2)
+        # Use a dictionary to store the 2-opt move details
+        top = {
+            'positionOfFirst': None,
+            'positionOfSecond': None,
+            'moveCost': float('inf')
+        }
 
-        if move_cost < 0:  # If we find a better tour, update it
-            best_tour = new_tour
-            best_cost += move_cost  # Adjust the best cost with the improvement
-            improved = True
-            print(f"Improved tour found with cost: {best_cost}")
-        iteration += 1
+        # Call the modified function to find the best 2-opt move for bipartite graphs
+        FindBestTwoOptMoveForBipartite(top, best_tour, G, set_1, set_2)
 
-    # After the optimization is done, print and save the best tour and cost
-    final_cost = total_cost(graph, best_tour)[0]  # Recalculate the total cost of the best tour
-    print(f"Final optimized tour cost: {final_cost}")
+        if top['positionOfFirst'] is not None and top['moveCost'] < 0:
+            # If a valid move is found, apply the move and continue the search
+            ApplyTwoOptMoveForBipartite(top, best_tour)
+            improved = True  # Found an improvement, keep searching
+            best_cost = total_cost(G, best_tour)[0]  # Update best cost
+        else:
+            # No further improvement possible, stop the search
+            break
 
-    # Make sure we return the **best_tour** after 2-opt, not the original tour
-    return best_tour, final_cost  # Ensure we're returning the optimized tour and cost
+        iteration += 1  # Increment the iteration counter
+
+    print(f"2-opt terminated after {iteration} iterations.")
+    return best_tour, best_cost
+
+
+
 
 
 

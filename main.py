@@ -87,26 +87,38 @@ def run_tsp(json_file_path, input_data, generate_new_instance):
         except ValueError as e:
             print(f"Error in nearest method: {e}")
 
-    # 2-opt Optimization
     if method == "2-opt" or method == "all":
-        try:
-            print("Running 2-opt optimization...")
-            # if nearest_tsp was not run before, generate the tour first
-            if simple_tour is None:
-                print("Nearest neighbor tour not found, generating it for 2-opt...")
-                simple_tour = nearest_tsp(B, start_node, end_node, set_1, set_2)
+        if simple_tour or method == "2-opt":
+            try:
+                print("Running 2-opt TSP...")
+                if not simple_tour and method == "2-opt":
+                    print("No previous tour found. Using Nearest Neighbor to generate initial tour for 2-opt.")
+                    simple_tour = nearest_tsp(B, start_node, end_node, set_1, set_2)
+                    simple_tour_cost, time_details = total_cost(B, simple_tour)
+                    print(f"Nearest Neighbor TSP. Cost: {simple_tour_cost}")
 
-            optimized_tour, optimized_tour_cost = opt2(simple_tour, B, set_1, set_2, start_node, end_node)
-            optimized_tour_cost, time_details = total_cost(B, optimized_tour)
-            results["2-opt"] = {
-                "tour": optimized_tour,
-                "cost": optimized_tour_cost,
-                "time_details": time_details,
-                "totalLoadingTime": optimized_tour_cost
-            }
-            print(f"2-opt TSP completed. Cost: {optimized_tour_cost}")
-        except ValueError as e:
-            print(f"Error in 2-opt method: {e}")
+                # Run 2-opt optimization on the simple tour
+                optimized_tour, optimized_tour_cost = two_opt_for_bipartite(simple_tour, B, set_1, set_2, max_iterations=500)
+                optimized_tour_cost, time_details = total_cost(B, optimized_tour)
+
+                # Compare costs and choose the better solution
+                if optimized_tour_cost < simple_tour_cost:
+                    print(f"2-opt improved the tour. Cost reduced from {simple_tour_cost} to {optimized_tour_cost}")
+                    best_tour = optimized_tour
+                    best_cost = optimized_tour_cost
+                else:
+                    print(f"2-opt did not improve the tour. Keeping the Nearest Neighbor solution.")
+                    best_tour = simple_tour
+                    best_cost = simple_tour_cost
+
+                results["2-opt"] = {
+                    "tour": best_tour,
+                    "cost": best_cost,
+                    "time_details": time_details,
+                    "totalLoadingTime": best_cost
+                }
+            except ValueError as e:
+                print(f"Error in 2-opt method: {e}")
 
     if method == "q-learning" or method == "all":
         try:
