@@ -1,9 +1,9 @@
 import random
 
 # Q-Learning Parameters
-ALPHA = 0.1  # Learning rate
+ALPHA = 0.1 # Learning rate
 GAMMA = 0.95  # Discount factor
-EPSILON = 0.1  # Exploration factor
+EPSILON = 0.9 # Exploration factor
 
 def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=1000):
     q_table = {node: {neighbor: 0 for neighbor in G.neighbors(node)} for node in G.nodes}
@@ -28,9 +28,7 @@ def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=10
             if random.uniform(0, 1) < EPSILON:
                 next_node = random.choice(valid_neighbors) if valid_neighbors else None
             else:
-                next_node = \
-                max(((n, q_table[current_node][n]) for n in valid_neighbors), key=lambda x: x[1], default=(None, None))[
-                    0]
+                next_node = max(((n, q_table[current_node][n]) for n in valid_neighbors), key=lambda x: x[1], default=(None, None))[0]
 
             if next_node is None:
                 break
@@ -53,14 +51,14 @@ def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=10
         tour.append(start)
 
         # Calculate the total cost of the current tour
-        cost, _ = total_cost(G, tour)
+        cost, _ = total_costRL(G, tour)
 
         # Print the current tour and its cost
         print(f"Episode {episode + 1}, Tour: {tour}, Total Cost: {cost}")
 
     # Now get the best Q-learning-based tour
     best_tour = best_q_tour(q_table, G, start, end, set_1, set_2, large_value)
-    best_tour_cost, _ = total_cost(G, best_tour)
+    best_tour_cost, _ = total_costRL(G, best_tour)
     print(f"Best Q-Learning Tour: {best_tour}, Total Cost: {best_tour_cost}")
 
     return best_tour
@@ -68,12 +66,14 @@ def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=10
 def get_reward(G, current, next_node, set_1, set_2, large_value):
     if current in set_1 and next_node in set_2:
         weight = G[current][next_node]['weight']
-        return -weight if weight < large_value else -float('inf')
+        if weight >= large_value:
+            return -float('inf')
+        return -weight
     elif current in set_2 and next_node in set_1:
         weight = G[current][next_node]['weight']
-        return -weight if weight < large_value else -float('inf')
-    elif current == '0.0.0':  # When reaching 0.0.0, reward returning to start
-        return -1
+        if weight >= large_value:
+            return -float('inf')  # Discourage transitions with large weights
+        return -weight
     else:
         return -float('inf')  # Invalid transition
 
