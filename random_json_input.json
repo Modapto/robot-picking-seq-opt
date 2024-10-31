@@ -3,7 +3,7 @@
     "uuid": "17906795-b688-419c-8158-2d12feada7ad",
     "generated_at": 1729863120,
     "data": {
-        "method": "exact",
+        "method": "q-learning",
         "start_node": "0.0",
         "end_node": "0.0.0",
         "distanceMatrix": [

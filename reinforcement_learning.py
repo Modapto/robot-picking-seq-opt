@@ -3,9 +3,9 @@ import random
 # Q-Learning Parameters
 ALPHA = 0.1  # Learning rate
 GAMMA = 0.95  # Discount factor
-EPSILON = 0.9  # Exploration factor
+EPSILON = 0.1  # Exploration factor
 
-def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=1000):
+def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=5000):
     q_table = {node: {neighbor: 0 for neighbor in G.neighbors(node)} for node in G.nodes}
 
     for episode in range(episodes):

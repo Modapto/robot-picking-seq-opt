@@ -1,6 +1,6 @@
 {
     "uuid": "17906795-b688-419c-8158-2d12feada7ad",
-    "produced_at": 1730222905326,
+    "produced_at": 1730373530802,
     "data": {
         "pickingSeq": [
             {
@@ -8,328 +8,328 @@
             },
             {
                 "from": "0.0",
-                "to": "5.2.2",
-                "totalTime": 10265
+                "to": "2.1.2",
+                "totalTime": 5105
             },
             {
-                "from": "5.2.2",
-                "to": "2.2",
-                "totalTime": 12458
-            },
-            {
-                "from": "2.2",
-                "to": "9.1.7",
-                "totalTime": 11534
-            },
-            {
-                "from": "9.1.7",
-                "to": "4.8",
-                "totalTime": 10447
-            },
-            {
-                "from": "4.8",
-                "to": "4.1.4",
-                "totalTime": 14135
-            },
-            {
-                "from": "4.1.4",
-                "to": "2.7",
-                "totalTime": 10092
-            },
-            {
-                "from": "2.7",
-                "to": "3.2.3",
-                "totalTime": 11762
-            },
-            {
-                "from": "3.2.3",
-                "to": "1.1",
-                "totalTime": 13688
-            },
-            {
-                "from": "1.1",
-                "to": "4.2.5",
-                "totalTime": 13639
-            },
-            {
-                "from": "4.2.5",
-                "to": "1.2",
-                "totalTime": 18234
-            },
-            {
-                "from": "1.2",
-                "to": "2.2.3",
-                "totalTime": 16060
-            },
-            {
-                "from": "2.2.3",
-                "to": "4.4",
-                "totalTime": 15531
-            },
-            {
-                "from": "4.4",
-                "to": "7.1.5",
-                "totalTime": 10056
-            },
-            {
-                "from": "7.1.5",
-                "to": "2.1",
-                "totalTime": 16832
-            },
-            {
-                "from": "2.1",
-                "to": "5.2.4",
-                "totalTime": 16107
-            },
-            {
-                "from": "5.2.4",
-                "to": "4.3",
-                "totalTime": 12124
-            },
-            {
-                "from": "4.3",
-                "to": "6.2.8",
-                "totalTime": 13787
-            },
-            {
-                "from": "6.2.8",
-                "to": "1.3",
-                "totalTime": 18902
-            },
-            {
-                "from": "1.3",
-                "to": "7.2.6",
-                "totalTime": 19909
-            },
-            {
-                "from": "7.2.6",
-                "to": "4.2",
-                "totalTime": 10009
-            },
-            {
-                "from": "4.2",
-                "to": "9.2.8",
-                "totalTime": 13737
-            },
-            {
-                "from": "9.2.8",
-                "to": "3.2",
-                "totalTime": 17580
-            },
-            {
-                "from": "3.2",
-                "to": "10.1.8",
-                "totalTime": 13218
-            },
-            {
-                "from": "10.1.8",
-                "to": "3.5",
-                "totalTime": 16045
-            },
-            {
-                "from": "3.5",
-                "to": "5.1.4",
-                "totalTime": 12128
-            },
-            {
-                "from": "5.1.4",
-                "to": "2.6",
-                "totalTime": 15394
-            },
-            {
-                "from": "2.6",
-                "to": "3.2.5",
-                "totalTime": 16662
-            },
-            {
-                "from": "3.2.5",
-                "to": "3.6",
-                "totalTime": 13315
-            },
-            {
-                "from": "3.6",
-                "to": "9.1.8",
-                "totalTime": 16647
-            },
-            {
-                "from": "9.1.8",
-                "to": "2.5",
-                "totalTime": 12785
-            },
-            {
-                "from": "2.5",
-                "to": "3.2.4",
-                "totalTime": 10629
-            },
-            {
-                "from": "3.2.4",
+                "from": "2.1.2",
                 "to": "2.8",
-                "totalTime": 15070
+                "totalTime": 10075
             },
             {
                 "from": "2.8",
-                "to": "1.1.6",
-                "totalTime": 11546
+                "to": "2.2.8",
+                "totalTime": 10037
             },
             {
-                "from": "1.1.6",
-                "to": "1.6",
-                "totalTime": 16409
+                "from": "2.2.8",
+                "to": "4.2",
+                "totalTime": 10129
             },
             {
-                "from": "1.6",
-                "to": "7.1.6",
-                "totalTime": 11661
-            },
-            {
-                "from": "7.1.6",
-                "to": "4.7",
-                "totalTime": 14216
-            },
-            {
-                "from": "4.7",
-                "to": "9.2.3",
-                "totalTime": 10481
-            },
-            {
-                "from": "9.2.3",
-                "to": "3.1",
-                "totalTime": 12328
-            },
-            {
-                "from": "3.1",
-                "to": "4.1.3",
-                "totalTime": 11919
-            },
-            {
-                "from": "4.1.3",
-                "to": "4.6",
-                "totalTime": 10840
-            },
-            {
-                "from": "4.6",
-                "to": "9.1.5",
-                "totalTime": 10353
-            },
-            {
-                "from": "9.1.5",
-                "to": "1.5",
-                "totalTime": 13880
-            },
-            {
-                "from": "1.5",
-                "to": "9.2.5",
-                "totalTime": 16428
-            },
-            {
-                "from": "9.2.5",
-                "to": "3.3",
-                "totalTime": 13644
-            },
-            {
-                "from": "3.3",
-                "to": "1.2.1",
-                "totalTime": 19843
-            },
-            {
-                "from": "1.2.1",
-                "to": "3.8",
-                "totalTime": 15160
-            },
-            {
-                "from": "3.8",
-                "to": "10.2.2",
-                "totalTime": 16107
-            },
-            {
-                "from": "10.2.2",
-                "to": "4.5",
-                "totalTime": 11203
-            },
-            {
-                "from": "4.5",
-                "to": "10.1.3",
-                "totalTime": 16575
-            },
-            {
-                "from": "10.1.3",
-                "to": "3.4",
-                "totalTime": 10585
-            },
-            {
-                "from": "3.4",
-                "to": "9.1.2",
-                "totalTime": 13846
-            },
-            {
-                "from": "9.1.2",
-                "to": "1.7",
-                "totalTime": 11484
-            },
-            {
-                "from": "1.7",
+                "from": "4.2",
                 "to": "7.1.1",
-                "totalTime": 16807
+                "totalTime": 10136
             },
             {
                 "from": "7.1.1",
+                "to": "4.8",
+                "totalTime": 10313
+            },
+            {
+                "from": "4.8",
+                "to": "1.1.6",
+                "totalTime": 10068
+            },
+            {
+                "from": "1.1.6",
                 "to": "2.3",
-                "totalTime": 15964
+                "totalTime": 10073
             },
             {
                 "from": "2.3",
-                "to": "9.2.7",
-                "totalTime": 10550
+                "to": "5.1.5",
+                "totalTime": 10018
             },
             {
-                "from": "9.2.7",
-                "to": "1.4",
-                "totalTime": 16166
+                "from": "5.1.5",
+                "to": "1.7",
+                "totalTime": 10038
             },
             {
-                "from": "1.4",
-                "to": "5.2.6",
-                "totalTime": 19933
+                "from": "1.7",
+                "to": "5.2.2",
+                "totalTime": 10127
             },
             {
-                "from": "5.2.6",
-                "to": "1.8",
-                "totalTime": 16519
-            },
-            {
-                "from": "1.8",
-                "to": "1.1.1",
-                "totalTime": 15454
-            },
-            {
-                "from": "1.1.1",
-                "to": "3.7",
-                "totalTime": 19071
-            },
-            {
-                "from": "3.7",
-                "to": "10.1.6",
-                "totalTime": 11696
-            },
-            {
-                "from": "10.1.6",
+                "from": "5.2.2",
                 "to": "2.4",
-                "totalTime": 19321
+                "totalTime": 10347
             },
             {
                 "from": "2.4",
-                "to": "3.1.3",
-                "totalTime": 10261
+                "to": "8.2.5",
+                "totalTime": 10219
             },
             {
-                "from": "3.1.3",
+                "from": "8.2.5",
+                "to": "3.1",
+                "totalTime": 10149
+            },
+            {
+                "from": "3.1",
+                "to": "8.1.8",
+                "totalTime": 10319
+            },
+            {
+                "from": "8.1.8",
+                "to": "2.5",
+                "totalTime": 10004
+            },
+            {
+                "from": "2.5",
+                "to": "4.1.8",
+                "totalTime": 10003
+            },
+            {
+                "from": "4.1.8",
+                "to": "4.7",
+                "totalTime": 10128
+            },
+            {
+                "from": "4.7",
+                "to": "5.2.5",
+                "totalTime": 10080
+            },
+            {
+                "from": "5.2.5",
+                "to": "1.1",
+                "totalTime": 10238
+            },
+            {
+                "from": "1.1",
+                "to": "5.1.4",
+                "totalTime": 10037
+            },
+            {
+                "from": "5.1.4",
+                "to": "1.8",
+                "totalTime": 10002
+            },
+            {
+                "from": "1.8",
+                "to": "3.2.2",
+                "totalTime": 10002
+            },
+            {
+                "from": "3.2.2",
+                "to": "2.6",
+                "totalTime": 10515
+            },
+            {
+                "from": "2.6",
+                "to": "5.1.6",
+                "totalTime": 10016
+            },
+            {
+                "from": "5.1.6",
+                "to": "2.2",
+                "totalTime": 10309
+            },
+            {
+                "from": "2.2",
+                "to": "6.2.6",
+                "totalTime": 10222
+            },
+            {
+                "from": "6.2.6",
+                "to": "3.2",
+                "totalTime": 10115
+            },
+            {
+                "from": "3.2",
+                "to": "2.1.6",
+                "totalTime": 10147
+            },
+            {
+                "from": "2.1.6",
+                "to": "3.5",
+                "totalTime": 10045
+            },
+            {
+                "from": "3.5",
+                "to": "10.2.6",
+                "totalTime": 10294
+            },
+            {
+                "from": "10.2.6",
+                "to": "3.6",
+                "totalTime": 10078
+            },
+            {
+                "from": "3.6",
+                "to": "8.1.6",
+                "totalTime": 10132
+            },
+            {
+                "from": "8.1.6",
+                "to": "2.7",
+                "totalTime": 10052
+            },
+            {
+                "from": "2.7",
+                "to": "7.1.7",
+                "totalTime": 10133
+            },
+            {
+                "from": "7.1.7",
+                "to": "4.6",
+                "totalTime": 10207
+            },
+            {
+                "from": "4.6",
+                "to": "6.1.3",
+                "totalTime": 10252
+            },
+            {
+                "from": "6.1.3",
+                "to": "1.4",
+                "totalTime": 12157
+            },
+            {
+                "from": "1.4",
+                "to": "1.2.3",
+                "totalTime": 10104
+            },
+            {
+                "from": "1.2.3",
+                "to": "1.2",
+                "totalTime": 10142
+            },
+            {
+                "from": "1.2",
+                "to": "4.1.5",
+                "totalTime": 10346
+            },
+            {
+                "from": "4.1.5",
+                "to": "3.8",
+                "totalTime": 10327
+            },
+            {
+                "from": "3.8",
+                "to": "2.1.8",
+                "totalTime": 10400
+            },
+            {
+                "from": "2.1.8",
+                "to": "1.5",
+                "totalTime": 11660
+            },
+            {
+                "from": "1.5",
+                "to": "10.1.2",
+                "totalTime": 10118
+            },
+            {
+                "from": "10.1.2",
                 "to": "4.1",
-                "totalTime": 15571
+                "totalTime": 10013
             },
             {
                 "from": "4.1",
+                "to": "6.2.1",
+                "totalTime": 10076
+            },
+            {
+                "from": "6.2.1",
+                "to": "1.3",
+                "totalTime": 10974
+            },
+            {
+                "from": "1.3",
+                "to": "4.1.4",
+                "totalTime": 10186
+            },
+            {
+                "from": "4.1.4",
+                "to": "3.7",
+                "totalTime": 10136
+            },
+            {
+                "from": "3.7",
+                "to": "9.2.5",
+                "totalTime": 10231
+            },
+            {
+                "from": "9.2.5",
+                "to": "1.6",
+                "totalTime": 10144
+            },
+            {
+                "from": "1.6",
+                "to": "1.2.7",
+                "totalTime": 10185
+            },
+            {
+                "from": "1.2.7",
+                "to": "2.1",
+                "totalTime": 10128
+            },
+            {
+                "from": "2.1",
+                "to": "4.2.2",
+                "totalTime": 10441
+            },
+            {
+                "from": "4.2.2",
+                "to": "3.3",
+                "totalTime": 11127
+            },
+            {
+                "from": "3.3",
+                "to": "7.1.4",
+                "totalTime": 10016
+            },
+            {
+                "from": "7.1.4",
+                "to": "4.3",
+                "totalTime": 11835
+            },
+            {
+                "from": "4.3",
+                "to": "1.2.5",
+                "totalTime": 10210
+            },
+            {
+                "from": "1.2.5",
+                "to": "4.4",
+                "totalTime": 10840
+            },
+            {
+                "from": "4.4",
+                "to": "7.2.6",
+                "totalTime": 10088
+            },
+            {
+                "from": "7.2.6",
+                "to": "3.4",
+                "totalTime": 12736
+            },
+            {
+                "from": "3.4",
+                "to": "1.1.7",
+                "totalTime": 10276
+            },
+            {
+                "from": "1.1.7",
+                "to": "4.5",
+                "totalTime": 16028
+            },
+            {
+                "from": "4.5",
                 "to": "0.0.0",
-                "totalTime": 7429
+                "totalTime": 6394
             },
             {
                 "from": "0.0.0",
@@ -337,8 +337,8 @@
                 "totalTime": 1
             }
         ],
-        "totalLoadingTime": "912032",
-        "solutionTime": 2986,
-        "totalTime": 3056
+        "totalLoadingTime": "667483",
+        "solutionTime": 12386,
+        "totalTime": 12457
     }
 }
