@@ -1,11 +1,69 @@
 import random
-
+import pandas as pd
 # Q-Learning Parameters
 ALPHA = 0.1  # Learning rate
 GAMMA = 0.95  # Discount factor
 EPSILON = 0.9  # Exploration factor
 
-def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=1000):
+# def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=1000):
+#     q_table = {node: {neighbor: 0 for neighbor in G.neighbors(node)} for node in G.nodes}
+#
+#     for episode in range(episodes):
+#         current_node = start
+#         tour = [current_node]
+#         visit = {node: False for node in G.nodes}
+#         visit[start] = True
+#
+#         while len(tour) < len(set_1) + len(set_2):  # Ensure all nodes are visited before 0.0.0
+#             # Alternate between set_1 and set_2 strictly
+#             if current_node in set_2 and current_node != end:  # If in set_2, move to set_1 (kit holders)
+#                 valid_neighbors = [node for node in set_1 if
+#                                    not visit[node] and G.has_edge(current_node, node) and G[current_node][node][
+#                                        'weight'] < large_value]
+#             else:  # If in set_1, move to set_2 (gravity racks)
+#                 valid_neighbors = [node for node in set_2 if
+#                                    not visit[node] and node != end and G.has_edge(current_node, node) and
+#                                    G[current_node][node]['weight'] < large_value]
+#
+#             if random.uniform(0, 1) < EPSILON:
+#                 next_node = random.choice(valid_neighbors) if valid_neighbors else None
+#             else:
+#                 next_node = max(((n, q_table[current_node][n]) for n in valid_neighbors), key=lambda x: x[1], default=(None, None))[0]
+#
+#             if next_node is None:
+#                 break
+#
+#             # Check if all kit holders (set_1) and gravity racks (set_2) have been visited
+#             if all(visit[node] for node in set_1) and all(visit[node] for node in set_2):
+#                 next_node = end  # Force visit to 0.0.0
+#                 visit[end] = True
+#
+#             reward = get_reward(G, current_node, next_node, set_1, set_2, large_value)
+#             max_next_q = max(q_table[next_node].values(), default=0)
+#             q_table[current_node][next_node] = (1 - ALPHA) * q_table[current_node][next_node] + \
+#                                                ALPHA * (reward + GAMMA * max_next_q)
+#
+#             current_node = next_node
+#             tour.append(next_node)
+#             visit[next_node] = True
+#
+#         # After all nodes are visited, add the return to 0.0
+#         tour.append(start)
+#
+#         # Calculate the total cost of the current tour
+#         cost, _ = total_costRL(G, tour)
+#
+#         # Print the current tour and its cost
+#         print(f"Episode {episode + 1}, Tour: {tour}, Total Cost: {cost}")
+#
+#     # Now get the best Q-learning-based tour
+#     best_tour = best_q_tour(q_table, G, start, end, set_1, set_2, large_value)
+#     best_tour_cost, _ = total_costRL(G, best_tour)
+#     print(f"Best Q-Learning Tour: {best_tour}, Total Cost: {best_tour_cost}")
+#
+#     return best_tour
+
+def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=3500):
     q_table = {node: {neighbor: 0 for neighbor in G.neighbors(node)} for node in G.nodes}
 
     for episode in range(episodes):
@@ -61,7 +119,12 @@ def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=10
     best_tour_cost, _ = total_costRL(G, best_tour)
     print(f"Best Q-Learning Tour: {best_tour}, Total Cost: {best_tour_cost}")
 
-    return best_tour
+    #Convert Q-values to a DataFrame
+    q_df = pd.DataFrame.from_dict(q_table, orient='index').fillna(float('inf'))  # Use inf for non-visited
+    print("Q-values DataFrame:")
+    print(q_df)
+
+    return best_tour,q_df  # Return the best tour and the Q-values DataFrame
 
 def get_reward(G, current, next_node, set_1, set_2, large_value):
     if current in set_1 and next_node in set_2:
