@@ -4,7 +4,7 @@ from time import *
 import json
 
 def generate_random_json_input():
-    methods = ["2-opt"]
+    methods = ["exact"]
     # "nearest",, "q_learning", "exact", "2-opt"
     # # Gravity rack positions
     # gravity_rack_positions = [f"{row}.{level}.{comp}"
@@ -17,25 +17,25 @@ def generate_random_json_input():
     #                         for holder in range(1, 2)
     #                         for block in range(1, 3)]
     # Increase Gravity rack positions
-    gravity_rack_positions = [f"{row}.{level}.{comp}"
-                              for row in range(1, 5)
-                              for level in range(1, 3)
-                              for comp in range(1, 5)]
-
-    # Increase Kit holder positions
-    kit_holder_positions = [f"{holder}.{block}"
-                            for holder in range(1, 5)
-                            for block in range(1, 3)]
-    # # Gravity rack positions
     # gravity_rack_positions = [f"{row}.{level}.{comp}"
-    #                           for row in range(1, 7)
+    #                           for row in range(1, 5)
     #                           for level in range(1, 3)
-    #                           for comp in range(1, 9)]
+    #                           for comp in range(1, 5)]
     #
-    # #Kit holder positions
+    # # Increase Kit holder positions
     # kit_holder_positions = [f"{holder}.{block}"
     #                         for holder in range(1, 5)
-    #                         for block in range(1, 7)]
+    #                         for block in range(1, 3)]
+    # # Gravity rack positions
+    gravity_rack_positions = [f"{row}.{level}.{comp}"
+                              for row in range(1, 11)
+                              for level in range(1, 3)
+                              for comp in range(1, 9)]
+
+    #Kit holder positions
+    kit_holder_positions = [f"{holder}.{block}"
+                            for holder in range(1, 5)
+                            for block in range(1, 9)]
     # # # 10 Gravity rack positions
     # gravity_rack_positions = [f"{row}.{level}.{comp}"
     #                           for row in range(1, 2)
