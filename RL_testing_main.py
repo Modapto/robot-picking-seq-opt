@@ -176,7 +176,7 @@ def run_tsp_for_size(json_file_path, output_json_file_path):
         except ValueError as e:
             print(f"Error in nearest method on Q-values matrix: {e}")
 
-    # Step 3: Run 2-opt on the Q-values matrix
+    # Step 3: Run 2-opt on Q-values matrix
     if "2opt-q-learning" in methods or "all" in methods:
         try:
             print("Running 2-opt optimization on Q-values matrix...")

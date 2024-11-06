@@ -91,7 +91,7 @@ def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=35
             if next_node is None:
                 break
 
-            # Check if all kit holders (set_1) and gravity racks (set_2) have been visited
+            #Check if all kit holders (set_1) and gravity racks (set_2) have been visited
             if all(visit[node] for node in set_1) and all(visit[node] for node in set_2):
                 next_node = end  # Force visit to 0.0.0
                 visit[end] = True
