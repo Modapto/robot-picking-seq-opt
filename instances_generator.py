@@ -17,25 +17,25 @@ def generate_random_json_input():
     #                         for holder in range(1, 2)
     #                         for block in range(1, 3)]
     # Increase Gravity rack positions
-    # gravity_rack_positions = [f"{row}.{level}.{comp}"
-    #                           for row in range(1, 5)
-    #                           for level in range(1, 3)
-    #                           for comp in range(1, 5)]
-    #
-    # # Increase Kit holder positions
-    # kit_holder_positions = [f"{holder}.{block}"
-    #                         for holder in range(1, 5)
-    #                         for block in range(1, 3)]
-    # # Gravity rack positions
     gravity_rack_positions = [f"{row}.{level}.{comp}"
                               for row in range(1, 11)
                               for level in range(1, 3)
-                              for comp in range(1, 9)]
+                              for comp in range(1, 6)]
 
-    #Kit holder positions
+    # Increase Kit holder positions
     kit_holder_positions = [f"{holder}.{block}"
-                            for holder in range(1, 5)
-                            for block in range(1, 9)]
+                            for holder in range(1, 11)
+                            for block in range(1, 4)]
+    # # Gravity rack positions
+    # gravity_rack_positions = [f"{row}.{level}.{comp}"
+    #                           for row in range(1, 11)
+    #                           for level in range(1, 3)
+    #                           for comp in range(1, 9)]
+    #
+    # #Kit holder positions
+    # kit_holder_positions = [f"{holder}.{block}"
+    #                         for holder in range(1, 5)
+    #                         for block in range(1, 9)]
     # # # 10 Gravity rack positions
     # gravity_rack_positions = [f"{row}.{level}.{comp}"
     #                           for row in range(1, 2)
@@ -45,15 +45,15 @@ def generate_random_json_input():
     # # 6 Kit holder positions
     # kit_holder_positions = [f"{holder}.{block}"
     #                         for holder in range(1, 2)
-    #                         for block in range(1, 3)]  # 2 kit holder nodes
+    #                         for block in range(1, 5)]  # 2 kit holder nodes
     # Generate the new distance matrix format
     distance_matrix = []
 
     # Define edges between gravity racks and kit holders (bipartite graph)
     for pointA in gravity_rack_positions:
         for pointB in kit_holder_positions:
-            aToBDist = random.randint(10000, 20000)
-            bToADist = random.randint(10000, 20000)
+            aToBDist = random.randint(10000, 12000)
+            bToADist = random.randint(10000, 12000)
 
             # Add forward direction
             distance_matrix.append({
@@ -69,7 +69,7 @@ def generate_random_json_input():
 
     # Handle the start node (0.0): connects only to gravity rack positions (not kit holders)
     for pointB in gravity_rack_positions:
-        aToBDist = random.randint(5000, 15000)
+        aToBDist = random.randint(5000, 7000)
 
         # Add forward direction (from 0.0 to pointB, gravity racks only)
         distance_matrix.append({
@@ -79,7 +79,7 @@ def generate_random_json_input():
 
     # Handle the 0.0.0 pseudonode: can only get edges from kit holders and connect back to 0.0 with cost = 1
     for pointB in kit_holder_positions:
-        aToBDist = random.randint(5000, 15000)
+        aToBDist = random.randint(5000, 7000)
 
         # Add edge from kit holders to 0.0.0
         distance_matrix.append({

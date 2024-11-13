@@ -135,7 +135,7 @@ class TwoOptMove:
         self.positionOfSecond = None
         self.moveCost = float('inf')  # Reset the move cost to infinity before each iteration
 
-def two_opt_for_bipartite(tour, G, set_1, set_2, max_iterations=1000):
+def two_opt_for_bipartite(tour, G, set_1, set_2, max_iterations=100000):
     best_tour = tour[:]
     best_cost, _ = total_cost(G, best_tour)  # Calculate the cost of the initial tour
     iteration = 0  # Counter to track the number of iterations
