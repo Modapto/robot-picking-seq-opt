@@ -6,13 +6,13 @@ import pika
 import sys
 import pandas as pd
 import numpy as np
-from instances_generator import *
+# from instances_generator import *
 from parse_json import *
 from GraphCreation import *
 from heuristic_methods import *
 from reinforcement_learning import *
 from exact_method import *
-
+from parametric_instances import *
 online = sys.argv[1]  # This argument will differentiate between local and remote runs
 
 def convert_to_native_types(data):
@@ -98,7 +98,7 @@ def run_tsp(json_file_path, input_data, generate_new_instance):
                     print(f"Nearest Neighbor TSP. Cost: {simple_tour_cost}")
 
                 # Run 2-opt optimization on the simple tour
-                optimized_tour, optimized_tour_cost = two_opt_for_bipartite(simple_tour, B, set_1, set_2, max_iterations=500000)
+                optimized_tour, optimized_tour_cost = two_opt_for_bipartite(simple_tour, B, set_1, set_2, max_iterations=1000)
                 optimized_tour_cost, time_details = total_cost(B, optimized_tour)
 
                 # Compare costs and choose the better solution

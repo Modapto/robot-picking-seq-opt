@@ -25,7 +25,7 @@ def generate_random_json_input():
     # Increase Kit holder positions
     kit_holder_positions = [f"{holder}.{block}"
                             for holder in range(1, 11)
-                            for block in range(1, 4)]
+                            for block in range(1, 6)]
     # # Gravity rack positions
     # gravity_rack_positions = [f"{row}.{level}.{comp}"
     #                           for row in range(1, 11)
@@ -50,6 +50,7 @@ def generate_random_json_input():
     distance_matrix = []
 
     # Define edges between gravity racks and kit holders (bipartite graph)
+    #posibility for dropout with k constraint
     for pointA in gravity_rack_positions:
         for pointB in kit_holder_positions:
             aToBDist = random.randint(10000, 12000)
@@ -64,7 +65,8 @@ def generate_random_json_input():
             # Add reverse direction
             distance_matrix.append({
                 "edge": f"({pointB}, {pointA})",
-                "distance": bToADist
+                "distance": aToBDist
+                    # bToADist
             })
 
     # Handle the start node (0.0): connects only to gravity rack positions (not kit holders)
@@ -90,7 +92,7 @@ def generate_random_json_input():
     # Add the edge from 0.0.0 to 0.0 with cost = 1
     distance_matrix.append({
         "edge": "(0.0.0, 0.0)",
-        "distance": 1
+        "distance": 0
     })
 
     random_json_input = {
