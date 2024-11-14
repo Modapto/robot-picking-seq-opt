@@ -9,7 +9,7 @@ from parse_json import *
 from GraphCreation import *
 from heuristic_methods import *
 from reinforcement_learning import *
-from exact_final import *
+from exact_method import *
 from Test_instances_generator import *
 
 def convert_to_native_types(data):

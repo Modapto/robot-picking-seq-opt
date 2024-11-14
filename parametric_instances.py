@@ -7,7 +7,7 @@ def generate_random_json_input(k=0.5):
     gravity_rack_positions = [f"{row}.{level}.{comp}"
                               for row in range(1, 2)
                               for level in range(1, 2)
-                              for comp in range(1, 8)]
+                              for comp in range(1, 5)]
 
     kit_holder_positions = [f"{holder}.{block}"
                             for holder in range(1, 2)
