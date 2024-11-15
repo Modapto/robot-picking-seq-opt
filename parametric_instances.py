@@ -2,23 +2,23 @@ import random
 import uuid
 from time import *
 
-def generate_random_json_input(k=0.5):
-    methods = ["exact"]
+def generate_random_json_input(k=0.25):
+    methods = ["nearest"]
     gravity_rack_positions = [f"{row}.{level}.{comp}"
                               for row in range(1, 2)
                               for level in range(1, 2)
-                              for comp in range(1, 5)]
+                              for comp in range(1, 11)]
 
     kit_holder_positions = [f"{holder}.{block}"
                             for holder in range(1, 2)
-                            for block in range(1, 5)]
+                            for block in range(1, 11)]
 
     distance_matrix = []
 
     # Define edges between gravity racks and kit holders with dropout based on k
     for pointA in gravity_rack_positions:
         for pointB in kit_holder_positions:
-            if random.uniform(0, 1) < k:  # Apply dropout based on k threshold
+            if random.uniform(0, 1) > k:  # Apply dropout based on k threshold
                 aToBDist = random.randint(10000, 12000)
                 bToADist = random.randint(10000, 12000)
 
