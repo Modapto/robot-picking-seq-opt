@@ -6,11 +6,11 @@ from test_instances_generator2 import generate_feasible_instance
 
 # Define problem configurations for Gravity Rack and Kit Holder positions
 gravity_rack_configs = [
-    (1, 2, 50) # Example configuration: 1x2x4 = 10 positions
+    (1, 2, 75) # Example configuration: 1x2x4 = 10 positions
 ]
 
 kit_holder_configs = [
-    (2, 50)  # Example configuration: 2x2 = 10 positions
+    (2, 75)  # Example configuration: 2x2 = 10 positions
 ]
 
 # Define dropout rates (k values)
