@@ -65,7 +65,7 @@ for root, dirs, files in os.walk(base_dir):
 final_summary_df = pd.DataFrame(structured_data)
 
 # Save the summary as an Excel file
-summary_excel_file = os.path.join(base_dir, "Experiment Summary v2 with Dropout.xlsx")
+summary_excel_file = os.path.join(base_dir, "Experiment Summary with Dropout.xlsx")
 final_summary_df.to_excel(summary_excel_file, index=False)
 
 print(f"Complete summary saved to {summary_excel_file}")
