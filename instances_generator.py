@@ -18,14 +18,13 @@ def generate_random_json_input():
     #                         for block in range(1, 3)]
     # Increase Gravity rack positions
     gravity_rack_positions = [f"{row}.{level}.{comp}"
-                              for row in range(1, 11)
-                              for level in range(1, 3)
-                              for comp in range(1, 6)]
+                              for row in range(1, 2)
+                              for level in range(1, 2)
+                              for comp in range(1, 11)]
 
-    # Increase Kit holder positions
     kit_holder_positions = [f"{holder}.{block}"
-                            for holder in range(1, 11)
-                            for block in range(1, 6)]
+                            for holder in range(1, 2)
+                            for block in range(1, 11)]
     # # Gravity rack positions
     # gravity_rack_positions = [f"{row}.{level}.{comp}"
     #                           for row in range(1, 11)

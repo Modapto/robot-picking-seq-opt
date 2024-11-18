@@ -1,539 +1,675 @@
 {
     "route": "robot-pick-seq-opt",
-    "uuid": "110d694f-efb7-4a82-ba61-7048779d1d2a",
-    "generated_at": 1731680261,
+    "uuid": "377f40e8-1da6-4b92-bd07-f8f60ba86861",
+    "generated_at": 1731932294,
     "data": {
         "method": "q-learning",
         "start_node": "0.0",
         "end_node": "0.0.0",
         "distanceMatrix": [
             {
-                "edge": "(1.1.1, 1.2)",
-                "distance": 10101
-            },
-            {
-                "edge": "(1.2, 1.1.1)",
-                "distance": 10101
-            },
-            {
                 "edge": "(1.1.1, 1.3)",
-                "distance": 10003
+                "distance": 11729
             },
             {
                 "edge": "(1.3, 1.1.1)",
-                "distance": 10003
+                "distance": 11729
             },
             {
                 "edge": "(1.1.1, 1.4)",
-                "distance": 10325
+                "distance": 11656
             },
             {
                 "edge": "(1.4, 1.1.1)",
-                "distance": 10325
+                "distance": 11656
             },
             {
                 "edge": "(1.1.1, 1.5)",
-                "distance": 11797
+                "distance": 11550
             },
             {
                 "edge": "(1.5, 1.1.1)",
-                "distance": 11797
+                "distance": 11550
+            },
+            {
+                "edge": "(1.1.1, 1.6)",
+                "distance": 10707
+            },
+            {
+                "edge": "(1.6, 1.1.1)",
+                "distance": 10707
+            },
+            {
+                "edge": "(1.1.1, 1.8)",
+                "distance": 10192
+            },
+            {
+                "edge": "(1.8, 1.1.1)",
+                "distance": 10192
+            },
+            {
+                "edge": "(1.1.1, 1.9)",
+                "distance": 10647
+            },
+            {
+                "edge": "(1.9, 1.1.1)",
+                "distance": 10647
+            },
+            {
+                "edge": "(1.1.1, 1.10)",
+                "distance": 10710
+            },
+            {
+                "edge": "(1.10, 1.1.1)",
+                "distance": 10710
+            },
+            {
+                "edge": "(1.1.2, 1.1)",
+                "distance": 10493
+            },
+            {
+                "edge": "(1.1, 1.1.2)",
+                "distance": 10493
+            },
+            {
+                "edge": "(1.1.2, 1.2)",
+                "distance": 11410
+            },
+            {
+                "edge": "(1.2, 1.1.2)",
+                "distance": 11410
+            },
+            {
+                "edge": "(1.1.2, 1.3)",
+                "distance": 10113
+            },
+            {
+                "edge": "(1.3, 1.1.2)",
+                "distance": 10113
             },
             {
                 "edge": "(1.1.2, 1.4)",
-                "distance": 11481
+                "distance": 10292
             },
             {
                 "edge": "(1.4, 1.1.2)",
-                "distance": 11481
+                "distance": 10292
             },
             {
                 "edge": "(1.1.2, 1.5)",
-                "distance": 10095
+                "distance": 11321
             },
             {
                 "edge": "(1.5, 1.1.2)",
-                "distance": 10095
+                "distance": 11321
             },
             {
                 "edge": "(1.1.2, 1.6)",
-                "distance": 10338
+                "distance": 11366
             },
             {
                 "edge": "(1.6, 1.1.2)",
-                "distance": 10338
+                "distance": 11366
+            },
+            {
+                "edge": "(1.1.2, 1.8)",
+                "distance": 10691
+            },
+            {
+                "edge": "(1.8, 1.1.2)",
+                "distance": 10691
             },
             {
                 "edge": "(1.1.2, 1.9)",
-                "distance": 11283
+                "distance": 11024
             },
             {
                 "edge": "(1.9, 1.1.2)",
-                "distance": 11283
+                "distance": 11024
             },
             {
-                "edge": "(1.1.3, 1.1)",
-                "distance": 10930
+                "edge": "(1.1.2, 1.10)",
+                "distance": 11164
             },
             {
-                "edge": "(1.1, 1.1.3)",
-                "distance": 10930
+                "edge": "(1.10, 1.1.2)",
+                "distance": 11164
             },
             {
                 "edge": "(1.1.3, 1.2)",
-                "distance": 10711
+                "distance": 10021
             },
             {
                 "edge": "(1.2, 1.1.3)",
-                "distance": 10711
+                "distance": 10021
             },
             {
                 "edge": "(1.1.3, 1.6)",
-                "distance": 11700
+                "distance": 11129
             },
             {
                 "edge": "(1.6, 1.1.3)",
-                "distance": 11700
+                "distance": 11129
+            },
+            {
+                "edge": "(1.1.3, 1.7)",
+                "distance": 10048
+            },
+            {
+                "edge": "(1.7, 1.1.3)",
+                "distance": 10048
             },
             {
                 "edge": "(1.1.3, 1.9)",
-                "distance": 11793
+                "distance": 11148
             },
             {
                 "edge": "(1.9, 1.1.3)",
-                "distance": 11793
+                "distance": 11148
+            },
+            {
+                "edge": "(1.1.3, 1.10)",
+                "distance": 10952
+            },
+            {
+                "edge": "(1.10, 1.1.3)",
+                "distance": 10952
             },
             {
                 "edge": "(1.1.4, 1.1)",
-                "distance": 11682
+                "distance": 11327
             },
             {
                 "edge": "(1.1, 1.1.4)",
-                "distance": 11682
-            },
-            {
-                "edge": "(1.1.4, 1.2)",
-                "distance": 10533
-            },
-            {
-                "edge": "(1.2, 1.1.4)",
-                "distance": 10533
+                "distance": 11327
             },
             {
                 "edge": "(1.1.4, 1.3)",
-                "distance": 11973
+                "distance": 10644
             },
             {
                 "edge": "(1.3, 1.1.4)",
-                "distance": 11973
+                "distance": 10644
             },
             {
                 "edge": "(1.1.4, 1.4)",
-                "distance": 11842
+                "distance": 10867
             },
             {
                 "edge": "(1.4, 1.1.4)",
-                "distance": 11842
+                "distance": 10867
             },
             {
                 "edge": "(1.1.4, 1.5)",
-                "distance": 10747
+                "distance": 10868
             },
             {
                 "edge": "(1.5, 1.1.4)",
-                "distance": 10747
+                "distance": 10868
+            },
+            {
+                "edge": "(1.1.4, 1.6)",
+                "distance": 11771
+            },
+            {
+                "edge": "(1.6, 1.1.4)",
+                "distance": 11771
             },
             {
                 "edge": "(1.1.4, 1.7)",
-                "distance": 11886
+                "distance": 11493
             },
             {
                 "edge": "(1.7, 1.1.4)",
-                "distance": 11886
+                "distance": 11493
+            },
+            {
+                "edge": "(1.1.4, 1.8)",
+                "distance": 10752
+            },
+            {
+                "edge": "(1.8, 1.1.4)",
+                "distance": 10752
+            },
+            {
+                "edge": "(1.1.4, 1.9)",
+                "distance": 10431
+            },
+            {
+                "edge": "(1.9, 1.1.4)",
+                "distance": 10431
             },
             {
                 "edge": "(1.1.4, 1.10)",
-                "distance": 11002
+                "distance": 11247
             },
             {
                 "edge": "(1.10, 1.1.4)",
-                "distance": 11002
+                "distance": 11247
             },
             {
                 "edge": "(1.1.5, 1.1)",
-                "distance": 11364
+                "distance": 10600
             },
             {
                 "edge": "(1.1, 1.1.5)",
-                "distance": 11364
+                "distance": 10600
             },
             {
                 "edge": "(1.1.5, 1.2)",
-                "distance": 11102
+                "distance": 11982
             },
             {
                 "edge": "(1.2, 1.1.5)",
-                "distance": 11102
+                "distance": 11982
             },
             {
                 "edge": "(1.1.5, 1.3)",
-                "distance": 11070
+                "distance": 10150
             },
             {
                 "edge": "(1.3, 1.1.5)",
-                "distance": 11070
+                "distance": 10150
+            },
+            {
+                "edge": "(1.1.5, 1.4)",
+                "distance": 10269
+            },
+            {
+                "edge": "(1.4, 1.1.5)",
+                "distance": 10269
             },
             {
                 "edge": "(1.1.5, 1.5)",
-                "distance": 11445
+                "distance": 11209
             },
             {
                 "edge": "(1.5, 1.1.5)",
-                "distance": 11445
+                "distance": 11209
             },
             {
                 "edge": "(1.1.5, 1.6)",
-                "distance": 10876
+                "distance": 10367
             },
             {
                 "edge": "(1.6, 1.1.5)",
-                "distance": 10876
-            },
-            {
-                "edge": "(1.1.5, 1.7)",
-                "distance": 11475
-            },
-            {
-                "edge": "(1.7, 1.1.5)",
-                "distance": 11475
+                "distance": 10367
             },
             {
                 "edge": "(1.1.5, 1.8)",
-                "distance": 10201
+                "distance": 11513
             },
             {
                 "edge": "(1.8, 1.1.5)",
-                "distance": 10201
+                "distance": 11513
             },
             {
                 "edge": "(1.1.5, 1.9)",
-                "distance": 10017
+                "distance": 10384
             },
             {
                 "edge": "(1.9, 1.1.5)",
-                "distance": 10017
+                "distance": 10384
             },
             {
-                "edge": "(1.1.5, 1.10)",
-                "distance": 10539
+                "edge": "(1.1.6, 1.2)",
+                "distance": 11337
             },
             {
-                "edge": "(1.10, 1.1.5)",
-                "distance": 10539
-            },
-            {
-                "edge": "(1.1.6, 1.1)",
-                "distance": 10227
-            },
-            {
-                "edge": "(1.1, 1.1.6)",
-                "distance": 10227
+                "edge": "(1.2, 1.1.6)",
+                "distance": 11337
             },
             {
                 "edge": "(1.1.6, 1.3)",
-                "distance": 10663
+                "distance": 10856
             },
             {
                 "edge": "(1.3, 1.1.6)",
-                "distance": 10663
+                "distance": 10856
             },
             {
-                "edge": "(1.1.6, 1.4)",
-                "distance": 11820
+                "edge": "(1.1.6, 1.5)",
+                "distance": 11911
             },
             {
-                "edge": "(1.4, 1.1.6)",
-                "distance": 11820
+                "edge": "(1.5, 1.1.6)",
+                "distance": 11911
             },
             {
                 "edge": "(1.1.6, 1.6)",
-                "distance": 10490
+                "distance": 10610
             },
             {
                 "edge": "(1.6, 1.1.6)",
-                "distance": 10490
+                "distance": 10610
             },
             {
                 "edge": "(1.1.6, 1.7)",
-                "distance": 11229
+                "distance": 10938
             },
             {
                 "edge": "(1.7, 1.1.6)",
-                "distance": 11229
+                "distance": 10938
             },
             {
                 "edge": "(1.1.6, 1.8)",
-                "distance": 11963
+                "distance": 11050
             },
             {
                 "edge": "(1.8, 1.1.6)",
-                "distance": 11963
+                "distance": 11050
             },
             {
-                "edge": "(1.1.6, 1.9)",
-                "distance": 10592
+                "edge": "(1.1.7, 1.1)",
+                "distance": 11011
             },
             {
-                "edge": "(1.9, 1.1.6)",
-                "distance": 10592
+                "edge": "(1.1, 1.1.7)",
+                "distance": 11011
             },
             {
                 "edge": "(1.1.7, 1.2)",
-                "distance": 11208
+                "distance": 11765
             },
             {
                 "edge": "(1.2, 1.1.7)",
-                "distance": 11208
+                "distance": 11765
             },
             {
-                "edge": "(1.1.7, 1.4)",
-                "distance": 10469
+                "edge": "(1.1.7, 1.3)",
+                "distance": 11303
             },
             {
-                "edge": "(1.4, 1.1.7)",
-                "distance": 10469
+                "edge": "(1.3, 1.1.7)",
+                "distance": 11303
             },
             {
-                "edge": "(1.1.7, 1.5)",
-                "distance": 10402
+                "edge": "(1.1.7, 1.7)",
+                "distance": 10981
             },
             {
-                "edge": "(1.5, 1.1.7)",
-                "distance": 10402
+                "edge": "(1.7, 1.1.7)",
+                "distance": 10981
             },
             {
-                "edge": "(1.1.7, 1.6)",
-                "distance": 10852
+                "edge": "(1.1.7, 1.9)",
+                "distance": 11345
             },
             {
-                "edge": "(1.6, 1.1.7)",
-                "distance": 10852
+                "edge": "(1.9, 1.1.7)",
+                "distance": 11345
             },
             {
                 "edge": "(1.1.7, 1.10)",
-                "distance": 10147
+                "distance": 11921
             },
             {
                 "edge": "(1.10, 1.1.7)",
-                "distance": 10147
+                "distance": 11921
+            },
+            {
+                "edge": "(1.1.8, 1.2)",
+                "distance": 10962
+            },
+            {
+                "edge": "(1.2, 1.1.8)",
+                "distance": 10962
+            },
+            {
+                "edge": "(1.1.8, 1.3)",
+                "distance": 10540
+            },
+            {
+                "edge": "(1.3, 1.1.8)",
+                "distance": 10540
             },
             {
                 "edge": "(1.1.8, 1.4)",
-                "distance": 10512
+                "distance": 10192
             },
             {
                 "edge": "(1.4, 1.1.8)",
-                "distance": 10512
+                "distance": 10192
             },
             {
-                "edge": "(1.1.8, 1.7)",
-                "distance": 10906
+                "edge": "(1.1.8, 1.5)",
+                "distance": 10283
             },
             {
-                "edge": "(1.7, 1.1.8)",
-                "distance": 10906
+                "edge": "(1.5, 1.1.8)",
+                "distance": 10283
             },
             {
-                "edge": "(1.1.8, 1.9)",
-                "distance": 11322
+                "edge": "(1.1.8, 1.6)",
+                "distance": 10806
             },
             {
-                "edge": "(1.9, 1.1.8)",
-                "distance": 11322
+                "edge": "(1.6, 1.1.8)",
+                "distance": 10806
+            },
+            {
+                "edge": "(1.1.8, 1.8)",
+                "distance": 10075
+            },
+            {
+                "edge": "(1.8, 1.1.8)",
+                "distance": 10075
+            },
+            {
+                "edge": "(1.1.8, 1.10)",
+                "distance": 10643
+            },
+            {
+                "edge": "(1.10, 1.1.8)",
+                "distance": 10643
             },
             {
                 "edge": "(1.1.9, 1.1)",
-                "distance": 11807
+                "distance": 11533
             },
             {
                 "edge": "(1.1, 1.1.9)",
-                "distance": 11807
+                "distance": 11533
+            },
+            {
+                "edge": "(1.1.9, 1.3)",
+                "distance": 10632
+            },
+            {
+                "edge": "(1.3, 1.1.9)",
+                "distance": 10632
             },
             {
                 "edge": "(1.1.9, 1.4)",
-                "distance": 10311
+                "distance": 11849
             },
             {
                 "edge": "(1.4, 1.1.9)",
-                "distance": 10311
+                "distance": 11849
             },
             {
                 "edge": "(1.1.9, 1.5)",
-                "distance": 11421
+                "distance": 11913
             },
             {
                 "edge": "(1.5, 1.1.9)",
-                "distance": 11421
+                "distance": 11913
             },
             {
                 "edge": "(1.1.9, 1.6)",
-                "distance": 10453
+                "distance": 11525
             },
             {
                 "edge": "(1.6, 1.1.9)",
-                "distance": 10453
+                "distance": 11525
             },
             {
-                "edge": "(1.1.9, 1.9)",
-                "distance": 11984
+                "edge": "(1.1.9, 1.7)",
+                "distance": 10959
             },
             {
-                "edge": "(1.9, 1.1.9)",
-                "distance": 11984
+                "edge": "(1.7, 1.1.9)",
+                "distance": 10959
+            },
+            {
+                "edge": "(1.1.9, 1.8)",
+                "distance": 11908
+            },
+            {
+                "edge": "(1.8, 1.1.9)",
+                "distance": 11908
             },
             {
                 "edge": "(1.1.9, 1.10)",
-                "distance": 10355
+                "distance": 11032
             },
             {
                 "edge": "(1.10, 1.1.9)",
-                "distance": 10355
+                "distance": 11032
+            },
+            {
+                "edge": "(1.1.10, 1.1)",
+                "distance": 10253
+            },
+            {
+                "edge": "(1.1, 1.1.10)",
+                "distance": 10253
             },
             {
                 "edge": "(1.1.10, 1.2)",
-                "distance": 11163
+                "distance": 11805
             },
             {
                 "edge": "(1.2, 1.1.10)",
-                "distance": 11163
+                "distance": 11805
             },
             {
                 "edge": "(1.1.10, 1.3)",
-                "distance": 11988
+                "distance": 10117
             },
             {
                 "edge": "(1.3, 1.1.10)",
-                "distance": 11988
-            },
-            {
-                "edge": "(1.1.10, 1.4)",
-                "distance": 10653
-            },
-            {
-                "edge": "(1.4, 1.1.10)",
-                "distance": 10653
+                "distance": 10117
             },
             {
                 "edge": "(1.1.10, 1.5)",
-                "distance": 11934
+                "distance": 10553
             },
             {
                 "edge": "(1.5, 1.1.10)",
-                "distance": 11934
+                "distance": 10553
             },
             {
                 "edge": "(1.1.10, 1.6)",
-                "distance": 11031
+                "distance": 10291
             },
             {
                 "edge": "(1.6, 1.1.10)",
-                "distance": 11031
+                "distance": 10291
             },
             {
-                "edge": "(1.1.10, 1.9)",
-                "distance": 11049
+                "edge": "(1.1.10, 1.7)",
+                "distance": 10078
             },
             {
-                "edge": "(1.9, 1.1.10)",
-                "distance": 11049
+                "edge": "(1.7, 1.1.10)",
+                "distance": 10078
+            },
+            {
+                "edge": "(1.1.10, 1.8)",
+                "distance": 11864
+            },
+            {
+                "edge": "(1.8, 1.1.10)",
+                "distance": 11864
             },
             {
                 "edge": "(1.1.10, 1.10)",
-                "distance": 11301
+                "distance": 10695
             },
             {
                 "edge": "(1.10, 1.1.10)",
-                "distance": 11301
+                "distance": 10695
             },
             {
                 "edge": "(0.0, 1.1.1)",
-                "distance": 6155
+                "distance": 6271
             },
             {
                 "edge": "(0.0, 1.1.2)",
-                "distance": 5449
+                "distance": 6662
             },
             {
                 "edge": "(0.0, 1.1.3)",
-                "distance": 5132
+                "distance": 5793
             },
             {
                 "edge": "(0.0, 1.1.4)",
-                "distance": 6514
+                "distance": 6190
             },
             {
                 "edge": "(0.0, 1.1.5)",
-                "distance": 5826
+                "distance": 5838
             },
             {
                 "edge": "(0.0, 1.1.6)",
-                "distance": 5339
+                "distance": 6185
             },
             {
                 "edge": "(0.0, 1.1.7)",
-                "distance": 5895
+                "distance": 5828
             },
             {
                 "edge": "(0.0, 1.1.8)",
-                "distance": 6969
+                "distance": 6876
             },
             {
                 "edge": "(0.0, 1.1.9)",
-                "distance": 5187
+                "distance": 5990
             },
             {
                 "edge": "(0.0, 1.1.10)",
-                "distance": 5722
+                "distance": 5725
             },
             {
                 "edge": "(1.1, 0.0.0)",
-                "distance": 5014
+                "distance": 5795
             },
             {
                 "edge": "(1.2, 0.0.0)",
-                "distance": 5898
+                "distance": 5954
             },
             {
                 "edge": "(1.3, 0.0.0)",
-                "distance": 6195
+                "distance": 6197
             },
             {
                 "edge": "(1.4, 0.0.0)",
-                "distance": 5975
+                "distance": 6820
             },
             {
                 "edge": "(1.5, 0.0.0)",
-                "distance": 6097
+                "distance": 5135
             },
             {
                 "edge": "(1.6, 0.0.0)",
-                "distance": 5327
+                "distance": 6792
             },
             {
                 "edge": "(1.7, 0.0.0)",
-                "distance": 6058
+                "distance": 6786
             },
             {
                 "edge": "(1.8, 0.0.0)",
-                "distance": 5748
+                "distance": 5315
             },
             {
                 "edge": "(1.9, 0.0.0)",
-                "distance": 5493
+                "distance": 6654
             },
             {
                 "edge": "(1.10, 0.0.0)",
-                "distance": 6461
+                "distance": 6126
             },
             {
                 "edge": "(0.0.0, 0.0)",

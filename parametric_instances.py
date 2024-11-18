@@ -3,7 +3,7 @@ import uuid
 from time import *
 
 def generate_random_json_input(k=0.25):
-    methods = ["nearest"]
+    methods = ["q-learning"]
     gravity_rack_positions = [f"{row}.{level}.{comp}"
                               for row in range(1, 2)
                               for level in range(1, 2)

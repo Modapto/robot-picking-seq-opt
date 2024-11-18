@@ -5,7 +5,7 @@ ALPHA = 0.1  # Learning rate
 GAMMA = 0.55  # Discount factor
 EPSILON = 0.1  # Exploration factor
 
-def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=20000):
+def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=2000):
     q_table = {node: {neighbor: 0 for neighbor in G.neighbors(node)} for node in G.nodes}
 
     for episode in range(episodes):
@@ -60,7 +60,14 @@ def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=20
     # Now get the best Q-learning-based tour
     best_tour = best_q_tour(q_table, G, start, end, set_1, set_2, large_value)
     best_tour_cost, _ = total_costRL(G, best_tour)
-    print(f"Best Q-Learning Tour: {best_tour}, Total Cost: {best_tour_cost}")
+    # print(f"Best Q-Learning Tour: {best_tour}, Total Cost: {best_tour_cost}")
+
+    # Convert Q-values to a DataFrame
+    q_df = pd.DataFrame.from_dict(q_table, orient='index').fillna(float('inf'))  # Use inf for non-visited
+    print("Q-values DataFrame:")
+    print(q_df)
+    q_df.to_csv('q_values.csv', index=True)  # Saves the Q-values matrix to a CSV file
+    print("Q-values saved to 'q_values.csv'")
 
     return best_tour
 

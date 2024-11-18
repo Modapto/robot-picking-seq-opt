@@ -13,6 +13,8 @@ from heuristic_methods import *
 from reinforcement_learning import *
 from exact_method import *
 from parametric_instances import *
+from rl_heuristics import *
+
 online = sys.argv[1]  # This argument will differentiate between local and remote runs
 
 def convert_to_native_types(data):
@@ -135,6 +137,57 @@ def run_tsp(json_file_path, input_data, generate_new_instance):
             print(f"Q-Learning TSP completed. Cost: {q_learning_tour_cost}")
         except ValueError as e:
             print(f"Error in q-learning method: {e}")
+
+    if method == "ql-nearest" or method == "all":
+        try:
+            print("Running Q-Learning Nearest Neighbor TSP...")
+            ql_simple_tour = ql_nearest_tsp(B, start_node, end_node, set_1, set_2)
+            ql_simple_tour_cost, ql_time_details = total_cost(B, ql_simple_tour)
+            results["ql-nearest"] = {
+                "tour": ql_simple_tour,
+                "cost": ql_simple_tour_cost,
+                "time_details": ql_time_details,
+                "totalLoadingTime": ql_simple_tour_cost
+            }
+            print(f"Q-Learning Nearest Neighbor TSP. Cost: {ql_simple_tour_cost}")
+        except ValueError as e:
+            print(f"Error in QL-Nearest method: {e}")
+
+    ql_simple_tour = None  # Initialize to avoid UnboundLocalError
+    if method == "ql-2-opt" or method == "all":
+            try:
+                if ql_simple_tour is None:
+                    print("No Q-Learning tour found. Generating initial tour using QL-Nearest Neighbor...")
+                    ql_simple_tour = ql_nearest_tsp(B, start_node, end_node, set_1, set_2)
+                    ql_simple_tour_cost, ql_time_details = total_cost(B, ql_simple_tour)
+                    print(f"QL-Nearest TSP generated with cost: {ql_simple_tour_cost}")
+
+                print("Running Q-Learning 2-opt TSP...")
+                ql_optimized_tour, ql_optimized_tour_cost = ql_two_opt_for_bipartite(
+                    ql_simple_tour, B, set_1, set_2, max_iterations=1000
+                )
+                ql_optimized_tour_cost, ql_time_details = total_cost(B, ql_optimized_tour)
+
+                # Compare costs and choose the better solution
+                if ql_optimized_tour_cost < ql_simple_tour_cost:
+                    print(
+                        f"2-opt improved the tour. Cost reduced from {ql_simple_tour_cost} to {ql_optimized_tour_cost}")
+                    ql_best_tour = ql_optimized_tour
+                    ql_best_cost = ql_optimized_tour_cost
+                else:
+                    print(f"2-opt did not improve the tour. Keeping the Q-Learning Nearest Neighbor solution.")
+                    ql_best_tour = ql_simple_tour
+                    ql_best_cost = ql_simple_tour_cost
+
+                results["ql-2-opt"] = {
+                    "tour": ql_best_tour,
+                    "cost": ql_best_cost,
+                    "time_details": ql_time_details,
+                    "totalLoadingTime": ql_best_cost
+                }
+                print(f"Q-Learning 2-opt TSP. Cost: {ql_best_cost}")
+            except ValueError as e:
+                print(f"Error in QL-2-opt method: {e}")
 
     if method == "exact" or method == "all":
         try:

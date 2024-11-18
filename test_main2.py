@@ -7,6 +7,7 @@ from GraphCreation import create_distance_matrices, create_directed_bipartite_gr
 from heuristic_methods import nearest_tsp, two_opt_for_bipartite, total_cost
 from reinforcement_learning import q_learning_tsp
 from exact_method import run_exact_tsp
+from rl_heuristics import *
 
 
 def convert_to_native_types(data):
@@ -150,6 +151,65 @@ def run_tsp(json_file_path, output_json_file_path, gravity_rack_positions=None, 
     except ValueError as e:
         print(f"Error in q-learning method: {e}")
 
+    try:
+        print("Running Q-Learning Nearest Neighbor TSP...")
+        start_time_ql_nearest = time() * 1000
+        qlnn_simple_tour = ql_nearest_tsp(B, start_node, end_node, set_1, set_2)
+        qlnn_simple_tour_cost, qlnn_time_details = total_cost(B, qlnn_simple_tour)
+        exec_time_ql_nearest = (time() * 1000) - start_time_ql_nearest
+        results["ql-nearest"] = {
+            "tour": qlnn_simple_tour,
+            "cost": qlnn_simple_tour_cost,
+            "exec_time": exec_time_ql_nearest,
+            "time_details": time_details
+        }
+        print(f"Q-Learning Nearest Neighbor TSP. Cost: {qlnn_simple_tour_cost}")
+    except ValueError as e:
+        print(f"Error in QL-Nearest method: {e}")
+
+    qlnn_simple_tour = None  # Initialize to avoid UnboundLocalError
+    try:
+        print("Running 2-Opt Optimization...")
+        start_time_ql_2opt = time() * 1000  # Initialize start time for 2-opt
+
+        # If there's no initial tour, generate one using Nearest Neighbor
+        if not qlnn_simple_tour:
+            print("No initial tour found. Generating one with Nearest Neighbor for 2-opt.")
+            qlnn_simple_tour = ql_nearest_tsp(B, start_node, end_node, set_1, set_2)
+            qlnn_simple_tour_cost, _ = total_cost(B, qlnn_simple_tour)
+            print(f"Nearest Neighbor Initial Tour Cost: {qlnn_simple_tour_cost}")
+
+        ql2opt_optimized_tour, ql2opt_optimized_tour_cost = ql_two_opt_for_bipartite(
+            qlnn_simple_tour, B, set_1, set_2, max_iterations=1000
+        )
+        ql2opt_optimized_tour_cost, ql2opt_time_details = total_cost(B, ql2opt_optimized_tour)
+
+        # Compare costs and choose the better solution
+        if ql2opt_optimized_tour_cost < qlnn_simple_tour_cost:
+            print(
+                f"2-opt improved the tour. Cost reduced from {ql2opt_simple_tour_cost} to {ql2opt_optimized_tour_cost}")
+            ql2opt_best_tour = ql2opt_optimized_tour
+            ql2opt_best_cost = ql2opt_optimized_tour_cost
+        else:
+            print(f"2-opt did not improve the tour. Keeping the Q-Learning Nearest Neighbor solution.")
+            ql2opt_best_tour = qlnn_simple_tour
+            ql2opt_best_cost = qlnn_simple_tour_cost
+        exec_time_ql_2opt = (time() * 1000) - start_time_ql_2opt
+        results["ql-2-opt"] = {
+            "tour": ql2opt_best_tour,
+            "cost": ql2opt_best_cost,
+            "exec_time": exec_time_ql_2opt,
+            "time_details": time_details
+        }
+        print(f"Q-Learning 2-opt TSP. Cost: {ql2opt_best_cost}")
+    except ValueError as e:
+        print(f"QL-2-opt failed: {e}")
+        results["ql-2-opt"] = {
+            "tour": None,
+            "cost": None,
+            "exec_time": None,
+            "time_details": f"Error: {e}"
+        }
     # Run Exact Method TSP
     try:
         print("Running Exact Method TSP...")

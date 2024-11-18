@@ -6,21 +6,37 @@ from test_instances_generator2 import generate_feasible_instance
 
 # Define problem configurations for Gravity Rack and Kit Holder positions
 gravity_rack_configs = [
-    (1, 2, 75) # Example configuration: 1x2x4 = 10 positions
+    (1, 2, 5) # Example configuration: 1x2x4 = 10 positions
 ]
 
 kit_holder_configs = [
-    (2, 75)  # Example configuration: 2x2 = 10 positions
+    (2, 5)  # Example configuration: 2x2 = 10 positions
 ]
 
 # Define dropout rates (k values)
-k_values = [0, 0.25, 0.5, 0.75]
+k_values = [0, 0.25] #0.5, 0.75
 # Base directory for experiment results
-base_dir = "Experiment Results with Sparse Graph"
+base_dir = "Experiment Results testing"
 os.makedirs(base_dir, exist_ok=True)
 
 # Master summary list to gather all experiment results
 experiment_summary = []
+
+def convert_to_native_types(data):
+    if isinstance(data, dict):
+        return {k: convert_to_native_types(v) for k, v in data.items()}
+    elif isinstance(data, list):
+        return [convert_to_native_types(v) for v in data]
+    elif isinstance(data, pd.DataFrame):
+        return data.to_dict(orient='records')  # Convert DataFrame to list of dictionaries
+    elif isinstance(data, (np.integer, np.int32, np.int64)):
+        return int(data)
+    elif isinstance(data, (np.floating, np.float32, np.float64)):
+        return float(data)
+    elif isinstance(data, np.ndarray):  # Convert numpy arrays to lists
+        return data.tolist()
+    else:
+        return data
 
 # Run experiments and save results
 for k in k_values:
@@ -69,7 +85,7 @@ for k in k_values:
                 # Collect results in a row-wise format for the summary
                 result_rows = []
 
-                for method in ['nearest', '2-opt', 'q-learning', 'exact']:
+                for method in ['nearest', '2-opt', 'q-learning', 'exact', 'ql-nearest', 'ql-2-opt']:
                     if method in results:
                         # Calculate the optimality gap
                         if exact_cost and method != 'exact':
