@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-# Base directory for experiment results
+# Base directory for experiment results for sparse graph
 base_dir = "Experiment Results with Sparse Graph"
 
 # List to hold the structured data
