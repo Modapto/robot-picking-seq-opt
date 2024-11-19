@@ -10,7 +10,7 @@ structured_data = []
 # Walk through all directories and files in the base directory
 for root, dirs, files in os.walk(base_dir):
     for file in files:
-        if file.startswith('results_GR_1x2x5_') and file.endswith('.csv'):
+        if file.startswith('results_') and file.endswith('.csv'):
             # Path to the CSV file
             file_path = os.path.join(root, file)
 
