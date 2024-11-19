@@ -27,22 +27,22 @@ def convert_to_native_types(data):
         return data
 
 
-def is_feasible(input_json):
-    try:
-        # Parse distance matrices and create the graph
-        a_to_b_matrix = create_distance_matrices(input_json)
-        B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
-
-        # Retrieve start and end nodes
-        start_node = input_json['data'].get('start_node', '0.0')
-        end_node = input_json['data'].get('end_node', '0.0.0')
-
-        # Run the nearest neighbor function to test feasibility
-        nearest_tour = nearest_tsp(B, start_node, end_node, set_1, set_2)
-        return True  # If it completes without error, the instance is feasible
-    except ValueError as e:
-        print(f"Infeasible instance detected in nearest neighbor check: {e}")
-        return False
+# def is_feasible(input_json):
+#     try:
+#         # Parse distance matrices and create the graph
+#         a_to_b_matrix = create_distance_matrices(input_json)
+#         B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
+#
+#         # Retrieve start and end nodes
+#         start_node = input_json['data'].get('start_node', '0.0')
+#         end_node = input_json['data'].get('end_node', '0.0.0')
+#
+#         # Run the nearest neighbor function to test feasibility
+#         nearest_tour = nearest_tsp(B, start_node, end_node, set_1, set_2)
+#         return True  # If it completes without error, the instance is feasible
+#     except ValueError as e:
+#         print(f"Infeasible instance detected in nearest neighbor check: {e}")
+#         return False
 
 
 def run_tsp(json_file_path, output_json_file_path, gravity_rack_positions=None, kit_holder_positions=None):

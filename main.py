@@ -6,13 +6,13 @@ import pika
 import sys
 import pandas as pd
 import numpy as np
-# from instances_generator import *
+from instances_generator import *
 from parse_json import *
 from GraphCreation import *
 from heuristic_methods import *
 from reinforcement_learning import *
 from exact_method import *
-from parametric_instances import *
+# from parametric_instances import *
 from rl_heuristics import *
 
 online = sys.argv[1]  # This argument will differentiate between local and remote runs
