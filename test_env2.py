@@ -8,21 +8,21 @@ from test_instances_generator2 import *
 gravity_rack_configs = [
     # (1, 2, 5)  # Example configuration: 1x2x5 = 10 positions
     # (1, 2, 10)  # 20
-    (1, 2, 15)  # 30
+    # (1, 2, 15)  # 30
     # (1, 2, 20)  # 40
     # (1, 2, 25)  # 50
     # (1, 2, 35)  # 70
-    # (1, 2, 50)  # 100
+    (1, 2, 50)  # 100
 ]
 
 kit_holder_configs = [
     # (2, 5)  # Example configuration: 2x2 = 10 positions
     # (2, 10)  # 20
-    (2, 15)  # 30
+    # (2, 15)  # 30
     # (2, 20)  # 40
     # (2, 25)  # 50
     # (2, 35)  # 70
-    # (2, 50)  # 100
+    (2, 50)  # 100
 ]
 
 # Define dropout rates (k values)
