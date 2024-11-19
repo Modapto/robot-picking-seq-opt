@@ -6,23 +6,29 @@ from test_instances_generator2 import *
 
 # Define problem configurations for Gravity Rack and Kit Holder positions
 gravity_rack_configs = [
-    (1, 2, 5), # Example configuration: 1x2x4 = 10 positions
-    (1, 2, 10), #20
-    (1, 2, 15), #30
-    (1, 2, 20), #40
-    (1, 2, 25), #50
-    (1, 2, 35),  # 70
-    (1, 2, 50),  # 100
+    # (1, 2, 5)  # Example configuration: 1x2x5 = 10 positions
+    # (1, 2, 10)  # 20
+    (1, 2, 15)  # 30
+    # (1, 2, 20)  # 40
+    # (1, 2, 25)  # 50
+    # (1, 2, 35)  # 70
+    # (1, 2, 50)  # 100
 ]
 
 kit_holder_configs = [
-    (2, 5)  # Example configuration: 2x2 = 10 positions
+    # (2, 5)  # Example configuration: 2x2 = 10 positions
+    # (2, 10)  # 20
+    (2, 15)  # 30
+    # (2, 20)  # 40
+    # (2, 25)  # 50
+    # (2, 35)  # 70
+    # (2, 50)  # 100
 ]
 
 # Define dropout rates (k values)
 # k_values = [0] #, 0.25, 0.5, 0.75
 # Base directory for experiment results
-base_dir = "Experiment Results testing"
+base_dir = "Experiment Results for Equal Sets with Symmetric Distances"
 os.makedirs(base_dir, exist_ok=True)
 
 # Master summary list to gather all experiment results
@@ -42,7 +48,7 @@ for (rows, cols, components) in gravity_rack_configs:
         config_dir = f"{base_dir}/GR_{rows}x{cols}x{components}_KH_{kh}x{blocks}" #k_{k}_
         os.makedirs(config_dir, exist_ok=True)
 
-        for run_id in range(1, 21):  # 5 runs
+        for run_id in range(1, 11):  # 10 runs
             print(
                 f"Running experiment Gravity Rack: {rows}x{cols}x{components}, Kit Holder: {kh}x{blocks}, Run: {run_id}") #with k={k},
             # Generate the random JSON input

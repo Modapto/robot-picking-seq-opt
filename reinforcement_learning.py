@@ -5,7 +5,7 @@ ALPHA = 0.1  # Learning rate
 GAMMA = 0.55  # Discount factor
 EPSILON = 0.1  # Exploration factor
 
-def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=3000):
+def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=20000):
     q_table = {node: {neighbor: 0 for neighbor in G.neighbors(node)} for node in G.nodes}
 
     for episode in range(episodes):
