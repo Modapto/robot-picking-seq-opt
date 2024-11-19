@@ -5,7 +5,7 @@ from GraphCreation import create_distance_matrices, create_directed_bipartite_gr
 from heuristic_methods import nearest_tsp
 
 
-def generate_random_json_input(gravity_rack_positions=None, kit_holder_positions=None, method="nearest", k=0.5):
+def generate_random_json_input(gravity_rack_positions=None, kit_holder_positions=None, method="nearest"):
     """
     Generate a random JSON input with a dropout rate controlled by k.
     """
@@ -20,10 +20,10 @@ def generate_random_json_input(gravity_rack_positions=None, kit_holder_positions
     # Define edges between gravity racks and kit holders with dropout rate k
     for pointA in gravity_rack_positions:
         for pointB in kit_holder_positions:
-            if random.uniform(0, 1) > k:  # Apply dropout rate k = 0.5
-                aToBDist = random.randint(10000, 20000)
-                distance_matrix.append({"edge": f"({pointA}, {pointB})", "distance": aToBDist})
-                distance_matrix.append({"edge": f"({pointB}, {pointA})", "distance": aToBDist})
+            # if random.uniform(0, 1) > k:  # Apply dropout rate k = 0.5
+            aToBDist = random.randint(10000, 20000)
+            distance_matrix.append({"edge": f"({pointA}, {pointB})", "distance": aToBDist})
+            distance_matrix.append({"edge": f"({pointB}, {pointA})", "distance": aToBDist})
 
     # Ensure edges for start and pseudonode 0.0.0
     for pointB in gravity_rack_positions:
