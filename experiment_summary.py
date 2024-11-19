@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 # Base directory for experiment results for sparse graph
-base_dir = "Experiment Results for Unequal Sets with Symmetric Distances"
+base_dir = "Experiment Results for Equal Sets with Symmetric Distances"
 
 # List to hold the structured data
 structured_data = []
