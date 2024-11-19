@@ -6,17 +6,17 @@ from test_instances_generator2 import generate_feasible_instance
 
 # Define problem configurations for Gravity Rack and Kit Holder positions
 gravity_rack_configs = [
-    (1, 2, 5) # Example configuration: 1x2x4 = 10 positions
+    (1, 2, 50) # Example configuration: 1x2x4 = 10 positions
 ]
 
 kit_holder_configs = [
-    (2, 5)  # Example configuration: 2x2 = 10 positions
+    (2, 50)  # Example configuration: 2x2 = 10 positions
 ]
 
 # Define dropout rates (k values)
-k_values = [0, 0.25] #0.5, 0.75
+k_values = [0] #0.75 0, 0.25, 0.5
 # Base directory for experiment results
-base_dir = "Experiment Results testing"
+base_dir = "Experiment Results with 2-opt Q-Learning"
 os.makedirs(base_dir, exist_ok=True)
 
 # Master summary list to gather all experiment results
