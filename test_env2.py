@@ -11,8 +11,13 @@ gravity_rack_configs = [
     # (1, 2, 15)  # 30
     # (1, 2, 20)  # 40
     # (1, 2, 25)  # 50
+    # (1, 2, 30)  # 60
     # (1, 2, 35)  # 70
-    (1, 2, 50)  # 100
+    # (1, 2, 25)  # 80
+    # (1, 2, 45)  # 90
+    # (1, 2, 50)  # 100
+    # (1, 2, 75)  # 150
+    (1, 2, 100)  # 200
 ]
 
 kit_holder_configs = [
@@ -21,14 +26,19 @@ kit_holder_configs = [
     # (2, 15)  # 30
     # (2, 20)  # 40
     # (2, 25)  # 50
+    # (2, 30)  # 60
     # (2, 35)  # 70
-    (2, 50)  # 100
+    # (2, 40)  # 80
+    # (2, 45)  # 90
+    # (2, 50)  # 100
+    # (2, 75)  # 150
+    (2, 100)  # 200
 ]
 
 # Define dropout rates (k values)
 # k_values = [0] #, 0.25, 0.5, 0.75
 # Base directory for experiment results
-base_dir = "Experiment Results for Equal Sets with Symmetric Distances"
+base_dir = "Experiment Results for Equal Sets with Symmetric Distances v2"
 os.makedirs(base_dir, exist_ok=True)
 
 # Master summary list to gather all experiment results

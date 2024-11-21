@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 # Base directory for experiment results for sparse graph
-base_dir = "Experiment Results for Equal Sets with Symmetric Distances"
+base_dir = "Experiment Results for Equal Sets with Symmetric Distances v2"
 
 # List to hold the structured data
 structured_data = []
@@ -65,7 +65,7 @@ for root, dirs, files in os.walk(base_dir):
 final_summary_df = pd.DataFrame(structured_data)
 
 # Save the summary as an Excel file
-summary_excel_file = os.path.join(base_dir, "Experiment Summary for Equal Sets with Symmetric Distances.xlsx")
+summary_excel_file = os.path.join(base_dir, "Experiment Results Summary for Equal Sets with Symmetric Distances v2.xlsx")
 final_summary_df.to_excel(summary_excel_file, index=False)
 
 print(f"Complete summary saved to {summary_excel_file}")
