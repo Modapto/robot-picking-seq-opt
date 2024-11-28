@@ -1,36 +1,55 @@
 import random
 import pandas as pd
 # Q-Learning Parameters
-ALPHA = 0.1  # Learning rate
-GAMMA = 0.55  # Discount factor
-EPSILON = 0.1  # Exploration factor
+ALPHA = 0.1  # Learning rate: how much new information overrides old knowledge
+GAMMA = 0.55  # Discount factor: importance of future rewards
+EPSILON = 0.1  # Exploration factor: probability of exploring new actions
 
 def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=20000):
+    """
+    Function to perform Q-learning for the bipartite TSP.
+
+    Solve the bipartite TSP using Q-learning.
+
+    Parameters:
+    - G: Graph representing the problem.
+    - start: Start node ('0.0').
+    - end: End node ('0.0.0').
+    - set_1: List of kit holder nodes.
+    - set_2: List of gravity rack nodes.
+    - large_value: Large value representing invalid connections.
+    - episodes: Number of episodes for training.
+
+    Returns:
+    - best_tour: The best tour found using Q-values.
+    """
+    # Initialize the Q-table: Each node has a dictionary of its neighbors with Q-values
     q_table = {node: {neighbor: 0 for neighbor in G.neighbors(node)} for node in G.nodes}
 
-    for episode in range(episodes):
+    for episode in range(episodes):  # Run for the specified number of episodes
         current_node = start
         tour = [current_node]
-        visit = {node: False for node in G.nodes}
+        visit = {node: False for node in G.nodes}  # Track visited nodes
         visit[start] = True
 
         while len(tour) < len(set_1) + len(set_2):  # Ensure all nodes are visited before 0.0.0
             # Alternate between set_1 and set_2 strictly
-            if current_node in set_2 and current_node != end:  # If in set_2, move to set_1 (kit holders)
+            if current_node in set_2 and current_node != end:   # From set_2, move to set_1
                 valid_neighbors = [node for node in set_1 if
                                    not visit[node] and G.has_edge(current_node, node) and G[current_node][node][
                                        'weight'] < large_value]
-            else:  # If in set_1, move to set_2 (gravity racks)
+            else:  # From set_1, move to set_2
                 valid_neighbors = [node for node in set_2 if
                                    not visit[node] and node != end and G.has_edge(current_node, node) and
                                    G[current_node][node]['weight'] < large_value]
 
-            if random.uniform(0, 1) < EPSILON:
+            # Choose the next node based on exploration or exploitation
+            if random.uniform(0, 1) < EPSILON: # Explore
                 next_node = random.choice(valid_neighbors) if valid_neighbors else None
-            else:
+            else: # Exploit
                 next_node = max(((n, q_table[current_node][n]) for n in valid_neighbors), key=lambda x: x[1], default=(None, None))[0]
 
-            if next_node is None:
+            if next_node is None:   # If no valid neighbors are found
                 break
                 # raise ValueError(f"No valid neighbors found from {current_node}. The tour may be incomplete.")
 
@@ -39,8 +58,9 @@ def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=20
                 next_node = end  # Force visit to 0.0.0
                 visit[end] = True
 
+            # Compute the reward and update the Q-value
             reward = get_reward(G, current_node, next_node, set_1, set_2, large_value)
-            max_next_q = max(q_table[next_node].values(), default=0)
+            max_next_q = max(q_table[next_node].values(), default=0)   # Max Q-value of the next state
             q_table[current_node][next_node] = (1 - ALPHA) * q_table[current_node][next_node] + \
                                                ALPHA * (reward + GAMMA * max_next_q)
 
@@ -48,7 +68,7 @@ def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=20
             tour.append(next_node)
             visit[next_node] = True
 
-        # After all nodes are visited, add the return to 0.0
+        # After visiting all nodes, return to the start node
         tour.append(start)
 
         # Calculate the total cost of the current tour
@@ -57,12 +77,12 @@ def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=20
         # Print the current tour and its cost
         print(f"Episode {episode + 1}, Tour: {tour}, Total Cost: {cost}")
 
-    # Now get the best Q-learning-based tour
+    # Generate the best tour from the learned Q-values
     best_tour = best_q_tour(q_table, G, start, end, set_1, set_2, large_value)
     best_tour_cost, _ = total_costRL(G, best_tour)
     # print(f"Best Q-Learning Tour: {best_tour}, Total Cost: {best_tour_cost}")
 
-    # Convert Q-values to a DataFrame
+    # Export Q-values to a CSV file
     q_df = pd.DataFrame.from_dict(q_table, orient='index').fillna(float('inf'))  # Use inf for non-visited
     print("Q-values DataFrame:")
     print(q_df)
@@ -73,7 +93,23 @@ def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=20
 
 
 def get_reward(G, current, next_node, set_1, set_2, large_value):
-    if current in set_1 and next_node in set_2:
+    """
+    Function to calculate rewards during Q-learning.
+
+    Calculate the reward for moving from current to next_node.
+
+    Parameters:
+    - G: Graph representing the problem.
+    - current: Current node.
+    - next_node: Next node.
+    - set_1: List of kit holder nodes.
+    - set_2: List of gravity rack nodes.
+    - large_value: Large value representing invalid connections.
+
+    Returns:
+    - Reward value for the transition.
+    """
+    if current in set_1 and next_node in set_2:  # Valid transition from set_1 to set_2
         weight = G[current][next_node]['weight']
         if weight >= large_value:
             return -float('inf')
@@ -87,6 +123,23 @@ def get_reward(G, current, next_node, set_1, set_2, large_value):
         return -float('inf')  # Invalid transition
 
 def best_q_tour(q_table, G, start, end, set_1, set_2, large_value):
+    """
+    Function to extract the best tour based on Q-values.
+
+    Generate the best tour based on the learned Q-values.
+
+    Parameters:
+    - q_table: Learned Q-values for each state-action pair.
+    - G: Graph representing the problem.
+    - start: Start node.
+    - end: End node.
+    - set_1: List of kit holder nodes.
+    - set_2: List of gravity rack nodes.
+    - large_value: Large value representing invalid connections.
+
+    Returns:
+    - tour: List of nodes representing the best tour.
+    """
     tour = [start]
     current = start
     visit = {node: False for node in q_table}
@@ -127,6 +180,19 @@ def best_q_tour(q_table, G, start, end, set_1, set_2, large_value):
     return tour
 
 def total_costRL(G, tour):
+    """
+    Function to calculate the total cost of a tour.
+
+    Calculate the total cost of a tour.
+
+    Parameters:
+    - G: Graph representing the problem.
+    - tour: List of nodes in the tour.
+
+    Returns:
+    - cost: Total cost of the tour.
+    - time_details: List of details for each segment of the tour.
+    """
     cost = 0
     time_details = []
     for i in range(len(tour) - 1):

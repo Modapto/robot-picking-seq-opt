@@ -5,16 +5,36 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from parse_json import create_distance_matrices
 
-
-
 def classify_nodes(a_to_b_matrix):
-    """Classify nodes into set_1 (kit holders) and set_2 (gravity racks) excluding '0.0' and '0.0.0'."""
-    set_1 = [node for node in a_to_b_matrix.index if len(node.split('.')) == 2 and node != '0.0']  # Kit holders
-    set_2 = [node for node in a_to_b_matrix.index if len(node.split('.')) == 3 and node != '0.0.0']  # Gravity racks
+    """
+    Classify nodes into set_1 (kit holders) and set_2 (gravity racks), excluding special nodes.
+
+    Parameters:
+    - a_to_b_matrix: DataFrame containing the distance matrix.
+
+    Returns:
+    - set_1: List of kit holders.
+    - set_2: List of gravity racks.
+    """
+    set_1 = [node for node in a_to_b_matrix.index if len(node.split('.')) == 2 and node != '0.0']  # Kit holders, exclude '0.0'
+    set_2 = [node for node in a_to_b_matrix.index if len(node.split('.')) == 3 and node != '0.0.0']  # Gravity racks, exclude '0.0.0'
     return set_1, set_2
 
+
 def create_distances_dict(a_to_b_matrix, set_1, set_2):
-    """Create a dictionary of distances from the matrix with specific rules applied."""
+    """
+    Function to create a distances dictionary from the matrix.
+
+    Create a dictionary of distances from the distance matrix.
+
+    Parameters:
+    - a_to_b_matrix: DataFrame containing distances.
+    - set_1: List of kit holders.
+    - set_2: List of gravity racks.
+
+    Returns:
+    - distances: Dictionary mapping node pairs to distances.
+    """
     distances = {}
 
     # Add connections between kit holders (set_1) and gravity racks (set_2)
@@ -66,7 +86,17 @@ def create_distances_dict(a_to_b_matrix, set_1, set_2):
     return distances
 
 def extract_possible_edges(distances):
-    """Extract possible edges based on the provided distances dictionary."""
+    """
+    Function to extract all possible edges from the distances dictionary.
+
+    Extract all possible edges from the distances dictionary.
+
+    Parameters:
+    - distances: Dictionary of node pairs and distances.
+
+    Returns:
+    - List of possible edges.
+    """
     possible_edges = [(i, j) for (i, j) in distances.keys()]
 
     # Remove the edge from '0.0' to '0.0.0', if present
@@ -80,7 +110,16 @@ def extract_possible_edges(distances):
     return possible_edges
 
 def check_connectivity(SetA, SetB, distances):
-    # Check if there are connections between Set A and Set B
+    """
+    Function to check the connectivity of the sets.
+
+    Check if every node in Set A and Set B has at least one connection.
+
+    Parameters:
+    - SetA: List of nodes in set A.
+    - SetB: List of nodes in set B.
+    - distances: Dictionary of distances.
+    """
     for a in SetA:
         if all((a, b) not in distances for b in SetB):
             print(f"No connections from {a} in Set A to any node in Set B")
@@ -137,7 +176,21 @@ def check_edges_in_distances(possible_edges, distances):
     return missing_edges
 
 def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
-    """Solve the TSP ensuring alternating connections between set_1 and set_2."""
+    """
+    Function to solve the TSP.
+
+    Solve the TSP with constraints ensuring alternating connections between sets.
+
+    Parameters:
+    - distances: Dictionary of distances between nodes.
+    - possible_edges: List of valid edges.
+    - set_1: Nodes in set 1 (kit holders).
+    - set_2: Nodes in set 2 (gravity racks).
+    - plot_initial: Flag to plot the initial solution.
+
+    Returns:
+    - optimal_tour: List of edges in the optimal tour.
+    """
     nodes = list(set([key[0] for key in distances.keys()] + [key[1] for key in distances.keys()]))
 
     # Remove node '0.0.0' because it is specifically visited at the end
@@ -159,7 +212,7 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
     prob += pulp.lpSum([distances[(i, j)] * x[i][j] for i, j in possible_edges])
 
 
-    print("1----------------------------------------------------")   # _C1: x_0.0_1.1.1 + x_0.0_1.1.2 = 1
+    print("1----------------------------------------------------")   # Debugging output
     # Constraints for the starting point 0.0 and ending point 0.0.0
     prob += pulp.lpSum([x['0.0'][j] for j in set_2 if ('0.0', j) in possible_edges]) == 1  # Start at 0.0 and go to set_2
     print("Constraints:")
@@ -167,14 +220,14 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
         print(f"{name}: {constraint}")
 
 
-    print("2----------------------------------------------------")   # _C2: x_1.1_0.0.0 + x_1.2_0.0.0 = 1
+    print("2----------------------------------------------------")   # Debugging output
     prob += pulp.lpSum([x[i]['0.0.0'] for i in set_1 if (i, '0.0.0') in possible_edges]) == 1  # Go from set_1 to 0.0.0
     print("Constraints:")
     for name, constraint in prob.constraints.items():
         print(f"{name}: {constraint}")
 
 
-    print("4----------------------------------------------------")
+    print("4----------------------------------------------------")  # Debugging output
     for node in set_2:
         prob += pulp.lpSum([x[node][j] for j in set_1 if (node, j) in possible_edges]) <= 1  # Outgoing from set_2 to set_1
         prob += pulp.lpSum([x[i][node] for i in set_1 if (i, node) in possible_edges]) <= 1  # Incoming from set_1 to set_2
@@ -182,7 +235,7 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
         for name, constraint in prob.constraints.items():
             print(f"{name}: {constraint}")
 
-    print("5----------------------------------------------------")
+    print("5----------------------------------------------------")  # Debugging output
     # Flow conservation constraints for Set B:
     for node in set_1:
         prob += pulp.lpSum([x[i][node] for i in set_2 if (i, node) in possible_edges]) == 1  # Incoming to Set 2
@@ -191,7 +244,7 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
         for name, constraint in prob.constraints.items():
             print(f"{name}: {constraint}")
 
-    print("6----------------------------------------------------")
+    print("6----------------------------------------------------")  # Debugging output
     # Incoming = Outgoing
     for node in set_2:
         prob += pulp.lpSum([x[i][node] for i in set_1 + ['0.0'] if i != node and (i, node) in possible_edges]) - pulp.lpSum(
@@ -200,7 +253,7 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
     for name, constraint in prob.constraints.items():
         print(f"{name}: {constraint}")
 
-    print("7----------------------------------------------------")
+    print("7----------------------------------------------------")  # Debugging output
     # Ensure the tour closes by traveling from `0.0.0` back to `0.0`
     prob += pulp.lpSum([x['0.0.0']['0.0']]) == 1 # x_0.0.0_0.0 = 1
     print("Constraints:")
@@ -398,30 +451,3 @@ def reconstruct_tour(tour_edges, start_node):
             break
 
     return ordered_tour
-
-# def create_distance_matrices_from_json(json_file_path, large_number=1000000):
-#     with open(json_file_path, 'r') as f:
-#         input_data = json.load(f)
-#     # Distance matrix from the JSON
-#     distance_matrix = input_data['data']['distanceMatrix']
-#     a_to_b_data = {}
-#
-#     # Parse each entry in the distance matrix
-#     for entry in distance_matrix:
-#         edge = entry.get('edge')
-#         if edge:
-#             pointA, pointB = edge.strip('()').split(', ')
-#             distance = entry['distance']
-#             if pointB not in a_to_b_data:
-#                 a_to_b_data[pointB] = {}
-#             a_to_b_data[pointB][pointA] = distance
-#
-#     # Create a DataFrame for the distance matrix
-#     a_to_b_matrix = pd.DataFrame(a_to_b_data).fillna(large_number).astype(int)
-#     kit_holders = sorted([node for node in a_to_b_matrix.index if len(node.split('.')) == 2 or node == '0.0'])
-#     gravity_racks = sorted([node for node in a_to_b_matrix.index if len(node.split('.')) == 3 or node == '0.0.0'])
-#
-#     node_order = kit_holders + gravity_racks
-#     a_to_b_matrix = a_to_b_matrix.reindex(index=node_order, columns=node_order, fill_value = large_number)
-#
-#     return a_to_b_matrix

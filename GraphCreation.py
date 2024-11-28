@@ -1,11 +1,22 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from parse_json import *
+from parse_json import * # Import functions from the parse_json.py file
 
 def create_directed_bipartite_graph(a_to_b_matrix):
-    B = nx.DiGraph()  # Directed graph
+    """
+    Creates a directed bipartite graph based on a distance matrix.
 
-    # kit_holders to set_1 and gravity_racks to set_2
+    Parameters:
+    - a_to_b_matrix: DataFrame representing distances between nodes.
+
+    Returns:
+    - B: A directed bipartite graph.
+    - set_1: Nodes in set_1 (kit holders, including 0.0).
+    - set_2: Nodes in set_2 (gravity racks, including 0.0.0).
+    """
+    B = nx.DiGraph()  # Initialize an empty directed graph
+
+    # Separate nodes into set_1 (kit holders) and set_2 (gravity racks)
     set_1 = [node for node in a_to_b_matrix.index if len(node.split('.')) == 2 or node == '0.0']  # Includes 0.0 as part of set_1
     set_2 = [node for node in a_to_b_matrix.index if len(node.split('.')) == 3 or node == '0.0.0']  # Includes 0.0.0 as part of set_2
 
@@ -15,11 +26,11 @@ def create_directed_bipartite_graph(a_to_b_matrix):
     for point_b in set_2:
         B.add_node(point_b, bipartite=1)  # Set 2 on the other side
 
-    # Print the relevant rows and columns of the distance matrix to check if edges should exist
+    # Debugging: Print a subset of the distance matrix for verification
     print("Distance matrix for 0.0 to set_2 and set_1 to 0.0.0")
     print(a_to_b_matrix.loc[['0.0', '1.1', '1.2'], ['1.1.1', '1.1.2', '0.0.0']])
 
-    # 1. 0.0 can give edges to set_2 (e.g., 1.1.1, 1.1.2)
+    # 1. Add edges from 0.0 to set_2 (excluding 0.0.0)
     for point_b in set_2:
         if point_b != '0.0.0':  # Skip 0.0.0
             weight = a_to_b_matrix.at['0.0', point_b]
@@ -27,7 +38,7 @@ def create_directed_bipartite_graph(a_to_b_matrix):
             if weight < 1000000:  # Ensure valid connection
                 B.add_edge('0.0', point_b, weight=weight)
 
-    # 2. Set_1 (e.g., 1.1, 1.2) can give edges to 0.0.0
+    # 2. Add edges from set_1 to 0.0.0
     for point_a in set_1:
         if point_a != '0.0':  # Skip 0.0 itself
             weight = a_to_b_matrix.at[point_a, '0.0.0']
@@ -35,10 +46,10 @@ def create_directed_bipartite_graph(a_to_b_matrix):
             if weight < 1000000:  # Ensure valid connection
                 B.add_edge(point_a, '0.0.0', weight=weight)
 
-    # 3. 0.0.0 has one edge to 0.0 with cost 1
+    # 3. Add a single edge from 0.0.0 to 0.0 with a fixed cost of 1
     B.add_edge('0.0.0', '0.0', weight=1)
 
-    # 4. Set_2 (e.g., 1.1.1, 1.1.2) can connect bidirectionally with set_1 (e.g., 1.1, 1.2)
+    # 4. Add bidirectional edges between set_1 and set_2
     for point_a in set_1:
         for point_b in set_2:
             if point_a != '0.0' and point_b != '0.0.0':  # Skip special nodes
@@ -51,19 +62,23 @@ def create_directed_bipartite_graph(a_to_b_matrix):
                 if weight_b_to_a < 1000000:  # Valid reverse connection
                     B.add_edge(point_b, point_a, weight=weight_b_to_a)
 
-    # # Print the edges to verify creation
-    # print("Directed edges created in the bipartite graph:")
-    # for edge in B.edges(data=True):
-    #     print(f"{edge[0]} -> {edge[1]} : {edge[2]}")
-
+    # Return the constructed graph and node sets
     return B, set_1, set_2
 
 
-# Plot the directed bipartite graph
+# Function to plot the directed bipartite graph
 def plot_directed_bipartite_graph(B, set_1, set_2):
-    pos = {}
-    pos.update((node, (1, index)) for index, node in enumerate(set_1))  # Position for set_1 on the left
-    pos.update((node, (0, index)) for index, node in enumerate(set_2))  # Position for set_2 on the right
+    """
+    Plots a directed bipartite graph with weights on edges.
+
+    Parameters:
+    - B: Directed bipartite graph to plot.
+    - set_1: Nodes in set_1 (kit holders).
+    - set_2: Nodes in set_2 (gravity racks).
+    """
+    pos = {} # Dictionary to store node positions for plotting
+    pos.update((node, (1, index)) for index, node in enumerate(set_1))  # Left positions for set_1
+    pos.update((node, (0, index)) for index, node in enumerate(set_2))  # Right positions for set_2
 
     plt.figure(figsize=(14, 8))
 
@@ -80,12 +95,3 @@ def plot_directed_bipartite_graph(B, set_1, set_2):
 
     plt.title('Directed Bipartite Graph (Set_1 and Set_2)')
     plt.show()
-
-
-# # Example usage
-# json_file_path = 'random_json_TEST.json'
-# a_to_b_matrix = create_distance_matrices_from_json(json_file_path)
-#
-# # Create and plot the bipartite graph
-# B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
-# plot_directed_bipartite_graph(B, set_1, set_2)
