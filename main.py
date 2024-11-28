@@ -17,6 +17,7 @@ from rl_heuristics import *
 
 online = sys.argv[1]  # This argument will differentiate between local and remote runs
 
+# Function to convert data types to native Python types (e.g., for JSON serialization)
 def convert_to_native_types(data):
     if isinstance(data, dict):
         return {k: convert_to_native_types(v) for k, v in data.items()}
@@ -30,6 +31,17 @@ def convert_to_native_types(data):
         return data
 
 def run_tsp(json_file_path, input_data, generate_new_instance):
+    """
+    Main function to run the TSP solution process.
+
+    Parameters:
+    - json_file_path: Path to the JSON input file (if applicable).
+    - input_data: JSON data directly provided (e.g., for remote runs).
+    - generate_new_instance: Flag to generate a random JSON instance.
+
+    Returns:
+    - output_data: Results of the TSP solution.
+    """
     total_time_start = int(time() * 1000)
     total_loading_time = None  # Initialize here to avoid UnboundLocalError
 
@@ -74,6 +86,7 @@ def run_tsp(json_file_path, input_data, generate_new_instance):
     solution_time_start = int(time() * 1000)
     simple_tour = None
 
+    # Run methods based on the input's method
     if method == "nearest" or method == "all":
         try:
             print("Running Nearest Neighbor TSP...")
