@@ -2,6 +2,23 @@ import random
 import pandas as pd
 
 def ql_nearest_tsp(G, start, end, set_1, set_2, large_value=1000000, q_values_file='q_values.csv'):
+    """
+    Function to implement Q-learning combined with the nearest neighbor heuristic.
+
+    Solve the TSP using Q-learning Q-values combined with a nearest neighbor approach.
+
+    Parameters:
+    - G: Graph representing the problem.
+    - start: Start node ('0.0').
+    - end: End node ('0.0.0').
+    - set_1: List of kit holder nodes.
+    - set_2: List of gravity rack nodes.
+    - large_value: Large value representing invalid connections.
+    - q_values_file: Path to the CSV file containing pre-trained Q-values.
+
+    Returns:
+    - tour: List of nodes representing the computed tour.
+    """
     # Load Q-values from the CSV file
     q_df = pd.read_csv(q_values_file, index_col=0)
 
@@ -52,6 +69,19 @@ def ql_nearest_tsp(G, start, end, set_1, set_2, large_value=1000000, q_values_fi
 
 
 def total_cost(G, tour):
+    """
+    Function to calculate the total cost of a tour.
+
+    Calculate the total cost of a tour.
+
+    Parameters:
+    - G: Graph representing the problem.
+    - tour: List of nodes representing the tour.
+
+    Returns:
+    - cost: Total cost of the tour.
+    - time_details: List of details for each segment of the tour.
+    """
     cost = 0
     time_details = []
     for i in range(len(tour) - 1):
@@ -66,13 +96,31 @@ def total_cost(G, tour):
             })
     return cost, time_details
 
-
-# Load Q-values and incorporate into 2-opt for distance optimization
 def load_q_values(q_values_file):
+    """
+    Function to load Q-values from a CSV file
+    """
     q_df = pd.read_csv(q_values_file, index_col=0)
     return q_df
 
 def ql_FindBestTwoOptMoveForBipartite(top, tour, G, set_1, set_2, q_df, start_node='0.0'):
+    """
+    Function to find the best 2-opt move using Q-values.
+
+    Find the best 2-opt move for a bipartite TSP using Q-values.
+
+    Parameters:
+    - top: Dictionary to store the best move details.
+    - tour: Current tour as a list of nodes.
+    - G: Graph representing the problem.
+    - set_1: List of kit holder nodes.
+    - set_2: List of gravity rack nodes.
+    - q_df: DataFrame of Q-values.
+    - start_node: The start node ('0.0').
+
+    Updates:
+    - top: Updates the best move details if a better move is found.
+    """
     number_of_neighboring_solutions = 0
 
     for firstIndex in range(0, len(tour) - 2):
@@ -102,16 +150,34 @@ def ql_FindBestTwoOptMoveForBipartite(top, tour, G, set_1, set_2, q_df, start_no
         print(f"Swaps including the start node {start_node} are considered.")
 
 def ql_ApplyTwoOptMoveForBipartite(top, tour):
-    # Apply the 2-opt swap, maintaining the alternating structure between set_1 and set_2
+    """
+    Function to apply the best 2-opt move to the tour.
+
+    Apply the best 2-opt move to the tour.
+
+    Parameters:
+    - top: Dictionary containing details of the best 2-opt move.
+    - tour: Current tour as a list of nodes.
+
+    Modifies:
+    - tour: Updates the tour with the 2-opt move.
+    """
+
     modifiedSequence = []
+
+    # Add nodes before the first edge in reverse order
     i = 0
     while i <= top['positionOfFirst']:
         modifiedSequence.append(tour[i])
         i += 1
+
+    # Reverse the nodes between the two edges
     i = top['positionOfSecond']
     while i > top['positionOfFirst']:
         modifiedSequence.append(tour[i])
         i -= 1
+
+    # Add nodes after the second edge
     i = top['positionOfSecond'] + 1
     while i < len(tour):
         modifiedSequence.append(tour[i])
@@ -134,6 +200,23 @@ class ql_TwoOptMove:
 
 
 def ql_two_opt_for_bipartite(tour, G, set_1, set_2, q_values_file='q_values.csv', max_iterations=10000):
+    """
+    Function to perform 2-opt meta-heuristic optimization with Q-values.
+
+    Perform 2-opt meta-heuristic optimization using Q-values.
+
+    Parameters:
+    - tour: Initial tour as a list of nodes.
+    - G: Graph representing the problem.
+    - set_1: List of kit holder nodes.
+    - set_2: List of gravity rack nodes.
+    - q_values_file: Path to the CSV file containing Q-values.
+    - max_iterations: Maximum number of iterations.
+
+    Returns:
+    - best_tour: Optimized tour.
+    - best_cost: Cost of the optimized tour.
+    """
     # Load Q-values from CSV
     q_df = pd.read_csv(q_values_file, index_col=0)
     print("Q-values loaded from CSV:")
@@ -198,14 +281,9 @@ def ql_two_opt_for_bipartite(tour, G, set_1, set_2, q_values_file='q_values.csv'
     print(f"Final Tour: {best_tour}, Final Cost: {best_cost}")
     return best_tour, best_cost
 
-
-
-
 def validate_tour(tour, set_1, set_2):
     for i in range(len(tour) - 1):
         if tour[i] in set_1 and tour[i + 1] not in set_2:
             print(f"Invalid transition: {tour[i]} -> {tour[i + 1]}")
         if tour[i] in set_2 and tour[i + 1] not in set_1:
             print(f"Invalid transition: {tour[i]} -> {tour[i + 1]}")
-
-

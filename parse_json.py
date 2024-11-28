@@ -3,14 +3,14 @@ import pandas as pd
 
 def create_distance_matrices(input_data, large_number=1000000):
     """
-    Unified function to create distance matrices either from JSON input or already parsed data.
+    Function to create a distance matrix from a JSON input.
 
     Parameters:
-    - input_data: Can be a JSON file path (str) or already loaded input data (dict).
-    - large_number: Default large number to fill NaN values in the matrices.
+    - input_data: JSON file path (str) or a dictionary containing the input data.
+    - large_number: Value to replace NaN entries in the matrix for non-existent connections.
 
     Returns:
-    - a_to_b_matrix: DataFrame representing distances from set_1 to set_2.
+    - a_to_b_matrix: DataFrame representing distances between nodes in a bipartite graph.
     """
 
     # If input_data is a file path (str), load the JSON content
@@ -18,21 +18,22 @@ def create_distance_matrices(input_data, large_number=1000000):
         with open(input_data, 'r') as f:
             input_data = json.load(f)
     elif isinstance(input_data, dict):
-        # If it's already a dict (e.g., from Postman), use it directly
-        input_data = input_data
+        input_data = input_data  # If it's already a dict (e.g., from Postman), use it directly
     else:
         raise ValueError("Input data should be either a valid file path or a dictionary.")
 
     # Extract the distance matrix from the input data
     distance_matrix = input_data['data']['distanceMatrix']
 
+    # Dictionary to store parsed distances between nodes
     a_to_b_data = {}
 
-    # Parse each entry in the distance matrix
+    # Iterate over each entry in the distance matrix
     for entry in distance_matrix:
-        # Parse route assuming it's formatted like "(A, B)"
+        # Extract the route (e.g., "(A, B)") and distance
         edge = entry.get('edge')
         if edge:
+            # Parse the nodes from the edge string (e.g., "A" and "B" from "(A, B)")
             pointA, pointB = edge.strip('()').split(', ')
 
             # Extract the distance
@@ -59,4 +60,5 @@ def create_distance_matrices(input_data, large_number=1000000):
     # Reindex rows and columns based on the combined node order
     a_to_b_matrix = a_to_b_matrix.reindex(index=node_order, columns=node_order, fill_value=large_number)
 
+    # Return the finalized distance matrix
     return a_to_b_matrix
