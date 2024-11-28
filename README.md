@@ -6,6 +6,9 @@ In our approach, we develop a combination of heuristic methods, reinforcement le
 The reason of using different methods is to experiment with a variety of approaches and evaluate the pros and cons of each according to different instances of the problems. By comparing the results of the objective values and the execution times of each method, we are able to gain insights into their performance and allowing us to evaluate which approach is best for our needs.
 
 ## How to use
+This service comes along with [optEngine](https://github.com/Modapto/optEngine/tree/main), i.e., a data-agnostic API responsible to dispatch the required data to this optimization service.
+Documentation of optEngine can be found [here](https://optengine.adopt.eltrun.gr:10100/api/v1/swagger-ui/index.html?configUrl=/api/v1/api-docs/swagger-config).
+
 Use the following curl commands in this sequence: 
 
 1. curl -k -X POST https://optengine.adopt.eltrun.gr:10100/api/v1/opt/job -H "Authorization:USE_AUTHORIZATION_KEY" -H "Content-Type: application/json" -d "@PATH_TO_crfIn.json"
