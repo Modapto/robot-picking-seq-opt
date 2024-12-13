@@ -1,6 +1,8 @@
 # Containers dictionary
+from scipy.spatial import distance_matrix
+#random positioning of containers
 containers = {
-    "Container_1": ["Component_1"],
+    "Container_1": {"gr_position": "1.1","contents" : [{"position":"1.1.1","type":"Component_1"},{"position":"1.1.2","type":"Component_1"},{"position":"1.1.3","type":"Component_1"},{"position":"1.1.4","type":"Component_1"}]},
     "Container_2": ["Component_2"],
     "Container_3": ["Component_3"],
     "Container_4": ["Component_4"],
@@ -15,13 +17,49 @@ containers = {
     "Container_13": ["Component_15"],
     "Container_14": ["Component_16"]
 }
-
+#random selection and positioning of kitholders
 # Kit Holders dictionary
 kit_holders = {
-    "KH001": ["Component_5", "Component_15", "Component_3", "Component_16", "Component_14", "Component_11"],
+    "KH001": {"kh_position": "1","contents":[{"position":"1.1","type":"Component_5"}, {"position":"1.2","type":"Component_15"}, {"position":"1.3","type":"Component_3"}, {"position":"1.4","type":"Component_16"}, {"position":"1.5","type":"Component_14"}, {"position":"1.6","type":"Component_11"}]},
     "KH002": ["Component_4", "Component_2", "Component_12", "Component_10"],
     "KH003": ["Component_9", "Component_13", "Component_1", "Component_7", "Component_10"]
 }
+
+
+distance_matrix = {
+    "0.0": [
+        {
+            "1.1": [
+                {
+                    "node": "1.1.1",
+                    "distance": 17654
+                },
+                {
+                    "node": "1.1.2",
+                    "distance": 17656
+                },
+                {
+                    "node": "1.1.3",
+                    "distance": 17656
+                }
+            ]
+        },
+        {
+            "1.2": [
+                {
+                    "node": "1.1.1",
+                    "distance": 18765
+                },
+                {
+                    "node": "1.1.2",
+                    "distance": 19567
+                }
+            ]
+        }
+    ]
+}
+
+
 
 # Function For Connectivity
 def connectivity(containers, kit_holders):
