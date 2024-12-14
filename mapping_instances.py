@@ -79,7 +79,14 @@ kit_holders = {
                            {"position": "3.2", "type": "Component_13"},
                            {"position": "3.3", "type": "Component_1"},
                            {"position": "3.4", "type": "Component_7"},
-                           {"position": "3.5", "type": "Component_10"}]}
+                           {"position": "3.5", "type": "Component_10"}]},
+    "KH001": {"kh_position": "4",
+              "contents": [{"position": "4.1", "type": "Component_5"},
+                           {"position": "4.2", "type": "Component_15"},
+                           {"position": "4.3", "type": "Component_3"},
+                           {"position": "4.4", "type": "Component_16"},
+                           {"position": "4.5", "type": "Component_14"},
+                           {"position": "4.6", "type": "Component_11"}]},
 }
 
 
