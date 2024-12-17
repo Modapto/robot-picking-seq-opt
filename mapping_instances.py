@@ -24045,82 +24045,33 @@ distance_matrix = {
 
 
 
-
-# def filter_distance_matrix(distance_matrix, containers, kit_holders):
-#     """
-#     Filters the distance matrix to include only valid edges between containers and kit holders
-#     based on their components.
-#
-#     Parameters:
-#         distance_matrix (dict): Original distance matrix containing all possible edges.
-#         containers (dict): Dictionary of containers with their components.
-#         kit_holders (dict): Dictionary of kit holders with their required components.
-#
-#     Returns:
-#         dict: Filtered distance matrix with valid edges only.
-#     """
-#     # Step 1: Extract kit holder positions and required components
-#     kh_components = {}
-#     for kh, details in kit_holders.items():
-#         for content in details['contents']:
-#             kh_components[content['position']] = content['type']
-#
-#     # Step 2: Extract container positions and their components
-#     container_components = {}
-#     for container, details in containers.items():
-#         for content in details['contents']:
-#             container_components[content['position']] = content['type']
-#
-#     # Step 3: Filter the distance matrix
-#     filtered_matrix = {"0.0": []}  # Start from 0.0 node as usual
-#
-#     # Loop through kit holder positions and check connections
-#     for kit_pos, kit_comp in kh_components.items():
-#         valid_connections = []
-#
-#         # Loop through container positions and find valid edges
-#         for cont_pos, cont_comp in container_components.items():
-#             if kit_comp == cont_comp:  # Match components
-#                 # Add all valid nodes from the gravity rack (4 positions per container)
-#                 for node_num in range(1, 5):  # e.g., 1.1.1 to 1.1.4
-#                     valid_connections.append({
-#                         "node": f"{cont_pos}",
-#                         "distance": get_distance_from_matrix(distance_matrix, kit_pos, cont_pos)
-#                     })
-#
-#         # Append valid edges for the current kit position
-#         if valid_connections:
-#             filtered_matrix["0.0"].append({kit_pos: valid_connections})
-#
-#     return filtered_matrix
-
 def filter_distance_matrix(matrix, containers, kit_holders):
-    filtered_matrix = {"0.0": []}  # Start with the root node
+    filtered_matrix = {"0.0": []}  # starting node
 
     for kh_key, kh_value in kit_holders.items():
-        kh_position = kh_value["kh_position"]  # e.g., "1"
+        kh_position = kh_value["kh_position"]  # e.g. "1"
 
         for kh_content in kh_value["contents"]:
-            kit_position = kh_content["position"]  # e.g., "1.1"
-            kit_component = kh_content["type"]  # e.g., "Component_5"
+            kit_position = kh_content["position"]  # e.g. "1.1"
+            kit_component = kh_content["type"]  # e.g. "Component_5"
 
             valid_nodes = []
 
             for container_key, container_value in containers.items():
                 for cont_content in container_value["contents"]:
-                    cont_position = cont_content["position"]  # e.g., "1.5.1"
-                    cont_component = cont_content["type"]  # e.g., "Component_5"
+                    cont_position = cont_content["position"]  # e.g. "1.5.1"
+                    cont_component = cont_content["type"]  # e.g. "Component_5"
 
-                    # Add connection only if the components match
+                    # add the connection only if the components match
                     if kit_component == cont_component:
                         distance = get_distance_from_matrix(matrix, kit_position, cont_position)
-                        if distance is not None:  # Only include valid distances
+                        if distance is not None:  # include valid distances
                             valid_nodes.append({"node": cont_position, "distance": distance})
 
-            # Avoid duplicate entries for container nodes
+            # skip duplicate entries for container nodes
             unique_nodes = list({node['node']: node for node in valid_nodes}.values())
 
-            # Append to the filtered matrix only if there are valid connections
+            # append to the filtered matrix only if valid connections
             if unique_nodes:
                 filtered_matrix["0.0"].append({
                     kit_position: unique_nodes
@@ -24130,21 +24081,15 @@ def filter_distance_matrix(matrix, containers, kit_holders):
 
 
 def get_distance_from_matrix(matrix, kh_position, container_position):
-    """
-    Retrieve distance from the matrix for a given kit holder position and container position.
-    """
     for kh_entry in matrix.get("0.0", []):
         if kh_position in kh_entry:
             for container in kh_entry[kh_position]:
                 if container["node"] == container_position:
                     return container["distance"]
-    return 0  # Default if no match is found
+    return 0
 
-
-# Example Usage
 filtered_matrix = filter_distance_matrix(distance_matrix, containers, kit_holders)
 
-# Save filtered distance matrix to JSON file
 import json
 with open("filtered_distance_matrix.json", "w") as f:
     json.dump(filtered_matrix, f, indent=4)
