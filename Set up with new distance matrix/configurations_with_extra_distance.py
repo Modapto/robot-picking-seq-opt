@@ -27534,7 +27534,7 @@ distance_matrix = {
 }
 
 
-# Define the extra distances (e constraint) for each component type
+# extra distances for each component type
 component_extra_distances = {
     "Component_1": 500,
     "Component_2": 500,
@@ -27553,9 +27553,8 @@ component_extra_distances = {
 }
 
 def filter_distance_matrix_with_e_constraint(matrix, random_config, extra_distances):
-    filtered_matrix = {"0.0": []}  # Starting node
+    filtered_matrix = {"0.0": []}
 
-    # Extract containers and kit holders from random_config
     containers = random_config["containers"]
     kit_holders = random_config["kit_holders"]
 
@@ -27573,15 +27572,13 @@ def filter_distance_matrix_with_e_constraint(matrix, random_config, extra_distan
                     cont_position = cont_content["position"]  # e.g., "1.5.1"
                     cont_component = cont_content["type"]  # e.g., "Component_5"
 
-                    # Add the connection only if the components match
                     if kit_component == cont_component:
                         distance = get_distance_from_matrix(matrix, kit_position, cont_position)
                         if distance is not None:
-                            # Apply the "e constraint" (add extra distance)
+                            # add extra distance
                             adjusted_distance = distance + extra_distances.get(kit_component, 0)
                             valid_nodes.append({"node": cont_position, "distance": adjusted_distance})
 
-            # Skip duplicate entries for container nodes
             unique_nodes = list({node["node"]: node for node in valid_nodes}.values())
 
             if unique_nodes:
@@ -27604,11 +27601,10 @@ def get_distance_from_matrix(matrix, kh_position, container_position):
     return None
 
 
-# Example usage with "e constraint"
 filtered_matrix = filter_distance_matrix_with_e_constraint(distance_matrix, random_config, component_extra_distances)
 
-# Save the filtered matrix with "e constraint" applied
-with open("random_configuration_distance_matrix_with_e_constraint.json", "w") as f:
+
+with open("random_configuration_distance_matrix_with_extra_distance.json", "w") as f:
     json.dump(filtered_matrix, f, indent=4)
 
 print("Filtered distance matrix with e constraint saved successfully.")
