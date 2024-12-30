@@ -84,13 +84,13 @@ kit_holders = {
                            {"position": "3.3", "type": "Component_1"},
                            {"position": "3.4", "type": "Component_7"},
                            {"position": "3.5", "type": "Component_10"}]},
-    "KH004": {"kh_position": "4",
-              "contents": [{"position": "4.1", "type": "Component_5"},
-                           {"position": "4.2", "type": "Component_15"},
-                           {"position": "4.3", "type": "Component_3"},
-                           {"position": "4.4", "type": "Component_16"},
-                           {"position": "4.5", "type": "Component_14"},
-                           {"position": "4.6", "type": "Component_11"}]},
+    # "KH004": {"kh_position": "4",
+    #           "contents": [{"position": "4.1", "type": "Component_5"},
+    #                        {"position": "4.2", "type": "Component_15"},
+    #                        {"position": "4.3", "type": "Component_3"},
+    #                        {"position": "4.4", "type": "Component_16"},
+    #                        {"position": "4.5", "type": "Component_14"},
+    #                        {"position": "4.6", "type": "Component_11"}]},
 }
 
 def filter_distance_matrix(matrix, containers, kit_holders):
@@ -159,7 +159,7 @@ def get_distance_from_matrix(matrix, source, target):
 filtered_matrix = filter_distance_matrix(distance_matrix, containers, kit_holders)
 
 # Save the filtered matrix to a file
-with open("mapping_instances.json", "w") as f:
+with open("mapping_instances_v2.json", "w") as f:
     json.dump(filtered_matrix, f, indent=4)
 
 print("Filtered distance matrix saved successfully.")
