@@ -1,7 +1,7 @@
 import json
 import copy
 # Load the existing distance matrix
-with open('extended_distance_matrix.json', 'r') as f:
+with open('final_distance_matrix.json', 'r') as f:
     distance_matrix = json.load(f)
 
 # Containers dictionary
@@ -84,84 +84,76 @@ kit_holders = {
                            {"position": "3.3", "type": "Component_1"},
                            {"position": "3.4", "type": "Component_7"},
                            {"position": "3.5", "type": "Component_10"}]},
-    # "KH004": {"kh_position": "4",
-    #           "contents": [{"position": "4.1", "type": "Component_5"},
-    #                        {"position": "4.2", "type": "Component_15"},
-    #                        {"position": "4.3", "type": "Component_3"},
-    #                        {"position": "4.4", "type": "Component_16"},
-    #                        {"position": "4.5", "type": "Component_14"},
-    #                        {"position": "4.6", "type": "Component_11"}]},
+    "KH004": {"kh_position": "4",
+              "contents": [{"position": "4.1", "type": "Component_5"},
+                           {"position": "4.2", "type": "Component_15"},
+                           {"position": "4.3", "type": "Component_3"},
+                           {"position": "4.4", "type": "Component_16"},
+                           {"position": "4.5", "type": "Component_14"},
+                           {"position": "4.6", "type": "Component_11"}]},
 }
 
-def filter_distance_matrix(matrix, containers, kit_holders):
-    filtered_matrix = {}
+def filter_and_restructure_matrix(matrix, containers, kit_holders):
+    filtered_matrix = []
 
-    # Add edges from 0.0 to all nodes (gravity racks and kit holders)
-    filtered_matrix["0.0"] = matrix["0.0"]
+    # Convert matrix to dictionary format for efficient lookup
+    matrix_dict = {}
+    for entry in matrix:
+        edge = entry['edge'].strip('()').split(", ")
+        source, target = edge
+        if source not in matrix_dict:
+            matrix_dict[source] = []
+        matrix_dict[source].append({"node": target, "distance": entry["distance"]})
+
+    # Add edges from 0.0 to all gravity racks
+    if "0.0" in matrix_dict:
+        for entry in matrix_dict["0.0"]:
+            if any(entry["node"].startswith(container["gr_position"]) for container in containers.values()):
+                filtered_matrix.append({"edge": f"(0.0, {entry['node']})", "distance": entry["distance"]})
 
     # Add edge from 0.0.0 to 0.0
-    filtered_matrix["0.0.0"] = [{"node": "0.0", "distance": 0}]
+    if "0.0.0" in matrix_dict and "0.0" in matrix_dict:
+        for entry in matrix_dict["0.0.0"]:
+            if entry["node"] == "0.0":
+                filtered_matrix.append({"edge": "(0.0.0, 0.0)", "distance": entry["distance"]})
 
     # Add edges from kit holders to 0.0.0
-    for kh_key, kh_value in kit_holders.items():
-        for kh_content in kh_value["contents"]:
-            kit_position = kh_content["position"]
-            filtered_matrix[kit_position] = []
+    for kh in kit_holders.values():
+        for kh_content in kh["contents"]:
+            if kh_content["position"] in matrix_dict and "0.0.0" in matrix_dict:
+                for entry in matrix_dict[kh_content["position"]]:
+                    if entry["node"] == "0.0.0":
+                        filtered_matrix.append({"edge": f"({kh_content['position']}, 0.0.0)", "distance": entry["distance"]})
 
-    # Add edges from gravity racks to their respective kit holders based on components
-    for container_key, container_value in containers.items():
-        for cont_content in container_value["contents"]:
-            cont_position = cont_content["position"]
-            cont_component = cont_content["type"]
+    # Add edges between kit holders and ALL gravity racks
+    for container in containers.values():
+        for content in container["contents"]:
+            for kh in kit_holders.values():
+                for kh_content in kh["contents"]:
+                    if kh_content["position"] in matrix_dict and content["position"] in matrix_dict:
+                        for entry in matrix_dict[kh_content["position"]]:
+                            if entry["node"] == content["position"]:
+                                filtered_matrix.append({"edge": f"({kh_content['position']}, {content['position']})",
+                                                        "distance": entry["distance"]})
 
-            valid_connections = []
-
-            for kh_key, kh_value in kit_holders.items():
-                for kh_content in kh_value["contents"]:
-                    kit_position = kh_content["position"]
-                    kit_component = kh_content["type"]
-
-                    # Add edge if components match
-                    if kit_component == cont_component:
-                        distance = get_distance_from_matrix(matrix, cont_position, kit_position)
-                        if distance is not None:
-                            valid_connections.append({"node": kit_position, "distance": distance})
-
-            # Add all valid connections for this gravity rack position
-            if valid_connections:
-                if cont_position not in filtered_matrix:
-                    filtered_matrix[cont_position] = []
-                filtered_matrix[cont_position].extend(valid_connections)
-
-    # Add edges from kit holders to all gravity racks (includes component-based filtering)
-    for kh_key, kh_value in kit_holders.items():
-        for kh_content in kh_value["contents"]:
-            kit_position = kh_content["position"]
-
-            if kit_position not in filtered_matrix:
-                filtered_matrix[kit_position] = []
-
-            # Add all connections to gravity racks
-            filtered_matrix[kit_position].extend(matrix.get(kit_position, []))
+    # Add edges from gravity racks to specific kit holders based on matching components
+    for container in containers.values():
+        for content in container["contents"]:
+            for kh in kit_holders.values():
+                for kh_content in kh["contents"]:
+                    if content["position"] in matrix_dict and kh_content["position"] in matrix_dict:
+                        for entry in matrix_dict[content["position"]]:
+                            if entry["node"] == kh_content["position"] and content["type"] == kh_content["type"]:
+                                filtered_matrix.append({"edge": f"({content['position']}, {kh_content['position']})",
+                                                        "distance": entry["distance"]})
 
     return filtered_matrix
 
-def get_distance_from_matrix(matrix, source, target):
-    """
-    Retrieve the distance between source and target from the matrix.
-    """
-    if source in matrix:
-        for entry in matrix[source]:
-            if entry["node"] == target:
-                return entry["distance"]
-    return None
 
-filtered_matrix = filter_distance_matrix(distance_matrix, containers, kit_holders)
+filtered_matrix = filter_and_restructure_matrix(distance_matrix, containers, kit_holders)
 
 # Save the filtered matrix to a file
-with open("mapping_instances_v2.json", "w") as f:
+with open("mapping_instances.json", "w") as f:
     json.dump(filtered_matrix, f, indent=4)
 
 print("Filtered distance matrix saved successfully.")
-
-
