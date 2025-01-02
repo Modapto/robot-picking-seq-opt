@@ -4,8 +4,13 @@ from itertools import product
 import json
 
 # Load the existing distance matrix
-with open('extended_distance_matrix.json', 'r') as f:
+with open('final_distance_matrix.json', 'r') as f:
     distance_matrix = json.load(f)
+
+# Debugging: Print the type and structure of distance_matrix
+print("Type of distance_matrix:", type(distance_matrix))
+if isinstance(distance_matrix, list):
+    print("Sample entry:", distance_matrix[0])
 
 # kit holders and containers
 kit_holders_template = {
@@ -85,7 +90,6 @@ containers_template = {
                                                        {"position": "2.7.4", "type": "Component_16"}]}
 }
 
-
 def generate_all_kh_configurations(kit_holders, num_positions=4):
     kh_keys = list(kit_holders.keys())
     all_combinations = list(product(kh_keys, repeat=num_positions))  # Cartesian product
@@ -142,83 +146,68 @@ def generate_random_configuration(containers, kit_holders):
     return {"containers": randomized_containers, "kit_holders": randomized_kit_holders}
 
 def filter_distance_matrix(matrix, random_config):
-    filtered_matrix = {}
-
+    filtered_matrix = []
     containers = random_config["containers"]
     kit_holders = random_config["kit_holders"]
 
-    # Add edges from 0.0 to all nodes (gravity racks and kit holders) with extra distance
-    filtered_matrix["0.0"] = [{"node": connection["node"], "distance": connection["distance"] + 2000}
-                               for connection in matrix["0.0"]]
+    # Transform distance matrix to a lookup dictionary
+    matrix_dict = {}
+    for entry in matrix:
+        edge = entry["edge"].strip("()").split(", ")
+        source, target = edge[0], edge[1]
+        if source not in matrix_dict:
+            matrix_dict[source] = {}
+        matrix_dict[source][target] = entry["distance"]
 
+    # Add edges: 0.0 to all gravity racks
+    if "0.0" in matrix_dict:
+        for target, distance in matrix_dict["0.0"].items():
+            filtered_matrix.append({"edge": f"(0.0, {target})", "distance": distance + 2000})
 
-    # Add edge from 0.0.0 to 0.0
-    filtered_matrix["0.0.0"] = [{"node": "0.0", "distance": 0}]
+    # Add edges: 0.0.0 to 0.0
+    if "0.0.0" in matrix_dict and "0.0" in matrix_dict["0.0.0"]:
+        filtered_matrix.append({"edge": "(0.0.0, 0.0)", "distance": matrix_dict["0.0.0"]["0.0"] + 2000})
 
-    # Add edges from kit holders to 0.0.0
+    # Add edges: Kit holders to 0.0.0
     for kh_key, kh_value in kit_holders.items():
         for kh_content in kh_value["contents"]:
-            kit_position = kh_content["position"]
-            filtered_matrix[kit_position] = []
+            if kh_content["position"] in matrix_dict and "0.0.0" in matrix_dict[kh_content["position"]]:
+                filtered_matrix.append({"edge": f"({kh_content['position']}, 0.0.0)", "distance": matrix_dict[kh_content["position"]]["0.0.0"] + 2000})
 
-        # Add edges from gravity racks to their respective kit holders based on components
+    # Add edges: Gravity racks to specific kit holders
     for container_key, container_value in containers.items():
         for cont_content in container_value["contents"]:
-            cont_position = cont_content["position"]
-            cont_component = cont_content["type"]
-
-            valid_connections = []
-
             for kh_key, kh_value in kit_holders.items():
                 for kh_content in kh_value["contents"]:
-                    kit_position = kh_content["position"]
-                    kit_component = kh_content["type"]
+                    if kh_content["type"] == cont_content["type"]:
+                        if cont_content["position"] in matrix_dict and kh_content["position"] in matrix_dict[cont_content["position"]]:
+                            filtered_matrix.append({"edge": f"({cont_content['position']}, {kh_content['position']})",
+                                                    "distance": matrix_dict[cont_content["position"]][kh_content["position"]] + 2000})
 
-                    # Add edge if components match
-                    if kit_component == cont_component:
-                        distance = get_distance_from_matrix(matrix, cont_position, kit_position)
-                        if distance is not None:
-                            valid_connections.append({"node": kit_position, "distance": distance + 2000})
-
-            # Add all valid connections for this gravity rack position
-            if valid_connections:
-                if cont_position not in filtered_matrix:
-                    filtered_matrix[cont_position] = []
-                filtered_matrix[cont_position].extend(valid_connections)
-
-        # Add edges from kit holders to all gravity racks (includes component-based filtering)
+    # Add edges: Kit holders to all gravity racks
     for kh_key, kh_value in kit_holders.items():
         for kh_content in kh_value["contents"]:
-            kit_position = kh_content["position"]
-
-            if kit_position not in filtered_matrix:
-                filtered_matrix[kit_position] = []
-
-            # Add all connections to gravity racks
-            for connection in matrix.get(kit_position, []):
-                connection["distance"] += 2000
-                filtered_matrix[kit_position].append(connection)
+            if kh_content["position"] in matrix_dict:
+                for target, distance in matrix_dict[kh_content["position"]].items():
+                    if target.startswith("1.") or target.startswith("2."):
+                        filtered_matrix.append({"edge": f"({kh_content['position']}, {target})", "distance": distance + 2000})
 
     return filtered_matrix
 
-def get_distance_from_matrix(matrix, source, target):
-    """
-    Retrieve the distance between source and target from the matrix.
-    """
-    if source in matrix:
-        for entry in matrix[source]:
-            if entry["node"] == target:
-                return entry["distance"]
-    return None
 
-
+# Generate random configuration
 containers = copy.deepcopy(containers_template)
 kit_holders = copy.deepcopy(kit_holders_template)
-
 random_config = generate_random_configuration(containers, kit_holders)
+
+# Filter the distance matrix
 filtered_matrix = filter_distance_matrix(distance_matrix, random_config)
 print(random_config)
+# Save the results
 with open("configurations_with_extra_distance.json", "w") as f:
     json.dump(filtered_matrix, f, indent=4)
 
-print("Filtered distance matrix saved successfully.")
+with open("configuration_with_extra_distance_sample.json", "w") as f:
+    json.dump(random_config, f, indent=4)
+
+print("Filtered distance matrix and random configuration saved successfully.")
