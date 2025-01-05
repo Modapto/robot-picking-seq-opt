@@ -63,7 +63,7 @@ def create_distance_matrices(input_data, large_number=1000000):
     # Return the finalized distance matrix
     return a_to_b_matrix
 
-# Load distance matrix and create the graph
-json_file_path = 'final_random_configuration.json'
-distance_matrix = create_distance_matrices(json_file_path)
-print(distance_matrix)
+# # Load distance matrix and create the graph
+# json_file_path = 'final_random_configuration.json'
+# distance_matrix = create_distance_matrices(json_file_path)
+# print(distance_matrix)

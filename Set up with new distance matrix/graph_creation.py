@@ -98,10 +98,10 @@ def plot_directed_bipartite_graph(B, set_1, set_2):
 
 
 
-B, set_1, set_2 = create_directed_bipartite_graph(distance_matrix)
-
-# Plot the graph
-plot_directed_bipartite_graph(B, set_1, set_2)
-
-# Output graph information
-print(f"Graph has {B.number_of_nodes()} nodes and {B.number_of_edges()} edges.")
+# B, set_1, set_2 = create_directed_bipartite_graph(distance_matrix)
+#
+# # Plot the graph
+# plot_directed_bipartite_graph(B, set_1, set_2)
+#
+# # Output graph information
+# print(f"Graph has {B.number_of_nodes()} nodes and {B.number_of_edges()} edges.")

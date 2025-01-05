@@ -3,7 +3,7 @@
     "uuid": "e77e8dcb-0166-4fbe-aae9-0ff7bcf7f74e",
     "generated_at": 1735915223,
     "data": {
-        "method": "ql-2-opt",
+        "method": "linear_picking",
         "start_node": "0.0",
         "end_node": "0.0.0",
         "distanceMatrix": [
