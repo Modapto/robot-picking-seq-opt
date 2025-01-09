@@ -235,6 +235,34 @@ def run_tsp(json_file_path, input_data, generate_new_instance):
         except ValueError as e:
             print(f"Error in exact method: {e}")
 
+    if method == "exact-linear" or method == "all":
+        try:
+            print("Running Exact + Linear Method TSP...")
+            exact_tour, exact_tour_cost, time_details_exact = run_exact_tsp(input_data)
+            linear_tour = linear_picking(B, start_node, end_node, set_1, set_2)
+            linear_tour_cost, time_details_linear = total_cost(B, linear_tour['tour'])
+            comparison = ((exact_tour_cost - linear_tour_cost) / linear_tour_cost) * 100
+
+            if comparison < 0:
+                results["exact"] = {
+                    "tour": exact_tour,
+                    "cost": exact_tour_cost,
+                    "time_details": time_details_exact,
+                    "totalLoadingTime": exact_tour_cost
+                }
+                print(f"Exact Method TSP is better. Cost: {exact_tour_cost}")
+            else:
+                results["linear"] = {
+                    "tour": linear_tour,
+                    "cost": linear_tour_cost,
+                    "time_details": time_details_linear,
+                    "totalLoadingTime": linear_tour_cost
+                }
+                print(f"Linear Method TSP is better. Cost: {linear_tour_cost}")
+
+        except ValueError as e:
+            print(f"Error in exact method: {e}")
+
     if method == "all" and results:
         min_cost_method = min(results, key=lambda k: results[k]["cost"])
         results = {min_cost_method: results[min_cost_method]}
