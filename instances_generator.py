@@ -10,14 +10,14 @@ def generate_random_json_input():
 
     # Gravity rack positions in the format "row.level.component"
     gravity_rack_positions = [f"{row}.{level}.{comp}"
-                              for row in range(1, 2)
-                              for level in range(1, 2)
-                              for comp in range(1, 11)]
+                              for row in range(1, 8)
+                              for level in range(1, 3)
+                              for comp in range(1, 5)]
 
     # Kit holder positions in the format "holder.block"
     kit_holder_positions = [f"{holder}.{block}"
-                            for holder in range(1, 2)
-                            for block in range(1, 11)]
+                            for holder in range(1, 5)
+                            for block in range(1, 7)]
 
     # Generate the new distance matrix format
     distance_matrix = []
