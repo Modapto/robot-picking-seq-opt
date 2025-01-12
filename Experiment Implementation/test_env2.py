@@ -6,7 +6,7 @@ from test_instances_generator2 import *
 
 # Define problem configurations for Gravity Rack and Kit Holder positions
 gravity_rack_configs = [
-    # (1, 2, 5)  # Example configuration: 1x2x5 = 10 positions
+    (1, 2, 5)  # Example configuration: 1x2x5 = 10 positions
     # (1, 2, 10)  # 20
     # (1, 2, 15)  # 30
     # (1, 2, 20)  # 40
@@ -17,28 +17,28 @@ gravity_rack_configs = [
     # (1, 2, 45)  # 90
     # (1, 2, 50)  # 100
     # (1, 2, 75)  # 150
-    (1, 2, 100)  # 200
+    # (1, 2, 100)  # 200
 ]
 
 kit_holder_configs = [
-    # (2, 5)  # Example configuration: 2x2 = 10 positions
-    # (2, 10)  # 20
-    # (2, 15)  # 30
-    # (2, 20)  # 40
-    # (2, 25)  # 50
-    # (2, 30)  # 60
-    # (2, 35)  # 70
-    # (2, 40)  # 80
-    # (2, 45)  # 90
-    # (2, 50)  # 100
-    # (2, 75)  # 150
+    (2, 5),  # Example configuration: 2x2 = 10 positions
+    (2, 10),  # 20
+    (2, 15),  # 30
+    (2, 20),  # 40
+    (2, 25),  # 50
+    (2, 30),  # 60
+    (2, 35),  # 70
+    (2, 40),  # 80
+    (2, 45),  # 90
+    (2, 50),  # 100
+    (2, 75),  # 150
     (2, 100)  # 200
 ]
 
 # Define dropout rates (k values)
 # k_values = [0] #, 0.25, 0.5, 0.75
 # Base directory for experiment results
-base_dir = "Experiment Results for Equal Sets with Symmetric Distances v2"
+base_dir = "Experiment Results for Unequal Sets with Symmetric Distances v3"
 os.makedirs(base_dir, exist_ok=True)
 
 # Master summary list to gather all experiment results
@@ -94,8 +94,8 @@ for (rows, cols, components) in gravity_rack_configs:
 
             # Collect results in a row-wise format for the summary
             result_rows = []
-
-            for method in ['exact', 'nearest', '2-opt', 'q-learning', 'ql-nearest', 'ql-2-opt']:
+            # 'nearest', '2-opt', 'q-learning', 'ql-nearest', 'ql-2-opt
+            for method in ['exact', 'linear', 'nearest']:
                 if method in results:
                     # Calculate the optimality gap
                     if exact_cost is not None and results[method]['cost'] is not None:
