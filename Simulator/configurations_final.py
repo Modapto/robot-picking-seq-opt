@@ -141,21 +141,21 @@ def generate_json_input(filtered_matrix):
     }
     return random_json_input
 
-# Generate random configuration
-containers = copy.deepcopy(containers_template)
-kit_holders = copy.deepcopy(kit_holders_template)
-random_config = generate_random_configuration(containers, kit_holders)
-
-# Filter the distance matrix
-filtered_matrix = filter_distance_matrix(distance_matrix, random_config)
-# Generate the final JSON structure
-random_json_input = generate_json_input(filtered_matrix)
-
-# Save the results
-with open("configurations_final.json", "w") as f:
-    json.dump(random_json_input, f, indent=4)
-
-with open("configuration_final_sample.json", "w") as f:
-    json.dump(random_config, f, indent=4)
-
-print("Filtered distance matrix and random configuration saved successfully.")
+# # Generate random configuration
+# containers = copy.deepcopy(containers_template)
+# kit_holders = copy.deepcopy(kit_holders_template)
+# random_config = generate_random_configuration(containers, kit_holders)
+#
+# # Filter the distance matrix
+# filtered_matrix = filter_distance_matrix(distance_matrix, random_config)
+# # Generate the final JSON structure
+# random_json_input = generate_json_input(filtered_matrix)
+#
+# # Save the results
+# with open("configurations_final.json", "w") as f:
+#     json.dump(random_json_input, f, indent=4)
+#
+# with open("configuration_final_sample.json", "w") as f:
+#     json.dump(random_config, f, indent=4)
+#
+# print("Filtered distance matrix and random configuration saved successfully.")
