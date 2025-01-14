@@ -4,6 +4,8 @@ from configurations_final import randomize_containers, filter_distance_matrix
 from exact_method import run_exact_tsp
 import pandas as pd
 import numpy as np
+from method_linear import *
+from GraphCreation import *
 
 def generate_unique_gr_configurations(num_configs, containers_template):
     """
@@ -45,6 +47,34 @@ def generate_kh_configuration(kh_setup, kit_holders_template):
         else:
             raise ValueError(f"Kit holder ID {kh_id} not found.")
     return configured_kh
+
+from parse_json import create_distance_matrices
+
+def calculate_linear_value(distance_matrix, configuration):
+    """
+    Calculate the objective value for a given configuration using the linear method.
+    """
+    # Filter the distance matrix
+    filtered_matrix = filter_distance_matrix(distance_matrix, configuration)
+
+    # Create distance matrices and generate the bipartite graph
+    a_to_b_matrix = create_distance_matrices({
+        "data": {
+            "distanceMatrix": filtered_matrix
+        }
+    })
+    # Generate the bipartite graph
+    B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
+
+    # Define start and end nodes
+    start_node = "0.0"
+    end_node = "0.0.0"
+
+    # Solve using the linear picking method
+    linear_tour = linear_picking(B, start_node, end_node, set_1, set_2)
+    tour_cost, _ = total_cost(B, linear_tour["tour"])
+    return tour_cost
+
 
 
 def calculate_objective_value(distance_matrix, configuration):
@@ -91,8 +121,8 @@ def run_simulation():
 
     # manually inputs
     kh_setup = ["KH001", "KH002", "KH001", "KH003"]
-    num_random_gr_configs = 10
-    baseline_config = {
+    num_random_gr_configs = 2
+    current_config = {
     "containers": {
         "Container_1": {
             "gr_position": "1.1",
@@ -394,9 +424,15 @@ def run_simulation():
     # KH configuration based on kh_setup
     kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
 
-    # baseline objective value
-    baseline_value = calculate_objective_value(distance_matrix, {
-        "containers": baseline_config["containers"],
+    # Calculate current objective value using Exact Method
+    current_exact_value = calculate_objective_value(distance_matrix, {
+        "containers": current_config["containers"],
+        "kit_holders": kh_config
+    })
+
+    # Calculate linear objective value for the current configuration
+    current_linear_value = calculate_linear_value(distance_matrix, {
+        "containers": current_config["containers"],
         "kit_holders": kh_config
     })
 
@@ -419,12 +455,18 @@ def run_simulation():
             best_config = gr_config
 
     # output results
-    improvement = ((baseline_value - best_value) / baseline_value) * 100
-    # ALLAGES STIN APANTISI
+    improvement = ((current_exact_value - best_value) / current_exact_value) * 100
+
     output = {
-        "baseline_value": baseline_value,
+        "current_value_exact": current_exact_value,
+        "current_value_linear": current_linear_value,
         "best_value": best_value,
-        "improvement_percentage": improvement,
+        "improvement_percentage_exact": round(((current_exact_value - best_value) / current_exact_value) * 100, 4),
+        "improvement_percentage_linear": round(((current_linear_value - best_value) / current_linear_value) * 100, 4),
+        "best_configuration": {
+            "key": min(results, key=lambda x: x["objective_value"])["key"],
+            "objective_value": best_value
+        },
         "results": results
     }
 
@@ -435,23 +477,6 @@ def run_simulation():
         json.dump(output_native, f, indent=4)
     print("Simulation completed and results saved.")
 
-
-# def compare_gr_configurations(baseline_config, random_configs, distance_matrix):
-#     results = []
-#     # solve for baseline
-#     baseline_obj_value = solve_exact_method(baseline_config, distance_matrix)
-#     results.append({"configuration": "Baseline", "objective_value": baseline_obj_value})
-#
-#     # solve for random configurations
-#     for config_key, gr_config in random_configs.items():
-#         obj_value = solve_exact_method(gr_config, distance_matrix)
-#         improvement = ((baseline_obj_value - obj_value) / baseline_obj_value) * 100
-#         results.append({
-#             "configuration": config_key,
-#             "objective_value": obj_value,
-#             "improvement": improvement
-#         })
-#     return results
 
 if __name__ == "__main__":
     run_simulation()
