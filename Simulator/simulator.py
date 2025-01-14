@@ -7,17 +7,22 @@ import numpy as np
 
 def generate_unique_gr_configurations(num_configs, containers_template):
     """
-    Generates unique random gravity rack configurations.
+    unique random gravity rack configurations.
     """
     configurations = {}
     while len(configurations) < num_configs:
         config = randomize_containers(containers_template)
-        # Create a unique key for the configuration
-        key = "-".join(
-            f"{container['gr_position']}.{content['type']}"
-            for container in config.values()
-            for content in container["contents"]
-        )
+        key = ""
+
+        for container in config.values():
+            key += container['gr_position'] + ": " + container["contents"][0]['type'] + " - "
+
+        # unique key for the configuration
+        # key = "-".join(
+        #     f"{container['gr_position']}.{content['type']}"
+            # for container in config.values()
+            # for content in container["contents"]
+        # )
         if key not in configurations:
             configurations[key] = config
     return configurations
@@ -25,7 +30,7 @@ def generate_unique_gr_configurations(num_configs, containers_template):
 
 def generate_kh_configuration(kh_setup, kit_holders_template):
     """
-    Generates a kit holder configuration based on the given setup.
+    kit holder configuration based on the given setup.
     """
     configured_kh = {}
     for idx, kh_id in enumerate(kh_setup, start=1):
@@ -44,12 +49,12 @@ def generate_kh_configuration(kh_setup, kit_holders_template):
 
 def calculate_objective_value(distance_matrix, configuration):
     """
-    Calculate the objective value of a given configuration using the exact method.
+    objective value of a given configuration using the exact method.
     """
-    # Filter the distance matrix for the given configuration
+    # distance matrix for the given configuration
     filtered_matrix = filter_distance_matrix(distance_matrix, configuration)
 
-    # Solve using the exact method
+    # solve using the exact method
     tour, cost, _ = run_exact_tsp({
         "data": {
             "distanceMatrix": filtered_matrix,
@@ -74,7 +79,7 @@ def convert_to_native_types(data):
 
 
 def run_simulation():
-    # Load inputs
+    # inputs
     with open("final_distance_matrix.json", "r") as f:
         distance_matrix = json.load(f)
 
@@ -84,7 +89,7 @@ def run_simulation():
     with open("kit_holders_template.json", "r") as f:
         kit_holders_template = json.load(f)
 
-    # User-defined inputs
+    # manually inputs
     kh_setup = ["KH001", "KH002", "KH001", "KH003"]
     num_random_gr_configs = 10
     baseline_config = {
@@ -386,19 +391,19 @@ def run_simulation():
     }
     }
 
-    # Generate KH configuration based on setup
+    # KH configuration based on kh_setup
     kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
 
-    # Calculate baseline objective value
+    # baseline objective value
     baseline_value = calculate_objective_value(distance_matrix, {
         "containers": baseline_config["containers"],
         "kit_holders": kh_config
     })
 
-    # Generate random GR configurations
+    # random GR configurations
     gr_configs = generate_unique_gr_configurations(num_random_gr_configs, containers_template)
 
-    # Evaluate random configurations
+    # evaluate random configurations
     best_config = None
     best_value = float("inf")
     results = []
@@ -413,8 +418,9 @@ def run_simulation():
             best_value = obj_value
             best_config = gr_config
 
-    # Output results
+    # output results
     improvement = ((baseline_value - best_value) / baseline_value) * 100
+    # ALLAGES STIN APANTISI
     output = {
         "baseline_value": baseline_value,
         "best_value": best_value,
@@ -422,7 +428,7 @@ def run_simulation():
         "results": results
     }
 
-    # Convert data to native types before saving
+    # convert data to native types before saving
     output_native = convert_to_native_types(output)
 
     with open("simulation_results.json", "w") as f:
@@ -430,22 +436,22 @@ def run_simulation():
     print("Simulation completed and results saved.")
 
 
-def compare_gr_configurations(baseline_config, random_configs, distance_matrix):
-    results = []
-    # Solve for baseline
-    baseline_obj_value = solve_exact_method(baseline_config, distance_matrix)
-    results.append({"configuration": "Baseline", "objective_value": baseline_obj_value})
-
-    # Solve for random configurations
-    for config_key, gr_config in random_configs.items():
-        obj_value = solve_exact_method(gr_config, distance_matrix)
-        improvement = ((baseline_obj_value - obj_value) / baseline_obj_value) * 100
-        results.append({
-            "configuration": config_key,
-            "objective_value": obj_value,
-            "improvement": improvement
-        })
-    return results
+# def compare_gr_configurations(baseline_config, random_configs, distance_matrix):
+#     results = []
+#     # solve for baseline
+#     baseline_obj_value = solve_exact_method(baseline_config, distance_matrix)
+#     results.append({"configuration": "Baseline", "objective_value": baseline_obj_value})
+#
+#     # solve for random configurations
+#     for config_key, gr_config in random_configs.items():
+#         obj_value = solve_exact_method(gr_config, distance_matrix)
+#         improvement = ((baseline_obj_value - obj_value) / baseline_obj_value) * 100
+#         results.append({
+#             "configuration": config_key,
+#             "objective_value": obj_value,
+#             "improvement": improvement
+#         })
+#     return results
 
 if __name__ == "__main__":
     run_simulation()
