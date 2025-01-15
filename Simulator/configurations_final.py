@@ -5,21 +5,28 @@ import json
 import uuid
 from time import *
 
-# Load the existing distance matrix
-with open('final_distance_matrix.json', 'r') as f:
-    distance_matrix = json.load(f)
+import json
 
-# Debugging: Print the type and structure of distance_matrix
-print("Type of distance_matrix:", type(distance_matrix))
-if isinstance(distance_matrix, list):
-    print("Sample entry:", distance_matrix[0])
+def load_distance_matrix(file_path="final_distance_matrix.json"):
+    """
+    Load the distance matrix from a JSON file.
+    """
+    with open(file_path, "r") as f:
+        return json.load(f)
 
-# Load container and kit holder templates
-with open("containers_template.json", "r") as f:
-    containers_template = json.load(f)
+def load_containers_template(file_path="containers_template.json"):
+    """
+    Load the containers template from a JSON file.
+    """
+    with open(file_path, "r") as f:
+        return json.load(f)
 
-with open("kit_holders_template.json", "r") as f:
-    kit_holders_template = json.load(f)
+def load_kit_holders_template(file_path="kit_holders_template.json"):
+    """
+    Load the kit holders template from a JSON file.
+    """
+    with open(file_path, "r") as f:
+        return json.load(f)
 
 def generate_all_kh_configurations(kit_holders, num_positions=4):
     kh_keys = list(kit_holders.keys())

@@ -110,328 +110,338 @@ def convert_to_native_types(data):
         return data
 
 
-def run_simulation():
-    # inputs
-    with open("final_distance_matrix.json", "r") as f:
-        distance_matrix = json.load(f)
+def run_simulation(input_data):
+    # # inputs
+    # with open("final_distance_matrix.json", "r") as f:
+    #     distance_matrix = json.load(f)
+    #
+    # with open("containers_template.json", "r") as f:
+    #     containers_template = json.load(f)
+    #
+    # with open("kit_holders_template.json", "r") as f:
+    #     kit_holders_template = json.load(f)
+    #
+    # # manually inputs
+    # kh_setup = ["KH001", "KH002", "KH001", "KH003"]
+    # num_random_gr_configs = 2
+    # current_config = {
+    # "containers": {
+    #     "Container_1": {
+    #         "gr_position": "1.1",
+    #         "contents": [
+    #             {
+    #                 "position": "1.1.1",
+    #                 "type": "Component_1"
+    #             },
+    #             {
+    #                 "position": "1.1.2",
+    #                 "type": "Component_1"
+    #             },
+    #             {
+    #                 "position": "1.1.3",
+    #                 "type": "Component_1"
+    #             },
+    #             {
+    #                 "position": "1.1.4",
+    #                 "type": "Component_1"
+    #             }
+    #         ]
+    #     },
+    #     "Container_2": {
+    #         "gr_position": "1.2",
+    #         "contents": [
+    #             {
+    #                 "position": "1.2.1",
+    #                 "type": "Component_9"
+    #             },
+    #             {
+    #                 "position": "1.2.2",
+    #                 "type": "Component_9"
+    #             },
+    #             {
+    #                 "position": "1.2.3",
+    #                 "type": "Component_9"
+    #             },
+    #             {
+    #                 "position": "1.2.4",
+    #                 "type": "Component_9"
+    #             }
+    #         ]
+    #     },
+    #     "Container_3": {
+    #         "gr_position": "1.3",
+    #         "contents": [
+    #             {
+    #                 "position": "1.3.1",
+    #                 "type": "Component_11"
+    #             },
+    #             {
+    #                 "position": "1.3.2",
+    #                 "type": "Component_11"
+    #             },
+    #             {
+    #                 "position": "1.3.3",
+    #                 "type": "Component_11"
+    #             },
+    #             {
+    #                 "position": "1.3.4",
+    #                 "type": "Component_11"
+    #             }
+    #         ]
+    #     },
+    #     "Container_4": {
+    #         "gr_position": "1.4",
+    #         "contents": [
+    #             {
+    #                 "position": "1.4.1",
+    #                 "type": "Component_15"
+    #             },
+    #             {
+    #                 "position": "1.4.2",
+    #                 "type": "Component_15"
+    #             },
+    #             {
+    #                 "position": "1.4.3",
+    #                 "type": "Component_15"
+    #             },
+    #             {
+    #                 "position": "1.4.4",
+    #                 "type": "Component_15"
+    #             }
+    #         ]
+    #     },
+    #     "Container_5": {
+    #         "gr_position": "1.5",
+    #         "contents": [
+    #             {
+    #                 "position": "1.5.1",
+    #                 "type": "Component_10"
+    #             },
+    #             {
+    #                 "position": "1.5.2",
+    #                 "type": "Component_10"
+    #             },
+    #             {
+    #                 "position": "1.5.3",
+    #                 "type": "Component_10"
+    #             },
+    #             {
+    #                 "position": "1.5.4",
+    #                 "type": "Component_10"
+    #             }
+    #         ]
+    #     },
+    #     "Container_6": {
+    #         "gr_position": "1.6",
+    #         "contents": [
+    #             {
+    #                 "position": "1.6.1",
+    #                 "type": "Component_16"
+    #             },
+    #             {
+    #                 "position": "1.6.2",
+    #                 "type": "Component_16"
+    #             },
+    #             {
+    #                 "position": "1.6.3",
+    #                 "type": "Component_16"
+    #             },
+    #             {
+    #                 "position": "1.6.4",
+    #                 "type": "Component_16"
+    #             }
+    #         ]
+    #     },
+    #     "Container_7": {
+    #         "gr_position": "1.7",
+    #         "contents": [
+    #             {
+    #                 "position": "1.7.1",
+    #                 "type": "Component_4"
+    #             },
+    #             {
+    #                 "position": "1.7.2",
+    #                 "type": "Component_4"
+    #             },
+    #             {
+    #                 "position": "1.7.3",
+    #                 "type": "Component_4"
+    #             },
+    #             {
+    #                 "position": "1.7.4",
+    #                 "type": "Component_4"
+    #             }
+    #         ]
+    #     },
+    #     "Container_8": {
+    #         "gr_position": "2.1",
+    #         "contents": [
+    #             {
+    #                 "position": "2.1.1",
+    #                 "type": "Component_13"
+    #             },
+    #             {
+    #                 "position": "2.1.2",
+    #                 "type": "Component_13"
+    #             },
+    #             {
+    #                 "position": "2.1.3",
+    #                 "type": "Component_13"
+    #             },
+    #             {
+    #                 "position": "2.1.4",
+    #                 "type": "Component_13"
+    #             }
+    #         ]
+    #     },
+    #     "Container_9": {
+    #         "gr_position": "2.2",
+    #         "contents": [
+    #             {
+    #                 "position": "2.2.1",
+    #                 "type": "Component_3"
+    #             },
+    #             {
+    #                 "position": "2.2.2",
+    #                 "type": "Component_3"
+    #             },
+    #             {
+    #                 "position": "2.2.3",
+    #                 "type": "Component_3"
+    #             },
+    #             {
+    #                 "position": "2.2.4",
+    #                 "type": "Component_3"
+    #             }
+    #         ]
+    #     },
+    #     "Container_10": {
+    #         "gr_position": "2.3",
+    #         "contents": [
+    #             {
+    #                 "position": "2.3.1",
+    #                 "type": "Component_12"
+    #             },
+    #             {
+    #                 "position": "2.3.2",
+    #                 "type": "Component_12"
+    #             },
+    #             {
+    #                 "position": "2.3.3",
+    #                 "type": "Component_12"
+    #             },
+    #             {
+    #                 "position": "2.3.4",
+    #                 "type": "Component_12"
+    #             }
+    #         ]
+    #     },
+    #     "Container_11": {
+    #         "gr_position": "2.4",
+    #         "contents": [
+    #             {
+    #                 "position": "2.4.1",
+    #                 "type": "Component_7"
+    #             },
+    #             {
+    #                 "position": "2.4.2",
+    #                 "type": "Component_7"
+    #             },
+    #             {
+    #                 "position": "2.4.3",
+    #                 "type": "Component_7"
+    #             },
+    #             {
+    #                 "position": "2.4.4",
+    #                 "type": "Component_7"
+    #             }
+    #         ]
+    #     },
+    #     "Container_12": {
+    #         "gr_position": "2.5",
+    #         "contents": [
+    #             {
+    #                 "position": "2.5.1",
+    #                 "type": "Component_14"
+    #             },
+    #             {
+    #                 "position": "2.5.2",
+    #                 "type": "Component_14"
+    #             },
+    #             {
+    #                 "position": "2.5.3",
+    #                 "type": "Component_14"
+    #             },
+    #             {
+    #                 "position": "2.5.4",
+    #                 "type": "Component_14"
+    #             }
+    #         ]
+    #     },
+    #     "Container_13": {
+    #         "gr_position": "2.6",
+    #         "contents": [
+    #             {
+    #                 "position": "2.6.1",
+    #                 "type": "Component_2"
+    #             },
+    #             {
+    #                 "position": "2.6.2",
+    #                 "type": "Component_2"
+    #             },
+    #             {
+    #                 "position": "2.6.3",
+    #                 "type": "Component_2"
+    #             },
+    #             {
+    #                 "position": "2.6.4",
+    #                 "type": "Component_2"
+    #             }
+    #         ]
+    #     },
+    #     "Container_14": {
+    #         "gr_position": "2.7",
+    #         "contents": [
+    #             {
+    #                 "position": "2.7.1",
+    #                 "type": "Component_5"
+    #             },
+    #             {
+    #                 "position": "2.7.2",
+    #                 "type": "Component_5"
+    #             },
+    #             {
+    #                 "position": "2.7.3",
+    #                 "type": "Component_5"
+    #             },
+    #             {
+    #                 "position": "2.7.4",
+    #                 "type": "Component_5"
+    #             }
+    #         ]
+    #     }
+    # }
+    # }
 
-    with open("containers_template.json", "r") as f:
-        containers_template = json.load(f)
+data:
+distance_matrix :
+containers_template :
+kit_holders_template :
+kh_setup :
+num_random_gr_configs :
+current_config :
 
-    with open("kit_holders_template.json", "r") as f:
-        kit_holders_template = json.load(f)
+    KH configuration based on kh_setup
 
-    # manually inputs
-    kh_setup = ["KH001", "KH002", "KH001", "KH003"]
-    num_random_gr_configs = 2
-    current_config = {
-    "containers": {
-        "Container_1": {
-            "gr_position": "1.1",
-            "contents": [
-                {
-                    "position": "1.1.1",
-                    "type": "Component_1"
-                },
-                {
-                    "position": "1.1.2",
-                    "type": "Component_1"
-                },
-                {
-                    "position": "1.1.3",
-                    "type": "Component_1"
-                },
-                {
-                    "position": "1.1.4",
-                    "type": "Component_1"
-                }
-            ]
-        },
-        "Container_2": {
-            "gr_position": "1.2",
-            "contents": [
-                {
-                    "position": "1.2.1",
-                    "type": "Component_9"
-                },
-                {
-                    "position": "1.2.2",
-                    "type": "Component_9"
-                },
-                {
-                    "position": "1.2.3",
-                    "type": "Component_9"
-                },
-                {
-                    "position": "1.2.4",
-                    "type": "Component_9"
-                }
-            ]
-        },
-        "Container_3": {
-            "gr_position": "1.3",
-            "contents": [
-                {
-                    "position": "1.3.1",
-                    "type": "Component_11"
-                },
-                {
-                    "position": "1.3.2",
-                    "type": "Component_11"
-                },
-                {
-                    "position": "1.3.3",
-                    "type": "Component_11"
-                },
-                {
-                    "position": "1.3.4",
-                    "type": "Component_11"
-                }
-            ]
-        },
-        "Container_4": {
-            "gr_position": "1.4",
-            "contents": [
-                {
-                    "position": "1.4.1",
-                    "type": "Component_15"
-                },
-                {
-                    "position": "1.4.2",
-                    "type": "Component_15"
-                },
-                {
-                    "position": "1.4.3",
-                    "type": "Component_15"
-                },
-                {
-                    "position": "1.4.4",
-                    "type": "Component_15"
-                }
-            ]
-        },
-        "Container_5": {
-            "gr_position": "1.5",
-            "contents": [
-                {
-                    "position": "1.5.1",
-                    "type": "Component_10"
-                },
-                {
-                    "position": "1.5.2",
-                    "type": "Component_10"
-                },
-                {
-                    "position": "1.5.3",
-                    "type": "Component_10"
-                },
-                {
-                    "position": "1.5.4",
-                    "type": "Component_10"
-                }
-            ]
-        },
-        "Container_6": {
-            "gr_position": "1.6",
-            "contents": [
-                {
-                    "position": "1.6.1",
-                    "type": "Component_16"
-                },
-                {
-                    "position": "1.6.2",
-                    "type": "Component_16"
-                },
-                {
-                    "position": "1.6.3",
-                    "type": "Component_16"
-                },
-                {
-                    "position": "1.6.4",
-                    "type": "Component_16"
-                }
-            ]
-        },
-        "Container_7": {
-            "gr_position": "1.7",
-            "contents": [
-                {
-                    "position": "1.7.1",
-                    "type": "Component_4"
-                },
-                {
-                    "position": "1.7.2",
-                    "type": "Component_4"
-                },
-                {
-                    "position": "1.7.3",
-                    "type": "Component_4"
-                },
-                {
-                    "position": "1.7.4",
-                    "type": "Component_4"
-                }
-            ]
-        },
-        "Container_8": {
-            "gr_position": "2.1",
-            "contents": [
-                {
-                    "position": "2.1.1",
-                    "type": "Component_13"
-                },
-                {
-                    "position": "2.1.2",
-                    "type": "Component_13"
-                },
-                {
-                    "position": "2.1.3",
-                    "type": "Component_13"
-                },
-                {
-                    "position": "2.1.4",
-                    "type": "Component_13"
-                }
-            ]
-        },
-        "Container_9": {
-            "gr_position": "2.2",
-            "contents": [
-                {
-                    "position": "2.2.1",
-                    "type": "Component_3"
-                },
-                {
-                    "position": "2.2.2",
-                    "type": "Component_3"
-                },
-                {
-                    "position": "2.2.3",
-                    "type": "Component_3"
-                },
-                {
-                    "position": "2.2.4",
-                    "type": "Component_3"
-                }
-            ]
-        },
-        "Container_10": {
-            "gr_position": "2.3",
-            "contents": [
-                {
-                    "position": "2.3.1",
-                    "type": "Component_12"
-                },
-                {
-                    "position": "2.3.2",
-                    "type": "Component_12"
-                },
-                {
-                    "position": "2.3.3",
-                    "type": "Component_12"
-                },
-                {
-                    "position": "2.3.4",
-                    "type": "Component_12"
-                }
-            ]
-        },
-        "Container_11": {
-            "gr_position": "2.4",
-            "contents": [
-                {
-                    "position": "2.4.1",
-                    "type": "Component_7"
-                },
-                {
-                    "position": "2.4.2",
-                    "type": "Component_7"
-                },
-                {
-                    "position": "2.4.3",
-                    "type": "Component_7"
-                },
-                {
-                    "position": "2.4.4",
-                    "type": "Component_7"
-                }
-            ]
-        },
-        "Container_12": {
-            "gr_position": "2.5",
-            "contents": [
-                {
-                    "position": "2.5.1",
-                    "type": "Component_14"
-                },
-                {
-                    "position": "2.5.2",
-                    "type": "Component_14"
-                },
-                {
-                    "position": "2.5.3",
-                    "type": "Component_14"
-                },
-                {
-                    "position": "2.5.4",
-                    "type": "Component_14"
-                }
-            ]
-        },
-        "Container_13": {
-            "gr_position": "2.6",
-            "contents": [
-                {
-                    "position": "2.6.1",
-                    "type": "Component_2"
-                },
-                {
-                    "position": "2.6.2",
-                    "type": "Component_2"
-                },
-                {
-                    "position": "2.6.3",
-                    "type": "Component_2"
-                },
-                {
-                    "position": "2.6.4",
-                    "type": "Component_2"
-                }
-            ]
-        },
-        "Container_14": {
-            "gr_position": "2.7",
-            "contents": [
-                {
-                    "position": "2.7.1",
-                    "type": "Component_5"
-                },
-                {
-                    "position": "2.7.2",
-                    "type": "Component_5"
-                },
-                {
-                    "position": "2.7.3",
-                    "type": "Component_5"
-                },
-                {
-                    "position": "2.7.4",
-                    "type": "Component_5"
-                }
-            ]
-        }
-    }
-    }
+    Load data from input JSON
+    distance_matrix = input_data["data"]["distance_matrix"]
+    containers_template = input_data["data"]["containers_template"]
+    kit_holders_template = input_data["data"]["kit_holders_template"]
+    kh_setup = input_data["data"]["kh_setup"]
+    num_random_gr_configs = input_data["data"]["num_random_gr_configs"]
+    current_config = input_data["data"]["current_config"]
 
-# data:
-# distance_matrix :
-# containers_template :
-# kit_holders_template :
-# kh_setup :
-# num_random_gr_configs :
-# current_config :
 
-    # KH configuration based on kh_setup
     kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
 
     # Calculate current objective value using Exact Method
@@ -476,7 +486,6 @@ def run_simulation():
             "objective_value": best_value
         },
         "current_configuration": current_config
-        # "results": results
     }
 
     # convert data to native types before saving
@@ -487,6 +496,6 @@ def run_simulation():
     print("Simulation completed and results saved.")
 
 
-if __name__ == "__main__":
-    run_simulation()
+# if __name__ == "__main__":
+#     run_simulation()
 
