@@ -313,7 +313,10 @@ def callback(ch, method, properties, body):
         input_postman_file_path = "input_postman.json"
         output_postman_file_path = "output_postman.json"
         #Run the TSP algorithm for the JSON input
-        output = run_tsp(None, input_file, False)
+        if method == "simulation":
+            output = run_simulation()
+        else:
+            output = run_tsp(None, input_file, False)
 
         print("%s: Publishing results to queue." % (datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 
@@ -345,4 +348,6 @@ if online == "1":  # Remote mode with RabbitMQ
 
 elif online == "0":  # Local mode with JSON file input
     filename = sys.argv[2]
+    if method ==
+
     run_tsp(json_file_path=filename, input_data=None, generate_new_instance=False)

@@ -1,5 +1,7 @@
 import json
 import copy
+
+from Simulator.configurations_final import distance_matrix, containers_template, kit_holders_template
 from configurations_final import randomize_containers, filter_distance_matrix
 from exact_method import run_exact_tsp
 import pandas as pd
@@ -420,6 +422,14 @@ def run_simulation():
         }
     }
     }
+
+# data:
+# distance_matrix :
+# containers_template :
+# kit_holders_template :
+# kh_setup :
+# num_random_gr_configs :
+# current_config :
 
     # KH configuration based on kh_setup
     kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
