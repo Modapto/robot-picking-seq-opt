@@ -15,6 +15,7 @@ from exact_method import *
 # from parametric_instances import *
 from rl_heuristics import *
 from method_linear import *
+from simulator import *
 online = sys.argv[1]  # This argument will differentiate between local and remote runs
 
 # Function to convert data types to native Python types (e.g., for JSON serialization)
@@ -313,8 +314,8 @@ def callback(ch, method, properties, body):
         input_postman_file_path = "input_postman.json"
         output_postman_file_path = "output_postman.json"
         #Run the TSP algorithm for the JSON input
-        if method == "simulation":
-            output = run_simulation()
+        if data.get("method") == "simulation":
+            output = run_simulation(input_file)
         else:
             output = run_tsp(None, input_file, False)
 
@@ -348,6 +349,12 @@ if online == "1":  # Remote mode with RabbitMQ
 
 elif online == "0":  # Local mode with JSON file input
     filename = sys.argv[2]
-    if method ==
+    with open(filename, 'r') as f:
+        input_data = json.load(f)
 
-    run_tsp(json_file_path=filename, input_data=None, generate_new_instance=False)
+    if input_data["data"].get("method") == "simulation":
+        print("Running simulation...")
+        run_simulation(input_data)
+    else:
+        print("Running optimization...")
+        run_tsp(json_file_path=filename, input_data=None, generate_new_instance=False)
