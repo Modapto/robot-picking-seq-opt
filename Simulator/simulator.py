@@ -454,15 +454,13 @@ def run_simulation():
             best_value = obj_value
             best_config = gr_config
 
-    # output results
-    improvement = ((current_exact_value - best_value) / current_exact_value) * 100
 
     output = {
         "current_value_exact": current_exact_value,
         "current_value_linear": current_linear_value,
         "best_value": best_value,
-        "improvement_percentage_exact": round(((current_exact_value - best_value) / current_exact_value) * 100, 4),
-        "improvement_percentage_linear": round(((current_linear_value - best_value) / current_linear_value) * 100, 4),
+        "improvement_from_exact": round(((current_exact_value - best_value) / current_exact_value) * 100, 4),
+        "improvement_from_linear": round(((current_linear_value - best_value) / current_linear_value) * 100, 4),
         "best_configuration": {
             "key": min(results, key=lambda x: x["objective_value"])["key"],
             "objective_value": best_value
