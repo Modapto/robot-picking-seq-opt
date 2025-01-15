@@ -459,13 +459,14 @@ def run_simulation():
         "current_value_exact": current_exact_value,
         "current_value_linear": current_linear_value,
         "best_value": best_value,
-        "improvement_from_exact": round(((current_exact_value - best_value) / current_exact_value) * 100, 3),
-        "improvement_from_linear": round(((current_linear_value - best_value) / current_linear_value) * 100, 3),
+        "improvement_from_curr_exact": round(((current_exact_value - best_value) / current_exact_value) * 100, 3),
+        "improvement_from_curr_linear": round(((current_linear_value - best_value) / current_linear_value) * 100, 3),
         "best_configuration": {
             "key": min(results, key=lambda x: x["objective_value"])["key"],
             "objective_value": best_value
         },
-        "results": results
+        "current_configuration": current_config
+        # "results": results
     }
 
     # convert data to native types before saving
