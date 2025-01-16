@@ -10,6 +10,7 @@ from configurations_final import (
 from exact_method import run_exact_tsp
 import pandas as pd
 import numpy as np
+from time import *
 from method_linear import *
 from GraphCreation import *
 
