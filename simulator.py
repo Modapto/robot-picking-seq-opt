@@ -136,9 +136,9 @@ def run_simulation(input_data=None):
         with open("current_config.json", "r") as f:
             current_config = json.load(f)
 
-    # Validate that required data is loaded
-    if not all([distance_matrix, containers_template, kit_holders_template, kh_setup, num_random_gr_configs, current_config]):
-        raise ValueError("Missing required data for simulation.")
+    # # Validate that required data is loaded
+    # if not all([method, distance_matrix, containers_template, kit_holders_template, kh_setup, num_random_gr_configs, current_config]):
+    #     raise ValueError("Missing required data for simulation.")
 
 
     # KH configuration based on kh_setup
