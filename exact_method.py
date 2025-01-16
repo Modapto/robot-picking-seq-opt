@@ -165,13 +165,16 @@ def eliminate_subtour(subtour, prob, x):
 def check_edges_in_distances(possible_edges, distances):
     """Check if all edges in possible_edges exist in the distances dictionary."""
     missing_edges = []
-
     for edge in possible_edges:
-        if edge in distances:
-            print(f"Edge {edge} has distance: {distances[edge]}")
-        else:
-            print(f"Edge {edge} is missing in distances")
+        if edge not in possible_edges:
             missing_edges.append(edge)
+
+    # for edge in possible_edges:
+    #     if edge in distances:
+    #         print(f"Edge {edge} has distance: {distances[edge]}")
+    #     else:
+    #         print(f"Edge {edge} is missing in distances")
+    #         missing_edges.append(edge)
 
     return missing_edges
 
@@ -198,9 +201,9 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
     # Check for missing edges
     missing_edges = check_edges_in_distances(possible_edges, distances)
 
-    # If there are missing edges, you might want to handle them before solving the TSP
-    if missing_edges:
-        print("The following edges are missing from the distances dictionary:", missing_edges)
+    # # If there are missing edges, you might want to handle them before solving the TSP
+    # if missing_edges:
+    #     print("The following edges are missing from the distances dictionary:", missing_edges)
 
     # Define the problem
     prob = pulp.LpProblem("Bipartite_TSP", pulp.LpMinimize)
@@ -212,53 +215,53 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
     prob += pulp.lpSum([distances[(i, j)] * x[i][j] for i, j in possible_edges])
 
 
-    print("1----------------------------------------------------")   # Debugging output
+    # print("1----------------------------------------------------")   # Debugging output
     # Constraints for the starting point 0.0 and ending point 0.0.0
     prob += pulp.lpSum([x['0.0'][j] for j in set_2 if ('0.0', j) in possible_edges]) == 1  # Start at 0.0 and go to set_2
-    print("Constraints:")
-    for name, constraint in prob.constraints.items():
-        print(f"{name}: {constraint}")
+    # print("Constraints:")
+    # for name, constraint in prob.constraints.items():
+    #     print(f"{name}: {constraint}")
 
 
-    print("2----------------------------------------------------")   # Debugging output
+    # print("2----------------------------------------------------")   # Debugging output
     prob += pulp.lpSum([x[i]['0.0.0'] for i in set_1 if (i, '0.0.0') in possible_edges]) == 1  # Go from set_1 to 0.0.0
-    print("Constraints:")
-    for name, constraint in prob.constraints.items():
-        print(f"{name}: {constraint}")
+    # print("Constraints:")
+    # for name, constraint in prob.constraints.items():
+    #     print(f"{name}: {constraint}")
 
 
-    print("4----------------------------------------------------")  # Debugging output
+    # print("4----------------------------------------------------")  # Debugging output
     for node in set_2:
         prob += pulp.lpSum([x[node][j] for j in set_1 if (node, j) in possible_edges]) <= 1  # Outgoing from set_2 to set_1
         prob += pulp.lpSum([x[i][node] for i in set_1 if (i, node) in possible_edges]) <= 1  # Incoming from set_1 to set_2
-        print("Constraints:")
-        for name, constraint in prob.constraints.items():
-            print(f"{name}: {constraint}")
+        # print("Constraints:")
+        # for name, constraint in prob.constraints.items():
+        #     print(f"{name}: {constraint}")
 
-    print("5----------------------------------------------------")  # Debugging output
+    # print("5----------------------------------------------------")  # Debugging output
     # Flow conservation constraints for Set B:
     for node in set_1:
         prob += pulp.lpSum([x[i][node] for i in set_2 if (i, node) in possible_edges]) == 1  # Incoming to Set 2
         prob += pulp.lpSum([x[node][j] for j in set_2 + ['0.0.0'] if (node, j) in possible_edges]) == 1  # Outgoing from Set 2
-        print("Constraints:")
-        for name, constraint in prob.constraints.items():
-            print(f"{name}: {constraint}")
+        # print("Constraints:")
+        # for name, constraint in prob.constraints.items():
+        #     print(f"{name}: {constraint}")
 
-    print("6----------------------------------------------------")  # Debugging output
+    # print("6----------------------------------------------------")  # Debugging output
     # Incoming = Outgoing
     for node in set_2:
         prob += pulp.lpSum([x[i][node] for i in set_1 + ['0.0'] if i != node and (i, node) in possible_edges]) - pulp.lpSum(
               [x[node][j] for j in set_1 + ['0.0'] if j != node and (node, j) in possible_edges]) == 0
-    print("Constraints:")
-    for name, constraint in prob.constraints.items():
-        print(f"{name}: {constraint}")
+    # print("Constraints:")
+    # for name, constraint in prob.constraints.items():
+    #     print(f"{name}: {constraint}")
 
-    print("7----------------------------------------------------")  # Debugging output
+    # print("7----------------------------------------------------")  # Debugging output
     # Ensure the tour closes by traveling from `0.0.0` back to `0.0`
     prob += pulp.lpSum([x['0.0.0']['0.0']]) == 1 # x_0.0.0_0.0 = 1
-    print("Constraints:")
-    for name, constraint in prob.constraints.items():
-        print(f"{name}: {constraint}")
+    # print("Constraints:")
+    # for name, constraint in prob.constraints.items():
+    #     print(f"{name}: {constraint}")
 
     # Solve the problem without Subtour Elimination
     prob.solve(pulp.PULP_CBC_CMD(msg=True))
@@ -306,9 +309,9 @@ def iterative_subtour_elimination(distances, possible_edges, set_a, set_b):
     subtour_constraints = []  # List to store constraints for subtour elimination
     while subtours:
         iteration_count += 1
-        print(f"Iteration {iteration_count}: Found {len(subtours)} subtour(s)")
-        for s_idx, subtour in enumerate(subtours):
-            print(f"  Subtour {s_idx + 1}: {subtour}")
+        # print(f"Iteration {iteration_count}: Found {len(subtours)} subtour(s)")
+        # for s_idx, subtour in enumerate(subtours):
+        #     print(f"  Subtour {s_idx + 1}: {subtour}")
 
         # Remove old subtour constraints
         for constraint in subtour_constraints:
@@ -324,9 +327,9 @@ def iterative_subtour_elimination(distances, possible_edges, set_a, set_b):
         # Re-solve the problem after adding subtour constraints
         prob.solve()
 
-        # Print the objective value after adding subtour constraints
-        print(f"Objective value after iteration {iteration_count}: {pulp.value(prob.objective)}")
-        print("-------------------------------------------------------------------")
+        # # Print the objective value after adding subtour constraints
+        # print(f"Objective value after iteration {iteration_count}: {pulp.value(prob.objective)}")
+        # print("-------------------------------------------------------------------")
 
         # Check if the problem is still optimal
         if pulp.LpStatus[prob.status] != 'Optimal':
@@ -338,9 +341,9 @@ def iterative_subtour_elimination(distances, possible_edges, set_a, set_b):
         optimal_tour = [(i, j) for i, j in possible_edges if pulp.value(x[i][j]) == 1]
         subtours = find_subtours(optimal_tour, nodes, set_a, set_b)
 
-    # print("-------------------------------------------------------------------")
-    print(f"Solution found after {iteration_count} iteration(s)!")
-    print(f"Final Objective value after subtour elimination: {pulp.value(prob.objective)}")
+    # # print("-------------------------------------------------------------------")
+    # print(f"Solution found after {iteration_count} iteration(s)!")
+    # print(f"Final Objective value after subtour elimination: {pulp.value(prob.objective)}")
 
     # # Plot the final solution
     # plot_tour(optimal_tour, distances, set_a, set_b, possible_edges,

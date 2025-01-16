@@ -184,23 +184,30 @@ def run_simulation(input_data=None):
             best_config = gr_config
 
 
-    output = {
-        "current_value_exact": current_exact_value,
-        "current_value_linear": current_linear_value,
-        "best_value": best_value,
-        "improvement_from_curr_exact": round(((current_exact_value - best_value) / current_exact_value) * 100, 3),
-        "improvement_from_curr_linear": round(((current_linear_value - best_value) / current_linear_value) * 100, 3),
-        "best_configuration": {
-            "key": min(results, key=lambda x: x["objective_value"])["key"],
-            "objective_value": best_value
-        },
-        "current_configuration": current_config
+    output_data = {
+        "uuid": input_data['uuid'],
+        "produced_at": int(time() * 1000),
+        "data": {
+            "current_value_exact": current_exact_value,
+            "current_value_linear": current_linear_value,
+            "best_value": best_value,
+            "improvement_from_curr_exact": round(((current_exact_value - best_value) / current_exact_value) * 100, 3),
+            "improvement_from_curr_linear": round(((current_linear_value - best_value) / current_linear_value) * 100, 3),
+            "best_configuration": {
+                "key": min(results, key=lambda x: x["objective_value"])["key"],
+                "objective_value": best_value
+            },
+            "current_configuration": current_config
+        }
+
     }
 
     # convert data to native types before saving
-    output_native = convert_to_native_types(output)
+    output_native = convert_to_native_types(output_data)
 
     with open("simulation_results.json", "w") as f:
         json.dump(output_native, f, indent=4)
     print("Simulation completed and results saved.")
+
+    return output_data
 
