@@ -290,7 +290,7 @@ def run_tsp(json_file_path, input_data, generate_new_instance):
             "totalLoadingTime": str(total_loading_time),
             "solutionTime": (end_time - solution_time_start),
             "totalTime": (end_time - total_time_start),
-            "improvement": improvement
+            "improvement": round(improvement, 3)
         }
     }
 
