@@ -352,7 +352,7 @@ elif online == "0":  # Local mode with JSON file input
     with open(filename, 'r') as f:
         input_data = json.load(f)
 
-    if input_data["data"].get("method") == "simulation":
+    if input_data["data"]["method"] == "simulation":
         print("Running simulation...")
         run_simulation(input_data)
     else:

@@ -120,12 +120,12 @@ def run_simulation(input_data=None):
     if input_data and "data" in input_data:
         print("Remote input data received.")
         data = input_data["data"]
-        distance_matrix = data.get("distance_matrix")
-        containers_template = data.get("containers_template")
-        kit_holders_template = data.get("kit_holders_template")
-        kh_setup = data.get("kh_setup")
-        num_random_gr_configs = data.get("num_random_gr_configs")
-        current_config = data.get("current_config")
+        distance_matrix = input_data["data"]["distance_matrix"]
+        containers_template = input_data["data"]["containers_template"]
+        kit_holders_template = input_data["data"]["kit_holders_template"]
+        kh_setup = input_data["data"]["kh_setup"]
+        num_random_gr_configs = input_data["data"]["num_random_gr_configs"]
+        current_config = input_data["data"]["current_config"]
     else:
         print("Input data not provided, using local files.")
         distance_matrix = load_distance_matrix()
