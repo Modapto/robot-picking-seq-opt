@@ -69,12 +69,12 @@ def run_tsp(json_file_path, input_data, generate_new_instance):
 
     # Parse the distance matrices
     a_to_b_matrix = create_distance_matrices(input_data)
-    print(a_to_b_matrix)
-    print("Distance matrices created!")
+    # print(a_to_b_matrix)
+    # print("Distance matrices created!")
 
     # Create the bipartite graph
     B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
-    print("Graph generated!")
+    # print("Graph generated!")
 
     start_node = input_data['data'].get('start_node', '0.0')
     end_node = input_data['data'].get('end_node', '0.0.0')
@@ -278,9 +278,9 @@ def run_tsp(json_file_path, input_data, generate_new_instance):
             picking_seq.extend(result["time_details"])
             total_loading_time = result["totalLoadingTime"]
 
-    print("Picking Sequence:")
-    for pick in picking_seq:
-        print(pick)
+    # print("Picking Sequence:")
+    # for pick in picking_seq:
+    #     print(pick)
 
     output_data = {
         "uuid": input_data['uuid'],
@@ -327,7 +327,7 @@ def callback(ch, method, properties, body):
     except Exception as e:
         #print(Exception, e)
         print(traceback.format_exc())
-        error_message = {"message": str(e)}
+        error_message = {"message": "Problem in input data: " + str(e)}
         error_responce = {"uuid": uuid, "data": error_message, "produced_at": int(time() * 1000)}
         error_responce = json.dumps(error_responce)
         channel.basic_publish(exchange='opt-result', routing_key='robot-picking-seq', body=error_responce)

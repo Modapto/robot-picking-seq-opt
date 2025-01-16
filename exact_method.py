@@ -128,32 +128,32 @@ def check_connectivity(SetA, SetB, distances):
             print(f"No connections from {b} in Set B to any node in Set A")
 
 def analyze_sets(set_a, set_b, distances):
-    print("-------------------------------------------------------------------")
-    print("Set A:", set_a)
-    print("Number of nodes in Set A:", len(set_a))
-    print("Set B:", set_b)
-    print("Number of nodes in Set B:", len(set_b))
+    # print("-------------------------------------------------------------------")
+    # print("Set A:", set_a)
+    # print("Number of nodes in Set A:", len(set_a))
+    # print("Set B:", set_b)
+    # print("Number of nodes in Set B:", len(set_b))
 
-    # Check if the sizes match
-    if len(set_a) != len(set_b):
-        print("Warning: Set A and Set B do not contain the same number of nodes.")
-    else:
-        print("Sets A and B contain the same number of nodes.")
-    print("-------------------------------------------------------------------")
+    # # Check if the sizes match
+    # if len(set_a) != len(set_b):
+    #     print("Warning: Set A and Set B do not contain the same number of nodes.")
+    # else:
+    #     print("Sets A and B contain the same number of nodes.")
+    # print("-------------------------------------------------------------------")
     # Check for connectivity
     disconnected_nodes_a = [node for node in set_a if all((node, b) not in distances for b in set_b)]
     disconnected_nodes_b = [node for node in set_b if all((a, node) not in distances for a in set_a)]
 
-    if disconnected_nodes_a or disconnected_nodes_b:
-        print("Disconnected nodes found!")
-        if disconnected_nodes_a:
-            print("Nodes in Set A with no connections:", disconnected_nodes_a)
-        if disconnected_nodes_b:
-            print("Nodes in Set B with no connections:", disconnected_nodes_b)
-        print("-------------------------------------------------------------------")
-    else:
-        print("All nodes in Set A and Set B have at least one connection.")
-        print("-------------------------------------------------------------------")
+    # if disconnected_nodes_a or disconnected_nodes_b:
+    #     print("Disconnected nodes found!")
+    #     if disconnected_nodes_a:
+    #         print("Nodes in Set A with no connections:", disconnected_nodes_a)
+    #     if disconnected_nodes_b:
+    #         print("Nodes in Set B with no connections:", disconnected_nodes_b)
+    #     print("-------------------------------------------------------------------")
+    # else:
+    #     print("All nodes in Set A and Set B have at least one connection.")
+    #     print("-------------------------------------------------------------------")
 
 def eliminate_subtour(subtour, prob, x):
     """Add constraints to eliminate the specific subtour."""
@@ -264,7 +264,7 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
     #     print(f"{name}: {constraint}")
 
     # Solve the problem without Subtour Elimination
-    prob.solve(pulp.PULP_CBC_CMD(msg=True))
+    prob.solve(pulp.PULP_CBC_CMD(msg=False))
 
     # Check if optimal solution exists for the problem
     if pulp.LpStatus[prob.status] != 'Optimal':
@@ -279,11 +279,11 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
     # Print and plot the initial solution
     if plot_initial:
         initial_obj_value = pulp.value(prob.objective)
-        print("-------------------------------------------------------------------")
-        print("Initial Optimal Solution without Subtour Elimination:")
-        for idx, (i, j) in enumerate(optimal_tour):
-            print(f"{idx + 1}: {i} -> {j}, Distance: {distances.get((i, j), 'Unknown')}")
-        print(f"Initial Optimal objective value without subtour elimination: {initial_obj_value}")
+        # print("-------------------------------------------------------------------")
+        # print("Initial Optimal Solution without Subtour Elimination:")
+        # for idx, (i, j) in enumerate(optimal_tour):
+            # print(f"{idx + 1}: {i} -> {j}, Distance: {distances.get((i, j), 'Unknown')}")
+        # print(f"Initial Optimal objective value without subtour elimination: {initial_obj_value}")
         print("-------------------------------------------------------------------")
 
     return optimal_tour, nodes, x, prob
@@ -405,7 +405,7 @@ def run_exact_tsp(input_data):
 
         # Extract possible edges
         possible_edges = extract_possible_edges(distances)
-        print(possible_edges)
+        # print(possible_edges)
 
         # Check connectivity and analyze sets for issues
         check_connectivity(set_a, set_b, distances)

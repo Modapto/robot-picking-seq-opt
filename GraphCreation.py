@@ -26,9 +26,9 @@ def create_directed_bipartite_graph(a_to_b_matrix):
     for point_b in set_2:
         B.add_node(point_b, bipartite=1)  # Set 2 on the other side
 
-    # Debugging: Print a subset of the distance matrix for verification
-    print("Distance matrix for 0.0 to set_2 and set_1 to 0.0.0")
-    print(a_to_b_matrix.loc[['0.0', '1.1', '1.2'], ['1.1.1', '1.1.2', '0.0.0']])
+    # # Debugging: Print a subset of the distance matrix for verification
+    # print("Distance matrix for 0.0 to set_2 and set_1 to 0.0.0")
+    # print(a_to_b_matrix.loc[['0.0', '1.1', '1.2'], ['1.1.1', '1.1.2', '0.0.0']])
 
     # 1. Add edges from 0.0 to set_2 (excluding 0.0.0)
     for point_b in set_2:
