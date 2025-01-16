@@ -204,10 +204,10 @@ def run_simulation(input_data=None):
     }
 
     # convert data to native types before saving
-    output_native = convert_to_native_types(output_data)
+    output_data = convert_to_native_types(output_data)
 
     with open("simulation_results.json", "w") as f:
-        json.dump(output_native, f, indent=4)
+        json.dump(output_data, f, indent=4)
     print("Simulation completed and results saved.")
 
     return output_data
