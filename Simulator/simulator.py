@@ -423,17 +423,17 @@ def run_simulation(input_data):
     # }
     # }
 
-data:
-distance_matrix :
-containers_template :
-kit_holders_template :
-kh_setup :
-num_random_gr_configs :
-current_config :
+# data:
+# distance_matrix :
+# containers_template :
+# kit_holders_template :
+# kh_setup :
+# num_random_gr_configs :
+# current_config :
 
-    KH configuration based on kh_setup
+    # KH configuration based on kh_setup
 
-    Load data from input JSON
+    # Load data from input JSON
     distance_matrix = input_data["data"]["distance_matrix"]
     containers_template = input_data["data"]["containers_template"]
     kit_holders_template = input_data["data"]["kit_holders_template"]
