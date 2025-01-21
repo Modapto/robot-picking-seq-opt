@@ -10,58 +10,58 @@ containers = {
                                                        {"position":"1.1.2","type":"Component_1"},
                                                        {"position":"1.1.3","type":"Component_1"},
                                                        {"position":"1.1.4","type":"Component_1"}]},
-    "Container_2": {"gr_position": "1.2","contents" : [{"position":"1.2.1","type":"Component_2"},
-                                                       {"position":"1.2.2","type":"Component_2"},
-                                                       {"position":"1.2.3","type":"Component_2"},
-                                                       {"position":"1.2.4","type":"Component_2"}]},
-    "Container_3": {"gr_position": "1.3", "contents": [{"position": "1.3.1", "type": "Component_3"},
-                                                       {"position": "1.3.2", "type": "Component_3"},
-                                                       {"position": "1.3.3", "type": "Component_3"},
-                                                       {"position": "1.3.4", "type": "Component_3"}]},
-    "Container_4": {"gr_position": "1.4", "contents": [{"position": "1.4.1", "type": "Component_4"},
-                                                       {"position": "1.4.2", "type": "Component_4"},
-                                                       {"position": "1.4.3", "type": "Component_4"},
-                                                       {"position": "1.4.4", "type": "Component_4"}]},
-    "Container_5": {"gr_position": "1.5", "contents": [{"position": "1.5.1", "type": "Component_5"},
-                                                       {"position": "1.5.2", "type": "Component_5"},
-                                                       {"position": "1.5.3", "type": "Component_5"},
-                                                       {"position": "1.5.4", "type": "Component_5"}]},
-    "Container_6": {"gr_position": "1.6", "contents": [{"position": "1.6.1", "type": "Component_7"},
-                                                       {"position": "1.6.2", "type": "Component_7"},
-                                                       {"position": "1.6.3", "type": "Component_7"},
-                                                       {"position": "1.6.4", "type": "Component_7"}]},
-    "Container_7": {"gr_position": "1.7", "contents": [{"position": "1.7.1", "type": "Component_9"},
-                                                       {"position": "1.7.2", "type": "Component_9"},
-                                                       {"position": "1.7.3", "type": "Component_9"},
-                                                       {"position": "1.7.4", "type": "Component_9"}]},
-    "Container_8": {"gr_position": "2.1", "contents": [{"position": "2.1.1", "type": "Component_10"},
-                                                       {"position": "2.1.2", "type": "Component_10"},
-                                                       {"position": "2.1.3", "type": "Component_10"},
-                                                       {"position": "2.1.4", "type": "Component_10"}]},
-    "Container_9": {"gr_position": "2.2", "contents": [{"position": "2.2.1", "type": "Component_11"},
-                                                       {"position": "2.2.2", "type": "Component_11"},
-                                                       {"position": "2.2.3", "type": "Component_11"},
-                                                       {"position": "2.2.4", "type": "Component_11"}]},
+    "Container_2": {"gr_position": "1.2","contents" : [{"position":"1.2.1","type":"Component_9"},
+                                                       {"position":"1.2.2","type":"Component_9"},
+                                                       {"position":"1.2.3","type":"Component_9"},
+                                                       {"position":"1.2.4","type":"Component_9"}]},
+    "Container_3": {"gr_position": "1.3", "contents": [{"position": "1.3.1", "type": "Component_11"},
+                                                       {"position": "1.3.2", "type": "Component_11"},
+                                                       {"position": "1.3.3", "type": "Component_11"},
+                                                       {"position": "1.3.4", "type": "Component_11"}]},
+    "Container_4": {"gr_position": "1.4", "contents": [{"position": "1.4.1", "type": "Component_15"},
+                                                       {"position": "1.4.2", "type": "Component_15"},
+                                                       {"position": "1.4.3", "type": "Component_15"},
+                                                       {"position": "1.4.4", "type": "Component_15"}]},
+    "Container_5": {"gr_position": "1.5", "contents": [{"position": "1.5.1", "type": "Component_10"},
+                                                       {"position": "1.5.2", "type": "Component_10"},
+                                                       {"position": "1.5.3", "type": "Component_10"},
+                                                       {"position": "1.5.4", "type": "Component_10"}]},
+    "Container_6": {"gr_position": "1.6", "contents": [{"position": "1.6.1", "type": "Component_16"},
+                                                       {"position": "1.6.2", "type": "Component_16"},
+                                                       {"position": "1.6.3", "type": "Component_16"},
+                                                       {"position": "1.6.4", "type": "Component_16"}]},
+    "Container_7": {"gr_position": "1.7", "contents": [{"position": "1.7.1", "type": "Component_4"},
+                                                       {"position": "1.7.2", "type": "Component_4"},
+                                                       {"position": "1.7.3", "type": "Component_4"},
+                                                       {"position": "1.7.4", "type": "Component_4"}]},
+    "Container_8": {"gr_position": "2.1", "contents": [{"position": "2.1.1", "type": "Component_13"},
+                                                       {"position": "2.1.2", "type": "Component_13"},
+                                                       {"position": "2.1.3", "type": "Component_13"},
+                                                       {"position": "2.1.4", "type": "Component_13"}]},
+    "Container_9": {"gr_position": "2.2", "contents": [{"position": "2.2.1", "type": "Component_3"},
+                                                       {"position": "2.2.2", "type": "Component_3"},
+                                                       {"position": "2.2.3", "type": "Component_3"},
+                                                       {"position": "2.2.4", "type": "Component_3"}]},
     "Container_10": {"gr_position": "2.3", "contents": [{"position": "2.3.1", "type": "Component_12"},
                                                         {"position": "2.3.2", "type": "Component_12"},
                                                         {"position": "2.3.3", "type": "Component_12"},
                                                         {"position": "2.3.4", "type": "Component_12"}]},
-    "Container_11": {"gr_position": "2.4", "contents": [{"position": "2.4.1", "type": "Component_13"},
-                                                        {"position": "2.4.2", "type": "Component_13"},
-                                                        {"position": "2.4.3", "type": "Component_13"},
-                                                        {"position": "2.4.4", "type": "Component_13"}]},
+    "Container_11": {"gr_position": "2.4", "contents": [{"position": "2.4.1", "type": "Component_7"},
+                                                        {"position": "2.4.2", "type": "Component_7"},
+                                                        {"position": "2.4.3", "type": "Component_7"},
+                                                        {"position": "2.4.4", "type": "Component_7"}]},
     "Container_12": {"gr_position": "2.5", "contents": [{"position": "2.5.1", "type": "Component_14"},
                                                         {"position": "2.5.2", "type": "Component_14"},
                                                         {"position": "2.5.3", "type": "Component_14"},
                                                         {"position": "2.5.4", "type": "Component_14"}]},
-    "Container_13": {"gr_position": "2.6", "contents": [{"position": "2.6.1", "type": "Component_15"},
-                                                        {"position": "2.6.2", "type": "Component_15"},
-                                                        {"position": "2.6.3", "type": "Component_15"},
-                                                        {"position": "2.6.4", "type": "Component_15"}]},
-    "Container_14": {"gr_position": "2.7", "contents": [{"position": "2.7.1", "type": "Component_16"},
-                                                        {"position": "2.7.2", "type": "Component_16"},
-                                                        {"position": "2.7.3", "type": "Component_16"},
-                                                        {"position": "2.7.4", "type": "Component_16"}]}
+    "Container_13": {"gr_position": "2.6", "contents": [{"position": "2.6.1", "type": "Component_2"},
+                                                        {"position": "2.6.2", "type": "Component_2"},
+                                                        {"position": "2.6.3", "type": "Component_2"},
+                                                        {"position": "2.6.4", "type": "Component_2"}]},
+    "Container_14": {"gr_position": "2.7", "contents": [{"position": "2.7.1", "type": "Component_5"},
+                                                        {"position": "2.7.2", "type": "Component_5"},
+                                                        {"position": "2.7.3", "type": "Component_5"},
+                                                        {"position": "2.7.4", "type": "Component_5"}]}
 }
 
 # Kit Holders dictionary
@@ -163,7 +163,7 @@ def filter_and_restructure_matrix(distance_matrix, containers, kit_holders):
     # Add edges: 0.0 to all gravity racks
     if "0.0" in matrix_dict:
         for target, distance in matrix_dict["0.0"].items():
-            filtered_matrix.append({"edge": f"(0.0, {target})", "distance": distance})
+            filtered_matrix.append({"edge": f"(0.0, {target})", "distance": distance + 2000})
 
     # Add edges: 0.0.0 to 0.0
     if "0.0.0" in matrix_dict and "0.0" in matrix_dict["0.0.0"]:
@@ -173,7 +173,7 @@ def filter_and_restructure_matrix(distance_matrix, containers, kit_holders):
     for kh_key, kh_value in kit_holders.items():
         for kh_content in kh_value["contents"]:
             if kh_content["position"] in matrix_dict and "0.0.0" in matrix_dict[kh_content["position"]]:
-                filtered_matrix.append({"edge": f"({kh_content['position']}, 0.0.0)", "distance": matrix_dict[kh_content["position"]]["0.0.0"]})
+                filtered_matrix.append({"edge": f"({kh_content['position']}, 0.0.0)", "distance": matrix_dict[kh_content["position"]]["0.0.0"] + 2000})
 
     # Add edges: Gravity racks to specific kit holders
     for container_key, container_value in containers.items():
@@ -183,7 +183,7 @@ def filter_and_restructure_matrix(distance_matrix, containers, kit_holders):
                     if kh_content["type"] == cont_content["type"]:
                         if cont_content["position"] in matrix_dict and kh_content["position"] in matrix_dict[cont_content["position"]]:
                             filtered_matrix.append({"edge": f"({cont_content['position']}, {kh_content['position']})",
-                                                    "distance": matrix_dict[cont_content["position"]][kh_content["position"]]})
+                                                    "distance": matrix_dict[cont_content["position"]][kh_content["position"]] + 2000})
 
     # Add edges: Kit holders to all gravity racks
     for kh_key, kh_value in kit_holders.items():
@@ -191,7 +191,7 @@ def filter_and_restructure_matrix(distance_matrix, containers, kit_holders):
             if kh_content["position"] in matrix_dict:
                 for target, distance in matrix_dict[kh_content["position"]].items():
                     if target.startswith("1.") or target.startswith("2."):
-                        filtered_matrix.append({"edge": f"({kh_content['position']}, {target})", "distance": distance})
+                        filtered_matrix.append({"edge": f"({kh_content['position']}, {target})", "distance": distance + 2000})
 
     return filtered_matrix
 
