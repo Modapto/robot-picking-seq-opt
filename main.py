@@ -287,7 +287,7 @@ def run_tsp(json_file_path, input_data, generate_new_instance):
         "produced_at": int(time() * 1000),
         "data": {
             "pickingSeq": picking_seq,
-            "totalLoadingTime": str(total_loading_time),
+            "totalLoadingTime": total_loading_time,
             "solutionTime": (end_time - solution_time_start),
             "totalTime": (end_time - total_time_start),
             "improvement": round(improvement, 3)

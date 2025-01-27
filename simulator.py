@@ -140,18 +140,6 @@ def run_simulation(input_data=None):
     # if not all([method, distance_matrix, containers_template, kit_holders_template, kh_setup, num_random_gr_configs, current_config]):
     #     raise ValueError("Missing required data for simulation.")
 
-
-    # KH configuration based on kh_setup
-
-    # # Load data from input JSON
-    # distance_matrix = input_data["data"]["distance_matrix"]
-    # containers_template = input_data["data"]["containers_template"]
-    # kit_holders_template = input_data["data"]["kit_holders_template"]
-    # kh_setup = input_data["data"]["kh_setup"]
-    # num_random_gr_configs = input_data["data"]["num_random_gr_configs"]
-    # current_config = input_data["data"]["current_config"]
-
-
     kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
 
     # Calculate current objective value using Exact Method
