@@ -13,6 +13,7 @@ import numpy as np
 from time import *
 from method_linear import *
 from GraphCreation import *
+from parse_json import create_distance_matrices
 
 def generate_unique_gr_configurations(num_configs, containers_template):
     """
@@ -36,7 +37,6 @@ def generate_unique_gr_configurations(num_configs, containers_template):
             configurations[key] = config
     return configurations
 
-
 def generate_kh_configuration(kh_setup, kit_holders_template):
     """
     kit holder configuration based on the given setup.
@@ -54,8 +54,6 @@ def generate_kh_configuration(kh_setup, kit_holders_template):
         else:
             raise ValueError(f"Kit holder ID {kh_id} not found.")
     return configured_kh
-
-from parse_json import create_distance_matrices
 
 def calculate_linear_value(distance_matrix, configuration):
     """
@@ -81,8 +79,6 @@ def calculate_linear_value(distance_matrix, configuration):
     linear_tour = linear_picking(B, start_node, end_node, set_1, set_2)
     tour_cost, _ = total_cost(B, linear_tour["tour"])
     return tour_cost
-
-
 
 def calculate_objective_value(distance_matrix, configuration):
     """
@@ -113,7 +109,6 @@ def convert_to_native_types(data):
         return int(data)
     else:
         return data
-
 
 def run_simulation(input_data=None):
     # Load data based on input_data or fallback to local files
