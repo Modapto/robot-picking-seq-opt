@@ -12,7 +12,6 @@ from GraphCreation import *
 from heuristic_methods import *
 from reinforcement_learning import *
 from exact_method import *
-# from parametric_instances import *
 from rl_heuristics import *
 from method_linear import *
 from simulator import *
@@ -71,13 +70,13 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
             "distanceMatrix": filtered_matrix
         }
     })
-
+    print(a_to_b_matrix)
     # Create the bipartite graph
     B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
     start_node = data.get('start_node', '0.0')
     end_node = data.get('end_node', '0.0.0')
     method = data['method']
-
+    print(set_1, set_2)
     results = {}
     solution_time_start = int(time() * 1000)
     simple_tour = None
@@ -133,7 +132,21 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
             except ValueError as e:
                 print(f"Error in 2-opt method: {e}")
 
-    # Run the selected TSP method(s)
+    if method == "q-learning" or method == "all":
+        try:
+            print("Running Q-Learning TSP...")
+            q_learning_tour = q_learning_tsp(B, start_node, end_node, set_1, set_2)
+            q_learning_tour_cost, time_details = total_costRL(B, q_learning_tour)
+            results["q-learning"] = {
+                "tour": q_learning_tour,
+                "cost": q_learning_tour_cost,
+                "time_details": time_details,
+                "totalLoadingTime": q_learning_tour_cost
+            }
+            print(f"Q-Learning TSP completed. Cost: {q_learning_tour_cost}")
+        except ValueError as e:
+            print(f"Error in q-learning method: {e}")
+
     if method == "exact" or method == "all":
         try:
             print("Running Exact Method TSP...")

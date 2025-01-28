@@ -37,12 +37,17 @@ def generate_unique_gr_configurations(num_configs, containers_template):
             configurations[key] = config
     return configurations
 
+
 def generate_kh_configuration(kh_setup, kit_holders_template):
     """
-    kit holder configuration based on the given setup.
+    Generate kit holder configuration based on the given setup.
+    Handles empty positions with the placeholder "EMPTY".
     """
     configured_kh = {}
     for idx, kh_id in enumerate(kh_setup, start=1):
+        if kh_id == "EMPTY":
+            # Skip processing for empty positions
+            continue
         if kh_id in kit_holders_template:
             kh_data = copy.deepcopy(kit_holders_template[kh_id])
             for i, content in enumerate(kh_data["contents"], start=1):
@@ -54,6 +59,7 @@ def generate_kh_configuration(kh_setup, kit_holders_template):
         else:
             raise ValueError(f"Kit holder ID {kh_id} not found.")
     return configured_kh
+
 
 def calculate_linear_value(distance_matrix, configuration):
     """
