@@ -4,7 +4,10 @@
     "generated_at": 1736414971,
     "data": {
         "method": "exact",
-        "kh_setup": ["KH001", "KH002", "KH003", "KH001"],
+        "kh_sequences": [
+            ["KH001", "KH002", "KH003", "KH001"],
+            ["KH001", "KH002", "KH001", "KH003"]
+        ],
         "current_config": {
     "containers": {
         "Container_1": {
