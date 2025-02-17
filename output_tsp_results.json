@@ -1,6 +1,6 @@
 {
     "uuid": "20575aa3-a69a-46e1-83b3-7e4ee2d68601",
-    "produced_at": 1738072482092,
+    "produced_at": 1739353292682,
     "data": {
         "pickingSeq": [
             {
@@ -228,8 +228,8 @@
             }
         ],
         "totalLoadingTime": 871545,
-        "solutionTime": 2340,
-        "totalTime": 2399,
+        "solutionTime": 2268,
+        "totalTime": 2317,
         "improvement": 0
     }
 }
