@@ -270,6 +270,10 @@ def convert_to_native_types(data):
 #
 #     return output_data
 
+print('test')
+
+
+
 
 def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
     total_time_start = int(time() * 1000)
@@ -304,7 +308,7 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
     last_node_visited = start_node  # Track last node of each phase
 
     for i, kh_setup in enumerate(kh_sequences):
-        print(f"\n>>> Running Phase {i+1} with KH Setup: {kh_setup}")
+        print(f"\n>>> Running Phase {i + 1} with KH Setup: {kh_setup}")
 
         # Generate KH configuration for the current phase
         kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
@@ -315,14 +319,35 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
             "kit_holders": kh_config
         })
 
-        # Rename last visited node as new `0.0` for the current phase
+        # Instead of renaming, duplicate the last visited node and rename the duplicated version
         if i > 0:
-            print(f"Renaming {last_node_visited} as the new start node `0.0` in Phase {i+1}")
+            duplicated_node = last_node_visited  # Keep the original name
+            renamed_node = "0.0"  # Only rename the duplicated one
+
+            print(f"Duplicating last visited node ({duplicated_node}) and renaming duplicate as `{renamed_node}`.")
+
+            # Ensure the duplicated node is present in the next phase KH setup
+            if duplicated_node not in kh_setup:
+                kh_setup.insert(0, duplicated_node)  # Add it with its original name
+
+            # Modify the distance matrix: Add a duplicate entry where `duplicated_node` is now `0.0`
+            new_filtered_matrix = []
             for edge in filtered_matrix:
-                if edge["edge"].startswith(f"({last_node_visited},"):
-                    edge["edge"] = edge["edge"].replace(f"({last_node_visited},", "(0.0,")
-                if edge["edge"].endswith(f", {last_node_visited})"):
-                    edge["edge"] = edge["edge"].replace(f", {last_node_visited})", ", 0.0)")
+                new_filtered_matrix.append(edge)  # Keep the original edge
+
+                # Create duplicated edges with renamed node
+                if edge["edge"].startswith(f"({duplicated_node},"):
+                    new_filtered_matrix.append({
+                        "edge": edge["edge"].replace(f"({duplicated_node},", f"({renamed_node},"),
+                        "distance": edge["distance"]
+                    })
+                if edge["edge"].endswith(f", {duplicated_node})"):
+                    new_filtered_matrix.append({
+                        "edge": edge["edge"].replace(f", {duplicated_node})", f", {renamed_node})"),
+                        "distance": edge["distance"]
+                    })
+
+            filtered_matrix = new_filtered_matrix  # Update the distance matrix
 
         # Parse distance matrix
         a_to_b_matrix = create_distance_matrices({
@@ -341,7 +366,7 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
             exact_input = {
                 "data": {
                     "distanceMatrix": filtered_matrix,
-                    "start_node": "0.0",  # Start from the renamed node
+                    "start_node": "0.0",  # Start from the duplicated node
                     "end_node": end_node if i == len(kh_sequences) - 1 else None  # Only use end_node in the last phase
                 }
             }
@@ -399,6 +424,136 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
 
     print(f"Output saved to {output_json_file_path}")
     return output_data
+
+
+# def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
+#     total_time_start = int(time() * 1000)
+#
+#     # Load input data
+#     if input_data and "data" in input_data:
+#         print("Remote input data received.")
+#         data = input_data["data"]
+#     elif json_file_path:
+#         with open(json_file_path, 'r') as f:
+#             input_data = json.load(f)
+#         data = input_data["data"]
+#         print(f"Local JSON input has been loaded from {json_file_path}.")
+#     else:
+#         raise ValueError("Input data is required, either via JSON file or directly.")
+#
+#     # Extract data components
+#     distance_matrix = data["distance_matrix"]
+#     containers_template = data["containers_template"]
+#     kit_holders_template = data["kit_holders_template"]
+#     current_config = data["current_config"]
+#
+#     # Load KH sequences (new feature)
+#     kh_sequences = data.get("kh_sequences") or [data.get("kh_setup", [])]
+#
+#     # Initial start and end nodes
+#     start_node = data.get('start_node', '0.0')
+#     end_node = data.get('end_node', '0.0.0')
+#
+#     results = []
+#     solution_time_start = int(time() * 1000)
+#     last_node_visited = start_node  # Track last node of each phase
+#
+#     for i, kh_setup in enumerate(kh_sequences):
+#         print(f"\n>>> Running Phase {i+1} with KH Setup: {kh_setup}")
+#
+#         # Generate KH configuration for the current phase
+#         kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
+#
+#         # Generate filtered distance matrix
+#         filtered_matrix = filter_distance_matrix(distance_matrix, {
+#             "containers": current_config["containers"],
+#             "kit_holders": kh_config
+#         })
+#
+#         # Rename last visited node as new `0.0` for the current phase
+#         if i > 0:
+#             print(f"Renaming {last_node_visited} as the new start node `0.0` in Phase {i+1}")
+#             for edge in filtered_matrix:
+#                 if edge["edge"].startswith(f"({last_node_visited},"):
+#                     edge["edge"] = edge["edge"].replace(f"({last_node_visited},", "(0.0,")
+#                 if edge["edge"].endswith(f", {last_node_visited})"):
+#                     edge["edge"] = edge["edge"].replace(f", {last_node_visited})", ", 0.0)")
+#
+#         # Parse distance matrix
+#         a_to_b_matrix = create_distance_matrices({
+#             "data": {"distanceMatrix": filtered_matrix}
+#         })
+#
+#         # Create bipartite graph
+#         B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
+#
+#         method = data["method"]
+#         phase_results = {}
+#
+#         # Run the selected method
+#         if method == "exact" or method == "all":
+#             print("Running Exact Method TSP...")
+#             exact_input = {
+#                 "data": {
+#                     "distanceMatrix": filtered_matrix,
+#                     "start_node": "0.0",  # Start from the renamed node
+#                     "end_node": end_node if i == len(kh_sequences) - 1 else None  # Only use end_node in the last phase
+#                 }
+#             }
+#             exact_tour, exact_tour_cost, time_details = run_exact_tsp(exact_input)
+#
+#             # If this is **not** the last phase, remove last movements to `0.0.0` and `0.0`
+#             if i < len(kh_sequences) - 1:
+#                 print("Removing last movement to 0.0.0 and 0.0 from tour and cost calculation.")
+#
+#                 # Find the last valid node before 0.0.0
+#                 for j in range(len(exact_tour) - 1, -1, -1):
+#                     if exact_tour[j][1] == "0.0.0":
+#                         last_node_visited = exact_tour[j][0]  # Store the last valid node
+#                         exact_tour = exact_tour[:j]  # Remove the final steps
+#                         break
+#
+#                 # Filter out unwanted movements from time_details
+#                 filtered_time_details = [
+#                     step for step in time_details if step["to"] not in ["0.0.0", "0.0"]
+#                 ]
+#
+#                 # Recalculate total cost excluding unnecessary moves
+#                 exact_tour_cost = sum(step["distance"] for step in filtered_time_details)
+#
+#             else:
+#                 filtered_time_details = time_details  # Keep all steps in the last phase
+#
+#             phase_results["exact"] = {
+#                 "tour": exact_tour,
+#                 "cost": exact_tour_cost,  # Updated cost without 0.0.0 movements
+#                 "time_details": filtered_time_details  # Updated time details
+#             }
+#
+#             last_node_visited = exact_tour[-1][1] if exact_tour else last_node_visited  # Update last visited node
+#
+#         results.append(phase_results)
+#
+#     end_time = int(time() * 1000)
+#
+#     # Final Output Data
+#     output_data = {
+#         "uuid": input_data['uuid'],
+#         "produced_at": int(time() * 1000),
+#         "data": {
+#             "phases": results,
+#             "solutionTime": (end_time - solution_time_start),
+#             "totalTime": (end_time - total_time_start),
+#         }
+#     }
+#     output_data = convert_to_native_types(output_data)
+#     # Save output to JSON file
+#     output_json_file_path = "output_tsp_results.json"
+#     with open(output_json_file_path, 'w') as json_file:
+#         json.dump(output_data, json_file, indent=4)
+#
+#     print(f"Output saved to {output_json_file_path}")
+#     return output_data
 
 
 def callback(ch, method, properties, body):
