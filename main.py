@@ -395,7 +395,7 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
                 filtered_time_details = time_details  # Keep all steps in the last phase
 
             phase_results["exact"] = {
-                "tour": exact_tour,
+                # "tour": exact_tour,
                 "cost": exact_tour_cost,  # Updated cost without 0.0.0 movements
                 "time_details": filtered_time_details  # Updated time details
             }

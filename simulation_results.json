@@ -1,18 +1,18 @@
 {
     "uuid": "20575aa3-a69a-46e1-83b3-7e4ee2d68601",
-    "produced_at": 1740147463806,
+    "produced_at": 1740406056627,
     "data": {
         "phases": [
             {
                 "phase": 1,
                 "current_value_exact": 871545,
                 "current_value_linear": 1114089,
-                "best_value": 797935,
-                "improvement_exact": 8.446,
-                "improvement_linear": 28.378,
+                "best_value": 845843,
+                "improvement_exact": 2.949,
+                "improvement_linear": 24.078,
                 "best_configuration": {
-                    "key": "1.1: Component_3 - 1.2: Component_12 - 1.3: Component_4 - 1.4: Component_14 - 1.5: Component_9 - 1.6: Component_13 - 1.7: Component_15 - 2.1: Component_2 - 2.2: Component_10 - 2.3: Component_11 - 2.4: Component_16 - 2.5: Component_7 - 2.6: Component_1 - 2.7: Component_5 - ",
-                    "objective_value": 797935
+                    "key": "1.1: Component_12 - 1.2: Component_16 - 1.3: Component_1 - 1.4: Component_2 - 1.5: Component_3 - 1.6: Component_9 - 1.7: Component_7 - 2.1: Component_14 - 2.2: Component_11 - 2.3: Component_10 - 2.4: Component_15 - 2.5: Component_4 - 2.6: Component_13 - 2.7: Component_5 - ",
+                    "objective_value": 845843
                 },
                 "current_configuration": {
                     "containers": {
@@ -317,12 +317,12 @@
                 "phase": 2,
                 "current_value_exact": 920507,
                 "current_value_linear": 1132271,
-                "best_value": 873780,
-                "improvement_exact": 5.076,
-                "improvement_linear": 22.829,
+                "best_value": 844578,
+                "improvement_exact": 8.249,
+                "improvement_linear": 25.408,
                 "best_configuration": {
-                    "key": "1.1: Component_3 - 1.2: Component_1 - 1.3: Component_5 - 1.4: Component_7 - 1.5: Component_15 - 1.6: Component_10 - 1.7: Component_11 - 2.1: Component_9 - 2.2: Component_2 - 2.3: Component_4 - 2.4: Component_12 - 2.5: Component_16 - 2.6: Component_13 - 2.7: Component_14 - ",
-                    "objective_value": 873780
+                    "key": "1.1: Component_16 - 1.2: Component_7 - 1.3: Component_15 - 1.4: Component_4 - 1.5: Component_5 - 1.6: Component_3 - 1.7: Component_11 - 2.1: Component_12 - 2.2: Component_2 - 2.3: Component_14 - 2.4: Component_13 - 2.5: Component_1 - 2.6: Component_9 - 2.7: Component_10 - ",
+                    "objective_value": 844578
                 },
                 "current_configuration": {
                     "containers": {
@@ -624,7 +624,7 @@
                 }
             }
         ],
-        "solutionTime": 26786,
-        "totalTime": 26786
+        "solutionTime": 24284,
+        "totalTime": 24284
     }
 }
