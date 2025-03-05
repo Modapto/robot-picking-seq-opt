@@ -1,6 +1,6 @@
 {
     "uuid": "20575aa3-a69a-46e1-83b3-7e4ee2d68601",
-    "produced_at": 1741104066500,
+    "produced_at": 1741167796460,
     "data": {
         "phases": [
             {
@@ -209,7 +209,7 @@
                         }
                     ]
                 },
-                "improvement_percentage": 21.58601933035189
+                "improvement_percentage": 21.59
             },
             {
                 "exact": {
@@ -417,7 +417,7 @@
                         }
                     ]
                 },
-                "improvement_percentage": 17.298595269540158
+                "improvement_percentage": 17.3
             },
             {
                 "exact": {
@@ -645,10 +645,10 @@
                         }
                     ]
                 },
-                "improvement_percentage": 17.873981313303815
+                "improvement_percentage": 17.87
             }
         ],
-        "solutionTime": 8260,
-        "totalTime": 8262
+        "solutionTime": 8947,
+        "totalTime": 8948
     }
 }
