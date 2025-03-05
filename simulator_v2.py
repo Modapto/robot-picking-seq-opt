@@ -52,20 +52,6 @@ def generate_kh_configuration(kh_setup, kit_holders_template):
     return configured_kh
 
 
-def calculate_linear_value(distance_matrix, configuration):
-    """
-    Calculate the objective value for a given configuration using the linear method.
-    """
-    filtered_matrix = filter_distance_matrix(distance_matrix, configuration)
-    a_to_b_matrix = create_distance_matrices({"data": {"distanceMatrix": filtered_matrix}})
-    B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
-    start_node = "0.0"
-    end_node = "0.0.0"
-    linear_tour = linear_picking(B, start_node, end_node, set_1, set_2)
-    tour_cost, _ = total_cost(B, linear_tour["tour"])
-    return tour_cost
-
-
 def calculate_objective_value(distance_matrix, configuration):
     """
     Calculate the objective value of a given configuration using the exact method.
@@ -91,8 +77,10 @@ def convert_to_native_types(data):
 
 def run_simulation(input_data=None):
     """
-    Run the simulation process, handling multiple phases of KH sequences
-    and evaluating multiple GR configurations across all sequences in a structured manner.
+    Run the simulation process:
+    - Handles multiple KH sequences **together** as a system.
+    - Evaluates multiple GR configurations **across all KH sequences at once**.
+    - Selects the **best single GR configuration** that optimizes the entire process.
     """
     total_time_start = int(time() * 1000)
 
@@ -126,7 +114,7 @@ def run_simulation(input_data=None):
     for gr_key, gr_config in gr_configs.items():
         print(f"\n>>> Running Simulation for GR Configuration: {gr_key}")
 
-        # Store results per full KH sequence
+        # Store results for this GR configuration
         sequence_results = []
         last_node_visited = "0.0"
 
@@ -154,19 +142,22 @@ def run_simulation(input_data=None):
 
             last_node_visited = kh_setup[-1]  # Store last visited node for next phase
 
+        # Sum the total system-wide performance for this GR configuration
         total_value = sum(result["objective_value"] for result in sequence_results)
 
-        # Store best GR configuration across full KH sequences
+        # Store the best system-wide GR configuration
         if total_value < best_value:
             best_value = total_value
             best_config = gr_config
 
+        # Store results for this GR configuration
         overall_results.append({
             "gr_config": gr_key,
             "total_value": total_value,
             "sequence_results": sequence_results
         })
 
+    # Store final results
     end_time = int(time() * 1000)
 
     output_data = {

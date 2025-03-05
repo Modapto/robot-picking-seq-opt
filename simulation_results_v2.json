@@ -1,18 +1,18 @@
 {
     "uuid": "20575aa3-a69a-46e1-83b3-7e4ee2d68601",
-    "produced_at": 1741177497985,
+    "produced_at": 1741177395160,
     "data": {
         "phases": [
             {
                 "phase": 1,
                 "current_value_exact": 871545,
                 "current_value_linear": 1114089,
-                "best_value": 822703,
-                "improvement_exact": 5.604,
-                "improvement_linear": 26.155,
+                "best_value": 872157,
+                "improvement_exact": -0.07,
+                "improvement_linear": 21.716,
                 "best_configuration": {
-                    "key": "1.1: Component_15 - 1.2: Component_16 - 1.3: Component_4 - 1.4: Component_10 - 1.5: Component_3 - 1.6: Component_14 - 1.7: Component_2 - 2.1: Component_11 - 2.2: Component_12 - 2.3: Component_5 - 2.4: Component_7 - 2.5: Component_13 - 2.6: Component_1 - 2.7: Component_9 - ",
-                    "objective_value": 822703
+                    "key": "1.1: Component_9 - 1.2: Component_4 - 1.3: Component_14 - 1.4: Component_12 - 1.5: Component_16 - 1.6: Component_3 - 1.7: Component_11 - 2.1: Component_13 - 2.2: Component_1 - 2.3: Component_10 - 2.4: Component_5 - 2.5: Component_7 - 2.6: Component_15 - 2.7: Component_2 - ",
+                    "objective_value": 872157
                 },
                 "current_configuration": {
                     "containers": {
@@ -317,12 +317,12 @@
                 "phase": 2,
                 "current_value_exact": 920507,
                 "current_value_linear": 1132271,
-                "best_value": 866880,
-                "improvement_exact": 5.826,
-                "improvement_linear": 23.439,
+                "best_value": 908579,
+                "improvement_exact": 1.296,
+                "improvement_linear": 19.756,
                 "best_configuration": {
-                    "key": "1.1: Component_14 - 1.2: Component_15 - 1.3: Component_3 - 1.4: Component_7 - 1.5: Component_12 - 1.6: Component_9 - 1.7: Component_1 - 2.1: Component_10 - 2.2: Component_4 - 2.3: Component_16 - 2.4: Component_5 - 2.5: Component_13 - 2.6: Component_2 - 2.7: Component_11 - ",
-                    "objective_value": 866880
+                    "key": "1.1: Component_10 - 1.2: Component_14 - 1.3: Component_2 - 1.4: Component_1 - 1.5: Component_12 - 1.6: Component_7 - 1.7: Component_13 - 2.1: Component_3 - 2.2: Component_5 - 2.3: Component_9 - 2.4: Component_15 - 2.5: Component_16 - 2.6: Component_4 - 2.7: Component_11 - ",
+                    "objective_value": 908579
                 },
                 "current_configuration": {
                     "containers": {
@@ -625,14 +625,14 @@
             },
             {
                 "phase": 3,
-                "current_value_exact": 783782,
-                "current_value_linear": 967081,
-                "best_value": 823708,
-                "improvement_exact": -5.094,
-                "improvement_linear": 14.825,
+                "current_value_exact": 799584,
+                "current_value_linear": 995811,
+                "best_value": 829184,
+                "improvement_exact": -3.702,
+                "improvement_linear": 16.733,
                 "best_configuration": {
-                    "key": "1.1: Component_16 - 1.2: Component_3 - 1.3: Component_5 - 1.4: Component_13 - 1.5: Component_14 - 1.6: Component_4 - 1.7: Component_15 - 2.1: Component_10 - 2.2: Component_12 - 2.3: Component_9 - 2.4: Component_7 - 2.5: Component_11 - 2.6: Component_2 - 2.7: Component_1 - ",
-                    "objective_value": 823708
+                    "key": "1.1: Component_4 - 1.2: Component_5 - 1.3: Component_3 - 1.4: Component_15 - 1.5: Component_12 - 1.6: Component_1 - 1.7: Component_16 - 2.1: Component_10 - 2.2: Component_7 - 2.3: Component_14 - 2.4: Component_9 - 2.5: Component_2 - 2.6: Component_13 - 2.7: Component_11 - ",
+                    "objective_value": 829184
                 },
                 "current_configuration": {
                     "containers": {
@@ -934,7 +934,7 @@
                 }
             }
         ],
-        "solutionTime": 23031,
-        "totalTime": 23031
+        "solutionTime": 26494,
+        "totalTime": 26494
     }
 }
