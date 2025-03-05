@@ -87,7 +87,26 @@ def convert_to_native_types(data):
         return data
 
 
+import json
+import copy
+from time import time
+from configurations_final import (
+    load_distance_matrix,
+    load_containers_template,
+    load_kit_holders_template,
+    filter_distance_matrix,
+    randomize_containers
+)
+from exact_method import run_exact_tsp
+from method_linear import linear_picking
+from GraphCreation import create_directed_bipartite_graph
+from parse_json import create_distance_matrices
+
+
 def run_simulation(input_data=None):
+    """
+    Run the simulation process with proper start/end node handling.
+    """
     total_time_start = int(time() * 1000)
 
     # Load input data
@@ -101,160 +120,156 @@ def run_simulation(input_data=None):
         num_random_gr_configs = data["num_random_gr_configs"]
         current_config = data["current_config"]
     else:
-        print("Input data not provided, using local files.")
+        print("No input data provided, using fallback values.")
         distance_matrix = load_distance_matrix()
         containers_template = load_containers_template()
         kit_holders_template = load_kit_holders_template()
-        kh_sequences = [["KH001", "KH002", "KH001", "KH003"]]
+        kh_sequences = [["KH001", "KH002", "KH003", "KH001"]]
         num_random_gr_configs = 2
         with open("current_config.json", "r") as f:
             current_config = json.load(f)
 
-    # Initial start and end nodes
+    # Initial start/end nodes
     start_node = "0.0"
     end_node = "0.0.0"
-
-    baseline_results = []
-    simulation_runs = []
-
-    # **Step 1: Calculate Baseline Values for Each KH Sequence**
     last_node_visited = start_node
+
+    ### **Step 1: Compute Baseline Results**
+    print("\n>>> Running Baseline Configuration...")
+    baseline_results = []
 
     for i, kh_setup in enumerate(kh_sequences):
         print(f"\n>>> Running Baseline Phase {i + 1} with KH Setup: {kh_setup}")
 
-        # ✅ Ensure `last_node_visited` is a valid KH ID before inserting it
+        # Adjust start node for sequence continuity
         if i > 0 and last_node_visited in kit_holders_template:
-            print(f"Setting start node to last visited node: {last_node_visited}")
-            kh_setup = [last_node_visited] + kh_setup  # Only add if it's a valid KH
+            print(f"✅ Setting start node to last visited KH: {last_node_visited}")
+            kh_setup = [last_node_visited] + kh_setup
 
-        # ✅ Generate KH configuration safely
-        try:
-            kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
-        except ValueError as e:
-            print(f"❌ Error in KH Setup {kh_setup}: {e}")
-            continue  # Skip invalid setup
+        # Generate KH configuration
+        kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
 
+        # Filter distance matrix
         filtered_matrix = filter_distance_matrix(distance_matrix, {
             "containers": current_config["containers"],
             "kit_holders": kh_config
         })
 
-        # **Run Exact Method for Baseline**
-        baseline_exact_tour, baseline_exact_cost, _ = run_exact_tsp({
-            "data": {
-                "distanceMatrix": filtered_matrix,
-                "start_node": last_node_visited,
-                "end_node": end_node if i == len(kh_sequences) - 1 else None
-            }
+        # Parse distance matrix and create bipartite graph
+        a_to_b_matrix = create_distance_matrices({"data": {"distanceMatrix": filtered_matrix}})
+        B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
+
+        # Compute baseline cost
+        exact_cost, linear_cost = None, None
+
+        # **Run Exact Method**
+        exact_tour, exact_cost, _ = run_exact_tsp({
+            "data": {"distanceMatrix": filtered_matrix, "start_node": start_node, "end_node": end_node}
         })
 
-        # **Update Last Visited Node Only If Valid**
-        if i < len(kh_sequences) - 1:
-            for j in range(len(baseline_exact_tour) - 1, -1, -1):
-                if baseline_exact_tour[j][1] == "0.0.0":
-                    last_node_visited = baseline_exact_tour[j][0]
-                    break
+        # **Run Linear Method**
+        linear_tour = linear_picking(B, start_node, end_node, set_1, set_2)
+        linear_cost, _ = total_cost(B, linear_tour["tour"])
 
+        # **Store results**
         baseline_results.append({
             "phase": i + 1,
             "kh_setup": kh_setup,
-            "current_value_exact": baseline_exact_cost
+            "current_value_exact": exact_cost,
+            "current_value_linear": linear_cost
         })
 
-    # **Step 2: Simulate Runs with Different GR Configurations**
-    gr_configs = generate_unique_gr_configurations(num_random_gr_configs, containers_template)
+        # **Update last visited node for next phase**
+        if exact_tour:
+            last_node_visited = exact_tour[-2][1]  # Store last real node before reaching 0.0.0
+            print(f"✔️ Last visited KH updated to {last_node_visited}")
 
-    for gr_key, gr_config in gr_configs.items():
-        print(f"\n>>> Running Simulation with GR Configuration: {gr_key}")
-        last_node_visited = start_node
-        phase_results = []
+    print("\n✅ Baseline Results Computed Successfully!")
+
+    ### **Step 2: Run Optimization With Different GR Configurations**
+    print("\n>>> Running Optimization With Different GR Configurations...")
+    best_total_value = float("inf")
+    overall_results = []
+
+    for run_id in range(num_random_gr_configs):
+        print(f"\n>>> Running Simulation with GR Configuration {run_id + 1}...")
+
+        # Generate new GR configuration
+        gr_config = randomize_containers(containers_template)
+
+        sequence_results = []
+        last_node_visited = start_node  # Reset for new configuration
 
         for i, kh_setup in enumerate(kh_sequences):
-            print(f"\n>>> Running Simulation Phase {i+1} with KH Setup: {kh_setup}")
+            print(f"\n>>> Running Simulation Phase {i + 1} with KH Setup: {kh_setup}")
 
-            # Ensure last_node_visited is a valid KH before inserting
+            # Adjust start node for sequence continuity
             if i > 0 and last_node_visited in kit_holders_template:
-                print(f"Setting start node to last visited node: {last_node_visited}")
+                print(f"✅ Setting start node to last visited KH: {last_node_visited}")
                 kh_setup = [last_node_visited] + kh_setup
-            else:
-                print(f"⚠️ Warning: Last node {last_node_visited} is not a valid KH. Skipping insertion.")
 
+            # Generate KH configuration
             kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
 
+            # Filter distance matrix
             filtered_matrix = filter_distance_matrix(distance_matrix, {
                 "containers": gr_config,
                 "kit_holders": kh_config
             })
 
+            # Parse distance matrix and create bipartite graph
             a_to_b_matrix = create_distance_matrices({"data": {"distanceMatrix": filtered_matrix}})
             B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
 
-            # **Run Exact Method**
-            exact_tour, exact_tour_cost, time_details_exact = run_exact_tsp({
-                "data": {
-                    "distanceMatrix": filtered_matrix,
-                    "start_node": last_node_visited,
-                    "end_node": end_node if i == len(kh_sequences) - 1 else None
-                }
+            # Compute cost using Exact Method
+            exact_tour, exact_cost, _ = run_exact_tsp({
+                "data": {"distanceMatrix": filtered_matrix, "start_node": start_node, "end_node": end_node}
             })
 
-            # Store last visited node **before** reaching `0.0.0`
-            if i < len(kh_sequences) - 1:
-                for j in range(len(exact_tour) - 1, -1, -1):
-                    if exact_tour[j][1] == "0.0.0":
-                        last_node_visited = exact_tour[j][0]
-                        break
-
-            phase_results.append({
+            # Store results
+            sequence_results.append({
                 "phase": i + 1,
                 "kh_setup": kh_setup,
-                "objective_value": exact_tour_cost
+                "objective_value": exact_cost
             })
 
-        # **Store Total Cost for This GR Configuration**
-        total_value = sum(p["objective_value"] for p in phase_results)
-        simulation_runs.append({
-            "gr_config": gr_key,
+            # Update last visited node for next phase
+            if exact_tour:
+                last_node_visited = exact_tour[-2][1]  # Store last real node before reaching 0.0.0
+                print(f"✔️ Last visited KH updated to {last_node_visited}")
+
+        total_value = sum(res["objective_value"] for res in sequence_results)
+
+        # Track best configuration
+        if total_value < best_total_value:
+            best_total_value = total_value
+            best_gr_config = gr_config
+
+        overall_results.append({
+            "gr_config": gr_config,
             "total_value": total_value,
-            "sequence_results": phase_results
+            "sequence_results": sequence_results
         })
 
-    # **Step 3: Identify Best GR Configuration**
-    best_config = min(simulation_runs, key=lambda x: x["total_value"])
-
-    # **Step 4: Compare Best Simulation Results with Baseline**
-    improvement_results = []
-    for baseline, phase in zip(baseline_results, best_config["sequence_results"]):
-        improvement_exact = round(((baseline["current_value_exact"] - phase["objective_value"]) / baseline["current_value_exact"]) * 100, 3)
-        improvement_results.append({
-            "phase": baseline["phase"],
-            "baseline_value": baseline["current_value_exact"],
-            "simulated_value": phase["objective_value"],
-            "improvement_exact": improvement_exact
-        })
-
-    # **Step 5: Save Final Results**
-    end_time = int(time() * 1000)
+    ### **Final Output**
     output_data = {
-        "uuid": input_data['uuid'],
+        "uuid": input_data["uuid"],
         "produced_at": int(time() * 1000),
         "data": {
             "baseline_results": baseline_results,
-            "simulation_runs": simulation_runs,
-            "best_total_value": best_config["total_value"],
-            "best_configuration": best_config,
-            "improvement_results": improvement_results,
-            "solutionTime": (end_time - total_time_start),
-            "totalTime": (end_time - total_time_start),
+            "best_total_value": best_total_value,
+            "overall_results": overall_results,
+            "solutionTime": (int(time() * 1000) - total_time_start)
         }
     }
 
     output_data = convert_to_native_types(output_data)
 
+    # **Save results**
     with open("simulation_results_v2.json", "w") as f:
         json.dump(output_data, f, indent=4)
-    print("Simulation completed and results saved.")
 
+    print("\n✅ Simulation Completed and Results Saved!")
     return output_data
+
 

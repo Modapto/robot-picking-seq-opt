@@ -1,6 +1,6 @@
 {
     "uuid": "20575aa3-a69a-46e1-83b3-7e4ee2d68601",
-    "produced_at": 1741179792134,
+    "produced_at": 1741184102615,
     "data": {
         "baseline_results": [
             {
@@ -37,13 +37,306 @@
                 "current_value_linear": 1085490
             }
         ],
-        "best_total_value": 2463464,
-        "improvement_exact": 5.675,
-        "improvement_linear": 26.365,
+        "best_total_value": 2557880,
         "overall_results": [
             {
-                "gr_config": "1.1:Component_16-1.2:Component_13-1.3:Component_1-1.4:Component_9-1.5:Component_10-1.6:Component_2-1.7:Component_3-2.1:Component_4-2.2:Component_15-2.3:Component_11-2.4:Component_7-2.5:Component_5-2.6:Component_14-2.7:Component_12",
-                "total_value": 2521005,
+                "gr_config": {
+                    "Container_1": {
+                        "gr_position": "1.1",
+                        "contents": [
+                            {
+                                "position": "1.1.1",
+                                "type": "Component_13"
+                            },
+                            {
+                                "position": "1.1.2",
+                                "type": "Component_13"
+                            },
+                            {
+                                "position": "1.1.3",
+                                "type": "Component_13"
+                            },
+                            {
+                                "position": "1.1.4",
+                                "type": "Component_13"
+                            }
+                        ]
+                    },
+                    "Container_2": {
+                        "gr_position": "1.2",
+                        "contents": [
+                            {
+                                "position": "1.2.1",
+                                "type": "Component_7"
+                            },
+                            {
+                                "position": "1.2.2",
+                                "type": "Component_7"
+                            },
+                            {
+                                "position": "1.2.3",
+                                "type": "Component_7"
+                            },
+                            {
+                                "position": "1.2.4",
+                                "type": "Component_7"
+                            }
+                        ]
+                    },
+                    "Container_3": {
+                        "gr_position": "1.3",
+                        "contents": [
+                            {
+                                "position": "1.3.1",
+                                "type": "Component_5"
+                            },
+                            {
+                                "position": "1.3.2",
+                                "type": "Component_5"
+                            },
+                            {
+                                "position": "1.3.3",
+                                "type": "Component_5"
+                            },
+                            {
+                                "position": "1.3.4",
+                                "type": "Component_5"
+                            }
+                        ]
+                    },
+                    "Container_4": {
+                        "gr_position": "1.4",
+                        "contents": [
+                            {
+                                "position": "1.4.1",
+                                "type": "Component_15"
+                            },
+                            {
+                                "position": "1.4.2",
+                                "type": "Component_15"
+                            },
+                            {
+                                "position": "1.4.3",
+                                "type": "Component_15"
+                            },
+                            {
+                                "position": "1.4.4",
+                                "type": "Component_15"
+                            }
+                        ]
+                    },
+                    "Container_5": {
+                        "gr_position": "1.5",
+                        "contents": [
+                            {
+                                "position": "1.5.1",
+                                "type": "Component_9"
+                            },
+                            {
+                                "position": "1.5.2",
+                                "type": "Component_9"
+                            },
+                            {
+                                "position": "1.5.3",
+                                "type": "Component_9"
+                            },
+                            {
+                                "position": "1.5.4",
+                                "type": "Component_9"
+                            }
+                        ]
+                    },
+                    "Container_6": {
+                        "gr_position": "1.6",
+                        "contents": [
+                            {
+                                "position": "1.6.1",
+                                "type": "Component_12"
+                            },
+                            {
+                                "position": "1.6.2",
+                                "type": "Component_12"
+                            },
+                            {
+                                "position": "1.6.3",
+                                "type": "Component_12"
+                            },
+                            {
+                                "position": "1.6.4",
+                                "type": "Component_12"
+                            }
+                        ]
+                    },
+                    "Container_7": {
+                        "gr_position": "1.7",
+                        "contents": [
+                            {
+                                "position": "1.7.1",
+                                "type": "Component_16"
+                            },
+                            {
+                                "position": "1.7.2",
+                                "type": "Component_16"
+                            },
+                            {
+                                "position": "1.7.3",
+                                "type": "Component_16"
+                            },
+                            {
+                                "position": "1.7.4",
+                                "type": "Component_16"
+                            }
+                        ]
+                    },
+                    "Container_8": {
+                        "gr_position": "2.1",
+                        "contents": [
+                            {
+                                "position": "2.1.1",
+                                "type": "Component_3"
+                            },
+                            {
+                                "position": "2.1.2",
+                                "type": "Component_3"
+                            },
+                            {
+                                "position": "2.1.3",
+                                "type": "Component_3"
+                            },
+                            {
+                                "position": "2.1.4",
+                                "type": "Component_3"
+                            }
+                        ]
+                    },
+                    "Container_9": {
+                        "gr_position": "2.2",
+                        "contents": [
+                            {
+                                "position": "2.2.1",
+                                "type": "Component_14"
+                            },
+                            {
+                                "position": "2.2.2",
+                                "type": "Component_14"
+                            },
+                            {
+                                "position": "2.2.3",
+                                "type": "Component_14"
+                            },
+                            {
+                                "position": "2.2.4",
+                                "type": "Component_14"
+                            }
+                        ]
+                    },
+                    "Container_10": {
+                        "gr_position": "2.3",
+                        "contents": [
+                            {
+                                "position": "2.3.1",
+                                "type": "Component_11"
+                            },
+                            {
+                                "position": "2.3.2",
+                                "type": "Component_11"
+                            },
+                            {
+                                "position": "2.3.3",
+                                "type": "Component_11"
+                            },
+                            {
+                                "position": "2.3.4",
+                                "type": "Component_11"
+                            }
+                        ]
+                    },
+                    "Container_11": {
+                        "gr_position": "2.4",
+                        "contents": [
+                            {
+                                "position": "2.4.1",
+                                "type": "Component_1"
+                            },
+                            {
+                                "position": "2.4.2",
+                                "type": "Component_1"
+                            },
+                            {
+                                "position": "2.4.3",
+                                "type": "Component_1"
+                            },
+                            {
+                                "position": "2.4.4",
+                                "type": "Component_1"
+                            }
+                        ]
+                    },
+                    "Container_12": {
+                        "gr_position": "2.5",
+                        "contents": [
+                            {
+                                "position": "2.5.1",
+                                "type": "Component_2"
+                            },
+                            {
+                                "position": "2.5.2",
+                                "type": "Component_2"
+                            },
+                            {
+                                "position": "2.5.3",
+                                "type": "Component_2"
+                            },
+                            {
+                                "position": "2.5.4",
+                                "type": "Component_2"
+                            }
+                        ]
+                    },
+                    "Container_13": {
+                        "gr_position": "2.6",
+                        "contents": [
+                            {
+                                "position": "2.6.1",
+                                "type": "Component_4"
+                            },
+                            {
+                                "position": "2.6.2",
+                                "type": "Component_4"
+                            },
+                            {
+                                "position": "2.6.3",
+                                "type": "Component_4"
+                            },
+                            {
+                                "position": "2.6.4",
+                                "type": "Component_4"
+                            }
+                        ]
+                    },
+                    "Container_14": {
+                        "gr_position": "2.7",
+                        "contents": [
+                            {
+                                "position": "2.7.1",
+                                "type": "Component_10"
+                            },
+                            {
+                                "position": "2.7.2",
+                                "type": "Component_10"
+                            },
+                            {
+                                "position": "2.7.3",
+                                "type": "Component_10"
+                            },
+                            {
+                                "position": "2.7.4",
+                                "type": "Component_10"
+                            }
+                        ]
+                    }
+                },
+                "total_value": 2557880,
                 "sequence_results": [
                     {
                         "phase": 1,
@@ -53,7 +346,7 @@
                             "KH003",
                             "KH001"
                         ],
-                        "objective_value": 837781
+                        "objective_value": 849508
                     },
                     {
                         "phase": 2,
@@ -63,7 +356,7 @@
                             "KH001",
                             "KH003"
                         ],
-                        "objective_value": 866281
+                        "objective_value": 858800
                     },
                     {
                         "phase": 3,
@@ -73,13 +366,308 @@
                             "KH001",
                             "KH003"
                         ],
-                        "objective_value": 816943
+                        "objective_value": 849572
                     }
                 ]
             },
             {
-                "gr_config": "1.1:Component_4-1.2:Component_15-1.3:Component_14-1.4:Component_10-1.5:Component_7-1.6:Component_16-1.7:Component_5-2.1:Component_3-2.2:Component_11-2.3:Component_13-2.4:Component_2-2.5:Component_1-2.6:Component_12-2.7:Component_9",
-                "total_value": 2463464,
+                "gr_config": {
+                    "Container_1": {
+                        "gr_position": "1.1",
+                        "contents": [
+                            {
+                                "position": "1.1.1",
+                                "type": "Component_13"
+                            },
+                            {
+                                "position": "1.1.2",
+                                "type": "Component_13"
+                            },
+                            {
+                                "position": "1.1.3",
+                                "type": "Component_13"
+                            },
+                            {
+                                "position": "1.1.4",
+                                "type": "Component_13"
+                            }
+                        ]
+                    },
+                    "Container_2": {
+                        "gr_position": "1.2",
+                        "contents": [
+                            {
+                                "position": "1.2.1",
+                                "type": "Component_11"
+                            },
+                            {
+                                "position": "1.2.2",
+                                "type": "Component_11"
+                            },
+                            {
+                                "position": "1.2.3",
+                                "type": "Component_11"
+                            },
+                            {
+                                "position": "1.2.4",
+                                "type": "Component_11"
+                            }
+                        ]
+                    },
+                    "Container_3": {
+                        "gr_position": "1.3",
+                        "contents": [
+                            {
+                                "position": "1.3.1",
+                                "type": "Component_10"
+                            },
+                            {
+                                "position": "1.3.2",
+                                "type": "Component_10"
+                            },
+                            {
+                                "position": "1.3.3",
+                                "type": "Component_10"
+                            },
+                            {
+                                "position": "1.3.4",
+                                "type": "Component_10"
+                            }
+                        ]
+                    },
+                    "Container_4": {
+                        "gr_position": "1.4",
+                        "contents": [
+                            {
+                                "position": "1.4.1",
+                                "type": "Component_2"
+                            },
+                            {
+                                "position": "1.4.2",
+                                "type": "Component_2"
+                            },
+                            {
+                                "position": "1.4.3",
+                                "type": "Component_2"
+                            },
+                            {
+                                "position": "1.4.4",
+                                "type": "Component_2"
+                            }
+                        ]
+                    },
+                    "Container_5": {
+                        "gr_position": "1.5",
+                        "contents": [
+                            {
+                                "position": "1.5.1",
+                                "type": "Component_3"
+                            },
+                            {
+                                "position": "1.5.2",
+                                "type": "Component_3"
+                            },
+                            {
+                                "position": "1.5.3",
+                                "type": "Component_3"
+                            },
+                            {
+                                "position": "1.5.4",
+                                "type": "Component_3"
+                            }
+                        ]
+                    },
+                    "Container_6": {
+                        "gr_position": "1.6",
+                        "contents": [
+                            {
+                                "position": "1.6.1",
+                                "type": "Component_1"
+                            },
+                            {
+                                "position": "1.6.2",
+                                "type": "Component_1"
+                            },
+                            {
+                                "position": "1.6.3",
+                                "type": "Component_1"
+                            },
+                            {
+                                "position": "1.6.4",
+                                "type": "Component_1"
+                            }
+                        ]
+                    },
+                    "Container_7": {
+                        "gr_position": "1.7",
+                        "contents": [
+                            {
+                                "position": "1.7.1",
+                                "type": "Component_12"
+                            },
+                            {
+                                "position": "1.7.2",
+                                "type": "Component_12"
+                            },
+                            {
+                                "position": "1.7.3",
+                                "type": "Component_12"
+                            },
+                            {
+                                "position": "1.7.4",
+                                "type": "Component_12"
+                            }
+                        ]
+                    },
+                    "Container_8": {
+                        "gr_position": "2.1",
+                        "contents": [
+                            {
+                                "position": "2.1.1",
+                                "type": "Component_9"
+                            },
+                            {
+                                "position": "2.1.2",
+                                "type": "Component_9"
+                            },
+                            {
+                                "position": "2.1.3",
+                                "type": "Component_9"
+                            },
+                            {
+                                "position": "2.1.4",
+                                "type": "Component_9"
+                            }
+                        ]
+                    },
+                    "Container_9": {
+                        "gr_position": "2.2",
+                        "contents": [
+                            {
+                                "position": "2.2.1",
+                                "type": "Component_5"
+                            },
+                            {
+                                "position": "2.2.2",
+                                "type": "Component_5"
+                            },
+                            {
+                                "position": "2.2.3",
+                                "type": "Component_5"
+                            },
+                            {
+                                "position": "2.2.4",
+                                "type": "Component_5"
+                            }
+                        ]
+                    },
+                    "Container_10": {
+                        "gr_position": "2.3",
+                        "contents": [
+                            {
+                                "position": "2.3.1",
+                                "type": "Component_14"
+                            },
+                            {
+                                "position": "2.3.2",
+                                "type": "Component_14"
+                            },
+                            {
+                                "position": "2.3.3",
+                                "type": "Component_14"
+                            },
+                            {
+                                "position": "2.3.4",
+                                "type": "Component_14"
+                            }
+                        ]
+                    },
+                    "Container_11": {
+                        "gr_position": "2.4",
+                        "contents": [
+                            {
+                                "position": "2.4.1",
+                                "type": "Component_15"
+                            },
+                            {
+                                "position": "2.4.2",
+                                "type": "Component_15"
+                            },
+                            {
+                                "position": "2.4.3",
+                                "type": "Component_15"
+                            },
+                            {
+                                "position": "2.4.4",
+                                "type": "Component_15"
+                            }
+                        ]
+                    },
+                    "Container_12": {
+                        "gr_position": "2.5",
+                        "contents": [
+                            {
+                                "position": "2.5.1",
+                                "type": "Component_16"
+                            },
+                            {
+                                "position": "2.5.2",
+                                "type": "Component_16"
+                            },
+                            {
+                                "position": "2.5.3",
+                                "type": "Component_16"
+                            },
+                            {
+                                "position": "2.5.4",
+                                "type": "Component_16"
+                            }
+                        ]
+                    },
+                    "Container_13": {
+                        "gr_position": "2.6",
+                        "contents": [
+                            {
+                                "position": "2.6.1",
+                                "type": "Component_7"
+                            },
+                            {
+                                "position": "2.6.2",
+                                "type": "Component_7"
+                            },
+                            {
+                                "position": "2.6.3",
+                                "type": "Component_7"
+                            },
+                            {
+                                "position": "2.6.4",
+                                "type": "Component_7"
+                            }
+                        ]
+                    },
+                    "Container_14": {
+                        "gr_position": "2.7",
+                        "contents": [
+                            {
+                                "position": "2.7.1",
+                                "type": "Component_4"
+                            },
+                            {
+                                "position": "2.7.2",
+                                "type": "Component_4"
+                            },
+                            {
+                                "position": "2.7.3",
+                                "type": "Component_4"
+                            },
+                            {
+                                "position": "2.7.4",
+                                "type": "Component_4"
+                            }
+                        ]
+                    }
+                },
+                "total_value": 2566076,
                 "sequence_results": [
                     {
                         "phase": 1,
@@ -89,7 +677,7 @@
                             "KH003",
                             "KH001"
                         ],
-                        "objective_value": 839488
+                        "objective_value": 883087
                     },
                     {
                         "phase": 2,
@@ -99,7 +687,7 @@
                             "KH001",
                             "KH003"
                         ],
-                        "objective_value": 843146
+                        "objective_value": 853395
                     },
                     {
                         "phase": 3,
@@ -109,11 +697,11 @@
                             "KH001",
                             "KH003"
                         ],
-                        "objective_value": 780830
+                        "objective_value": 829594
                     }
                 ]
             }
         ],
-        "solutionTime": 9377
+        "solutionTime": 15226
     }
 }
