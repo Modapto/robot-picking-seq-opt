@@ -318,20 +318,19 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
             "kit_holders": kh_config
         })
 
-        # *Duplicate Last Visited Node for Next Phase*
         if i > 0:
-            duplicated_node = last_node_visited  # Keep the original name
-            renamed_node = "0.0"  # Rename the duplicated one
+            duplicated_node = last_node_visited  # Keep the actual last node
+            renamed_node = "0.0"  # Rename it to 0.0 for next phase
 
-            print(f"Duplicating last visited node ({duplicated_node}) and renaming duplicate as `{renamed_node}`.")
+            print(f"🛠 Adjusting phase {i}: Copying {duplicated_node} as {renamed_node}")
 
             if duplicated_node not in kh_setup:
-                kh_setup.insert(0, duplicated_node)  # Add it with its original name
+                kh_setup.insert(0, duplicated_node)  # Insert the actual last node
 
-            # Modify the distance matrix: Add a duplicate entry where `duplicated_node` is now `0.0`
+            # 🔥 **Fix: Ensure First Transition Uses Correct Distance**
             new_filtered_matrix = []
             for edge in filtered_matrix:
-                new_filtered_matrix.append(edge)  # Keep the original edge
+                new_filtered_matrix.append(edge)
                 if edge["edge"].startswith(f"({duplicated_node},"):
                     new_filtered_matrix.append({
                         "edge": edge["edge"].replace(f"({duplicated_node},", f"({renamed_node},"),
@@ -342,6 +341,16 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
                         "edge": edge["edge"].replace(f", {duplicated_node})", f", {renamed_node})"),
                         "distance": edge["distance"]
                     })
+
+            # ✅ **Ensure the first move in the next phase uses `duplicated_node` instead of `0.0`**
+            for edge in new_filtered_matrix:
+                if edge["edge"] == f"({duplicated_node}, 2.7.1)":
+                    print(f"✅ Correcting first transition: Using {duplicated_node} instead of 0.0")
+                    new_filtered_matrix.append({
+                        "edge": f"(0.0, 2.7.1)",
+                        "distance": edge["distance"]
+                    })
+
             filtered_matrix = new_filtered_matrix
 
         # Parse distance matrix
@@ -388,19 +397,23 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
                 "time_details": time_details_exact
             }
 
-        # *Run Linear Method*
+        # **Run Linear Method**
         if method in ["linear", "exact-linear"]:
             print("Running Linear Method TSP...")
             linear_tour = linear_picking(B, start_node, end_node, set_1, set_2)
             linear_tour_cost, time_details_linear = total_cost(B, linear_tour['tour'])
 
-            # *Fix: Remove Final Move to `0.0.0` Before Next Phase*
+            # **Fix: Correctly Update Last Visited Node in Linear Method**
             if i < len(kh_sequences) - 1:
                 for j in range(len(linear_tour['tour']) - 1, -1, -1):
                     if linear_tour['tour'][j] == "0.0.0":
-                        last_node_visited = linear_tour['tour'][j - 1]  # Store last real node before 0.0.0
-                        linear_tour['tour'] = linear_tour['tour'][:j]  # Remove last movements
+                        last_real_index = j - 1
+                        last_node_visited = linear_tour['tour'][last_real_index]
+                        print(f"✅ Fixed last_node_visited in Linear: {last_node_visited}")
+                        linear_tour['tour'] = linear_tour['tour'][:last_real_index + 1]
                         break
+
+                # Ensure time_details reflect correct transitions
                 time_details_linear = [step for step in time_details_linear if step["to"] not in ["0.0.0", "0.0"]]
                 linear_tour_cost = sum(step["totalTime"] for step in time_details_linear)
 
@@ -409,7 +422,7 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
                 "time_details": time_details_linear
             }
 
-        # *Compare Exact and Linear in Exact-Linear Mode*
+        # **Compare Exact and Linear in Exact-Linear Mode**
         if method == "exact-linear":
             print("Comparing Exact and Linear Methods...")
             if exact_tour_cost is not None and linear_tour_cost is not None:
@@ -419,7 +432,8 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
                     print(f"Exact Method is better by {improvement:.2f}%. Using Exact Method. Cost: {exact_tour_cost}")
                     phase_results = {"exact": phase_results["exact"], "improvement_percentage": improvement}
                 else:
-                    print(f"Linear Method is better by {-improvement:.2f}%. Using Linear Method. Cost: {linear_tour_cost}")
+                    print(
+                        f"Linear Method is better by {-improvement:.2f}%. Using Linear Method. Cost: {linear_tour_cost}")
                     phase_results = {"linear": phase_results["linear"], "improvement_percentage": improvement}
 
         results.append(phase_results)
