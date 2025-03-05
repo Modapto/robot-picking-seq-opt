@@ -11,7 +11,7 @@ from configurations_final import (
     filter_distance_matrix
 )
 from exact_method import run_exact_tsp
-from method_linear import linear_picking
+from method_linear import *
 from GraphCreation import create_directed_bipartite_graph
 from parse_json import create_distance_matrices
 
@@ -51,6 +51,18 @@ def generate_kh_configuration(kh_setup, kit_holders_template):
             raise ValueError(f"Kit holder ID {kh_id} not found.")
     return configured_kh
 
+def calculate_linear_value(distance_matrix, configuration):
+    """
+    Calculate the objective value for a given configuration using the linear method.
+    """
+    filtered_matrix = filter_distance_matrix(distance_matrix, configuration)
+    a_to_b_matrix = create_distance_matrices({"data": {"distanceMatrix": filtered_matrix}})
+    B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
+    start_node = "0.0"
+    end_node = "0.0.0"
+    linear_tour = linear_picking(B, start_node, end_node, set_1, set_2)
+    tour_cost, _ = total_cost(B, linear_tour["tour"])
+    return tour_cost
 
 def calculate_objective_value(distance_matrix, configuration):
     """
@@ -77,11 +89,9 @@ def convert_to_native_types(data):
 
 def run_simulation(input_data=None):
     """
-    Run the simulation process:
-    - Handles multiple KH sequences **together** as a system.
-    - Evaluates multiple GR configurations **across all KH sequences at once**.
-    - Selects the **best single GR configuration** that optimizes the entire process.
+    Run the simulation process, handling multiple phases of KH sequences.
     """
+
     total_time_start = int(time() * 1000)
 
     # Load input data
@@ -95,86 +105,109 @@ def run_simulation(input_data=None):
         num_random_gr_configs = data["num_random_gr_configs"]
         current_config = data["current_config"]
     else:
-        print("Input data not provided, using local files.")
-        distance_matrix = load_distance_matrix()
-        containers_template = load_containers_template()
-        kit_holders_template = load_kit_holders_template()
-        kh_sequences = [["KH001", "KH002", "KH001", "KH003"]]
-        num_random_gr_configs = 2
-        with open("current_config.json", "r") as f:
-            current_config = json.load(f)
+        raise ValueError("Input data is required.")
 
-    # Generate multiple GR configurations
-    gr_configs = generate_unique_gr_configurations(num_random_gr_configs, containers_template)
-
-    best_config = None
-    best_value = float("inf")
+    # Store simulation results
     overall_results = []
 
-    for gr_key, gr_config in gr_configs.items():
-        print(f"\n>>> Running Simulation for GR Configuration: {gr_key}")
+    # **STEP 1: Compute baseline values for the initial GR configuration**
+    print("\n>>> Evaluating Baseline Configuration...")
 
-        # Store results for this GR configuration
+    baseline_values = []
+    for i, kh_setup in enumerate(kh_sequences):
+        kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
+
+        baseline_exact = calculate_objective_value(distance_matrix, {
+            "containers": current_config["containers"],
+            "kit_holders": kh_config
+        })
+
+        baseline_linear = calculate_linear_value(distance_matrix, {
+            "containers": current_config["containers"],
+            "kit_holders": kh_config
+        })
+
+        baseline_values.append({
+            "phase": i + 1,
+            "kh_setup": kh_setup,
+            "current_value_exact": baseline_exact,
+            "current_value_linear": baseline_linear
+        })
+
+    # **STEP 2: Iterate Over Random GR Configurations**
+    for run_idx in range(num_random_gr_configs):
+        print(f"\n>>> Running Simulation with GR Configuration {run_idx + 1}")
+
+        # Generate a new GR configuration (same for all KH sequences)
+        gr_config = randomize_containers(containers_template)
+
         sequence_results = []
         last_node_visited = "0.0"
+        total_value = 0
 
         for i, kh_setup in enumerate(kh_sequences):
             print(f"\n>>> Running Phase {i + 1} with KH Setup: {kh_setup}")
 
-            # Ensure last visited node is added explicitly
-            if i > 0:
-                print(f"Adding previously visited node ({last_node_visited}) to KH setup for Phase {i + 1}.")
-                kh_setup = [last_node_visited] + kh_setup
+            # Copy KH setup and ensure last node is inserted (avoid duplication)
+            kh_setup_copy = list(kh_setup)
+            if i > 0 and last_node_visited not in kh_setup_copy:
+                kh_setup_copy.insert(0, last_node_visited)
 
-            kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
+            kh_config = generate_kh_configuration(kh_setup_copy, kit_holders_template)
 
-            # Evaluate the GR configuration for this KH setup
             obj_value = calculate_objective_value(distance_matrix, {
                 "containers": gr_config,
                 "kit_holders": kh_config
             })
 
+            total_value += obj_value
+
             sequence_results.append({
                 "phase": i + 1,
-                "kh_setup": kh_setup,
+                "kh_setup": kh_setup_copy,
                 "objective_value": obj_value
             })
 
-            last_node_visited = kh_setup[-1]  # Store last visited node for next phase
+            last_node_visited = kh_setup_copy[-1]  # Store last visited node for next phase
 
-        # Sum the total system-wide performance for this GR configuration
-        total_value = sum(result["objective_value"] for result in sequence_results)
-
-        # Store the best system-wide GR configuration
-        if total_value < best_value:
-            best_value = total_value
-            best_config = gr_config
-
-        # Store results for this GR configuration
         overall_results.append({
-            "gr_config": gr_key,
+            "gr_config": "-".join([f"{c['gr_position']}:{c['contents'][0]['type']}" for c in gr_config.values()]),
             "total_value": total_value,
             "sequence_results": sequence_results
         })
 
-    # Store final results
-    end_time = int(time() * 1000)
+    # **STEP 3: Select the Best GR Configuration**
+    best_run = min(overall_results, key=lambda x: x["total_value"])
+    best_gr_config = best_run["gr_config"]
+    best_total_value = best_run["total_value"]
 
+    # **STEP 4: Compute Improvement Metrics**
+    improvement_exact = round(((sum([b["current_value_exact"] for b in baseline_values]) - best_total_value) /
+                               sum([b["current_value_exact"] for b in baseline_values])) * 100, 3)
+    improvement_linear = round(((sum([b["current_value_linear"] for b in baseline_values]) - best_total_value) /
+                                sum([b["current_value_linear"] for b in baseline_values])) * 100, 3)
+
+    # **STEP 5: Store Final Results**
+    end_time = int(time() * 1000)
     output_data = {
         "uuid": input_data['uuid'],
         "produced_at": int(time() * 1000),
         "data": {
-            "best_config": best_config,
-            "best_total_value": best_value,
+            "baseline_results": baseline_values,
+            "best_total_value": best_total_value,
+            "improvement_exact": improvement_exact,
+            "improvement_linear": improvement_linear,
             "overall_results": overall_results,
-            "solutionTime": (end_time - total_time_start),
+            "solutionTime": (end_time - total_time_start)
         }
     }
 
     output_data = convert_to_native_types(output_data)
 
+    # Save to JSON file
     with open("simulation_results_v2.json", "w") as f:
         json.dump(output_data, f, indent=4)
     print("Simulation completed and results saved.")
 
     return output_data
+
