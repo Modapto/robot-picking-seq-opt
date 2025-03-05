@@ -318,36 +318,50 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
             "kit_holders": kh_config
         })
 
-        if i > 0:
-            duplicated_node = last_node_visited  # Keep the actual last node
-            renamed_node = "0.0"  # Rename it to 0.0 for next phase
+        if i > 0:  # Ensure we process phase transitions
+            duplicated_node = last_node_visited
+            renamed_node = "0.0"
 
-            print(f"🛠 Adjusting phase {i}: Copying {duplicated_node} as {renamed_node}")
+            print(f"🛠 Fixing duplication: Mapping {duplicated_node} as {renamed_node}")
 
+            # Preserve edges from last node to the new node (0.0)
+            if duplicated_node in B:
+                print(f"🔄 Updating Graph B: Copying all edges from {duplicated_node} to {renamed_node}")
+
+                for neighbor in list(B[duplicated_node]):  # Ensure we're working on a copy
+                    if B.has_edge(duplicated_node, neighbor):
+                        weight = B[duplicated_node][neighbor]['weight']
+                        B.add_edge(renamed_node, neighbor, weight=weight)
+                        print(f"✅ Copied edge: {renamed_node} → {neighbor} with weight {weight}")
+
+                    if B.has_edge(neighbor, duplicated_node):  # Handle incoming edges too
+                        weight = B[neighbor][duplicated_node]['weight']
+                        B.add_edge(neighbor, renamed_node, weight=weight)
+                        print(f"✅ Copied edge: {neighbor} → {renamed_node} with weight {weight}")
+
+            # Ensure last_node_visited remains accessible
             if duplicated_node not in kh_setup:
-                kh_setup.insert(0, duplicated_node)  # Insert the actual last node
+                kh_setup.insert(0, duplicated_node)
 
-            # 🔥 **Fix: Ensure First Transition Uses Correct Distance**
             new_filtered_matrix = []
             for edge in filtered_matrix:
                 new_filtered_matrix.append(edge)
+
+                # Preserve outgoing edges from last_node_visited (4.6 → X)
                 if edge["edge"].startswith(f"({duplicated_node},"):
+                    new_edge = edge["edge"].replace(f"({duplicated_node},", f"({renamed_node},")
+                    print(f"🔄 Preserving edge {duplicated_node} → {edge['edge']} as {renamed_node} → {new_edge}")
                     new_filtered_matrix.append({
-                        "edge": edge["edge"].replace(f"({duplicated_node},", f"({renamed_node},"),
-                        "distance": edge["distance"]
-                    })
-                if edge["edge"].endswith(f", {duplicated_node})"):
-                    new_filtered_matrix.append({
-                        "edge": edge["edge"].replace(f", {duplicated_node})", f", {renamed_node})"),
+                        "edge": new_edge,
                         "distance": edge["distance"]
                     })
 
-            # ✅ **Ensure the first move in the next phase uses `duplicated_node` instead of `0.0`**
-            for edge in new_filtered_matrix:
-                if edge["edge"] == f"({duplicated_node}, 2.7.1)":
-                    print(f"✅ Correcting first transition: Using {duplicated_node} instead of 0.0")
+                # Preserve incoming edges to last_node_visited (X → 4.6)
+                if edge["edge"].endswith(f", {duplicated_node})"):
+                    new_edge = edge["edge"].replace(f", {duplicated_node})", f", {renamed_node})")
+                    print(f"🔄 Preserving edge {edge['edge']} → {duplicated_node} as {new_edge} → {renamed_node}")
                     new_filtered_matrix.append({
-                        "edge": f"(0.0, 2.7.1)",
+                        "edge": new_edge,
                         "distance": edge["distance"]
                     })
 
@@ -400,10 +414,11 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
         # **Run Linear Method**
         if method in ["linear", "exact-linear"]:
             print("Running Linear Method TSP...")
-            linear_tour = linear_picking(B, start_node, end_node, set_1, set_2)
+            linear_tour = linear_picking(B, last_node_visited, end_node, set_1, set_2)
             linear_tour_cost, time_details_linear = total_cost(B, linear_tour['tour'])
 
-            # **Fix: Correctly Update Last Visited Node in Linear Method**
+
+            # ✅ **Fix: Properly Track Last Visited Node**
             if i < len(kh_sequences) - 1:
                 for j in range(len(linear_tour['tour']) - 1, -1, -1):
                     if linear_tour['tour'][j] == "0.0.0":
@@ -413,7 +428,7 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
                         linear_tour['tour'] = linear_tour['tour'][:last_real_index + 1]
                         break
 
-                # Ensure time_details reflect correct transitions
+                # ✅ **Fix: Ensure Time Details Reflect Correct Transitions**
                 time_details_linear = [step for step in time_details_linear if step["to"] not in ["0.0.0", "0.0"]]
                 linear_tour_cost = sum(step["totalTime"] for step in time_details_linear)
 
