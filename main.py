@@ -14,8 +14,8 @@ from reinforcement_learning import *
 from exact_method import *
 from rl_heuristics import *
 from method_linear import *
-from simulator import *
-# from simulator_v2 import *
+# from simulator import *
+from simulator_v2 import *
 online = sys.argv[1]  # This argument will differentiate between local and remote runs
 
 # Function to convert data types to native Python types (e.g., for JSON serialization)
@@ -417,7 +417,7 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
                 phase_results["improvement_percentage"] = round(improvement, 2)
                 if improvement > 0:
                     print(f"Exact Method is better by {improvement:.2f}%. Using Exact Method. Cost: {exact_tour_cost}")
-                    phase_results = {"exact": phase_results["exact"], "improvement_percentage": round(improvement, 2)}
+                    phase_results = {"exact": phase_results["exact"], "improvement_percentage": round(improvement, 2), "linear": phase_results["linear"]}
                 else:
                     print(f"Linear Method is better by {-improvement:.2f}%. Using Linear Method. Cost: {linear_tour_cost}")
                     phase_results = {"linear": phase_results["linear"], "improvement_percentage": round(improvement, 2)}
