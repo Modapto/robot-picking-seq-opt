@@ -6,8 +6,7 @@
         "method": "linear",
         "kh_sequences": [
             ["KH001", "KH002", "KH003", "KH001"],
-            ["KH001", "KH002", "KH001", "KH003"],
-            ["KH002", "KH003", "KH001", "KH003"]
+            ["KH001", "KH002", "KH001", "KH003"]
         ],
         "current_config": {
     "containers": {
