@@ -1,78 +1,51 @@
-def linear_picking(B, start_node, end_node, set_1, set_2):
-    """
-    Simulates the industrial workflow with a linear picking sequence.
-
-    Parameters:
-        B (networkx.DiGraph): The directed bipartite graph with distances between nodes.
-        start_node (str): Starting node of the tour (e.g., "0.0").
-        end_node (str): Ending node of the tour (e.g., "0.0.0").
-        set_1 (list): List of kit holder positions.
-        set_2 (list): List of gravity rack positions.
-
-    Returns:
-        dict: A linear picking sequence (tour) and total cost.
-    """
-    tour = [start_node]  # Start from the initial node
+def linear_picking(B, start_node, end_node, set_1, set_2, filtered_matrix=None):
+    tour = [start_node]
     total_cost = 0
+    distance_dict = {edge["edge"]: edge["distance"] for edge in filtered_matrix} if filtered_matrix else {}
 
-    if start_node in B and end_node in B:
-        if not B.has_edge(start_node, end_node):
-            print(f"⚠️ Edge missing in Graph: {start_node} → {end_node}, adding default weight")
-            B.add_edge(start_node, end_node, weight=1)  # Assign a minimal cost to allow the transition
-
-    for position in sorted(set_1):  # Ensure positions are processed in order
+    for position in sorted(set_1):
+        if position == start_node and len(tour) == 1:  # Skip initial start_node
+            continue
         matching_rack = None
         min_distance = float('inf')
 
         for rack in set_2:
-            if B.has_edge(rack, position):  # Check if connection exists
-                distance = B[rack][position]['weight']  # Access the edge weight
-
-                # ✅ Prioritize copied edges from 0.0
-                if B.has_edge("0.0", rack):
-                    distance = min(distance, B["0.0"][rack]['weight'])
-
+            if B.has_edge(rack, position):
+                edge_key = f"({rack}, {position})"
+                distance = distance_dict.get(edge_key, B[rack][position]['weight'])
                 if distance < min_distance:
                     min_distance = distance
                     matching_rack = rack
 
         if matching_rack:
-            # Move from current node to the matching rack
-            if B.has_edge(tour[-1], matching_rack):
-                tour.append(matching_rack)
-                total_cost += B[tour[-2]][matching_rack]['weight']
+            edge_key = f"({tour[-1]}, {matching_rack})"
+            distance = distance_dict.get(edge_key, B[tour[-1]][matching_rack]['weight'])
+            tour.append(matching_rack)
+            total_cost += distance
 
-            # Move from rack to kit holder position
+            edge_key = f"({matching_rack}, {position})"
+            distance = distance_dict.get(edge_key, B[matching_rack][position]['weight'])
             tour.append(position)
-            total_cost += min_distance
+            total_cost += distance
 
-    # Return to the end node
     if tour[-1] != end_node:
-        tour.append(end_node)
-        if B.has_edge(tour[-2], end_node):
-            total_cost += B[tour[-2]][end_node]['weight']
+        edge_key = f"({tour[-1]}, {end_node})"
+        distance = distance_dict.get(edge_key, B[tour[-1]][end_node]['weight'] if B.has_edge(tour[-1], end_node) else float('inf'))
+        if distance != float('inf'):
+            tour.append(end_node)
+            total_cost += distance
 
     return {"tour": tour, "total_cost": total_cost}
 
-
-def total_cost(G, tour):
-    """
-    Function to calculate the total cost of a given tour.
-
-    Parameters:
-    - G: A graph representing the problem.
-    - tour: List of nodes representing the tour.
-
-    Returns:
-    - cost: Total cost of the tour.
-    - time_details: List of details for each segment of the tour.
-    """
+def total_cost(G, tour, filtered_matrix=None):
     cost = 0
     time_details = []
+    distance_dict = {edge["edge"]: edge["distance"] for edge in filtered_matrix} if filtered_matrix else {}
     for i in range(len(tour) - 1):
         u, v = tour[i], tour[i + 1]
-        if u in G and v in G[u]:
-            weight = G[u][v]['weight']
+        edge_key = f"({u}, {v})"
+        weight = distance_dict.get(edge_key, G[u][v]['weight'] if u in G and v in G[u] else float('inf'))
+        if weight != float('inf'):
             cost += weight
             time_details.append({
                 "from": u,
@@ -80,3 +53,4 @@ def total_cost(G, tour):
                 "totalTime": weight
             })
     return cost, time_details
+

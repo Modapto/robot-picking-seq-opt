@@ -273,9 +273,6 @@ def convert_to_native_types(data):
 
 print('test')
 
-
-
-
 def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
     total_time_start = int(time() * 1000)
 
@@ -317,66 +314,58 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
             "containers": current_config["containers"],
             "kit_holders": kh_config
         })
-
-        if i > 0:  # Ensure we process phase transitions
+        # Duplicate Last Visited Node for Next Phase
+        if i > 0:
             duplicated_node = last_node_visited
             renamed_node = "0.0"
-
-            print(f"🛠 Fixing duplication: Mapping {duplicated_node} as {renamed_node}")
-
-            # Preserve edges from last node to the new node (0.0)
-            if duplicated_node in B:
-                print(f"🔄 Updating Graph B: Copying all edges from {duplicated_node} to {renamed_node}")
-
-                for neighbor in list(B[duplicated_node]):  # Ensure we're working on a copy
-                    if B.has_edge(duplicated_node, neighbor):
-                        weight = B[duplicated_node][neighbor]['weight']
-                        B.add_edge(renamed_node, neighbor, weight=weight)
-                        print(f"✅ Copied edge: {renamed_node} → {neighbor} with weight {weight}")
-
-                    if B.has_edge(neighbor, duplicated_node):  # Handle incoming edges too
-                        weight = B[neighbor][duplicated_node]['weight']
-                        B.add_edge(neighbor, renamed_node, weight=weight)
-                        print(f"✅ Copied edge: {neighbor} → {renamed_node} with weight {weight}")
-
-            # Ensure last_node_visited remains accessible
+            print(f"Duplicating last visited node ({duplicated_node}) and renaming duplicate as `{renamed_node}`.")
             if duplicated_node not in kh_setup:
                 kh_setup.insert(0, duplicated_node)
+                print(f"Updated kh_setup: {kh_setup}")
 
-            new_filtered_matrix = []
-            for edge in filtered_matrix:
-                new_filtered_matrix.append(edge)
-
-                # Preserve outgoing edges from last_node_visited (4.6 → X)
+            # Use distance_matrix for duplication
+            new_filtered_matrix = filtered_matrix.copy()
+            duplicated_edges_added = 0
+            for edge in distance_matrix:  # Source from full distance_matrix
                 if edge["edge"].startswith(f"({duplicated_node},"):
-                    new_edge = edge["edge"].replace(f"({duplicated_node},", f"({renamed_node},")
-                    print(f"🔄 Preserving edge {duplicated_node} → {edge['edge']} as {renamed_node} → {new_edge}")
-                    new_filtered_matrix.append({
-                        "edge": new_edge,
-                        "distance": edge["distance"]
-                    })
-
-                # Preserve incoming edges to last_node_visited (X → 4.6)
+                    new_edge = {
+                        "edge": edge["edge"].replace(f"({duplicated_node},", f"({renamed_node},"),
+                        "distance": edge["distance"] + 2000  # Match filter_distance_matrix adjustment
+                    }
+                    # Replace existing "0.0" edge
+                    new_filtered_matrix = [e for e in new_filtered_matrix if e["edge"] != new_edge["edge"]]
+                    new_filtered_matrix.append(new_edge)
+                    duplicated_edges_added += 1
+                    print(f"Added duplicated edge: {new_edge}")
                 if edge["edge"].endswith(f", {duplicated_node})"):
-                    new_edge = edge["edge"].replace(f", {duplicated_node})", f", {renamed_node})")
-                    print(f"🔄 Preserving edge {edge['edge']} → {duplicated_node} as {new_edge} → {renamed_node}")
-                    new_filtered_matrix.append({
-                        "edge": new_edge,
-                        "distance": edge["distance"]
-                    })
-
+                    new_edge = {
+                        "edge": edge["edge"].replace(f", {duplicated_node})", f", {renamed_node})"),
+                        "distance": edge["distance"] + 2000
+                    }
+                    new_filtered_matrix.append(new_edge)
+                    duplicated_edges_added += 1
             filtered_matrix = new_filtered_matrix
-
+            print(f"Total duplicated edges added: {duplicated_edges_added}")
+            print(f"Updated filtered_matrix length: {len(filtered_matrix)}")
+            print(f"Edges with '0.0': {[e for e in filtered_matrix if '0.0' in e['edge']][:5]}")
         # Parse distance matrix
+        print("Parsing distance matrix into a_to_b_matrix...")
         a_to_b_matrix = create_distance_matrices({"data": {"distanceMatrix": filtered_matrix}})
+        print(
+            f"a_to_b_matrix created with shape: {a_to_b_matrix.shape if hasattr(a_to_b_matrix, 'shape') else 'unknown'}")
 
         # Create bipartite graph
+        print("Creating directed bipartite graph...")
         B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
+        print(f"Graph B nodes: {len(B.nodes())}, edges: {len(B.edges())}")
+        print(f"Set 1 (kit holders): {set_1}")
+        print(f"Set 2 (gravity racks): {set_2}")
 
         method = data["method"]
+        print(f"Selected method: {method}")
         phase_results = {}
 
-        ## *Run the selected method(s)*
+        ## Run the selected method(s)
         exact_tour = None
         exact_tour_cost = None
         time_details_exact = None
@@ -385,7 +374,7 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
         linear_tour_cost = None
         time_details_linear = None
 
-        # *Run Exact Method*
+        # Run Exact Method
         if method in ["exact", "exact-linear"]:
             print("Running Exact Method TSP...")
             exact_input = {
@@ -395,55 +384,66 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
                     "end_node": end_node if i == len(kh_sequences) - 1 else None
                 }
             }
+            print(f"Exact method input: {exact_input['data'].keys()}")
             exact_tour, exact_tour_cost, time_details_exact = run_exact_tsp(exact_input)
+            print(f"Exact tour: {exact_tour}")
+            print(f"Exact tour cost: {exact_tour_cost}")
+            print(f"Exact time details length: {len(time_details_exact)}")
 
             if i < len(kh_sequences) - 1:
+                print("Adjusting exact tour for next phase...")
                 for j in range(len(exact_tour) - 1, -1, -1):
                     if exact_tour[j][1] == "0.0.0":
                         last_node_visited = exact_tour[j][0]
                         exact_tour = exact_tour[:j]
+                        print(f"Trimmed exact tour at '0.0.0', new last node: {last_node_visited}")
                         break
                 time_details_exact = [step for step in time_details_exact if step["to"] not in ["0.0.0", "0.0"]]
                 exact_tour_cost = sum(step["distance"] for step in time_details_exact)
+                print(f"Updated exact tour: {exact_tour}")
+                print(f"Updated exact tour cost: {exact_tour_cost}")
+                print(f"Updated exact time details length: {len(time_details_exact)}")
 
             phase_results["exact"] = {
                 "cost": exact_tour_cost,
                 "time_details": time_details_exact
             }
+            print("Exact method results stored in phase_results")
 
-        # **Run Linear Method**
+        # Run Linear Method
         if method in ["linear", "exact-linear"]:
             print("Running Linear Method TSP...")
-            # Ensure that 0.0 connects to 0.0.0 before running the Linear TSP
-            if "0.0" in B and "0.0.0" in B:
-                if not B.has_edge("0.0", "0.0.0"):
-                    print(f"⚠️ Missing edge detected: 0.0 → 0.0.0. Adding default weight.")
-                    B.add_edge("0.0", "0.0.0", weight=1)  # Assign minimal cost
+            linear_tour = linear_picking(B, start_node, end_node, set_1, set_2, filtered_matrix=filtered_matrix)
+            print(f"Linear tour: {linear_tour['tour']}")
+            print(f"Initial linear tour cost: {linear_tour['total_cost']}")
+            linear_tour_cost, time_details_linear = total_cost(B, linear_tour['tour'], filtered_matrix=filtered_matrix)
+            print(f"Computed linear tour cost: {linear_tour_cost}")
+            print(f"Linear time details length: {len(time_details_linear)}")
+            print(f"Sample of linear time details: {time_details_linear[:3]}")  # First 3 for brevity
 
-            linear_tour = linear_picking(B, last_node_visited, end_node, set_1, set_2)
-            linear_tour_cost, time_details_linear = total_cost(B, linear_tour['tour'])
-
-
-            # ✅ **Fix: Properly Track Last Visited Node**
+            # Fix: Remove Final Move to `0.0.0` Before Next Phase
             if i < len(kh_sequences) - 1:
+                print("Adjusting linear tour for next phase...")
                 for j in range(len(linear_tour['tour']) - 1, -1, -1):
                     if linear_tour['tour'][j] == "0.0.0":
-                        last_real_index = j - 1
-                        last_node_visited = linear_tour['tour'][last_real_index]
-                        print(f"✅ Fixed last_node_visited in Linear: {last_node_visited}")
-                        linear_tour['tour'] = linear_tour['tour'][:last_real_index + 1]
+                        last_node_visited = linear_tour['tour'][j - 1]
+                        linear_tour['tour'] = linear_tour['tour'][:j]
+                        print(f"Trimmed linear tour at '0.0.0', new last node: {last_node_visited}")
                         break
-
-                # ✅ **Fix: Ensure Time Details Reflect Correct Transitions**
                 time_details_linear = [step for step in time_details_linear if step["to"] not in ["0.0.0", "0.0"]]
                 linear_tour_cost = sum(step["totalTime"] for step in time_details_linear)
+                print(f"Updated linear tour: {linear_tour['tour']}")
+                print(f"Updated linear tour cost: {linear_tour_cost}")
+                print(f"Updated linear time details length: {len(time_details_linear)}")
 
             phase_results["linear"] = {
                 "cost": linear_tour_cost,
                 "time_details": time_details_linear
             }
+            print("Linear method results stored in phase_results")
 
-        # **Compare Exact and Linear in Exact-Linear Mode**
+
+        # Compare Exact and Linear in Exact-Linear Mode
         if method == "exact-linear":
             print("Comparing Exact and Linear Methods...")
             if exact_tour_cost is not None and linear_tour_cost is not None:
@@ -453,13 +453,12 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
                     print(f"Exact Method is better by {improvement:.2f}%. Using Exact Method. Cost: {exact_tour_cost}")
                     phase_results = {"exact": phase_results["exact"], "improvement_percentage": improvement}
                 else:
-                    print(
-                        f"Linear Method is better by {-improvement:.2f}%. Using Linear Method. Cost: {linear_tour_cost}")
+                    print(f"Linear Method is better by {-improvement:.2f}%. Using Linear Method. Cost: {linear_tour_cost}")
                     phase_results = {"linear": phase_results["linear"], "improvement_percentage": improvement}
 
         results.append(phase_results)
 
-    # *Save the final results*
+    # Save the final results
     end_time = int(time() * 1000)
     output_data = {
         "uuid": input_data['uuid'],
@@ -479,7 +478,6 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
 
     print(f"Output saved to {output_json_file_path}")
     return output_data
-
 
 
 def callback(ch, method, properties, body):
