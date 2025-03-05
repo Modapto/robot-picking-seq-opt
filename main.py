@@ -14,7 +14,8 @@ from reinforcement_learning import *
 from exact_method import *
 from rl_heuristics import *
 from method_linear import *
-from simulator import *
+# from simulator import *
+from simulator_v2 import *
 online = sys.argv[1]  # This argument will differentiate between local and remote runs
 
 # Function to convert data types to native Python types (e.g., for JSON serialization)
@@ -317,7 +318,7 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
             "kit_holders": kh_config
         })
 
-        # **Duplicate Last Visited Node for Next Phase**
+        # *Duplicate Last Visited Node for Next Phase*
         if i > 0:
             duplicated_node = last_node_visited  # Keep the original name
             renamed_node = "0.0"  # Rename the duplicated one
@@ -352,7 +353,7 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
         method = data["method"]
         phase_results = {}
 
-        ## **Run the selected method(s)**
+        ## *Run the selected method(s)*
         exact_tour = None
         exact_tour_cost = None
         time_details_exact = None
@@ -361,7 +362,7 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
         linear_tour_cost = None
         time_details_linear = None
 
-        # **Run Exact Method**
+        # *Run Exact Method*
         if method in ["exact", "exact-linear"]:
             print("Running Exact Method TSP...")
             exact_input = {
@@ -387,13 +388,13 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
                 "time_details": time_details_exact
             }
 
-        # **Run Linear Method**
+        # *Run Linear Method*
         if method in ["linear", "exact-linear"]:
             print("Running Linear Method TSP...")
             linear_tour = linear_picking(B, start_node, end_node, set_1, set_2)
             linear_tour_cost, time_details_linear = total_cost(B, linear_tour['tour'])
 
-            # **Fix: Remove Final Move to `0.0.0` Before Next Phase**
+            # *Fix: Remove Final Move to `0.0.0` Before Next Phase*
             if i < len(kh_sequences) - 1:
                 for j in range(len(linear_tour['tour']) - 1, -1, -1):
                     if linear_tour['tour'][j] == "0.0.0":
@@ -408,7 +409,7 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
                 "time_details": time_details_linear
             }
 
-        # **Compare Exact and Linear in Exact-Linear Mode**
+        # *Compare Exact and Linear in Exact-Linear Mode*
         if method == "exact-linear":
             print("Comparing Exact and Linear Methods...")
             if exact_tour_cost is not None and linear_tour_cost is not None:
@@ -423,7 +424,7 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
 
         results.append(phase_results)
 
-    # **Save the final results**
+    # *Save the final results*
     end_time = int(time() * 1000)
     output_data = {
         "uuid": input_data['uuid'],

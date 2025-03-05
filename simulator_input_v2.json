@@ -9,7 +9,7 @@
             ["KH001", "KH002", "KH001", "KH003"],
             ["KH002", "KH003", "KH001", "KH003"]
         ],
-        "num_random_gr_configs": 5,
+        "num_random_gr_configs": 2,
         "containers_template": {
     "Container_1": {"gr_position": "1.1","contents" : [{"position":"1.1.1","type":"Component_1"},
                                                        {"position":"1.1.2","type":"Component_1"},
