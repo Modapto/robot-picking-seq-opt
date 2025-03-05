@@ -1,18 +1,18 @@
 {
     "uuid": "20575aa3-a69a-46e1-83b3-7e4ee2d68601",
-    "produced_at": 1741177497985,
+    "produced_at": 1741177561878,
     "data": {
         "phases": [
             {
                 "phase": 1,
                 "current_value_exact": 871545,
                 "current_value_linear": 1114089,
-                "best_value": 822703,
-                "improvement_exact": 5.604,
-                "improvement_linear": 26.155,
+                "best_value": 819141,
+                "improvement_exact": 6.013,
+                "improvement_linear": 26.474,
                 "best_configuration": {
-                    "key": "1.1: Component_15 - 1.2: Component_16 - 1.3: Component_4 - 1.4: Component_10 - 1.5: Component_3 - 1.6: Component_14 - 1.7: Component_2 - 2.1: Component_11 - 2.2: Component_12 - 2.3: Component_5 - 2.4: Component_7 - 2.5: Component_13 - 2.6: Component_1 - 2.7: Component_9 - ",
-                    "objective_value": 822703
+                    "key": "1.1: Component_9 - 1.2: Component_11 - 1.3: Component_2 - 1.4: Component_12 - 1.5: Component_13 - 1.6: Component_10 - 1.7: Component_14 - 2.1: Component_15 - 2.2: Component_7 - 2.3: Component_4 - 2.4: Component_5 - 2.5: Component_1 - 2.6: Component_3 - 2.7: Component_16 - ",
+                    "objective_value": 819141
                 },
                 "current_configuration": {
                     "containers": {
@@ -317,12 +317,12 @@
                 "phase": 2,
                 "current_value_exact": 920507,
                 "current_value_linear": 1132271,
-                "best_value": 866880,
-                "improvement_exact": 5.826,
-                "improvement_linear": 23.439,
+                "best_value": 873693,
+                "improvement_exact": 5.086,
+                "improvement_linear": 22.837,
                 "best_configuration": {
-                    "key": "1.1: Component_14 - 1.2: Component_15 - 1.3: Component_3 - 1.4: Component_7 - 1.5: Component_12 - 1.6: Component_9 - 1.7: Component_1 - 2.1: Component_10 - 2.2: Component_4 - 2.3: Component_16 - 2.4: Component_5 - 2.5: Component_13 - 2.6: Component_2 - 2.7: Component_11 - ",
-                    "objective_value": 866880
+                    "key": "1.1: Component_11 - 1.2: Component_9 - 1.3: Component_12 - 1.4: Component_16 - 1.5: Component_2 - 1.6: Component_5 - 1.7: Component_14 - 2.1: Component_15 - 2.2: Component_1 - 2.3: Component_4 - 2.4: Component_3 - 2.5: Component_10 - 2.6: Component_13 - 2.7: Component_7 - ",
+                    "objective_value": 873693
                 },
                 "current_configuration": {
                     "containers": {
@@ -627,12 +627,12 @@
                 "phase": 3,
                 "current_value_exact": 783782,
                 "current_value_linear": 967081,
-                "best_value": 823708,
-                "improvement_exact": -5.094,
-                "improvement_linear": 14.825,
+                "best_value": 794176,
+                "improvement_exact": -1.326,
+                "improvement_linear": 17.879,
                 "best_configuration": {
-                    "key": "1.1: Component_16 - 1.2: Component_3 - 1.3: Component_5 - 1.4: Component_13 - 1.5: Component_14 - 1.6: Component_4 - 1.7: Component_15 - 2.1: Component_10 - 2.2: Component_12 - 2.3: Component_9 - 2.4: Component_7 - 2.5: Component_11 - 2.6: Component_2 - 2.7: Component_1 - ",
-                    "objective_value": 823708
+                    "key": "1.1: Component_13 - 1.2: Component_5 - 1.3: Component_4 - 1.4: Component_12 - 1.5: Component_3 - 1.6: Component_10 - 1.7: Component_9 - 2.1: Component_7 - 2.2: Component_2 - 2.3: Component_16 - 2.4: Component_11 - 2.5: Component_15 - 2.6: Component_1 - 2.7: Component_14 - ",
+                    "objective_value": 794176
                 },
                 "current_configuration": {
                     "containers": {
@@ -934,7 +934,7 @@
                 }
             }
         ],
-        "solutionTime": 23031,
-        "totalTime": 23031
+        "solutionTime": 23205,
+        "totalTime": 23205
     }
 }

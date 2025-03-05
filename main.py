@@ -14,7 +14,8 @@ from reinforcement_learning import *
 from exact_method import *
 from rl_heuristics import *
 from method_linear import *
-from simulator import *
+# from simulator import *
+from simulator_v2 import *
 online = sys.argv[1]  # This argument will differentiate between local and remote runs
 
 # Function to convert data types to native Python types (e.g., for JSON serialization)
