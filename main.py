@@ -414,6 +414,12 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
         # **Run Linear Method**
         if method in ["linear", "exact-linear"]:
             print("Running Linear Method TSP...")
+            # Ensure that 0.0 connects to 0.0.0 before running the Linear TSP
+            if "0.0" in B and "0.0.0" in B:
+                if not B.has_edge("0.0", "0.0.0"):
+                    print(f"⚠️ Missing edge detected: 0.0 → 0.0.0. Adding default weight.")
+                    B.add_edge("0.0", "0.0.0", weight=1)  # Assign minimal cost
+
             linear_tour = linear_picking(B, last_node_visited, end_node, set_1, set_2)
             linear_tour_cost, time_details_linear = total_cost(B, linear_tour['tour'])
 

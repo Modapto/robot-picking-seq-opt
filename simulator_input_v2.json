@@ -6,8 +6,7 @@
         "method": "simulation",
         "kh_sequences": [
             ["KH001", "KH002", "KH003", "KH001"],
-            ["KH001", "KH002", "KH001", "KH003"],
-            ["KH002", "KH003", "KH001", "KH003"]
+            ["KH001", "KH002", "KH003", "KH002"]
         ],
         "num_random_gr_configs": 2,
         "containers_template": {
