@@ -232,21 +232,6 @@ from method_linear import linear_picking, total_cost
 from GraphCreation import create_directed_bipartite_graph
 from parse_json import create_distance_matrices
 
-import json
-import copy
-from time import time
-from configurations_final import (
-    load_distance_matrix,
-    load_containers_template,
-    load_kit_holders_template,
-    randomize_containers,
-    filter_distance_matrix
-)
-from exact_method import run_exact_tsp
-from method_linear import linear_picking, total_cost
-from GraphCreation import create_directed_bipartite_graph
-from parse_json import create_distance_matrices
-
 
 def generate_unique_gr_configurations(num_configs, containers_template):
     configurations = {}
@@ -280,9 +265,9 @@ def generate_kh_configuration(kh_setup, kit_holders_template):
 def calculate_full_sequence_cost(distance_matrix, configuration, method="exact"):
     working_matrix = distance_matrix.copy()
     last_node_visited = "0.0"
-    total_cost = 0
+    total_method_cost = 0
     full_tour = []
-    full_details = []
+    segmented_details = []
     kh_sequences = configuration["kh_sequences"]
 
     for i, kh_setup in enumerate(kh_sequences):
@@ -319,26 +304,32 @@ def calculate_full_sequence_cost(distance_matrix, configuration, method="exact")
             B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
             tour_data = linear_picking(B, "0.0", "0.0" if i == len(kh_sequences) - 1 else None, set_1, set_2)
             cost, time_details = total_cost(B, tour_data["tour"])
-            tour = [(time_details[j]["from"], time_details[j]["to"]) for j in range(len(time_details))]
+            # Normalize time_details to use "distance" instead of "totalTime"
+            time_details = [{"from": step["from"], "to": step["to"], "distance": step["totalTime"]} for step in
+                            time_details]
+            tour = [(step["from"], step["to"]) for step in time_details]
             if i < len(kh_sequences) - 1:
                 for j in range(len(tour) - 1, -1, -1):
                     if tour[j][1] == "0.0.0":
                         last_node_visited = tour[j][0]
+                        if last_node_visited == "0.0" and j > 0:  # Use previous node if "0.0"
+                            last_node_visited = tour[j - 1][0]
                         tour = tour[:j]
                         time_details = [step for step in time_details if step["to"] not in ["0.0.0", "0.0"]]
-                        cost = sum(step["totalTime"] for step in time_details)
+                        cost = sum(step["distance"] for step in time_details)
                         break
                 print(f"Trimmed linear tour, last node: {last_node_visited}")
 
-        total_cost += cost
+        total_method_cost += cost
         full_tour.extend(
             tour if i == 0 else [(last_node_visited, step[1]) if step[0] == "0.0" else step for step in tour[1:]])
-        full_details.extend(time_details if i == 0 else [{"from": last_node_visited, "to": step["to"],
-                                                          "distance": step["distance"] if method == "exact" else step[
-                                                              "totalTime"]} if step["from"] == "0.0" else step for step
-                                                         in time_details[1:]])
+        segment_details = time_details if i == 0 else [
+                                                          {"from": last_node_visited, "to": time_details[0]["to"],
+                                                           "distance": time_details[0]["distance"]}
+                                                      ] + [step for step in time_details[1:]]
+        segmented_details.append(segment_details)
 
-    return total_cost, full_tour, full_details
+    return total_method_cost, full_tour, segmented_details
 
 
 def run_simulation(input_data=None):
@@ -395,7 +386,7 @@ def run_simulation(input_data=None):
             "kit_holders_template": kit_holders_template,
             "kh_sequences": kh_sequences
         }
-        cost, tour, time_details = calculate_full_sequence_cost(distance_matrix, run_config, method="exact")
+        cost, tour, segmented_details = calculate_full_sequence_cost(distance_matrix, run_config, method="exact")
 
         improvement_exact = round(((baseline_exact_cost - cost) / baseline_exact_cost) * 100,
                                   3) if baseline_exact_cost > 0 else 0
@@ -407,8 +398,10 @@ def run_simulation(input_data=None):
 
         runs.append({
             "exact_cost": cost,
-            "time_details": [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in
-                             time_details],
+            "time_details": [
+                [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in segment]
+                for segment in segmented_details
+            ],
             "improvement_exact": improvement_exact,
             "improvement_linear": improvement_linear,
             "gr_configuration": {
@@ -425,9 +418,23 @@ def run_simulation(input_data=None):
         "uuid": uuid,
         "produced_at": int(time() * 1000),
         "data": {
+            "baseline": {
+                "exact": {
+                    "cost": baseline_exact_cost,
+                    "time_details": [
+                        [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in segment]
+                        for segment in baseline_exact_details
+                    ]
+                },
+                "linear": {
+                    "cost": baseline_linear_cost,
+                    "time_details": [
+                        [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in segment]
+                        for segment in baseline_linear_details
+                    ]
+                }
+            },
             "runs": runs,
-            "baseline_exact_cost": baseline_exact_cost,
-            "baseline_linear_cost": baseline_linear_cost,
             "best_total_value": best_total_value,
             "solutionTime": (end_time - total_time_start),
             "totalTime": (end_time - total_time_start)
@@ -448,5 +455,6 @@ def convert_to_native_types(data):
     elif isinstance(data, (int, float, str, bool)) or data is None:
         return data
     return str(data)
+
 
 
