@@ -1,18 +1,18 @@
 {
     "uuid": "20575aa3-a69a-46e1-83b3-7e4ee2d68601",
-    "produced_at": 1741290755257,
+    "produced_at": 1741350721335,
     "data": {
         "phases": [
             {
                 "phase": 1,
                 "current_value_exact": 871545,
                 "current_value_linear": 1114089,
-                "best_value": 836684,
-                "improvement_exact": 4.0,
-                "improvement_linear": 24.9,
+                "best_value": 853338,
+                "improvement_exact": 2.089,
+                "improvement_linear": 23.405,
                 "best_configuration": {
-                    "key": "1.1: Component_14 - 1.2: Component_11 - 1.3: Component_9 - 1.4: Component_2 - 1.5: Component_13 - 1.6: Component_7 - 1.7: Component_10 - 2.1: Component_5 - 2.2: Component_4 - 2.3: Component_16 - 2.4: Component_3 - 2.5: Component_15 - 2.6: Component_12 - 2.7: Component_1 - ",
-                    "objective_value": 836684
+                    "key": "1.1: Component_3 - 1.2: Component_9 - 1.3: Component_14 - 1.4: Component_1 - 1.5: Component_12 - 1.6: Component_13 - 1.7: Component_4 - 2.1: Component_16 - 2.2: Component_5 - 2.3: Component_15 - 2.4: Component_7 - 2.5: Component_11 - 2.6: Component_2 - 2.7: Component_10 - ",
+                    "objective_value": 853338
                 },
                 "current_configuration": {
                     "containers": {
@@ -315,324 +315,14 @@
             },
             {
                 "phase": 2,
-                "current_value_exact": 920507,
-                "current_value_linear": 1132271,
-                "best_value": 837697,
-                "improvement_exact": 8.996,
-                "improvement_linear": 26.016,
+                "current_value_exact": 892082,
+                "current_value_linear": 1135376,
+                "best_value": 840144,
+                "improvement_exact": 5.822,
+                "improvement_linear": 26.003,
                 "best_configuration": {
-                    "key": "1.1: Component_11 - 1.2: Component_13 - 1.3: Component_7 - 1.4: Component_16 - 1.5: Component_2 - 1.6: Component_1 - 1.7: Component_3 - 2.1: Component_15 - 2.2: Component_5 - 2.3: Component_14 - 2.4: Component_12 - 2.5: Component_10 - 2.6: Component_9 - 2.7: Component_4 - ",
-                    "objective_value": 837697
-                },
-                "current_configuration": {
-                    "containers": {
-                        "Container_1": {
-                            "gr_position": "1.1",
-                            "contents": [
-                                {
-                                    "position": "1.1.1",
-                                    "type": "Component_1"
-                                },
-                                {
-                                    "position": "1.1.2",
-                                    "type": "Component_1"
-                                },
-                                {
-                                    "position": "1.1.3",
-                                    "type": "Component_1"
-                                },
-                                {
-                                    "position": "1.1.4",
-                                    "type": "Component_1"
-                                }
-                            ]
-                        },
-                        "Container_2": {
-                            "gr_position": "1.2",
-                            "contents": [
-                                {
-                                    "position": "1.2.1",
-                                    "type": "Component_9"
-                                },
-                                {
-                                    "position": "1.2.2",
-                                    "type": "Component_9"
-                                },
-                                {
-                                    "position": "1.2.3",
-                                    "type": "Component_9"
-                                },
-                                {
-                                    "position": "1.2.4",
-                                    "type": "Component_9"
-                                }
-                            ]
-                        },
-                        "Container_3": {
-                            "gr_position": "1.3",
-                            "contents": [
-                                {
-                                    "position": "1.3.1",
-                                    "type": "Component_11"
-                                },
-                                {
-                                    "position": "1.3.2",
-                                    "type": "Component_11"
-                                },
-                                {
-                                    "position": "1.3.3",
-                                    "type": "Component_11"
-                                },
-                                {
-                                    "position": "1.3.4",
-                                    "type": "Component_11"
-                                }
-                            ]
-                        },
-                        "Container_4": {
-                            "gr_position": "1.4",
-                            "contents": [
-                                {
-                                    "position": "1.4.1",
-                                    "type": "Component_15"
-                                },
-                                {
-                                    "position": "1.4.2",
-                                    "type": "Component_15"
-                                },
-                                {
-                                    "position": "1.4.3",
-                                    "type": "Component_15"
-                                },
-                                {
-                                    "position": "1.4.4",
-                                    "type": "Component_15"
-                                }
-                            ]
-                        },
-                        "Container_5": {
-                            "gr_position": "1.5",
-                            "contents": [
-                                {
-                                    "position": "1.5.1",
-                                    "type": "Component_10"
-                                },
-                                {
-                                    "position": "1.5.2",
-                                    "type": "Component_10"
-                                },
-                                {
-                                    "position": "1.5.3",
-                                    "type": "Component_10"
-                                },
-                                {
-                                    "position": "1.5.4",
-                                    "type": "Component_10"
-                                }
-                            ]
-                        },
-                        "Container_6": {
-                            "gr_position": "1.6",
-                            "contents": [
-                                {
-                                    "position": "1.6.1",
-                                    "type": "Component_16"
-                                },
-                                {
-                                    "position": "1.6.2",
-                                    "type": "Component_16"
-                                },
-                                {
-                                    "position": "1.6.3",
-                                    "type": "Component_16"
-                                },
-                                {
-                                    "position": "1.6.4",
-                                    "type": "Component_16"
-                                }
-                            ]
-                        },
-                        "Container_7": {
-                            "gr_position": "1.7",
-                            "contents": [
-                                {
-                                    "position": "1.7.1",
-                                    "type": "Component_4"
-                                },
-                                {
-                                    "position": "1.7.2",
-                                    "type": "Component_4"
-                                },
-                                {
-                                    "position": "1.7.3",
-                                    "type": "Component_4"
-                                },
-                                {
-                                    "position": "1.7.4",
-                                    "type": "Component_4"
-                                }
-                            ]
-                        },
-                        "Container_8": {
-                            "gr_position": "2.1",
-                            "contents": [
-                                {
-                                    "position": "2.1.1",
-                                    "type": "Component_13"
-                                },
-                                {
-                                    "position": "2.1.2",
-                                    "type": "Component_13"
-                                },
-                                {
-                                    "position": "2.1.3",
-                                    "type": "Component_13"
-                                },
-                                {
-                                    "position": "2.1.4",
-                                    "type": "Component_13"
-                                }
-                            ]
-                        },
-                        "Container_9": {
-                            "gr_position": "2.2",
-                            "contents": [
-                                {
-                                    "position": "2.2.1",
-                                    "type": "Component_3"
-                                },
-                                {
-                                    "position": "2.2.2",
-                                    "type": "Component_3"
-                                },
-                                {
-                                    "position": "2.2.3",
-                                    "type": "Component_3"
-                                },
-                                {
-                                    "position": "2.2.4",
-                                    "type": "Component_3"
-                                }
-                            ]
-                        },
-                        "Container_10": {
-                            "gr_position": "2.3",
-                            "contents": [
-                                {
-                                    "position": "2.3.1",
-                                    "type": "Component_12"
-                                },
-                                {
-                                    "position": "2.3.2",
-                                    "type": "Component_12"
-                                },
-                                {
-                                    "position": "2.3.3",
-                                    "type": "Component_12"
-                                },
-                                {
-                                    "position": "2.3.4",
-                                    "type": "Component_12"
-                                }
-                            ]
-                        },
-                        "Container_11": {
-                            "gr_position": "2.4",
-                            "contents": [
-                                {
-                                    "position": "2.4.1",
-                                    "type": "Component_7"
-                                },
-                                {
-                                    "position": "2.4.2",
-                                    "type": "Component_7"
-                                },
-                                {
-                                    "position": "2.4.3",
-                                    "type": "Component_7"
-                                },
-                                {
-                                    "position": "2.4.4",
-                                    "type": "Component_7"
-                                }
-                            ]
-                        },
-                        "Container_12": {
-                            "gr_position": "2.5",
-                            "contents": [
-                                {
-                                    "position": "2.5.1",
-                                    "type": "Component_14"
-                                },
-                                {
-                                    "position": "2.5.2",
-                                    "type": "Component_14"
-                                },
-                                {
-                                    "position": "2.5.3",
-                                    "type": "Component_14"
-                                },
-                                {
-                                    "position": "2.5.4",
-                                    "type": "Component_14"
-                                }
-                            ]
-                        },
-                        "Container_13": {
-                            "gr_position": "2.6",
-                            "contents": [
-                                {
-                                    "position": "2.6.1",
-                                    "type": "Component_2"
-                                },
-                                {
-                                    "position": "2.6.2",
-                                    "type": "Component_2"
-                                },
-                                {
-                                    "position": "2.6.3",
-                                    "type": "Component_2"
-                                },
-                                {
-                                    "position": "2.6.4",
-                                    "type": "Component_2"
-                                }
-                            ]
-                        },
-                        "Container_14": {
-                            "gr_position": "2.7",
-                            "contents": [
-                                {
-                                    "position": "2.7.1",
-                                    "type": "Component_5"
-                                },
-                                {
-                                    "position": "2.7.2",
-                                    "type": "Component_5"
-                                },
-                                {
-                                    "position": "2.7.3",
-                                    "type": "Component_5"
-                                },
-                                {
-                                    "position": "2.7.4",
-                                    "type": "Component_5"
-                                }
-                            ]
-                        }
-                    }
-                }
-            },
-            {
-                "phase": 3,
-                "current_value_exact": 783782,
-                "current_value_linear": 967081,
-                "best_value": 777910,
-                "improvement_exact": 0.749,
-                "improvement_linear": 19.561,
-                "best_configuration": {
-                    "key": "1.1: Component_10 - 1.2: Component_15 - 1.3: Component_13 - 1.4: Component_11 - 1.5: Component_4 - 1.6: Component_14 - 1.7: Component_5 - 2.1: Component_16 - 2.2: Component_12 - 2.3: Component_2 - 2.4: Component_7 - 2.5: Component_9 - 2.6: Component_3 - 2.7: Component_1 - ",
-                    "objective_value": 777910
+                    "key": "1.1: Component_1 - 1.2: Component_14 - 1.3: Component_10 - 1.4: Component_4 - 1.5: Component_12 - 1.6: Component_16 - 1.7: Component_2 - 2.1: Component_13 - 2.2: Component_3 - 2.3: Component_11 - 2.4: Component_5 - 2.5: Component_15 - 2.6: Component_7 - 2.7: Component_9 - ",
+                    "objective_value": 840144
                 },
                 "current_configuration": {
                     "containers": {
@@ -934,7 +624,7 @@
                 }
             }
         ],
-        "solutionTime": 32276,
-        "totalTime": 32276
+        "solutionTime": 7188,
+        "totalTime": 7188
     }
 }

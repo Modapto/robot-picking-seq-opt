@@ -232,6 +232,21 @@ from method_linear import linear_picking, total_cost
 from GraphCreation import create_directed_bipartite_graph
 from parse_json import create_distance_matrices
 
+import json
+import copy
+from time import time
+from configurations_final import (
+    load_distance_matrix,
+    load_containers_template,
+    load_kit_holders_template,
+    randomize_containers,
+    filter_distance_matrix
+)
+from exact_method import run_exact_tsp
+from method_linear import linear_picking, total_cost
+from GraphCreation import create_directed_bipartite_graph
+from parse_json import create_distance_matrices
+
 
 def generate_unique_gr_configurations(num_configs, containers_template):
     configurations = {}
@@ -262,29 +277,68 @@ def generate_kh_configuration(kh_setup, kit_holders_template):
     return configured_kh
 
 
-def calculate_linear_value(distance_matrix, configuration, start_node="0.0", end_node="0.0.0"):
-    filtered_matrix = filter_distance_matrix(distance_matrix, configuration)
-    a_to_b_matrix = create_distance_matrices({"data": {"distanceMatrix": filtered_matrix}})
-    B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
-    tour = linear_picking(B, start_node, end_node, set_1, set_2)
-    cost, details = total_cost(B, tour["tour"])
-    if end_node is None:
-        for j in range(len(tour["tour"]) - 1, -1, -1):
-            if tour["tour"][j] == "0.0.0":
-                tour["tour"] = tour["tour"][:j]
-                details = [step for step in details if step["to"] not in ["0.0.0", "0.0"]]
-                cost = sum(step["totalTime"] for step in details)
-                break
-    return cost, tour["tour"], details
+def calculate_full_sequence_cost(distance_matrix, configuration, method="exact"):
+    working_matrix = distance_matrix.copy()
+    last_node_visited = "0.0"
+    total_cost = 0
+    full_tour = []
+    full_details = []
+    kh_sequences = configuration["kh_sequences"]
 
-def convert_to_native_types(data):
-    if isinstance(data, dict):
-        return {k: convert_to_native_types(v) for k, v in data.items()}
-    elif isinstance(data, list):
-        return [convert_to_native_types(v) for v in data]
-    elif isinstance(data, (int, float, str, bool)) or data is None:
-        return data
-    return str(data)
+    for i, kh_setup in enumerate(kh_sequences):
+        print(f"\n>>> Processing KH Setup {i + 1}: {kh_setup}")
+        if i > 0:
+            print(f"Duplicating last visited node ({last_node_visited}) as '0.0'...")
+            new_matrix = [edge for edge in working_matrix if not edge["edge"].startswith("(0.0,")]
+            for edge in distance_matrix:
+                if edge["edge"].startswith(f"({last_node_visited},"):
+                    new_edge = {"edge": edge["edge"].replace(f"({last_node_visited},", "(0.0,"),
+                                "distance": edge["distance"] + 2000}
+                    new_matrix.append(new_edge)
+            working_matrix = new_matrix
+
+        kh_config = generate_kh_configuration(kh_setup, configuration["kit_holders_template"])
+        filtered_matrix = filter_distance_matrix(working_matrix,
+                                                 {"containers": configuration["containers"], "kit_holders": kh_config})
+        end_node = None if i < len(kh_sequences) - 1 else "0.0"
+
+        if method == "exact":
+            tour, cost, time_details = run_exact_tsp(
+                {"data": {"distanceMatrix": filtered_matrix, "start_node": "0.0", "end_node": end_node}})
+            if i < len(kh_sequences) - 1:
+                for j in range(len(tour) - 1, -1, -1):
+                    if tour[j][1] == "0.0.0":
+                        last_node_visited = tour[j][0]
+                        tour = tour[:j]
+                        time_details = [step for step in time_details if step["to"] not in ["0.0.0", "0.0"]]
+                        cost = sum(step["distance"] for step in time_details)
+                        break
+                print(f"Trimmed tour, last node: {last_node_visited}")
+        else:  # linear
+            a_to_b_matrix = create_distance_matrices({"data": {"distanceMatrix": filtered_matrix}})
+            B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
+            tour_data = linear_picking(B, "0.0", "0.0" if i == len(kh_sequences) - 1 else None, set_1, set_2)
+            cost, time_details = total_cost(B, tour_data["tour"])
+            tour = [(time_details[j]["from"], time_details[j]["to"]) for j in range(len(time_details))]
+            if i < len(kh_sequences) - 1:
+                for j in range(len(tour) - 1, -1, -1):
+                    if tour[j][1] == "0.0.0":
+                        last_node_visited = tour[j][0]
+                        tour = tour[:j]
+                        time_details = [step for step in time_details if step["to"] not in ["0.0.0", "0.0"]]
+                        cost = sum(step["totalTime"] for step in time_details)
+                        break
+                print(f"Trimmed linear tour, last node: {last_node_visited}")
+
+        total_cost += cost
+        full_tour.extend(
+            tour if i == 0 else [(last_node_visited, step[1]) if step[0] == "0.0" else step for step in tour[1:]])
+        full_details.extend(time_details if i == 0 else [{"from": last_node_visited, "to": step["to"],
+                                                          "distance": step["distance"] if method == "exact" else step[
+                                                              "totalTime"]} if step["from"] == "0.0" else step for step
+                                                         in time_details[1:]])
+
+    return total_cost, full_tour, full_details
 
 
 def run_simulation(input_data=None):
@@ -306,7 +360,7 @@ def run_simulation(input_data=None):
         distance_matrix = load_distance_matrix()
         containers_template = load_containers_template()
         kit_holders_template = load_kit_holders_template()
-        kh_sequences = [["KH001", "KH002", "KH003", "KH001"], ["KH001", "KH002", "KH003", "KH002"]]
+        kh_sequences = [["KH001", "KH002", "KH003", "KH001"], ["KH003", "KH002", "KH001", "KH002"]]
         num_random_gr_configs = 2
         with open("current_config.json", "r") as f:
             current_config = json.load(f)
@@ -314,129 +368,56 @@ def run_simulation(input_data=None):
 
     # Baseline computation
     print("\n>>> Computing Baseline for Full Sequence...")
-    baseline_matrix = distance_matrix.copy()
-    last_node_visited = "0.0"
-    total_exact_cost = 0
-    total_linear_cost = 0
-    full_exact_tour = []
-    full_exact_details = []
-    full_linear_tour = []
-    full_linear_details = []
-
-    for i, kh_setup in enumerate(kh_sequences):
-        print(f"\n>>> Processing KH Setup {i + 1}: {kh_setup}")
-        if i > 0:
-            print(f"Duplicating last visited node ({last_node_visited}) as '0.0'...")
-            new_matrix = [edge for edge in baseline_matrix if not edge["edge"].startswith("(0.0,")]
-            for edge in distance_matrix:
-                if edge["edge"].startswith(f"({last_node_visited},"):
-                    new_edge = {"edge": edge["edge"].replace(f"({last_node_visited},", "(0.0,"),
-                                "distance": edge["distance"] + 2000}
-                    new_matrix.append(new_edge)
-            baseline_matrix = new_matrix
-
-        kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
-        filtered_matrix = filter_distance_matrix(baseline_matrix,
-                                                 {"containers": current_config["containers"], "kit_holders": kh_config})
-        end_node = None if i < len(kh_sequences) - 1 else "0.0.0"
-
-        # Exact cost
-        tour, exact_cost, time_details = run_exact_tsp(
-            {"data": {"distanceMatrix": filtered_matrix, "start_node": "0.0", "end_node": end_node}})
-        if i < len(kh_sequences) - 1:
-            for j in range(len(tour) - 1, -1, -1):
-                if tour[j][1] == "0.0.0":
-                    last_node_visited = tour[j][0]
-                    tour = tour[:j]
-                    time_details = [step for step in time_details if step["to"] not in ["0.0.0", "0.0"]]
-                    exact_cost = sum(step["distance"] for step in time_details)
-                    break
-            print(f"Trimmed exact tour, last node: {last_node_visited}")
-
-        total_exact_cost += exact_cost
-        full_exact_tour.extend(
-            tour if i == 0 else [(last_node_visited, step[1]) if step[0] == "0.0" else step for step in tour[1:]])
-        full_exact_details.extend(time_details if i == 0 else [
-            {"from": last_node_visited, "to": step["to"], "distance": step["distance"]} if step[
-                                                                                               "from"] == "0.0" else step
-            for step in time_details[1:]])
-
-        # Linear cost with continuity
-        linear_cost, linear_tour, linear_details = calculate_linear_value(baseline_matrix,
-                                                                          {"containers": current_config["containers"],
-                                                                           "kit_holders": kh_config}, start_node="0.0",
-                                                                          end_node=end_node)
-        total_linear_cost += linear_cost
-        full_linear_tour.extend(
-            linear_tour if i == 0 else [last_node_visited if node == "0.0" else node for node in linear_tour[1:]])
-        full_linear_details.extend(linear_details if i == 0 else [
-            {"from": last_node_visited, "to": step["to"], "totalTime": step["totalTime"]} if step[
-                                                                                                 "from"] == "0.0" else step
-            for step in linear_details[1:]])
-
-    print(f"Baseline exact value: {total_exact_cost}")
-    print(f"Baseline linear value: {total_linear_cost}")
+    baseline_config = {
+        "containers": current_config["containers"],
+        "kit_holders_template": kit_holders_template,
+        "kh_sequences": kh_sequences
+    }
+    baseline_exact_cost, baseline_exact_tour, baseline_exact_details = calculate_full_sequence_cost(distance_matrix,
+                                                                                                    baseline_config,
+                                                                                                    method="exact")
+    baseline_linear_cost, baseline_linear_tour, baseline_linear_details = calculate_full_sequence_cost(distance_matrix,
+                                                                                                       baseline_config,
+                                                                                                       method="linear")
+    print(f"Baseline exact value: {baseline_exact_cost}")
+    print(f"Baseline linear value: {baseline_linear_cost}")
 
     # Optimization runs
     print("\n>>> Finding Best Configuration for Full Sequence...")
     best_total_value = float("inf")
-    phases = []
+    runs = []
 
     for run_id in range(num_random_gr_configs):
         print(f"\n>>> Run {run_id + 1} with GR Configuration...")
         gr_config = randomize_containers(containers_template)
-        working_matrix = distance_matrix.copy()
-        last_node_visited = "0.0"
-        total_value = 0
-        run_tour = []
-        run_details = []
+        run_config = {
+            "containers": gr_config,
+            "kit_holders_template": kit_holders_template,
+            "kh_sequences": kh_sequences
+        }
+        cost, tour, time_details = calculate_full_sequence_cost(distance_matrix, run_config, method="exact")
 
-        for i, kh_setup in enumerate(kh_sequences):
-            print(f"Processing KH Setup {i + 1}: {kh_setup}")
-            if i > 0:
-                print(f"Duplicating last visited node ({last_node_visited}) as '0.0'...")
-                new_matrix = [edge for edge in working_matrix if not edge["edge"].startswith("(0.0,")]
-                for edge in distance_matrix:
-                    if edge["edge"].startswith(f"({last_node_visited},"):
-                        new_edge = {"edge": edge["edge"].replace(f"({last_node_visited},", "(0.0,"),
-                                    "distance": edge["distance"] + 2000}
-                        new_matrix.append(new_edge)
-                working_matrix = new_matrix
+        improvement_exact = round(((baseline_exact_cost - cost) / baseline_exact_cost) * 100,
+                                  3) if baseline_exact_cost > 0 else 0
+        improvement_linear = round(((baseline_linear_cost - cost) / baseline_linear_cost) * 100,
+                                   3) if baseline_linear_cost > 0 else 0
+        gr_key = "-".join(
+            f"{container['gr_position']}:{content['type']}" for container in gr_config.values() for content in
+            container["contents"])
 
-            kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
-            filtered_matrix = filter_distance_matrix(working_matrix,
-                                                     {"containers": gr_config, "kit_holders": kh_config})
-            end_node = None if i < len(kh_sequences) - 1 else "0.0.0"
-            tour, cost, time_details = run_exact_tsp(
-                {"data": {"distanceMatrix": filtered_matrix, "start_node": "0.0", "end_node": end_node}})
-
-            if i < len(kh_sequences) - 1:
-                for j in range(len(tour) - 1, -1, -1):
-                    if tour[j][1] == "0.0.0":
-                        last_node_visited = tour[j][0]
-                        tour = tour[:j]
-                        time_details = [step for step in time_details if step["to"] not in ["0.0.0", "0.0"]]
-                        cost = sum(step["distance"] for step in time_details)
-                        break
-                print(f"Trimmed tour, last node: {last_node_visited}")
-
-            total_value += cost
-            run_tour.extend(
-                tour if i == 0 else [(last_node_visited, step[1]) if step[0] == "0.0" else step for step in tour[1:]])
-            run_details.extend(time_details if i == 0 else [
-                {"from": last_node_visited, "to": step["to"], "distance": step["distance"]} if step[
-                                                                                                   "from"] == "0.0" else step
-                for step in time_details[1:]])
-
-        phases.append({
-            "exact": {
-                "cost": total_value,
-                "time_details": [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in
-                                 run_details]
+        runs.append({
+            "exact_cost": cost,
+            "time_details": [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in
+                             time_details],
+            "improvement_exact": improvement_exact,
+            "improvement_linear": improvement_linear,
+            "gr_configuration": {
+                "key": gr_key,
+                "config": gr_config
             }
         })
-        if total_value < best_total_value:
-            best_total_value = total_value
+        if cost < best_total_value:
+            best_total_value = cost
 
     # Output
     end_time = int(time() * 1000)
@@ -444,9 +425,9 @@ def run_simulation(input_data=None):
         "uuid": uuid,
         "produced_at": int(time() * 1000),
         "data": {
-            "phases": phases,
-            "baseline_exact_cost": total_exact_cost,
-            "baseline_linear_cost": total_linear_cost,
+            "runs": runs,
+            "baseline_exact_cost": baseline_exact_cost,
+            "baseline_linear_cost": baseline_linear_cost,
             "best_total_value": best_total_value,
             "solutionTime": (end_time - total_time_start),
             "totalTime": (end_time - total_time_start)
@@ -457,3 +438,15 @@ def run_simulation(input_data=None):
         json.dump(output_data, f, indent=4)
     print("Simulation completed and results saved.")
     return output_data
+
+
+def convert_to_native_types(data):
+    if isinstance(data, dict):
+        return {k: convert_to_native_types(v) for k, v in data.items()}
+    elif isinstance(data, list):
+        return [convert_to_native_types(v) for v in data]
+    elif isinstance(data, (int, float, str, bool)) or data is None:
+        return data
+    return str(data)
+
+
