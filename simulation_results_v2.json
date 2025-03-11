@@ -1,10 +1,10 @@
 {
     "uuid": "20575aa3-a69a-46e1-83b3-7e4ee2d68601",
-    "produced_at": 1741356437507,
+    "produced_at": 1741695116875,
     "data": {
         "baseline": {
             "exact": {
-                "cost": "1643505",
+                "cost": "1641505",
                 "time_details": [
                     [
                         {
@@ -222,7 +222,7 @@
                         {
                             "from": "1.2",
                             "to": "1.1.2",
-                            "distance": "13293"
+                            "distance": "11293"
                         },
                         {
                             "from": "1.1.2",
@@ -423,7 +423,7 @@
                 ]
             },
             "linear": {
-                "cost": "2029160",
+                "cost": "2027160",
                 "time_details": [
                     [
                         {
@@ -641,7 +641,7 @@
                         {
                             "from": "0.0",
                             "to": "2.7.1",
-                            "distance": "31834"
+                            "distance": "29834"
                         },
                         {
                             "from": "2.7.1",
@@ -834,61 +834,131 @@
         },
         "runs": [
             {
-                "exact_cost": "1643657",
+                "exact_cost": "1620160",
                 "time_details": [
                     [
                         {
                             "from": "0.0",
-                            "to": "2.2.4",
-                            "distance": "13784"
+                            "to": "1.2.3",
+                            "distance": "13520"
                         },
                         {
-                            "from": "2.2.4",
+                            "from": "1.2.3",
+                            "to": "3.3",
+                            "distance": "27481"
+                        },
+                        {
+                            "from": "3.3",
+                            "to": "1.4.4",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "1.4.4",
+                            "to": "2.3",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "2.3",
+                            "to": "2.3.1",
+                            "distance": "10945"
+                        },
+                        {
+                            "from": "2.3.1",
+                            "to": "3.1",
+                            "distance": "24531"
+                        },
+                        {
+                            "from": "3.1",
+                            "to": "2.5.2",
+                            "distance": "10945"
+                        },
+                        {
+                            "from": "2.5.2",
+                            "to": "3.2",
+                            "distance": "10973"
+                        },
+                        {
+                            "from": "3.2",
+                            "to": "2.6.1",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "2.6.1",
+                            "to": "1.5",
+                            "distance": "34116"
+                        },
+                        {
+                            "from": "1.5",
+                            "to": "2.1.2",
+                            "distance": "10945"
+                        },
+                        {
+                            "from": "2.1.2",
+                            "to": "2.4",
+                            "distance": "24531"
+                        },
+                        {
+                            "from": "2.4",
+                            "to": "1.3.4",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.3.4",
+                            "to": "2.2",
+                            "distance": "11261"
+                        },
+                        {
+                            "from": "2.2",
+                            "to": "2.2.2",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "2.2.2",
                             "to": "1.1",
                             "distance": "21307"
                         },
                         {
                             "from": "1.1",
-                            "to": "1.2.4",
-                            "distance": "21043"
+                            "to": "2.1.1",
+                            "distance": "10945"
                         },
                         {
-                            "from": "1.2.4",
-                            "to": "4.3",
-                            "distance": "33852"
+                            "from": "2.1.1",
+                            "to": "3.5",
+                            "distance": "30917"
                         },
                         {
-                            "from": "4.3",
-                            "to": "1.6.1",
-                            "distance": "21043"
+                            "from": "3.5",
+                            "to": "1.5.3",
+                            "distance": "11293"
                         },
                         {
-                            "from": "1.6.1",
+                            "from": "1.5.3",
+                            "to": "2.1",
+                            "distance": "24267"
+                        },
+                        {
+                            "from": "2.1",
+                            "to": "2.4.3",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "2.4.3",
                             "to": "4.6",
-                            "distance": "21043"
+                            "distance": "27745"
                         },
                         {
                             "from": "4.6",
-                            "to": "1.7.3",
+                            "to": "1.7.2",
                             "distance": "11293"
                         },
                         {
-                            "from": "1.7.3",
-                            "to": "1.4",
-                            "distance": "37093"
+                            "from": "1.7.2",
+                            "to": "4.2",
+                            "distance": "11261"
                         },
                         {
-                            "from": "1.4",
-                            "to": "1.1.3",
-                            "distance": "11293"
-                        },
-                        {
-                            "from": "1.1.3",
-                            "to": "3.4",
-                            "distance": "30653"
-                        },
-                        {
-                            "from": "3.4",
+                            "from": "4.2",
                             "to": "2.6.2",
                             "distance": "21307"
                         },
@@ -899,43 +969,215 @@
                         },
                         {
                             "from": "4.5",
-                            "to": "1.7.2",
-                            "distance": "11293"
-                        },
-                        {
-                            "from": "1.7.2",
-                            "to": "4.4",
-                            "distance": "11261"
-                        },
-                        {
-                            "from": "4.4",
-                            "to": "2.7.2",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.7.2",
-                            "to": "2.3",
-                            "distance": "30917"
-                        },
-                        {
-                            "from": "2.3",
-                            "to": "2.2.1",
-                            "distance": "21307"
-                        },
-                        {
-                            "from": "2.2.1",
-                            "to": "4.1",
-                            "distance": "34116"
-                        },
-                        {
-                            "from": "4.1",
                             "to": "1.6.3",
                             "distance": "21043"
                         },
                         {
                             "from": "1.6.3",
-                            "to": "1.6",
+                            "to": "4.4",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "4.4",
+                            "to": "1.6.1",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "1.6.1",
+                            "to": "1.4",
                             "distance": "33852"
+                        },
+                        {
+                            "from": "1.4",
+                            "to": "2.2.4",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "2.2.4",
+                            "to": "4.1",
+                            "distance": "34116"
+                        },
+                        {
+                            "from": "4.1",
+                            "to": "2.7.3",
+                            "distance": "10945"
+                        },
+                        {
+                            "from": "2.7.3",
+                            "to": "3.4",
+                            "distance": "24531"
+                        },
+                        {
+                            "from": "3.4",
+                            "to": "2.4.2",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "2.4.2",
+                            "to": "1.6",
+                            "distance": "27745"
+                        },
+                        {
+                            "from": "1.6",
+                            "to": "1.1.1",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.1.1",
+                            "to": "1.3",
+                            "distance": "11261"
+                        },
+                        {
+                            "from": "1.3",
+                            "to": "1.1.4",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.1.4",
+                            "to": "4.3",
+                            "distance": "37093"
+                        },
+                        {
+                            "from": "4.3",
+                            "to": "1.7.4",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.7.4",
+                            "to": "1.2",
+                            "distance": "37093"
+                        }
+                    ],
+                    [
+                        {
+                            "from": "1.2",
+                            "to": "1.2.1",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "1.2.1",
+                            "to": "3.3",
+                            "distance": "27481"
+                        },
+                        {
+                            "from": "3.3",
+                            "to": "1.5.1",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.5.1",
+                            "to": "2.1",
+                            "distance": "24267"
+                        },
+                        {
+                            "from": "2.1",
+                            "to": "1.3.2",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.3.2",
+                            "to": "4.2",
+                            "distance": "30653"
+                        },
+                        {
+                            "from": "4.2",
+                            "to": "2.7.2",
+                            "distance": "10945"
+                        },
+                        {
+                            "from": "2.7.2",
+                            "to": "3.4",
+                            "distance": "24531"
+                        },
+                        {
+                            "from": "3.4",
+                            "to": "1.4.3",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "1.4.3",
+                            "to": "2.3",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "2.3",
+                            "to": "2.3.2",
+                            "distance": "10945"
+                        },
+                        {
+                            "from": "2.3.2",
+                            "to": "3.1",
+                            "distance": "24531"
+                        },
+                        {
+                            "from": "3.1",
+                            "to": "2.5.3",
+                            "distance": "10945"
+                        },
+                        {
+                            "from": "2.5.3",
+                            "to": "3.2",
+                            "distance": "10973"
+                        },
+                        {
+                            "from": "3.2",
+                            "to": "1.5.3",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.5.3",
+                            "to": "4.1",
+                            "distance": "24267"
+                        },
+                        {
+                            "from": "4.1",
+                            "to": "1.7.4",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.7.4",
+                            "to": "1.2",
+                            "distance": "37093"
+                        },
+                        {
+                            "from": "1.2",
+                            "to": "2.2.3",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "2.2.3",
+                            "to": "1.1",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "1.1",
+                            "to": "1.1.2",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.1.2",
+                            "to": "1.3",
+                            "distance": "11261"
+                        },
+                        {
+                            "from": "1.3",
+                            "to": "2.1.3",
+                            "distance": "10945"
+                        },
+                        {
+                            "from": "2.1.3",
+                            "to": "3.5",
+                            "distance": "30917"
+                        },
+                        {
+                            "from": "3.5",
+                            "to": "2.4.1",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "2.4.1",
+                            "to": "1.6",
+                            "distance": "27745"
                         },
                         {
                             "from": "1.6",
@@ -949,163 +1191,31 @@
                         },
                         {
                             "from": "2.4",
-                            "to": "2.3.3",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.3.3",
-                            "to": "1.2",
-                            "distance": "24531"
-                        },
-                        {
-                            "from": "1.2",
-                            "to": "2.1.3",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.1.3",
-                            "to": "3.5",
-                            "distance": "30917"
-                        },
-                        {
-                            "from": "3.5",
-                            "to": "2.5.2",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.5.2",
-                            "to": "3.3",
-                            "distance": "10973"
-                        },
-                        {
-                            "from": "3.3",
-                            "to": "1.5.3",
+                            "to": "1.3.1",
                             "distance": "11293"
                         },
                         {
-                            "from": "1.5.3",
-                            "to": "2.1",
-                            "distance": "24267"
-                        },
-                        {
-                            "from": "2.1",
-                            "to": "1.3.4",
-                            "distance": "11293"
-                        },
-                        {
-                            "from": "1.3.4",
-                            "to": "3.1",
-                            "distance": "24267"
-                        },
-                        {
-                            "from": "3.1",
-                            "to": "2.4.1",
-                            "distance": "21307"
-                        },
-                        {
-                            "from": "2.4.1",
-                            "to": "3.2",
-                            "distance": "21307"
-                        },
-                        {
-                            "from": "3.2",
-                            "to": "1.4.4",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "1.4.4",
+                            "from": "1.3.1",
                             "to": "2.2",
-                            "distance": "21043"
+                            "distance": "11261"
                         },
                         {
                             "from": "2.2",
-                            "to": "2.3.2",
-                            "distance": "10945"
+                            "to": "1.4.1",
+                            "distance": "21043"
                         },
                         {
-                            "from": "2.3.2",
-                            "to": "4.2",
-                            "distance": "21307"
+                            "from": "1.4.1",
+                            "to": "4.3",
+                            "distance": "27481"
                         },
                         {
-                            "from": "4.2",
+                            "from": "4.3",
                             "to": "2.6.4",
                             "distance": "21307"
                         },
                         {
                             "from": "2.6.4",
-                            "to": "1.5",
-                            "distance": "34116"
-                        },
-                        {
-                            "from": "1.5",
-                            "to": "1.2.2",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "1.2.2",
-                            "to": "1.3",
-                            "distance": "21043"
-                        }
-                    ],
-                    [
-                        {
-                            "from": "1.3",
-                            "to": "1.2.3",
-                            "distance": "23043"
-                        },
-                        {
-                            "from": "1.2.3",
-                            "to": "1.3",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "1.3",
-                            "to": "2.1.2",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.1.2",
-                            "to": "3.5",
-                            "distance": "30917"
-                        },
-                        {
-                            "from": "3.5",
-                            "to": "2.5.3",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.5.3",
-                            "to": "3.3",
-                            "distance": "10973"
-                        },
-                        {
-                            "from": "3.3",
-                            "to": "1.5.4",
-                            "distance": "11293"
-                        },
-                        {
-                            "from": "1.5.4",
-                            "to": "4.1",
-                            "distance": "24267"
-                        },
-                        {
-                            "from": "4.1",
-                            "to": "2.7.2",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.7.2",
-                            "to": "4.3",
-                            "distance": "10973"
-                        },
-                        {
-                            "from": "4.3",
-                            "to": "2.6.2",
-                            "distance": "21307"
-                        },
-                        {
-                            "from": "2.6.2",
                             "to": "1.5",
                             "distance": "34116"
                         },
@@ -1121,126 +1231,16 @@
                         },
                         {
                             "from": "4.4",
-                            "to": "1.7.1",
-                            "distance": "11293"
+                            "to": "1.6.1",
+                            "distance": "21043"
                         },
                         {
-                            "from": "1.7.1",
+                            "from": "1.6.1",
                             "to": "1.4",
-                            "distance": "37093"
-                        },
-                        {
-                            "from": "1.4",
-                            "to": "2.1.3",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.1.3",
-                            "to": "2.4",
-                            "distance": "24531"
-                        },
-                        {
-                            "from": "2.4",
-                            "to": "1.4.2",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "1.4.2",
-                            "to": "2.2",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "2.2",
-                            "to": "1.3.1",
-                            "distance": "11293"
-                        },
-                        {
-                            "from": "1.3.1",
-                            "to": "3.1",
-                            "distance": "24267"
-                        },
-                        {
-                            "from": "3.1",
-                            "to": "1.4.3",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "1.4.3",
-                            "to": "4.2",
-                            "distance": "27481"
-                        },
-                        {
-                            "from": "4.2",
-                            "to": "2.7.3",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.7.3",
-                            "to": "2.3",
-                            "distance": "30917"
-                        },
-                        {
-                            "from": "2.3",
-                            "to": "2.3.2",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.3.2",
-                            "to": "1.2",
-                            "distance": "24531"
-                        },
-                        {
-                            "from": "1.2",
-                            "to": "2.2.2",
-                            "distance": "21307"
-                        },
-                        {
-                            "from": "2.2.2",
-                            "to": "1.1",
-                            "distance": "21307"
-                        },
-                        {
-                            "from": "1.1",
-                            "to": "1.1.2",
-                            "distance": "11293"
-                        },
-                        {
-                            "from": "1.1.2",
-                            "to": "3.4",
-                            "distance": "30653"
-                        },
-                        {
-                            "from": "3.4",
-                            "to": "1.5.2",
-                            "distance": "11293"
-                        },
-                        {
-                            "from": "1.5.2",
-                            "to": "2.1",
-                            "distance": "24267"
-                        },
-                        {
-                            "from": "2.1",
-                            "to": "2.4.4",
-                            "distance": "21307"
-                        },
-                        {
-                            "from": "2.4.4",
-                            "to": "3.2",
-                            "distance": "21307"
-                        },
-                        {
-                            "from": "3.2",
-                            "to": "1.6.2",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "1.6.2",
-                            "to": "1.6",
                             "distance": "33852"
                         },
                         {
-                            "from": "1.6",
+                            "from": "1.4",
                             "to": "0.0.0",
                             "distance": "9523"
                         },
@@ -1251,29 +1251,29 @@
                         }
                     ]
                 ],
-                "improvement_exact": -0.009,
-                "improvement_linear": 18.998,
+                "improvement_exact": 1.3,
+                "improvement_linear": 20.077,
                 "gr_configuration": {
-                    "key": "1.1:Component_7-1.1:Component_7-1.1:Component_7-1.1:Component_7-1.2:Component_3-1.2:Component_3-1.2:Component_3-1.2:Component_3-1.3:Component_9-1.3:Component_9-1.3:Component_9-1.3:Component_9-1.4:Component_2-1.4:Component_2-1.4:Component_2-1.4:Component_2-1.5:Component_4-1.5:Component_4-1.5:Component_4-1.5:Component_4-1.6:Component_11-1.6:Component_11-1.6:Component_11-1.6:Component_11-1.7:Component_16-1.7:Component_16-1.7:Component_16-1.7:Component_16-2.1:Component_10-2.1:Component_10-2.1:Component_10-2.1:Component_10-2.2:Component_5-2.2:Component_5-2.2:Component_5-2.2:Component_5-2.3:Component_15-2.3:Component_15-2.3:Component_15-2.3:Component_15-2.4:Component_13-2.4:Component_13-2.4:Component_13-2.4:Component_13-2.5:Component_1-2.5:Component_1-2.5:Component_1-2.5:Component_1-2.6:Component_14-2.6:Component_14-2.6:Component_14-2.6:Component_14-2.7:Component_12-2.7:Component_12-2.7:Component_12-2.7:Component_12",
+                    "key": "1.1:Component_3-1.1:Component_3-1.1:Component_3-1.1:Component_3-1.2:Component_1-1.2:Component_1-1.2:Component_1-1.2:Component_1-1.3:Component_2-1.3:Component_2-1.3:Component_2-1.3:Component_2-1.4:Component_12-1.4:Component_12-1.4:Component_12-1.4:Component_12-1.5:Component_4-1.5:Component_4-1.5:Component_4-1.5:Component_4-1.6:Component_16-1.6:Component_16-1.6:Component_16-1.6:Component_16-1.7:Component_15-1.7:Component_15-1.7:Component_15-1.7:Component_15-2.1:Component_10-2.1:Component_10-2.1:Component_10-2.1:Component_10-2.2:Component_5-2.2:Component_5-2.2:Component_5-2.2:Component_5-2.3:Component_9-2.3:Component_9-2.3:Component_9-2.3:Component_9-2.4:Component_11-2.4:Component_11-2.4:Component_11-2.4:Component_11-2.5:Component_13-2.5:Component_13-2.5:Component_13-2.5:Component_13-2.6:Component_14-2.6:Component_14-2.6:Component_14-2.6:Component_14-2.7:Component_7-2.7:Component_7-2.7:Component_7-2.7:Component_7",
                     "config": {
                         "Container_1": {
                             "gr_position": "1.1",
                             "contents": [
                                 {
                                     "position": "1.1.1",
-                                    "type": "Component_7"
+                                    "type": "Component_3"
                                 },
                                 {
                                     "position": "1.1.2",
-                                    "type": "Component_7"
+                                    "type": "Component_3"
                                 },
                                 {
                                     "position": "1.1.3",
-                                    "type": "Component_7"
+                                    "type": "Component_3"
                                 },
                                 {
                                     "position": "1.1.4",
-                                    "type": "Component_7"
+                                    "type": "Component_3"
                                 }
                             ]
                         },
@@ -1282,19 +1282,19 @@
                             "contents": [
                                 {
                                     "position": "1.2.1",
-                                    "type": "Component_3"
+                                    "type": "Component_1"
                                 },
                                 {
                                     "position": "1.2.2",
-                                    "type": "Component_3"
+                                    "type": "Component_1"
                                 },
                                 {
                                     "position": "1.2.3",
-                                    "type": "Component_3"
+                                    "type": "Component_1"
                                 },
                                 {
                                     "position": "1.2.4",
-                                    "type": "Component_3"
+                                    "type": "Component_1"
                                 }
                             ]
                         },
@@ -1303,19 +1303,19 @@
                             "contents": [
                                 {
                                     "position": "1.3.1",
-                                    "type": "Component_9"
+                                    "type": "Component_2"
                                 },
                                 {
                                     "position": "1.3.2",
-                                    "type": "Component_9"
+                                    "type": "Component_2"
                                 },
                                 {
                                     "position": "1.3.3",
-                                    "type": "Component_9"
+                                    "type": "Component_2"
                                 },
                                 {
                                     "position": "1.3.4",
-                                    "type": "Component_9"
+                                    "type": "Component_2"
                                 }
                             ]
                         },
@@ -1324,19 +1324,19 @@
                             "contents": [
                                 {
                                     "position": "1.4.1",
-                                    "type": "Component_2"
+                                    "type": "Component_12"
                                 },
                                 {
                                     "position": "1.4.2",
-                                    "type": "Component_2"
+                                    "type": "Component_12"
                                 },
                                 {
                                     "position": "1.4.3",
-                                    "type": "Component_2"
+                                    "type": "Component_12"
                                 },
                                 {
                                     "position": "1.4.4",
-                                    "type": "Component_2"
+                                    "type": "Component_12"
                                 }
                             ]
                         },
@@ -1366,19 +1366,19 @@
                             "contents": [
                                 {
                                     "position": "1.6.1",
-                                    "type": "Component_11"
+                                    "type": "Component_16"
                                 },
                                 {
                                     "position": "1.6.2",
-                                    "type": "Component_11"
+                                    "type": "Component_16"
                                 },
                                 {
                                     "position": "1.6.3",
-                                    "type": "Component_11"
+                                    "type": "Component_16"
                                 },
                                 {
                                     "position": "1.6.4",
-                                    "type": "Component_11"
+                                    "type": "Component_16"
                                 }
                             ]
                         },
@@ -1387,19 +1387,19 @@
                             "contents": [
                                 {
                                     "position": "1.7.1",
-                                    "type": "Component_16"
+                                    "type": "Component_15"
                                 },
                                 {
                                     "position": "1.7.2",
-                                    "type": "Component_16"
+                                    "type": "Component_15"
                                 },
                                 {
                                     "position": "1.7.3",
-                                    "type": "Component_16"
+                                    "type": "Component_15"
                                 },
                                 {
                                     "position": "1.7.4",
-                                    "type": "Component_16"
+                                    "type": "Component_15"
                                 }
                             ]
                         },
@@ -1450,19 +1450,19 @@
                             "contents": [
                                 {
                                     "position": "2.3.1",
-                                    "type": "Component_15"
+                                    "type": "Component_9"
                                 },
                                 {
                                     "position": "2.3.2",
-                                    "type": "Component_15"
+                                    "type": "Component_9"
                                 },
                                 {
                                     "position": "2.3.3",
-                                    "type": "Component_15"
+                                    "type": "Component_9"
                                 },
                                 {
                                     "position": "2.3.4",
-                                    "type": "Component_15"
+                                    "type": "Component_9"
                                 }
                             ]
                         },
@@ -1471,19 +1471,19 @@
                             "contents": [
                                 {
                                     "position": "2.4.1",
-                                    "type": "Component_13"
+                                    "type": "Component_11"
                                 },
                                 {
                                     "position": "2.4.2",
-                                    "type": "Component_13"
+                                    "type": "Component_11"
                                 },
                                 {
                                     "position": "2.4.3",
-                                    "type": "Component_13"
+                                    "type": "Component_11"
                                 },
                                 {
                                     "position": "2.4.4",
-                                    "type": "Component_13"
+                                    "type": "Component_11"
                                 }
                             ]
                         },
@@ -1492,19 +1492,19 @@
                             "contents": [
                                 {
                                     "position": "2.5.1",
-                                    "type": "Component_1"
+                                    "type": "Component_13"
                                 },
                                 {
                                     "position": "2.5.2",
-                                    "type": "Component_1"
+                                    "type": "Component_13"
                                 },
                                 {
                                     "position": "2.5.3",
-                                    "type": "Component_1"
+                                    "type": "Component_13"
                                 },
                                 {
                                     "position": "2.5.4",
-                                    "type": "Component_1"
+                                    "type": "Component_13"
                                 }
                             ]
                         },
@@ -1534,19 +1534,19 @@
                             "contents": [
                                 {
                                     "position": "2.7.1",
-                                    "type": "Component_12"
+                                    "type": "Component_7"
                                 },
                                 {
                                     "position": "2.7.2",
-                                    "type": "Component_12"
+                                    "type": "Component_7"
                                 },
                                 {
                                     "position": "2.7.3",
-                                    "type": "Component_12"
+                                    "type": "Component_7"
                                 },
                                 {
                                     "position": "2.7.4",
-                                    "type": "Component_12"
+                                    "type": "Component_7"
                                 }
                             ]
                         }
@@ -1554,258 +1554,76 @@
                 }
             },
             {
-                "exact_cost": "1667507",
+                "exact_cost": "1693161",
                 "time_details": [
                     [
                         {
                             "from": "0.0",
-                            "to": "1.2.1",
-                            "distance": "13520"
-                        },
-                        {
-                            "from": "1.2.1",
-                            "to": "3.3",
-                            "distance": "27481"
-                        },
-                        {
-                            "from": "3.3",
-                            "to": "2.4.1",
-                            "distance": "21307"
-                        },
-                        {
-                            "from": "2.4.1",
-                            "to": "2.3",
-                            "distance": "21307"
-                        },
-                        {
-                            "from": "2.3",
-                            "to": "1.4.4",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "1.4.4",
-                            "to": "2.2",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "2.2",
-                            "to": "2.3.1",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.3.1",
-                            "to": "3.2",
-                            "distance": "24531"
-                        },
-                        {
-                            "from": "3.2",
-                            "to": "1.5.2",
-                            "distance": "11293"
-                        },
-                        {
-                            "from": "1.5.2",
-                            "to": "1.2",
-                            "distance": "30653"
-                        },
-                        {
-                            "from": "1.2",
-                            "to": "1.1.2",
-                            "distance": "11293"
-                        },
-                        {
-                            "from": "1.1.2",
-                            "to": "1.4",
-                            "distance": "11261"
-                        },
-                        {
-                            "from": "1.4",
                             "to": "2.2.2",
-                            "distance": "21307"
+                            "distance": "13784"
                         },
                         {
                             "from": "2.2.2",
-                            "to": "3.1",
-                            "distance": "27745"
-                        },
-                        {
-                            "from": "3.1",
-                            "to": "1.5.3",
-                            "distance": "11293"
-                        },
-                        {
-                            "from": "1.5.3",
-                            "to": "4.2",
-                            "distance": "24267"
-                        },
-                        {
-                            "from": "4.2",
-                            "to": "2.6.4",
+                            "to": "1.2",
                             "distance": "21307"
                         },
                         {
-                            "from": "2.6.4",
-                            "to": "1.5",
-                            "distance": "34116"
+                            "from": "1.2",
+                            "to": "1.2.3",
+                            "distance": "21043"
                         },
                         {
-                            "from": "1.5",
+                            "from": "1.2.3",
+                            "to": "1.6",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "1.6",
                             "to": "2.1.2",
                             "distance": "10945"
                         },
                         {
                             "from": "2.1.2",
-                            "to": "2.4",
+                            "to": "2.2",
                             "distance": "24531"
                         },
                         {
-                            "from": "2.4",
+                            "from": "2.2",
                             "to": "1.3.2",
                             "distance": "11293"
                         },
                         {
                             "from": "1.3.2",
-                            "to": "4.6",
+                            "to": "4.1",
                             "distance": "30653"
                         },
                         {
-                            "from": "4.6",
-                            "to": "2.7.4",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.7.4",
-                            "to": "1.3",
-                            "distance": "37357"
-                        },
-                        {
-                            "from": "1.3",
-                            "to": "2.1.4",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.1.4",
-                            "to": "3.5",
-                            "distance": "30917"
-                        },
-                        {
-                            "from": "3.5",
-                            "to": "2.5.4",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.5.4",
-                            "to": "4.1",
-                            "distance": "24531"
-                        },
-                        {
                             "from": "4.1",
-                            "to": "2.7.3",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.7.3",
-                            "to": "4.3",
-                            "distance": "10973"
-                        },
-                        {
-                            "from": "4.3",
-                            "to": "1.6.3",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "1.6.3",
-                            "to": "2.1",
+                            "to": "1.4.2",
                             "distance": "27481"
                         },
                         {
-                            "from": "2.1",
-                            "to": "1.3.1",
-                            "distance": "11293"
-                        },
-                        {
-                            "from": "1.3.1",
-                            "to": "1.6",
-                            "distance": "24267"
-                        },
-                        {
-                            "from": "1.6",
-                            "to": "1.1.4",
-                            "distance": "11293"
-                        },
-                        {
-                            "from": "1.1.4",
-                            "to": "4.4",
-                            "distance": "37093"
-                        },
-                        {
-                            "from": "4.4",
-                            "to": "2.6.1",
-                            "distance": "21307"
-                        },
-                        {
-                            "from": "2.6.1",
-                            "to": "4.5",
-                            "distance": "21307"
-                        },
-                        {
-                            "from": "4.5",
-                            "to": "1.7.2",
-                            "distance": "11293"
-                        },
-                        {
-                            "from": "1.7.2",
-                            "to": "3.4",
-                            "distance": "24267"
-                        },
-                        {
-                            "from": "3.4",
-                            "to": "2.5.2",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.5.2",
-                            "to": "1.1",
-                            "distance": "30917"
-                        }
-                    ],
-                    [
-                        {
-                            "from": "1.1",
-                            "to": "2.2.2",
-                            "distance": "23307"
-                        },
-                        {
-                            "from": "2.2.2",
-                            "to": "3.1",
-                            "distance": "27745"
-                        },
-                        {
-                            "from": "3.1",
-                            "to": "1.4.1",
+                            "from": "1.4.2",
+                            "to": "2.4",
                             "distance": "21043"
                         },
                         {
-                            "from": "1.4.1",
-                            "to": "2.2",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "2.2",
+                            "from": "2.4",
                             "to": "2.4.3",
                             "distance": "21307"
                         },
                         {
                             "from": "2.4.3",
-                            "to": "2.3",
-                            "distance": "21307"
+                            "to": "4.3",
+                            "distance": "27745"
                         },
                         {
-                            "from": "2.3",
-                            "to": "2.3.4",
+                            "from": "4.3",
+                            "to": "2.7.1",
                             "distance": "10945"
                         },
                         {
-                            "from": "2.3.4",
+                            "from": "2.7.1",
                             "to": "3.2",
                             "distance": "24531"
                         },
@@ -1816,18 +1634,38 @@
                         },
                         {
                             "from": "2.5.1",
-                            "to": "1.1",
+                            "to": "1.5",
                             "distance": "30917"
                         },
                         {
-                            "from": "1.1",
-                            "to": "2.1.1",
-                            "distance": "10945"
+                            "from": "1.5",
+                            "to": "1.2.4",
+                            "distance": "21043"
                         },
                         {
-                            "from": "2.1.1",
+                            "from": "1.2.4",
+                            "to": "4.6",
+                            "distance": "33852"
+                        },
+                        {
+                            "from": "4.6",
+                            "to": "1.4.3",
+                            "distance": "27481"
+                        },
+                        {
+                            "from": "1.4.3",
+                            "to": "3.5",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "3.5",
+                            "to": "1.5.4",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.5.4",
                             "to": "4.4",
-                            "distance": "37357"
+                            "distance": "24267"
                         },
                         {
                             "from": "4.4",
@@ -1836,131 +1674,293 @@
                         },
                         {
                             "from": "1.7.3",
-                            "to": "3.4",
-                            "distance": "24267"
-                        },
-                        {
-                            "from": "3.4",
-                            "to": "1.5.1",
-                            "distance": "11293"
-                        },
-                        {
-                            "from": "1.5.1",
-                            "to": "1.2",
+                            "to": "2.3",
                             "distance": "30653"
                         },
                         {
-                            "from": "1.2",
-                            "to": "1.2.3",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "1.2.3",
-                            "to": "3.3",
-                            "distance": "27481"
-                        },
-                        {
-                            "from": "3.3",
-                            "to": "1.4.4",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "1.4.4",
-                            "to": "4.2",
-                            "distance": "27481"
-                        },
-                        {
-                            "from": "4.2",
-                            "to": "1.6.4",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "1.6.4",
-                            "to": "4.1",
-                            "distance": "21043"
-                        },
-                        {
-                            "from": "4.1",
-                            "to": "2.7.3",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.7.3",
-                            "to": "1.3",
-                            "distance": "37357"
-                        },
-                        {
-                            "from": "1.3",
-                            "to": "2.1.3",
-                            "distance": "10945"
-                        },
-                        {
-                            "from": "2.1.3",
-                            "to": "2.4",
-                            "distance": "24531"
-                        },
-                        {
-                            "from": "2.4",
-                            "to": "2.4.1",
-                            "distance": "21307"
-                        },
-                        {
-                            "from": "2.4.1",
-                            "to": "4.3",
-                            "distance": "27745"
-                        },
-                        {
-                            "from": "4.3",
-                            "to": "2.6.3",
-                            "distance": "21307"
-                        },
-                        {
-                            "from": "2.6.3",
-                            "to": "1.5",
-                            "distance": "34116"
-                        },
-                        {
-                            "from": "1.5",
-                            "to": "1.1.2",
+                            "from": "2.3",
+                            "to": "1.3.1",
                             "distance": "11293"
                         },
                         {
-                            "from": "1.1.2",
-                            "to": "1.4",
-                            "distance": "11261"
+                            "from": "1.3.1",
+                            "to": "1.1",
+                            "distance": "24267"
                         },
                         {
-                            "from": "1.4",
-                            "to": "2.1.4",
+                            "from": "1.1",
+                            "to": "2.2.4",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "2.2.4",
+                            "to": "4.2",
+                            "distance": "34116"
+                        },
+                        {
+                            "from": "4.2",
+                            "to": "2.6.1",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "2.6.1",
+                            "to": "2.1",
+                            "distance": "27745"
+                        },
+                        {
+                            "from": "2.1",
+                            "to": "2.3.1",
                             "distance": "10945"
                         },
                         {
-                            "from": "2.1.4",
-                            "to": "3.5",
-                            "distance": "30917"
+                            "from": "2.3.1",
+                            "to": "3.4",
+                            "distance": "24531"
                         },
                         {
-                            "from": "3.5",
+                            "from": "3.4",
+                            "to": "2.5.2",
+                            "distance": "10945"
+                        },
+                        {
+                            "from": "2.5.2",
+                            "to": "4.5",
+                            "distance": "24531"
+                        },
+                        {
+                            "from": "4.5",
                             "to": "1.6.3",
                             "distance": "21043"
                         },
                         {
                             "from": "1.6.3",
-                            "to": "2.1",
-                            "distance": "27481"
+                            "to": "3.1",
+                            "distance": "21043"
                         },
                         {
-                            "from": "2.1",
-                            "to": "1.3.4",
+                            "from": "3.1",
+                            "to": "1.5.1",
                             "distance": "11293"
                         },
                         {
-                            "from": "1.3.4",
-                            "to": "1.6",
+                            "from": "1.5.1",
+                            "to": "1.4",
+                            "distance": "30653"
+                        },
+                        {
+                            "from": "1.4",
+                            "to": "1.1.2",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.1.2",
+                            "to": "3.3",
+                            "distance": "30653"
+                        },
+                        {
+                            "from": "3.3",
+                            "to": "2.4.1",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "2.4.1",
+                            "to": "1.3",
+                            "distance": "27745"
+                        }
+                    ],
+                    [
+                        {
+                            "from": "1.3",
+                            "to": "2.1.2",
+                            "distance": "10945"
+                        },
+                        {
+                            "from": "2.1.2",
+                            "to": "2.2",
+                            "distance": "24531"
+                        },
+                        {
+                            "from": "2.2",
+                            "to": "1.4.3",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "1.4.3",
+                            "to": "4.4",
+                            "distance": "27481"
+                        },
+                        {
+                            "from": "4.4",
+                            "to": "2.7.3",
+                            "distance": "10945"
+                        },
+                        {
+                            "from": "2.7.3",
+                            "to": "3.2",
+                            "distance": "24531"
+                        },
+                        {
+                            "from": "3.2",
+                            "to": "2.6.3",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "2.6.3",
+                            "to": "4.1",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "4.1",
+                            "to": "1.7.1",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.7.1",
+                            "to": "4.3",
+                            "distance": "11261"
+                        },
+                        {
+                            "from": "4.3",
+                            "to": "1.7.2",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.7.2",
+                            "to": "2.3",
+                            "distance": "30653"
+                        },
+                        {
+                            "from": "2.3",
+                            "to": "2.3.1",
+                            "distance": "10945"
+                        },
+                        {
+                            "from": "2.3.1",
+                            "to": "3.4",
+                            "distance": "24531"
+                        },
+                        {
+                            "from": "3.4",
+                            "to": "2.5.4",
+                            "distance": "10945"
+                        },
+                        {
+                            "from": "2.5.4",
+                            "to": "1.5",
+                            "distance": "30917"
+                        },
+                        {
+                            "from": "1.5",
+                            "to": "1.1.3",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.1.3",
+                            "to": "3.3",
+                            "distance": "30653"
+                        },
+                        {
+                            "from": "3.3",
+                            "to": "2.6.4",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "2.6.4",
+                            "to": "2.1",
+                            "distance": "27745"
+                        },
+                        {
+                            "from": "2.1",
+                            "to": "1.3.1",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.3.1",
+                            "to": "1.1",
                             "distance": "24267"
                         },
                         {
+                            "from": "1.1",
+                            "to": "2.2.2",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "2.2.2",
+                            "to": "1.2",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "1.2",
+                            "to": "1.2.2",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "1.2.2",
+                            "to": "1.6",
+                            "distance": "21043"
+                        },
+                        {
                             "from": "1.6",
+                            "to": "2.1.3",
+                            "distance": "10945"
+                        },
+                        {
+                            "from": "2.1.3",
+                            "to": "4.2",
+                            "distance": "37357"
+                        },
+                        {
+                            "from": "4.2",
+                            "to": "1.6.2",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "1.6.2",
+                            "to": "3.1",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "3.1",
+                            "to": "1.4.4",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "1.4.4",
+                            "to": "2.4",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "2.4",
+                            "to": "2.4.4",
+                            "distance": "21307"
+                        },
+                        {
+                            "from": "2.4.4",
+                            "to": "1.3",
+                            "distance": "27745"
+                        },
+                        {
+                            "from": "1.3",
+                            "to": "1.4.2",
+                            "distance": "27481"
+                        },
+                        {
+                            "from": "1.4.2",
+                            "to": "3.5",
+                            "distance": "21043"
+                        },
+                        {
+                            "from": "3.5",
+                            "to": "1.5.4",
+                            "distance": "11293"
+                        },
+                        {
+                            "from": "1.5.4",
+                            "to": "1.4",
+                            "distance": "30653"
+                        },
+                        {
+                            "from": "1.4",
                             "to": "0.0.0",
                             "distance": "9523"
                         },
@@ -1971,29 +1971,29 @@
                         }
                     ]
                 ],
-                "improvement_exact": -1.46,
-                "improvement_linear": 17.823,
+                "improvement_exact": -3.147,
+                "improvement_linear": 16.476,
                 "gr_configuration": {
-                    "key": "1.1:Component_16-1.1:Component_16-1.1:Component_16-1.1:Component_16-1.2:Component_1-1.2:Component_1-1.2:Component_1-1.2:Component_1-1.3:Component_11-1.3:Component_11-1.3:Component_11-1.3:Component_11-1.4:Component_2-1.4:Component_2-1.4:Component_2-1.4:Component_2-1.5:Component_15-1.5:Component_15-1.5:Component_15-1.5:Component_15-1.6:Component_4-1.6:Component_4-1.6:Component_4-1.6:Component_4-1.7:Component_7-1.7:Component_7-1.7:Component_7-1.7:Component_7-2.1:Component_10-2.1:Component_10-2.1:Component_10-2.1:Component_10-2.2:Component_9-2.2:Component_9-2.2:Component_9-2.2:Component_9-2.3:Component_13-2.3:Component_13-2.3:Component_13-2.3:Component_13-2.4:Component_12-2.4:Component_12-2.4:Component_12-2.4:Component_12-2.5:Component_5-2.5:Component_5-2.5:Component_5-2.5:Component_5-2.6:Component_14-2.6:Component_14-2.6:Component_14-2.6:Component_14-2.7:Component_3-2.7:Component_3-2.7:Component_3-2.7:Component_3",
+                    "key": "1.1:Component_1-1.1:Component_1-1.1:Component_1-1.1:Component_1-1.2:Component_11-1.2:Component_11-1.2:Component_11-1.2:Component_11-1.3:Component_5-1.3:Component_5-1.3:Component_5-1.3:Component_5-1.4:Component_10-1.4:Component_10-1.4:Component_10-1.4:Component_10-1.5:Component_16-1.5:Component_16-1.5:Component_16-1.5:Component_16-1.6:Component_9-1.6:Component_9-1.6:Component_9-1.6:Component_9-1.7:Component_12-1.7:Component_12-1.7:Component_12-1.7:Component_12-2.1:Component_2-2.1:Component_2-2.1:Component_2-2.1:Component_2-2.2:Component_15-2.2:Component_15-2.2:Component_15-2.2:Component_15-2.3:Component_7-2.3:Component_7-2.3:Component_7-2.3:Component_7-2.4:Component_3-2.4:Component_3-2.4:Component_3-2.4:Component_3-2.5:Component_14-2.5:Component_14-2.5:Component_14-2.5:Component_14-2.6:Component_4-2.6:Component_4-2.6:Component_4-2.6:Component_4-2.7:Component_13-2.7:Component_13-2.7:Component_13-2.7:Component_13",
                     "config": {
                         "Container_1": {
                             "gr_position": "1.1",
                             "contents": [
                                 {
                                     "position": "1.1.1",
-                                    "type": "Component_16"
+                                    "type": "Component_1"
                                 },
                                 {
                                     "position": "1.1.2",
-                                    "type": "Component_16"
+                                    "type": "Component_1"
                                 },
                                 {
                                     "position": "1.1.3",
-                                    "type": "Component_16"
+                                    "type": "Component_1"
                                 },
                                 {
                                     "position": "1.1.4",
-                                    "type": "Component_16"
+                                    "type": "Component_1"
                                 }
                             ]
                         },
@@ -2002,19 +2002,19 @@
                             "contents": [
                                 {
                                     "position": "1.2.1",
-                                    "type": "Component_1"
+                                    "type": "Component_11"
                                 },
                                 {
                                     "position": "1.2.2",
-                                    "type": "Component_1"
+                                    "type": "Component_11"
                                 },
                                 {
                                     "position": "1.2.3",
-                                    "type": "Component_1"
+                                    "type": "Component_11"
                                 },
                                 {
                                     "position": "1.2.4",
-                                    "type": "Component_1"
+                                    "type": "Component_11"
                                 }
                             ]
                         },
@@ -2023,19 +2023,19 @@
                             "contents": [
                                 {
                                     "position": "1.3.1",
-                                    "type": "Component_11"
+                                    "type": "Component_5"
                                 },
                                 {
                                     "position": "1.3.2",
-                                    "type": "Component_11"
+                                    "type": "Component_5"
                                 },
                                 {
                                     "position": "1.3.3",
-                                    "type": "Component_11"
+                                    "type": "Component_5"
                                 },
                                 {
                                     "position": "1.3.4",
-                                    "type": "Component_11"
+                                    "type": "Component_5"
                                 }
                             ]
                         },
@@ -2044,19 +2044,19 @@
                             "contents": [
                                 {
                                     "position": "1.4.1",
-                                    "type": "Component_2"
+                                    "type": "Component_10"
                                 },
                                 {
                                     "position": "1.4.2",
-                                    "type": "Component_2"
+                                    "type": "Component_10"
                                 },
                                 {
                                     "position": "1.4.3",
-                                    "type": "Component_2"
+                                    "type": "Component_10"
                                 },
                                 {
                                     "position": "1.4.4",
-                                    "type": "Component_2"
+                                    "type": "Component_10"
                                 }
                             ]
                         },
@@ -2065,19 +2065,19 @@
                             "contents": [
                                 {
                                     "position": "1.5.1",
-                                    "type": "Component_15"
+                                    "type": "Component_16"
                                 },
                                 {
                                     "position": "1.5.2",
-                                    "type": "Component_15"
+                                    "type": "Component_16"
                                 },
                                 {
                                     "position": "1.5.3",
-                                    "type": "Component_15"
+                                    "type": "Component_16"
                                 },
                                 {
                                     "position": "1.5.4",
-                                    "type": "Component_15"
+                                    "type": "Component_16"
                                 }
                             ]
                         },
@@ -2086,19 +2086,19 @@
                             "contents": [
                                 {
                                     "position": "1.6.1",
-                                    "type": "Component_4"
+                                    "type": "Component_9"
                                 },
                                 {
                                     "position": "1.6.2",
-                                    "type": "Component_4"
+                                    "type": "Component_9"
                                 },
                                 {
                                     "position": "1.6.3",
-                                    "type": "Component_4"
+                                    "type": "Component_9"
                                 },
                                 {
                                     "position": "1.6.4",
-                                    "type": "Component_4"
+                                    "type": "Component_9"
                                 }
                             ]
                         },
@@ -2107,19 +2107,19 @@
                             "contents": [
                                 {
                                     "position": "1.7.1",
-                                    "type": "Component_7"
+                                    "type": "Component_12"
                                 },
                                 {
                                     "position": "1.7.2",
-                                    "type": "Component_7"
+                                    "type": "Component_12"
                                 },
                                 {
                                     "position": "1.7.3",
-                                    "type": "Component_7"
+                                    "type": "Component_12"
                                 },
                                 {
                                     "position": "1.7.4",
-                                    "type": "Component_7"
+                                    "type": "Component_12"
                                 }
                             ]
                         },
@@ -2128,19 +2128,19 @@
                             "contents": [
                                 {
                                     "position": "2.1.1",
-                                    "type": "Component_10"
+                                    "type": "Component_2"
                                 },
                                 {
                                     "position": "2.1.2",
-                                    "type": "Component_10"
+                                    "type": "Component_2"
                                 },
                                 {
                                     "position": "2.1.3",
-                                    "type": "Component_10"
+                                    "type": "Component_2"
                                 },
                                 {
                                     "position": "2.1.4",
-                                    "type": "Component_10"
+                                    "type": "Component_2"
                                 }
                             ]
                         },
@@ -2149,19 +2149,19 @@
                             "contents": [
                                 {
                                     "position": "2.2.1",
-                                    "type": "Component_9"
+                                    "type": "Component_15"
                                 },
                                 {
                                     "position": "2.2.2",
-                                    "type": "Component_9"
+                                    "type": "Component_15"
                                 },
                                 {
                                     "position": "2.2.3",
-                                    "type": "Component_9"
+                                    "type": "Component_15"
                                 },
                                 {
                                     "position": "2.2.4",
-                                    "type": "Component_9"
+                                    "type": "Component_15"
                                 }
                             ]
                         },
@@ -2170,19 +2170,19 @@
                             "contents": [
                                 {
                                     "position": "2.3.1",
-                                    "type": "Component_13"
+                                    "type": "Component_7"
                                 },
                                 {
                                     "position": "2.3.2",
-                                    "type": "Component_13"
+                                    "type": "Component_7"
                                 },
                                 {
                                     "position": "2.3.3",
-                                    "type": "Component_13"
+                                    "type": "Component_7"
                                 },
                                 {
                                     "position": "2.3.4",
-                                    "type": "Component_13"
+                                    "type": "Component_7"
                                 }
                             ]
                         },
@@ -2191,19 +2191,19 @@
                             "contents": [
                                 {
                                     "position": "2.4.1",
-                                    "type": "Component_12"
+                                    "type": "Component_3"
                                 },
                                 {
                                     "position": "2.4.2",
-                                    "type": "Component_12"
+                                    "type": "Component_3"
                                 },
                                 {
                                     "position": "2.4.3",
-                                    "type": "Component_12"
+                                    "type": "Component_3"
                                 },
                                 {
                                     "position": "2.4.4",
-                                    "type": "Component_12"
+                                    "type": "Component_3"
                                 }
                             ]
                         },
@@ -2212,19 +2212,19 @@
                             "contents": [
                                 {
                                     "position": "2.5.1",
-                                    "type": "Component_5"
+                                    "type": "Component_14"
                                 },
                                 {
                                     "position": "2.5.2",
-                                    "type": "Component_5"
+                                    "type": "Component_14"
                                 },
                                 {
                                     "position": "2.5.3",
-                                    "type": "Component_5"
+                                    "type": "Component_14"
                                 },
                                 {
                                     "position": "2.5.4",
-                                    "type": "Component_5"
+                                    "type": "Component_14"
                                 }
                             ]
                         },
@@ -2233,19 +2233,19 @@
                             "contents": [
                                 {
                                     "position": "2.6.1",
-                                    "type": "Component_14"
+                                    "type": "Component_4"
                                 },
                                 {
                                     "position": "2.6.2",
-                                    "type": "Component_14"
+                                    "type": "Component_4"
                                 },
                                 {
                                     "position": "2.6.3",
-                                    "type": "Component_14"
+                                    "type": "Component_4"
                                 },
                                 {
                                     "position": "2.6.4",
-                                    "type": "Component_14"
+                                    "type": "Component_4"
                                 }
                             ]
                         },
@@ -2254,19 +2254,19 @@
                             "contents": [
                                 {
                                     "position": "2.7.1",
-                                    "type": "Component_3"
+                                    "type": "Component_13"
                                 },
                                 {
                                     "position": "2.7.2",
-                                    "type": "Component_3"
+                                    "type": "Component_13"
                                 },
                                 {
                                     "position": "2.7.3",
-                                    "type": "Component_3"
+                                    "type": "Component_13"
                                 },
                                 {
                                     "position": "2.7.4",
-                                    "type": "Component_3"
+                                    "type": "Component_13"
                                 }
                             ]
                         }
@@ -2274,8 +2274,8 @@
                 }
             }
         ],
-        "best_total_value": "1643657",
-        "solutionTime": 8257,
-        "totalTime": 8257
+        "best_total_value": "1620160",
+        "solutionTime": 7701,
+        "totalTime": 7701
     }
 }

@@ -278,7 +278,7 @@ def calculate_full_sequence_cost(distance_matrix, configuration, method="exact")
             for edge in distance_matrix:
                 if edge["edge"].startswith(f"({last_node_visited},"):
                     new_edge = {"edge": edge["edge"].replace(f"({last_node_visited},", "(0.0,"),
-                                "distance": edge["distance"] + 2000}
+                                "distance": edge["distance"]}
                     new_matrix.append(new_edge)
             working_matrix = new_matrix
 
