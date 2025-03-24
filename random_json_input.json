@@ -3,7 +3,7 @@
     "uuid": "20575aa3-a69a-46e1-83b3-7e4ee2d68601",
     "generated_at": 1736414971,
     "data": {
-        "method": "exact",
+        "method": "exact-linear",
         "kh_sequences": [
             ["KH001", "KH002", "KH003", "KH001"],
             ["KH001", "KH002", "KH003", "KH002"]

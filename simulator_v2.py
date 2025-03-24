@@ -389,9 +389,9 @@ def run_simulation(input_data=None):
         cost, tour, segmented_details = calculate_full_sequence_cost(distance_matrix, run_config, method="exact")
 
         improvement_exact = round(((baseline_exact_cost - cost) / baseline_exact_cost) * 100,
-                                  3) if baseline_exact_cost > 0 else 0
+                                  4) if baseline_exact_cost > 0 else 0
         improvement_linear = round(((baseline_linear_cost - cost) / baseline_linear_cost) * 100,
-                                   3) if baseline_linear_cost > 0 else 0
+                                   4) if baseline_linear_cost > 0 else 0
         gr_key = "-".join(
             f"{container['gr_position']}:{content['type']}" for container in gr_config.values() for content in
             container["contents"])

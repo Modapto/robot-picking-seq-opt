@@ -447,8 +447,8 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
         if method == "exact-linear":
             print("Comparing Exact and Linear Methods...")
             if exact_tour_cost is not None and linear_tour_cost is not None:
-                improvement = ((linear_tour_cost - exact_tour_cost) / linear_tour_cost) * 100
-                phase_results["improvement_percentage"] = round(improvement, 2)
+                improvement = round(((linear_tour_cost - exact_tour_cost) / linear_tour_cost) * 100, 4)
+                phase_results["improvement_percentage"] = improvement
                 if improvement > 0:
                     print(f"Exact Method is better by {improvement:.2f}%. Using Exact Method. Cost: {exact_tour_cost}")
                     phase_results = {"exact": phase_results["exact"], "improvement_percentage": improvement}
