@@ -397,16 +397,17 @@ def run_simulation(input_data=None):
             container["contents"])
 
         runs.append({
+            "phase": run_id + 1,
             "exact_cost": cost,
-            "time_details": [
-                [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in segment]
-                for segment in segmented_details
-            ],
+            # "time_details": [
+            #     [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in segment]
+            #     for segment in segmented_details
+            # ],
             "improvement_exact": improvement_exact,
             "improvement_linear": improvement_linear,
             "gr_configuration": {
-                "key": gr_key,
-                "config": gr_config
+                "key": gr_key
+                # ,"config": gr_config
             }
         })
         if cost < best_total_value:
@@ -420,21 +421,22 @@ def run_simulation(input_data=None):
         "data": {
             "baseline": {
                 "exact": {
-                    "cost": baseline_exact_cost,
-                    "time_details": [
-                        [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in segment]
-                        for segment in baseline_exact_details
-                    ]
+                    "cost": baseline_exact_cost
+                    # ,"time_details": [
+                    #     [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in segment]
+                    #     for segment in baseline_exact_details
+                    # ]
                 },
                 "linear": {
                     "cost": baseline_linear_cost,
-                    "time_details": [
-                        [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in segment]
-                        for segment in baseline_linear_details
-                    ]
-                }
+                    # "time_details": [
+                    #     [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in segment]
+                    #     for segment in baseline_linear_details
+                    # ]
+                },
+                "baseline configuration": baseline_config["containers"]
             },
-            "runs": runs,
+            "phases": runs,
             "best_total_value": best_total_value,
             "solutionTime": (end_time - total_time_start),
             "totalTime": (end_time - total_time_start)
