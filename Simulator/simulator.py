@@ -112,13 +112,13 @@ def convert_to_native_types(data):
 
 def run_simulation(input_data):
     # # inputs
-    # with open("final_distance_matrix.json", "r") as f:
+    # with open("final_distance_matrix_dual.json", "r") as f:
     #     distance_matrix = json.load(f)
     #
-    # with open("containers_template.json", "r") as f:
+    # with open("containers_template_dual.json", "r") as f:
     #     containers_template = json.load(f)
     #
-    # with open("kit_holders_template.json", "r") as f:
+    # with open("kit_holders_template_dual.json", "r") as f:
     #     kit_holders_template = json.load(f)
     #
     # # manually inputs

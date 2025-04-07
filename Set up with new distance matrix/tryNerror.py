@@ -6,7 +6,7 @@
 # from time import *
 #
 # # Load the existing distance matrix
-# with open('final_distance_matrix.json', 'r') as f:
+# with open('final_distance_matrix_dual.json', 'r') as f:
 #     distance_matrix = json.load(f)
 #
 # # Debugging: Print the type and structure of distance_matrix
