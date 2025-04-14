@@ -4,7 +4,6 @@ from itertools import product
 import json
 import uuid
 from time import *
-
 import json
 
 def load_distance_matrix(file_path="final_distance_matrix_dual.json"):
