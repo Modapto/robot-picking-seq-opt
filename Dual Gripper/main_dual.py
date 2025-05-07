@@ -6,9 +6,9 @@ import pika
 import sys
 import pandas as pd
 import numpy as np
-from instances_generator import *
-from parse_json import *
-from GraphCreation import *
+from instances_generator_dual import *
+from parse_json_dual import *
+from GraphCreation_dual import *
 from heuristic_methods import *
 from reinforcement_learning import *
 from exact_method import *
@@ -264,7 +264,7 @@ def convert_to_native_types(data):
 #     output_data = convert_to_native_types(output_data)
 #
 #     # Save the output to a JSON file
-#     output_json_file_path = "output_tsp_results.json"
+#     output_json_file_path = "output_tsp_results_dual.json"
 #     with open(output_json_file_path, 'w') as json_file:
 #         json.dump(output_data, json_file, indent=4)
 #     print(f"Output saved to {output_json_file_path}")
@@ -472,7 +472,7 @@ def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
     output_data = convert_to_native_types(output_data)
 
     # Save to JSON file
-    output_json_file_path = "output_tsp_results.json"
+    output_json_file_path = "output_tsp_results_dual.json"
     with open(output_json_file_path, 'w') as json_file:
         json.dump(output_data, json_file, indent=4)
 

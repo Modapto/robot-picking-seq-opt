@@ -1,6 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from parse_json import * # Import functions from the parse_json.py file
+from distance_matrix_creation import *
 
 def create_directed_bipartite_graph(a_to_b_matrix):
     """
@@ -26,9 +26,9 @@ def create_directed_bipartite_graph(a_to_b_matrix):
     for point_b in set_2:
         B.add_node(point_b, bipartite=1)  # Set 2 on the other side
 
-    # # Debugging: Print a subset of the distance matrix for verification
-    # print("Distance matrix for 0.0 to set_2 and set_1 to 0.0.0")
-    # print(a_to_b_matrix.loc[['0.0', '1.1', '1.2'], ['1.1.1', '1.1.2', '0.0.0']])
+    # Debugging: Print a subset of the distance matrix for verification
+    print("Distance matrix for 0.0 to set_2 and set_1 to 0.0.0")
+    print(a_to_b_matrix.loc[['0.0', '1.1', '1.2'], ['1.1.1', '1.1.2', '0.0.0']])
 
     # 1. Add edges from 0.0 to set_2 (excluding 0.0.0)
     for point_b in set_2:
@@ -95,3 +95,13 @@ def plot_directed_bipartite_graph(B, set_1, set_2):
 
     plt.title('Directed Bipartite Graph (Set_1 and Set_2)')
     plt.show()
+
+
+
+# B, set_1, set_2 = create_directed_bipartite_graph(distance_matrix)
+#
+# # Plot the graph
+# plot_directed_bipartite_graph(B, set_1, set_2)
+#
+# # Output graph information
+# print(f"Graph has {B.number_of_nodes()} nodes and {B.number_of_edges()} edges.")

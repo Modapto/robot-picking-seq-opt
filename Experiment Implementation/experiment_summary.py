@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 # Base directory for experiment results for sparse graph
-base_dir = "Experiment Results for Equal Sets with Symmetric Distances v2"
+base_dir = "Experiment Results for Unequal Sets with Symmetric Distances v3"
 
 # List to hold the structured data
 structured_data = []
@@ -46,9 +46,9 @@ for root, dirs, files in os.walk(base_dir):
                     'Ratio Gravity Rack: Kit Holder': ratio,
                     'Run': run_id
                 }
-
+                # 'Nearest', '2-opt', 'Q-learning', 'Ql-nearest', 'Ql-2-opt
                 # Extract data for each method
-                for method in ['Exact', 'Nearest', '2-opt', 'Q-learning', 'Ql-nearest', 'Ql-2-opt']:
+                for method in ['Exact', 'Linear']:
                     method_data = run_data[run_data['Method'] == method]
                     if not method_data.empty:
                         result_row[f'Exec time {method}'] = method_data['Exec time'].values[0]
@@ -65,7 +65,7 @@ for root, dirs, files in os.walk(base_dir):
 final_summary_df = pd.DataFrame(structured_data)
 
 # Save the summary as an Excel file
-summary_excel_file = os.path.join(base_dir, "Experiment Results Summary for Equal Sets with Symmetric Distances v2.xlsx")
+summary_excel_file = os.path.join(base_dir, "Experiment Results Summary for Unequal Sets with Symmetric Distances v3.xlsx")
 final_summary_df.to_excel(summary_excel_file, index=False)
 
 print(f"Complete summary saved to {summary_excel_file}")

@@ -1,6 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
-from parse_json import * # Import functions from the parse_json.py file
+from parse_json_dual import * # Import functions from the parse_json_dual.py file
 
 def create_directed_bipartite_graph(a_to_b_matrix):
     """

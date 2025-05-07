@@ -1,0 +1,17 @@
+{
+    "KH001": {"contents": [{"position": "", "type": "Component_5"},
+                           {"position": "", "type": "Component_15"},
+                           {"position": "", "type": "Component_3"},
+                           {"position": "", "type": "Component_16"},
+                           {"position": "", "type": "Component_14"},
+                           {"position": "", "type": "Component_11"}]},
+    "KH002": {"contents": [{"position": "", "type": "Component_4"},
+                           {"position": "", "type": "Component_2"},
+                           {"position": "", "type": "Component_12"},
+                           {"position": "", "type": "Component_10"}]},
+    "KH003": {"contents": [{"position": "", "type": "Component_9"},
+                           {"position": "", "type": "Component_13"},
+                           {"position": "", "type": "Component_1"},
+                           {"position": "", "type": "Component_7"},
+                           {"position": "", "type": "Component_10"}]}
+}
