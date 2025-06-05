@@ -1,5 +1,5 @@
 {
-    "produced_at": 1749164246663,
+    "produced_at": 1749164370672,
     "data": {
         "optimization_results": {
             "exact": {
@@ -259,7 +259,7 @@
             },
             "improvement_percentage": 19.824
         },
-        "solutionTime": 2683,
-        "totalTime": 2683
+        "solutionTime": 2756,
+        "totalTime": 2756
     }
 }

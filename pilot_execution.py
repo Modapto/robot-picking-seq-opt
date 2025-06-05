@@ -11,15 +11,12 @@ from instances_generator import *
 from parse_json import *
 from GraphCreation import *
 from heuristic_methods import *
-from reinforcement_learning import *
 from exact_method import *
-from rl_heuristics import *
 from method_linear import *
-# from simulator import *
+from pilot_preprocessing import *
 # from simulator_v2 import *
 
 online = sys.argv[1]  # This argument will differentiate between local and remote runs
-
 
 # Function to convert data types to native Python types (e.g., for JSON serialization)
 def convert_to_native_types(data):
@@ -34,89 +31,7 @@ def convert_to_native_types(data):
     else:
         return data
 
-def generate_kh_configuration1(input_data):
-    if isinstance(input_data, str):
-        with open(input_data, 'r') as f:
-            input_data = json.load(f)
-
-    try:
-        kh_sequences = input_data["data"]["kh_sequences"]
-        print("Loaded kh_sequences:", kh_sequences)  # <-- 🔍 DEBUG PRINT HERE
-
-        assert isinstance(kh_sequences, list)
-        assert all(isinstance(k, dict) for k in kh_sequences)
-        return kh_sequences
-    except Exception as e:
-        raise ValueError(f"Invalid or missing 'kh_sequences' in JSON: {e}")
-
-
-def extract_gr_nodes_from_sequence(gr_sequence, containers_template):
-    gr_nodes = {}  # e.g., { "1.5.1": "Component_10" }
-    for entry in gr_sequence:
-        for gr_pos, container_id in entry.items():  # "GRPos_1.5": "Container_5"
-            base_pos = gr_pos.split("_")[1]  # → "1.5"
-            contents = containers_template.get(container_id, {}).get("contents", [])
-            for comp in contents:
-                comp_type = comp["type"]
-                sub_pos = comp["position"]  # → "1", "2", etc.
-                full_gr_node = f"{base_pos}.{sub_pos}"  # → "1.5.1"
-                gr_nodes[full_gr_node] = comp_type
-    return gr_nodes
-
-def extract_kh_nodes_from_sequence(kh_config, kit_holders_template):
-    kh_nodes = {}  # e.g., { "KHPos_1": ["Component_1", "Component_2"] }
-    for pos in kh_config:  # e.g., {'KHPos_1': 'KH001'}
-        for pos_key, kh_id in pos.items():
-            contents = kit_holders_template.get(kh_id, {}).get("contents", [])
-            kh_nodes[pos_key] = [item["type"] for item in contents]
-    return kh_nodes
-
-def filter_distance_matrix(distance_matrix, kh_gr_config):
-    """
-    Filters the distance matrix based on KH and GR nodes,
-    and returns it in the format expected by create_distance_matrices().
-    """
-
-    assert isinstance(kh_gr_config, list), "kh_gr_config must be a list of dictionaries."
-    assert all(isinstance(k, dict) for k in kh_gr_config), "Each item in kh_gr_config must be a dictionary."
-
-    used_kh_nodes = set()
-    for kh_setup in kh_gr_config:
-        for kh_pos, kh_id in kh_setup.items():
-            used_kh_nodes.add(kh_pos.replace("KHPos_", ""))
-
-    used_gr_nodes = set()
-    for from_node in distance_matrix:
-        if from_node.startswith("GRPos_"):
-            used_gr_nodes.add(from_node.replace("GRPos_", ""))
-    for neighbors in distance_matrix.values():
-        for to_node in neighbors:
-            if to_node.startswith("GRPos_"):
-                used_gr_nodes.add(to_node.replace("GRPos_", ""))
-
-    filtered_matrix = []
-    for from_node, neighbors in distance_matrix.items():
-        from_clean = from_node.replace("GRPos_", "").replace("KHPos_", "")
-        for to_node, dist in neighbors.items():
-            to_clean = to_node.replace("GRPos_", "").replace("KHPos_", "")
-            if (
-                (from_clean in used_gr_nodes and to_clean in used_kh_nodes)
-                or (from_clean in used_kh_nodes and to_clean in used_gr_nodes)
-                or (from_clean in ["0.0", "0.0.0"] or to_clean in ["0.0", "0.0.0"])
-            ):
-                filtered_matrix.append({
-                    "edge": f"({from_clean}, {to_clean})",
-                    "distance": dist
-                })
-
-    print(f"  ➤ Filtered matrix has {len(filtered_matrix)} edges.")
-    return {"distanceMatrix": filtered_matrix}
-
-
 def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
-    from time import time
-    import json
-
     solution_time_start = int(time() * 1000)
     total_time_start = int(time() * 1000)
 
@@ -132,102 +47,69 @@ def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
     else:
         raise ValueError("Input data is required, either via JSON file or directly.")
 
-    distance_matrix = data["distance_matrix"]
-    gr_sequence = data["gr_sequence"]
-    kh_sequences = data["kh_sequences"]
-    containers = data["containers_template"]
-    kit_holders = data["kit_holders_template"]
-
-    # Build detailed GR nodes like GRPos_1.5.1, GRPos_1.5.2, etc.
-    gr_positions = []
-    for gr_dict in gr_sequence:
-        for gr_pos, container_id in gr_dict.items():
-            contents = containers[container_id]["contents"]
-            for item in contents:
-                index = item["position"]
-                gr_positions.append(f"{gr_pos}.{index}")
-
+    raw_distance_matrix = input_data["data"]["distance_matrix"]
+    container_types = input_data["data"]["containers_template"]
+    kit_holder_types = input_data["data"]["kit_holders_template"]
+    kh_sequences = input_data["data"]["kh_sequences"]
+    gr_sequence = input_data["data"]["gr_sequence"]
     start_node = "0.0"
     end_node = "0.0"
 
     results = []
-    for i, kh_config in enumerate(kh_sequences):
-        print(f">>> Running Phase {i + 1} with KH Setup: {kh_config}")
+    # Step 1: Generate node maps
+    gr_nodes = generate_gr_nodes(gr_sequence, container_types)
+    kh_nodes = generate_kh_nodes(kh_sequences, kit_holder_types)
 
-        # Prepare current kit holder config
-        current_kh_config = {}
-        for pos in kh_config:
-            for pos_key, kh_id in pos.items():
-                current_kh_config[pos_key] = kit_holders[kh_id]
+    # Step 2: Extend the distance matrix
+    extended_matrix = extend_distance_matrix(gr_nodes, kh_nodes, raw_distance_matrix)
 
-        config = generate_kh_configuration1(input_data)
-        print(">>> Running Phase 1 with KH Setup:", config)
+    # Step 3: Filter for optimization logic
+    filtered_matrix = generate_filtered_distance_matrix(extended_matrix, gr_nodes, kh_nodes)
+    a_to_b_matrix = create_distance_matrices({"data": {"distanceMatrix": filtered_matrix}})
 
-        filtered_matrix = filter_distance_matrix(distance_matrix, config)
+    B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
+    print(f"  ➤ Directed graph created with {len(B.nodes)} nodes and {len(B.edges)} edges.")
 
-        print(f"  ➤ GR nodes: {len(gr_positions)} | Sample: {gr_positions[:20]}")
-        print(f"  ➤ KH nodes: {len(current_kh_config)} | Sample: {list(current_kh_config.keys())[:20]}")
-        print(f"  ➤ Filtered matrix has {len(filtered_matrix)} edges.")
+    method = data["method"]
+    results = {}
 
-        a_to_b_matrix = create_distance_matrices1({"data": {"distance_matrix": filtered_matrix}})
-
-        B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
-
-        print(f"  ➤ Directed graph created with {len(B.nodes)} nodes and {len(B.edges)} edges.")
-
-        method = data["method"]
-        phase_results = {}
-
-        if method in ["exact", "exact-linear"]:
-            exact_input = {
-                "data": {
-                    "distanceMatrix": filtered_matrix,
-                    "start_node": start_node,
-                    "end_node": end_node if i == len(kh_sequences) - 1 else None
-                }
+    if method in ["exact", "exact-linear"]:
+        exact_input = {
+            "data": {
+                "distanceMatrix": filtered_matrix,
+                "start_node": start_node,
+                "end_node": end_node
             }
-            exact_tour, exact_tour_cost, time_details_exact = run_exact_tsp(exact_input)
-            if i < len(kh_sequences) - 1:
-                for j in range(len(exact_tour) - 1, -1, -1):
-                    if exact_tour[j][1] == "0.0.0":
-                        exact_tour = exact_tour[:j]
-                        break
-                time_details_exact = [step for step in time_details_exact if step["to"] not in ["0.0.0", "0.0"]]
-                exact_tour_cost = sum(step["distance"] for step in time_details_exact)
-            phase_results["exact"] = {"cost": exact_tour_cost, "time_details": time_details_exact}
+        }
+        exact_tour, exact_tour_cost, time_details_exact = run_exact_tsp(exact_input)
+        annotated_time_details = annotate_component_in_time_details(time_details_exact, gr_nodes, kh_nodes)
+        results["exact"] = {"cost": exact_tour_cost, "time_details": annotated_time_details}
 
-        if method in ["linear", "exact-linear"]:
-            linear_tour = linear_picking(B, start_node, end_node, set_1, set_2, filtered_matrix=filtered_matrix)
-            linear_tour_cost, time_details_linear = total_cost(B, linear_tour['tour'], filtered_matrix=filtered_matrix)
-            if i < len(kh_sequences) - 1:
-                for j in range(len(linear_tour['tour']) - 1, -1, -1):
-                    if linear_tour['tour'][j] == "0.0.0":
-                        linear_tour['tour'] = linear_tour['tour'][:j]
-                        break
-                time_details_linear = [step for step in time_details_linear if step["to"] not in ["0.0.0", "0.0"]]
-                linear_tour_cost = sum(step["totalTime"] for step in time_details_linear)
-            phase_results["linear"] = {"cost": linear_tour_cost, "time_details": time_details_linear}
+    if method in ["linear", "exact-linear"]:
+        linear_tour = linear_picking(B, start_node, end_node, set_1, set_2, filtered_matrix=filtered_matrix)
+        linear_tour_cost, time_details_linear = total_cost(B, linear_tour['tour'], filtered_matrix=filtered_matrix)
+        annotated_time_details = annotate_component_in_time_details(time_details_linear, gr_nodes, kh_nodes)
+        results["linear"] = {"cost": linear_tour_cost, "time_details": annotated_time_details}
 
-        if method == "exact-linear":
-            if exact_tour_cost is not None and linear_tour_cost is not None:
-                improvement = round(((linear_tour_cost - exact_tour_cost) / linear_tour_cost) * 100, 4)
-                if improvement > 0:
-                    phase_results = {"exact": phase_results["exact"], "improvement_percentage": improvement}
-                else:
-                    phase_results = {"linear": phase_results["linear"], "improvement_percentage": improvement}
-
-        results.append(phase_results)
+    if method == "exact-linear":
+        if results["exact"]["cost"] is not None and results["linear"]["cost"] is not None:
+            improvement = round(
+                ((results["linear"]["cost"] - results["exact"]["cost"]) / results["linear"]["cost"]) * 100, 4)
+            if improvement > 0:
+                results = {"exact": results["exact"], "improvement_percentage": improvement}
+            else:
+                results = {"linear": results["linear"], "improvement_percentage": improvement}
 
     output_data = {
         "produced_at": int(time() * 1000),
         "data": {
-            "phases": results,
+            "optimization_results": results,
             "solutionTime": (int(time() * 1000) - solution_time_start),
             "totalTime": (int(time() * 1000) - total_time_start),
         }
     }
 
-    with open("output_tsp_results.json", 'w') as json_file:
+    with open("pilot_execution_output.json", 'w') as json_file:
         json.dump(convert_to_native_types(output_data), json_file, indent=4)
 
     return output_data
