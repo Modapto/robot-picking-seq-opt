@@ -168,36 +168,52 @@ def generate_gr_nodes(gr_sequence, container_types):
 def extend_distance_matrix(gr_nodes, kh_nodes, original_matrix, fallback_distance=99999):
     extended = []
 
-    # Step 1: Build lookup
+    # Step 1: Build original edge lookup
     original_lookup = {
         tuple(e["edge"].strip("()").replace("'", "").split(", ")): e["distance"]
         for e in original_matrix
     }
 
-    # Step 2: Add 0.0 → GR edges
-    for gr_node in gr_nodes:
-        key = ("0.0", gr_node)
-        distance = original_lookup.get(key, fallback_distance)
-        extended.append({"edge": f"({key[0]}, {key[1]})", "distance": distance})
+    # Step 2: Smart fallback helper
+    def get_fallback_distance(src, dst):
+        # Exact match
+        if (src, dst) in original_lookup:
+            return original_lookup[(src, dst)]
 
-    # Step 3: Add GR → KH edges if types match
+        # Base fallback: match siblings like 1.1.2 → 1.1.1
+        def get_base(n):
+            parts = n.split(".")
+            return ".".join(parts[:2]) if len(parts) >= 2 else n
+
+        base_src = get_base(src)
+        base_dst = get_base(dst)
+
+        for (s, d), dist in original_lookup.items():
+            if get_base(s) == base_src and get_base(d) == base_dst:
+                return dist
+
+        return fallback_distance
+
+    # Step 3: Add 0.0 → GR edges
+    for gr_node in gr_nodes:
+        distance = get_fallback_distance("0.0", gr_node)
+        extended.append({"edge": f"(0.0, {gr_node})", "distance": distance})
+
+    # Step 4: Add GR → KH edges if types match
     for gr_node, gr_type in gr_nodes.items():
         for kh_node, kh_type in kh_nodes.items():
             if gr_type == kh_type:
-                key = (gr_node, kh_node)
-                distance = original_lookup.get(key, fallback_distance)
-                extended.append({"edge": f"({key[0]}, {key[1]})", "distance": distance})
+                distance = get_fallback_distance(gr_node, kh_node)
+                extended.append({"edge": f"({gr_node}, {kh_node})", "distance": distance})
 
-    # Step 4: Add KH → 0.0.0
+    # Step 5: Add KH → 0.0.0 edges
     for kh_node in kh_nodes:
-        key = (kh_node, "0.0.0")
-        distance = original_lookup.get(key, fallback_distance)
-        extended.append({"edge": f"({key[0]}, {key[1]})", "distance": distance})
+        distance = get_fallback_distance(kh_node, "0.0.0")
+        extended.append({"edge": f"({kh_node}, 0.0.0)", "distance": distance})
 
-    # Step 5: Add 0.0.0 → 0.0 if exists
-    key = ("0.0.0", "0.0")
-    distance = original_lookup.get(key, fallback_distance)
-    extended.append({"edge": f"({key[0]}, {key[1]})", "distance": distance})
+    # Step 6: Add 0.0.0 → 0.0 if exists
+    distance = get_fallback_distance("0.0.0", "0.0")
+    extended.append({"edge": "(0.0.0, 0.0)", "distance": distance})
 
     return extended
 
