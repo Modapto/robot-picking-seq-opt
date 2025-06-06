@@ -164,3 +164,41 @@ def annotate_component_in_time_details(time_details, gr_nodes, kh_nodes):
         enriched.append(enriched_step)
 
     return enriched
+
+
+def validate_component_availability(kh_sequences, kit_holder_types, container_types):
+    from collections import Counter
+
+    if kh_sequences and isinstance(kh_sequences[0], list):
+        flat_sequences = [item for phase in kh_sequences for item in phase]
+    else:
+        flat_sequences = kh_sequences
+
+    required = Counter()
+    for entry in flat_sequences:
+        for _, kh_id in entry.items():
+            if kh_id in kit_holder_types:
+                for item in kit_holder_types[kh_id].get("contents", []):
+                    if isinstance(item, dict):
+                        required[item["type"]] += 1
+
+    available = Counter()
+    for container in container_types.values():
+        for item in container.get("contents", []):
+            if isinstance(item, dict):
+                available[item["type"]] += 1
+
+    over_requested = {}
+    for comp, req_qty in required.items():
+        if req_qty > available.get(comp, 0):
+            over_requested[comp] = (req_qty, available.get(comp, 0))
+
+    if over_requested:
+        message_lines = ["This KH sequence is unavailable to run due to over-requested components:"]
+        for comp, (req, avail) in over_requested.items():
+            message_lines.append(f"  - {comp}: requested {req}, available {avail}")
+        message = "".join(message_lines)
+        print("⚠️", message)
+        return False, message
+
+    return True, ""
