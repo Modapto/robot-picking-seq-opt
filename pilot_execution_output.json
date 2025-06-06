@@ -1,8 +1,8 @@
 {
-    "produced_at": 1749196814723,
+    "produced_at": 1749199267160,
     "data": {
         "message": "This KH sequence is unavailable to run due to over-requested components:  - Component_5: requested 4, available 2  - Component_11: requested 4, available 3",
-        "solutionTime": 1,
-        "totalTime": 1
+        "solutionTime": 1117,
+        "totalTime": 1117
     }
 }

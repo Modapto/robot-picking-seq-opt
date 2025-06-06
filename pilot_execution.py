@@ -64,19 +64,9 @@ def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
     )
 
     if not is_valid:
-        output_data = {
-            "produced_at": int(time() * 1000),
-            "data": {
-                "message": validation_msg,
-                "solutionTime": (int(time() * 1000) - solution_time_start),
-                "totalTime": (int(time() * 1000) - total_time_start),
-            }
-        }
-
-        with open("pilot_execution_output.json", 'w') as json_file:
-            json.dump(convert_to_native_types(output_data), json_file, indent=4)
-
-        return output_data
+        validation_msg = validation_msg
+    else:
+        validation_msg = "Valid KH sequence optimization starts..."
 
 
     results = []
@@ -127,11 +117,14 @@ def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
     output_data = {
         "produced_at": int(time() * 1000),
         "data": {
-            "optimization_results": results,
+            "message": validation_msg,
             "solutionTime": (int(time() * 1000) - solution_time_start),
             "totalTime": (int(time() * 1000) - total_time_start),
         }
     }
+
+    if is_valid:
+        output_data["data"]["optimization_results"] = results
 
     with open("pilot_execution_output.json", 'w') as json_file:
         json.dump(convert_to_native_types(output_data), json_file, indent=4)
