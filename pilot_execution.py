@@ -46,6 +46,46 @@ def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
         print(f"Local JSON input has been loaded from {json_file_path}.")
     else:
         raise ValueError("Input data is required, either via JSON file or directly.")
+    from collections import defaultdict, Counter
+
+    def validate_component_availability(kh_sequences, kit_holder_types, container_types):
+        from collections import Counter
+
+        # Flatten if kh_sequences is list of lists
+        if kh_sequences and isinstance(kh_sequences[0], list):
+            flat_sequences = [item for phase in kh_sequences for item in phase]
+        else:
+            flat_sequences = kh_sequences
+
+        # Count required components
+        required = Counter()
+        for entry in flat_sequences:
+            for _, kh_id in entry.items():
+                if kh_id in kit_holder_types:
+                    for item in kit_holder_types[kh_id].get("contents", []):
+                        if isinstance(item, dict):
+                            required[item["type"]] += 1
+
+        # Count available components
+        available = Counter()
+        for container in container_types.values():
+            for item in container.get("contents", []):
+                if isinstance(item, dict):
+                    available[item["type"]] += 1
+
+        # Compare required vs available
+        over_requested = {}
+        for comp, req_qty in required.items():
+            if req_qty > available.get(comp, 0):
+                over_requested[comp] = (req_qty, available.get(comp, 0))
+
+        if over_requested:
+            print("⚠️ This KH sequence is unavailable to run due to over-requested components:")
+            for comp, (req, avail) in over_requested.items():
+                print(f"  - {comp}: requested {req}, available {avail}")
+            return False
+
+        return True
 
     raw_distance_matrix = input_data["data"]["distance_matrix"]
     container_types = input_data["data"]["containers_template"]
@@ -54,6 +94,12 @@ def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
     gr_sequence = input_data["data"]["gr_sequence"]
     start_node = "0.0"
     end_node = "0.0"
+
+    validate_component_availability(
+        data["kh_sequences"],
+        data["kit_holders_template"],
+        data["containers_template"]
+    )
 
     results = []
     # Step 1: Generate node maps
