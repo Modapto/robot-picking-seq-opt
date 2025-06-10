@@ -60,6 +60,22 @@ def generate_unique_gr_configurations(num_configs, containers_template):
             configurations[key] = config
     return configurations
 
+# ------------------------------------------------------------------
+def _gr_sequence_from_containers(containers_dict):
+    """
+    Turn {'Container_1': {'gr_position': '1.1', …}, …}
+    →  [ {'1.1': 'Container_1'}, {'1.2': 'Container_2'}, … ]
+    Positions are sorted row-major (row.column as ints).
+    """
+    tmp = [(meta["gr_position"], cid) for cid, meta in containers_dict.items()]
+
+    def sort_key(item):
+        row, col = map(int, item[0].split('.'))
+        return (row, col)
+
+    return [{pos: cid} for pos, cid in sorted(tmp, key=sort_key)]
+# ------------------------------------------------------------------
+
 
 def generate_kh_configuration(kh_setup, kit_holders_template):
     configured_kh = {}
@@ -77,6 +93,54 @@ def generate_kh_configuration(kh_setup, kit_holders_template):
         else:
             configured_kh[f"KH{idx}"] = {"kh_position": kh_id, "contents": []}
     return configured_kh
+
+# ------------------------------------------------------------------
+def _shuffle_container_positions(containers_dict):
+    """
+    Returns a *new* dict where each container ID keeps its own contents
+    but is assigned a random, unique GR position.
+    """
+    import copy, random
+    shuffled = copy.deepcopy(containers_dict)
+
+    # Take the existing list of positions (['1.1', '1.2', …, '2.7'])
+    positions = [meta["gr_position"] for meta in shuffled.values()]
+    random.shuffle(positions)
+
+    for (cid, meta), new_pos in zip(shuffled.items(), positions):
+        meta["gr_position"] = new_pos
+        # update the four inner slot co-ordinates
+        for i, comp in enumerate(meta["contents"], 1):
+            comp["position"] = f"{new_pos}.{i}"
+    return shuffled
+# ------------------------------------------------------------------
+def annotate_component_in_time_details(time_details, gr_nodes, kh_nodes):
+    enriched = []
+    current_component = None
+
+    for step in time_details:
+        src = step["from"]
+        dst = step["to"]
+        enriched_step = step.copy()
+
+        # GR → KH → robot places component
+        if src in gr_nodes and dst in kh_nodes:
+            current_component = gr_nodes[src]
+            enriched_step["component_placed"] = current_component
+
+        # 0.0 → GR → robot picks component
+        elif src == "0.0" and dst in gr_nodes:
+            current_component = gr_nodes[dst]
+            enriched_step["component_picked"] = current_component
+
+        # KH → GR (robot picks next component) — OPTIONAL, if needed
+        elif src in kh_nodes and dst in gr_nodes:
+            current_component = gr_nodes[dst]
+            enriched_step["component_picked"] = current_component
+
+        enriched.append(enriched_step)
+
+    return enriched
 
 
 def calculate_full_sequence_cost(distance_matrix, configuration, method="exact"):
@@ -152,126 +216,145 @@ def calculate_full_sequence_cost(distance_matrix, configuration, method="exact")
 def run_simulation(input_data=None):
     total_time_start = int(time() * 1000)
 
-    # Load input data
+    # ──────────────────────── 1 · INPUT ────────────────────────
     if input_data and "data" in input_data:
         print("Remote input data received.")
         data = input_data["data"]
 
-        # ---------- NEW: harmonise v2-old and v2-new ----------
         data["kh_sequences"] = _normalise_kh_sequences(data.get("kh_sequences", []))
-        if "gr_sequence" in data:                         # new style
+        if "gr_sequence" in data:                       # new style
             current_containers = _containers_from_gr_sequence(
                 data["gr_sequence"], data["containers_template"]
             )
-        else:                                             # legacy style
+        else:                                           # legacy style
             current_containers = data["current_config"]["containers"]
-        # ------------------------------------------------------
 
-        distance_matrix      = data.get("distance_matrix", load_distance_matrix())
-        containers_template  = data["containers_template"]
-        kit_holders_template = data["kit_holders_template"]
-        kh_sequences         = data["kh_sequences"] or [data.get("kh_setup", [])]
+        distance_matrix       = data.get("distance_matrix", load_distance_matrix())
+        containers_template   = data["containers_template"]
+        kit_holders_template  = data["kit_holders_template"]
+        kh_sequences          = data["kh_sequences"] or [data.get("kh_setup", [])]
         num_random_gr_configs = data["num_random_gr_configs"]
-        uuid                 = input_data["uuid"]
+        uuid                  = input_data["uuid"]
     else:
         print("No input data provided, using fallback values.")
-        distance_matrix = load_distance_matrix()
-        containers_template = load_containers_template()
-        kit_holders_template = load_kit_holders_template()
-        kh_sequences = [["KH001", "KH002", "KH003", "KH001"], ["KH003", "KH002", "KH001", "KH002"]]
+        distance_matrix       = load_distance_matrix()
+        containers_template   = load_containers_template()
+        kit_holders_template  = load_kit_holders_template()
+        kh_sequences          = [["KH001", "KH002", "KH003", "KH001"],
+                                 ["KH003", "KH002", "KH001", "KH002"]]
         num_random_gr_configs = 2
-        with open("current_config.json", "r") as f:
-            current_config = json.load(f)
+        with open("current_config.json") as f:
+            current_containers = json.load(f)["containers"]
         uuid = "local_simulation"
 
-    # Baseline computation
-    print("\n>>> Computing Baseline for Full Sequence...")
-    baseline_config = {
-        "containers": current_containers,          # ← new
-        "kit_holders_template": kit_holders_template,
-        "kh_sequences": kh_sequences
-    }
-    baseline_exact_cost, baseline_exact_tour, baseline_exact_details = calculate_full_sequence_cost(distance_matrix,
-                                                                                                    baseline_config,
-                                                                                                    method="exact")
-    baseline_linear_cost, baseline_linear_tour, baseline_linear_details = calculate_full_sequence_cost(distance_matrix,
-                                                                                                       baseline_config,
-                                                                                                       method="linear")
-    print(f"Baseline exact value: {baseline_exact_cost}")
-    print(f"Baseline linear value: {baseline_linear_cost}")
+    # ── helper: build KH node set from *generated* configs ───────────────
+    def _build_kh_nodes(kh_sequences, template):
+        nodes = set()
+        for seq in kh_sequences:
+            kh_cfg = generate_kh_configuration(seq, template)
+            for kh in kh_cfg.values():
+                nodes.add(kh["kh_position"])           # e.g. "4"
+                for comp in kh["contents"]:
+                    nodes.add(comp["position"])        # e.g. "4.3"
+        return nodes
 
-    # Optimization runs
+    kh_nodes = _build_kh_nodes(kh_sequences, kit_holders_template)
+
+    # ── GR lookup for baseline containers ────────────────────────────────
+    def build_gr_nodes(c_dict):
+        g = {}
+        for meta in c_dict.values():
+            for comp in meta["contents"]:
+                g[comp["position"]] = comp["type"]
+            g[meta["gr_position"]] = meta["contents"][0]["type"]
+        return g
+
+    gr_nodes_baseline = build_gr_nodes(current_containers)
+
+    # ────────────────── 2 · BASELINE RUNS ──────────────────
+    print("\n>>> Computing Baseline for Full Sequence...")
+    baseline_conf = {
+        "containers": current_containers,
+        "kit_holders_template": kit_holders_template,
+        "kh_sequences": kh_sequences,
+    }
+
+    bl_exact_cost, _, bl_exact_raw = calculate_full_sequence_cost(
+        distance_matrix, baseline_conf, method="exact"
+    )
+    bl_linear_cost, _, bl_linear_raw = calculate_full_sequence_cost(
+        distance_matrix, baseline_conf, method="linear"
+    )
+
+    bl_exact_det  = [annotate_component_in_time_details(seg, gr_nodes_baseline, kh_nodes)
+                     for seg in bl_exact_raw]
+    bl_linear_det = [annotate_component_in_time_details(seg, gr_nodes_baseline, kh_nodes)
+                     for seg in bl_linear_raw]
+
+    print(f"Baseline exact value:  {bl_exact_cost}")
+    print(f"Baseline linear value: {bl_linear_cost}")
+
+    baseline_gr_sequence = _gr_sequence_from_containers(current_containers)
+
+    # ───────────────── 3 · OPTIMISATION PHASES ─────────────────
     print("\n>>> Finding Best Configuration for Full Sequence...")
     best_total_value = float("inf")
     runs = []
 
     for run_id in range(num_random_gr_configs):
         print(f"\n>>> Run {run_id + 1} with GR Configuration...")
-        gr_config = randomize_containers(containers_template)
-        run_config = {
+
+        gr_config = _shuffle_container_positions(current_containers)
+        gr_nodes_phase = build_gr_nodes(gr_config)
+
+        run_conf = {
             "containers": gr_config,
             "kit_holders_template": kit_holders_template,
-            "kh_sequences": kh_sequences
+            "kh_sequences": kh_sequences,
         }
-        cost, tour, segmented_details = calculate_full_sequence_cost(distance_matrix, run_config, method="exact")
 
-        improvement_exact = round(((baseline_exact_cost - cost) / baseline_exact_cost) * 100,
-                                  4) if baseline_exact_cost > 0 else 0
-        improvement_linear = round(((baseline_linear_cost - cost) / baseline_linear_cost) * 100,
-                                   4) if baseline_linear_cost > 0 else 0
-        gr_key = "-".join(
-            f"{container['gr_position']}:{content['type']}" for container in gr_config.values() for content in
-            container["contents"])
+        cost, _, seg_raw = calculate_full_sequence_cost(
+            distance_matrix, run_conf, method="exact"
+        )
+        seg_det = [annotate_component_in_time_details(seg, gr_nodes_phase, kh_nodes)
+                   for seg in seg_raw]
+
+        imp_exact  = round((bl_exact_cost  - cost) / bl_exact_cost  * 100, 4)
+        imp_linear = round((bl_linear_cost - cost) / bl_linear_cost * 100, 4)
 
         runs.append({
             "phase": run_id + 1,
             "exact_cost": cost,
-            # "time_details": [
-            #     [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in segment]
-            #     for segment in segmented_details
-            # ],
-            "improvement_exact": improvement_exact,
-            "improvement_linear": improvement_linear,
-            "gr_configuration": {
-                "key": gr_key
-                # ,"config": gr_config
-            }
+            "time_details": seg_det,
+            "improvement_exact":  imp_exact,
+            "improvement_linear": imp_linear,
+            "gr_sequence": _gr_sequence_from_containers(gr_config),
         })
-        if cost < best_total_value:
-            best_total_value = cost
 
-    # Output
+        best_total_value = min(best_total_value, cost)
+
+    # ───────────────────── 4 · OUTPUT ─────────────────────
     end_time = int(time() * 1000)
     output_data = {
         "uuid": uuid,
-        "produced_at": int(time() * 1000),
+        "produced_at": end_time,
         "data": {
             "baseline": {
-                "exact": {
-                    "cost": baseline_exact_cost
-                    # ,"time_details": [
-                    #     [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in segment]
-                    #     for segment in baseline_exact_details
-                    # ]
-                },
-                "linear": {
-                    "cost": baseline_linear_cost,
-                    # "time_details": [
-                    #     [{"from": step["from"], "to": step["to"], "distance": step["distance"]} for step in segment]
-                    #     for segment in baseline_linear_details
-                    # ]
-                },
-                "baseline configuration": baseline_config["containers"]
+                "exact":  {"cost": bl_exact_cost,  "time_details": bl_exact_det},
+                "linear": {"cost": bl_linear_cost, "time_details": bl_linear_det},
+                "gr_sequence": baseline_gr_sequence,
             },
             "phases": runs,
             "best_total_value": best_total_value,
-            "solutionTime": (end_time - total_time_start),
-            "totalTime": (end_time - total_time_start)
-        }
+            "solutionTime": end_time - total_time_start,
+            "totalTime":    end_time - total_time_start,
+        },
     }
+
     output_data = convert_to_native_types(output_data)
     with open("simulation_results_v2.json", "w") as f:
         json.dump(output_data, f, indent=4)
+
     print("Simulation completed and results saved.")
     return output_data
 
