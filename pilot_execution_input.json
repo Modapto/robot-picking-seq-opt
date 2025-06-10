@@ -3,11 +3,11 @@
   "uuid": "4cbbde67-4a2f-40e1-b8e4-aee532d9b08b",
   "generated_at": 1748963374,
   "data": {
-    "method": "exact",
+    "method": "exact-linear",
      "kh_sequences": [
        {"1": "KH001"},
-       {"2": "KH002"},
-       {"3": "KH003"},
+       {"2": "KH001"},
+       {"3": "KH002"},
        {"4": "KH003"}
      ],
     "gr_sequence": [

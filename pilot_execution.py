@@ -117,6 +117,7 @@ def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
     output_data = {
         "produced_at": int(time() * 1000),
         "data": {
+            "optimization_run": is_valid,
             "message": validation_msg,
             "solutionTime": (int(time() * 1000) - solution_time_start),
             "totalTime": (int(time() * 1000) - total_time_start),
