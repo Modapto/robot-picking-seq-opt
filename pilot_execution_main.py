@@ -1,5 +1,5 @@
-from v3_simulator import *
-from pilot_execution import *
+from pilot_sim_execution import *
+from pilot_opt_execution import *
 
 def callback(ch, method, properties, body):
     input_file = json.loads(body)

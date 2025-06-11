@@ -1,21 +1,190 @@
-import json
+import random
 import copy
-from time import time
-from configurations_final import (
-    load_distance_matrix,
-    load_containers_template,
-    load_kit_holders_template,
-    randomize_containers,
-    filter_distance_matrix
-)
+from itertools import product
 from exact_method import run_exact_tsp
 from method_linear import linear_picking, total_cost
 from GraphCreation import create_directed_bipartite_graph
 from parse_json import create_distance_matrices
 
-# ------------------------------------------------------------------
-# === Backwards-compat / new-format adapter ========================
-def _normalise_kh_sequences(raw_seqs):
+def generate_all_kh_configurations(kit_holders, num_positions=4):
+    kh_keys = list(kit_holders.keys())
+    all_combinations = list(product(kh_keys, repeat=num_positions))  # Cartesian product
+    random.shuffle(all_combinations)  # Randomize configurations
+    return all_combinations
+
+def randomize_kit_holders(kit_holders, configuration):
+    new_kit_holders = {}
+    for pos_idx, kh_key in enumerate(configuration, start=1):
+        kh_data = copy.deepcopy(kit_holders[kh_key])
+        new_contents = []
+
+        for i, content in enumerate(kh_data["contents"], start=1):
+            content["position"] = f"{pos_idx}.{i}"
+            new_contents.append(content)
+
+        new_kit_holders[f"KH{pos_idx}"] = {
+            "kh_position": str(pos_idx),
+            "contents": new_contents,
+        }
+
+    return new_kit_holders
+
+def randomize_containers(containers_template):
+    all_components = []
+    for container in containers_template.values():
+        for content in container["contents"]:
+            if content["type"] not in all_components:
+                all_components.append(content["type"])
+
+    random.shuffle(all_components)
+
+    new_containers = {}
+    for idx, container_key in enumerate(containers_template.keys(), start=1):
+        group = 1 if idx <= 7 else 2
+        subgroup = idx if group == 1 else idx - 7
+        gr_position = f"{group}.{subgroup}"
+
+        component_type = all_components[(idx - 1) % len(all_components)]
+        new_contents = [
+            {"position": f"{gr_position}.{i}", "type": component_type}
+            for i in range(1, 5)
+        ]
+
+        new_containers[container_key] = {"gr_position": gr_position, "contents": new_contents}
+
+    return new_containers
+
+def generate_random_configuration(containers, kit_holders):
+    all_kh_configs = generate_all_kh_configurations(kit_holders, num_positions=4)
+    selected_config = random.choice(all_kh_configs)
+    randomized_kit_holders = randomize_kit_holders(kit_holders, selected_config)
+    randomized_containers = randomize_containers(containers)
+    return {"containers": randomized_containers, "kit_holders": randomized_kit_holders}
+
+def filter_distance_matrix(matrix, random_config):
+    filtered_matrix = []
+    containers = random_config["containers"]
+    kit_holders = random_config["kit_holders"]
+
+    # Transform distance matrix to a lookup dictionary
+    matrix_dict = {}
+    for entry in matrix:
+        edge = entry["edge"].strip("()").split(", ")
+        source, target = edge[0], edge[1]
+        if source not in matrix_dict:
+            matrix_dict[source] = {}
+        matrix_dict[source][target] = entry["distance"]
+
+    # Add edges: 0.0 to all gravity racks
+    if "0.0" in matrix_dict:
+        for target, distance in matrix_dict["0.0"].items():
+            filtered_matrix.append({"edge": f"(0.0, {target})", "distance": distance + 2000})
+
+    # Add edges: 0.0.0 to 0.0
+    if "0.0.0" in matrix_dict and "0.0" in matrix_dict["0.0.0"]:
+        filtered_matrix.append({"edge": "(0.0.0, 0.0)", "distance": matrix_dict["0.0.0"]["0.0"]})
+
+    # Add edges: Kit holders to 0.0.0
+    for kh_key, kh_value in kit_holders.items():
+        for kh_content in kh_value["contents"]:
+            if kh_content["position"] in matrix_dict and "0.0.0" in matrix_dict[kh_content["position"]]:
+                filtered_matrix.append({"edge": f"({kh_content['position']}, 0.0.0)", "distance": matrix_dict[kh_content["position"]]["0.0.0"] + 2000})
+
+    # Add edges: Gravity racks to specific kit holders
+    for container_key, container_value in containers.items():
+        for cont_content in container_value["contents"]:
+            for kh_key, kh_value in kit_holders.items():
+                for kh_content in kh_value["contents"]:
+                    if kh_content["type"] == cont_content["type"]:
+                        if cont_content["position"] in matrix_dict and kh_content["position"] in matrix_dict[cont_content["position"]]:
+                            filtered_matrix.append({"edge": f"({cont_content['position']}, {kh_content['position']})",
+                                                    "distance": matrix_dict[cont_content["position"]][kh_content["position"]] + 2000})
+
+    # Add edges: Kit holders to all gravity racks
+    for kh_key, kh_value in kit_holders.items():
+        for kh_content in kh_value["contents"]:
+            if kh_content["position"] in matrix_dict:
+                for target, distance in matrix_dict[kh_content["position"]].items():
+                    if target.startswith("1.") or target.startswith("2."):
+                        filtered_matrix.append({"edge": f"({kh_content['position']}, {target})", "distance": distance + 2000})
+
+    return filtered_matrix
+
+def randomize_containers(containers_template):
+    all_components = []
+    for container in containers_template.values():
+        for content in container["contents"]:
+            if content["type"] not in all_components:
+                all_components.append(content["type"])
+
+    random.shuffle(all_components)
+
+    new_containers = {}
+    for idx, container_key in enumerate(containers_template.keys(), start=1):
+        group = 1 if idx <= 7 else 2
+        subgroup = idx if group == 1 else idx - 7
+        gr_position = f"{group}.{subgroup}"
+
+        component_type = all_components[(idx - 1) % len(all_components)]
+        new_contents = [
+            {"position": f"{gr_position}.{i}", "type": component_type}
+            for i in range(1, 5)
+        ]
+
+        new_containers[container_key] = {"gr_position": gr_position, "contents": new_contents}
+
+    return new_containers
+
+def filter_distance_matrix(matrix, random_config):
+    filtered_matrix = []
+    containers = random_config["containers"]
+    kit_holders = random_config["kit_holders"]
+
+    # Transform distance matrix to a lookup dictionary
+    matrix_dict = {}
+    for entry in matrix:
+        edge = entry["edge"].strip("()").split(", ")
+        source, target = edge[0], edge[1]
+        if source not in matrix_dict:
+            matrix_dict[source] = {}
+        matrix_dict[source][target] = entry["distance"]
+
+    # Add edges: 0.0 to all gravity racks
+    if "0.0" in matrix_dict:
+        for target, distance in matrix_dict["0.0"].items():
+            filtered_matrix.append({"edge": f"(0.0, {target})", "distance": distance + 2000})
+
+    # Add edges: 0.0.0 to 0.0
+    if "0.0.0" in matrix_dict and "0.0" in matrix_dict["0.0.0"]:
+        filtered_matrix.append({"edge": "(0.0.0, 0.0)", "distance": matrix_dict["0.0.0"]["0.0"]})
+
+    # Add edges: Kit holders to 0.0.0
+    for kh_key, kh_value in kit_holders.items():
+        for kh_content in kh_value["contents"]:
+            if kh_content["position"] in matrix_dict and "0.0.0" in matrix_dict[kh_content["position"]]:
+                filtered_matrix.append({"edge": f"({kh_content['position']}, 0.0.0)", "distance": matrix_dict[kh_content["position"]]["0.0.0"] + 2000})
+
+    # Add edges: Gravity racks to specific kit holders
+    for container_key, container_value in containers.items():
+        for cont_content in container_value["contents"]:
+            for kh_key, kh_value in kit_holders.items():
+                for kh_content in kh_value["contents"]:
+                    if kh_content["type"] == cont_content["type"]:
+                        if cont_content["position"] in matrix_dict and kh_content["position"] in matrix_dict[cont_content["position"]]:
+                            filtered_matrix.append({"edge": f"({cont_content['position']}, {kh_content['position']})",
+                                                    "distance": matrix_dict[cont_content["position"]][kh_content["position"]] + 2000})
+
+    # Add edges: Kit holders to all gravity racks
+    for kh_key, kh_value in kit_holders.items():
+        for kh_content in kh_value["contents"]:
+            if kh_content["position"] in matrix_dict:
+                for target, distance in matrix_dict[kh_content["position"]].items():
+                    if target.startswith("1.") or target.startswith("2."):
+                        filtered_matrix.append({"edge": f"({kh_content['position']}, {target})", "distance": distance + 2000})
+
+    return filtered_matrix
+
+def normalise_kh_sequences(raw_seqs):
     """
     Accepts either
       [["KH002", "KH001"], …]                         # v2-old
@@ -29,8 +198,7 @@ def _normalise_kh_sequences(raw_seqs):
         ]
     return raw_seqs
 
-
-def _containers_from_gr_sequence(gr_seq, containers_template):
+def containers_from_gr_sequence(gr_seq, containers_template):
     """
     Turns [{"1.1": "Container_1"}, …] into the classic
     {"Container_1": {"gr_position": "1.1", "contents": …}, …}
@@ -47,8 +215,6 @@ def _containers_from_gr_sequence(gr_seq, containers_template):
             comp["position"] = f"{pos}.{i}"
         cfg[cid] = c
     return cfg
-# ------------------------------------------------------------------
-
 
 def generate_unique_gr_configurations(num_configs, containers_template):
     configurations = {}
@@ -60,8 +226,7 @@ def generate_unique_gr_configurations(num_configs, containers_template):
             configurations[key] = config
     return configurations
 
-# ------------------------------------------------------------------
-def _gr_sequence_from_containers(containers_dict):
+def gr_sequence_from_containers(containers_dict):
     """
     Turn {'Container_1': {'gr_position': '1.1', …}, …}
     →  [ {'1.1': 'Container_1'}, {'1.2': 'Container_2'}, … ]
@@ -74,8 +239,6 @@ def _gr_sequence_from_containers(containers_dict):
         return (row, col)
 
     return [{pos: cid} for pos, cid in sorted(tmp, key=sort_key)]
-# ------------------------------------------------------------------
-
 
 def generate_kh_configuration(kh_setup, kit_holders_template):
     configured_kh = {}
@@ -94,8 +257,7 @@ def generate_kh_configuration(kh_setup, kit_holders_template):
             configured_kh[f"KH{idx}"] = {"kh_position": kh_id, "contents": []}
     return configured_kh
 
-# ------------------------------------------------------------------
-def _shuffle_container_positions(containers_dict):
+def shuffle_container_positions(containers_dict):
     """
     Returns a *new* dict where each container ID keeps its own contents
     but is assigned a random, unique GR position.
@@ -113,7 +275,7 @@ def _shuffle_container_positions(containers_dict):
         for i, comp in enumerate(meta["contents"], 1):
             comp["position"] = f"{new_pos}.{i}"
     return shuffled
-# ------------------------------------------------------------------
+
 def annotate_component_in_time_details(time_details, gr_nodes, kh_nodes):
     enriched = []
     current_component = None
@@ -141,7 +303,6 @@ def annotate_component_in_time_details(time_details, gr_nodes, kh_nodes):
         enriched.append(enriched_step)
 
     return enriched
-
 
 def calculate_full_sequence_cost(distance_matrix, configuration, method="exact"):
     working_matrix = distance_matrix.copy()
@@ -211,153 +372,3 @@ def calculate_full_sequence_cost(distance_matrix, configuration, method="exact")
         segmented_details.append(segment_details)
 
     return total_method_cost, full_tour, segmented_details
-
-
-def run_simulation(input_data=None):
-    total_time_start = int(time() * 1000)
-
-    # ──────────────────────── 1 · INPUT ────────────────────────
-    if input_data and "data" in input_data:
-        print("Remote input data received.")
-        data = input_data["data"]
-
-        data["kh_sequences"] = _normalise_kh_sequences(data.get("kh_sequences", []))
-        if "gr_sequence" in data:                       # new style
-            current_containers = _containers_from_gr_sequence(
-                data["gr_sequence"], data["containers_template"]
-            )
-        else:                                           # legacy style
-            current_containers = data["current_config"]["containers"]
-
-        distance_matrix       = data.get("distance_matrix")
-        containers_template   = data["containers_template"]
-        kit_holders_template  = data["kit_holders_template"]
-        kh_sequences          = data["kh_sequences"] or [data.get("kh_setup", [])]
-        num_random_gr_configs = data["num_random_gr_configs"]
-        uuid                  = input_data["uuid"]
-    else:
-        raise ValueError("Input data is required, either via JSON file or directly.")
-
-    # ── helper: build KH node set from *generated* configs ───────────────
-    def _build_kh_nodes(kh_sequences, template):
-        nodes = set()
-        for seq in kh_sequences:
-            kh_cfg = generate_kh_configuration(seq, template)
-            for kh in kh_cfg.values():
-                nodes.add(kh["kh_position"])           # e.g. "4"
-                for comp in kh["contents"]:
-                    nodes.add(comp["position"])        # e.g. "4.3"
-        return nodes
-
-    kh_nodes = _build_kh_nodes(kh_sequences, kit_holders_template)
-
-    def build_gr_nodes(c_dict):
-        g = {}
-        for meta in c_dict.values():
-            for comp in meta["contents"]:
-                g[comp["position"]] = comp["type"]
-            g[meta["gr_position"]] = meta["contents"][0]["type"]
-        return g
-
-    gr_nodes_baseline = build_gr_nodes(current_containers)
-
-    print("\n>>> Computing Baseline for Full Sequence...")
-    baseline_conf = {
-        "containers": current_containers,
-        "kit_holders_template": kit_holders_template,
-        "kh_sequences": kh_sequences,
-    }
-
-    bl_exact_cost, _, bl_exact_raw = calculate_full_sequence_cost(
-        distance_matrix, baseline_conf, method="exact"
-    )
-    bl_linear_cost, _, bl_linear_raw = calculate_full_sequence_cost(
-        distance_matrix, baseline_conf, method="linear"
-    )
-
-    bl_exact_det  = [annotate_component_in_time_details(seg, gr_nodes_baseline, kh_nodes)
-                     for seg in bl_exact_raw]
-    bl_linear_det = [annotate_component_in_time_details(seg, gr_nodes_baseline, kh_nodes)
-                     for seg in bl_linear_raw]
-
-    print(f"Baseline exact value:  {bl_exact_cost}")
-    print(f"Baseline linear value: {bl_linear_cost}")
-
-    baseline_gr_sequence = _gr_sequence_from_containers(current_containers)
-
-    print("\n>>> Finding Best Configuration for Full Sequence...")
-    best_total_value = float("inf")
-    runs = []
-
-    for run_id in range(num_random_gr_configs):
-        print(f"\n>>> Run {run_id + 1} with GR Configuration...")
-
-        gr_config = _shuffle_container_positions(current_containers)
-        gr_nodes_phase = build_gr_nodes(gr_config)
-
-        run_conf = {
-            "containers": gr_config,
-            "kit_holders_template": kit_holders_template,
-            "kh_sequences": kh_sequences,
-        }
-
-        cost, _, seg_raw = calculate_full_sequence_cost(
-            distance_matrix, run_conf, method="exact"
-        )
-        seg_det = [annotate_component_in_time_details(seg, gr_nodes_phase, kh_nodes)
-                   for seg in seg_raw]
-
-        imp_exact  = round((bl_exact_cost  - cost) / bl_exact_cost  * 100, 4)
-        imp_linear = round((bl_linear_cost - cost) / bl_linear_cost * 100, 4)
-
-        runs.append({
-            "phase": run_id + 1,
-            "exact_cost": cost,
-            "time_details": seg_det,
-            "improvement_exact":  imp_exact,
-            "improvement_linear": imp_linear,
-            "gr_sequence": _gr_sequence_from_containers(gr_config),
-        })
-
-        best_total_value = min(best_total_value, cost)
-
-    end_time = int(time() * 1000)
-    output_data = {
-        "uuid": uuid,
-        "produced_at": end_time,
-        "data": {
-            "baseline": {
-                "exact":  {"cost": bl_exact_cost,  "time_details": bl_exact_det},
-                "linear": {"cost": bl_linear_cost, "time_details": bl_linear_det},
-                "gr_sequence": baseline_gr_sequence,
-            },
-            "phases": runs,
-            "best_total_value": best_total_value,
-            "solutionTime": end_time - total_time_start,
-            "totalTime":    end_time - total_time_start,
-        },
-    }
-
-    output_data = convert_to_native_types(output_data)
-    with open("simulation_results_v2.json", "w") as f:
-        json.dump(output_data, f, indent=4)
-
-    print("Simulation completed and results saved.")
-    return output_data
-
-
-def convert_to_native_types(data):
-    if isinstance(data, dict):
-        return {k: convert_to_native_types(v) for k, v in data.items()}
-    elif isinstance(data, list):
-        return [convert_to_native_types(v) for v in data]
-    elif isinstance(data, (int, float, str, bool)) or data is None:
-        return data
-    return str(data)
-
-if __name__ == "__main__":
-    with open("in.json", "r") as f:
-        simulation_input = json.load(f)
-    run_simulation(simulation_input)
-
-

@@ -1,10 +1,10 @@
 {
-    "produced_at": 1749644683195,
+    "produced_at": 1749647691821,
     "data": {
         "optimization_run": true,
         "message": "Valid KH sequence optimization starts...",
-        "solutionTime": 9040,
-        "totalTime": 9040,
+        "solutionTime": 9401,
+        "totalTime": 9401,
         "optimization_results": {
             "exact": {
                 "cost": 721088,
