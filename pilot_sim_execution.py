@@ -85,8 +85,9 @@ def run_simulation(input_data=None):
     baseline_gr_sequence = gr_sequence_from_containers(current_containers)
 
     print("\n>>> Finding Best Configuration for Full Sequence...")
-    best_total_value = float("inf")
-    runs = []
+    all_phases  = []
+    best_phase  = None
+    best_cost   = float("inf")
 
     for run_id in range(num_random_gr_configs):
         print(f"\n>>> Run {run_id + 1} with GR Configuration...")
@@ -109,16 +110,20 @@ def run_simulation(input_data=None):
         imp_exact  = round((bl_exact_cost  - cost) / bl_exact_cost  * 100, 4)
         imp_linear = round((bl_linear_cost - cost) / bl_linear_cost * 100, 4)
 
-        runs.append({
+        phase_dict = {
             "phase": run_id + 1,
             "exact_cost": cost,
             "time_details": seg_det,
             "improvement_exact":  imp_exact,
             "improvement_linear": imp_linear,
             "gr_sequence": gr_sequence_from_containers(gr_config),
-        })
+        }
+        all_phases.append(phase_dict)
 
-        best_total_value = min(best_total_value, cost)
+        # keep only phases that beat BOTH baselines
+        if cost < bl_exact_cost and cost < bl_linear_cost and cost < best_cost:
+            best_cost  = cost
+            best_phase = phase_dict
 
     end_time = int(time() * 1000)
     output_data = {
@@ -130,10 +135,10 @@ def run_simulation(input_data=None):
                 "linear": {"cost": bl_linear_cost, "time_details": bl_linear_det},
                 "gr_sequence": baseline_gr_sequence,
             },
-            "phases": runs,
-            "best_total_value": best_total_value,
+            "best_phase": best_phase,  # null if no qualifying phase
+            # "phases": all_phases,           # ← uncomment if you still want them
             "solutionTime": end_time - total_time_start,
-            "totalTime":    end_time - total_time_start,
+            "totalTime": end_time - total_time_start,
         },
     }
 
