@@ -229,23 +229,14 @@ def run_simulation(input_data=None):
         else:                                           # legacy style
             current_containers = data["current_config"]["containers"]
 
-        distance_matrix       = data.get("distance_matrix", load_distance_matrix())
+        distance_matrix       = data.get("distance_matrix")
         containers_template   = data["containers_template"]
         kit_holders_template  = data["kit_holders_template"]
         kh_sequences          = data["kh_sequences"] or [data.get("kh_setup", [])]
         num_random_gr_configs = data["num_random_gr_configs"]
         uuid                  = input_data["uuid"]
     else:
-        print("No input data provided, using fallback values.")
-        distance_matrix       = load_distance_matrix()
-        containers_template   = load_containers_template()
-        kit_holders_template  = load_kit_holders_template()
-        kh_sequences          = [["KH001", "KH002", "KH003", "KH001"],
-                                 ["KH003", "KH002", "KH001", "KH002"]]
-        num_random_gr_configs = 2
-        with open("current_config.json") as f:
-            current_containers = json.load(f)["containers"]
-        uuid = "local_simulation"
+        raise ValueError("Input data is required, either via JSON file or directly.")
 
     # ── helper: build KH node set from *generated* configs ───────────────
     def _build_kh_nodes(kh_sequences, template):
@@ -260,7 +251,6 @@ def run_simulation(input_data=None):
 
     kh_nodes = _build_kh_nodes(kh_sequences, kit_holders_template)
 
-    # ── GR lookup for baseline containers ────────────────────────────────
     def build_gr_nodes(c_dict):
         g = {}
         for meta in c_dict.values():
@@ -271,7 +261,6 @@ def run_simulation(input_data=None):
 
     gr_nodes_baseline = build_gr_nodes(current_containers)
 
-    # ────────────────── 2 · BASELINE RUNS ──────────────────
     print("\n>>> Computing Baseline for Full Sequence...")
     baseline_conf = {
         "containers": current_containers,
@@ -296,7 +285,6 @@ def run_simulation(input_data=None):
 
     baseline_gr_sequence = _gr_sequence_from_containers(current_containers)
 
-    # ───────────────── 3 · OPTIMISATION PHASES ─────────────────
     print("\n>>> Finding Best Configuration for Full Sequence...")
     best_total_value = float("inf")
     runs = []
@@ -333,7 +321,6 @@ def run_simulation(input_data=None):
 
         best_total_value = min(best_total_value, cost)
 
-    # ───────────────────── 4 · OUTPUT ─────────────────────
     end_time = int(time() * 1000)
     output_data = {
         "uuid": uuid,

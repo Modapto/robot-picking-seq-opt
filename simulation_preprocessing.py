@@ -7,26 +7,26 @@ from time import *
 
 import json
 
-def load_distance_matrix(file_path="final_distance_matrix.json"):
-    """
-    Load the distance matrix from a JSON file.
-    """
-    with open(file_path, "r") as f:
-        return json.load(f)
+# def load_distance_matrix(file_path="final_distance_matrix.json"):
+#     """
+#     Load the distance matrix from a JSON file.
+#     """
+#     with open(file_path, "r") as f:
+#         return json.load(f)
 
-def load_containers_template(file_path="containers_template.json"):
-    """
-    Load the containers template from a JSON file.
-    """
-    with open(file_path, "r") as f:
-        return json.load(f)
+# def load_containers_template(file_path="containers_template.json"):
+#     """
+#     Load the containers template from a JSON file.
+#     """
+#     with open(file_path, "r") as f:
+#         return json.load(f)
 
-def load_kit_holders_template(file_path="kit_holders_template.json"):
-    """
-    Load the kit holders template from a JSON file.
-    """
-    with open(file_path, "r") as f:
-        return json.load(f)
+# def load_kit_holders_template(file_path="kit_holders_template.json"):
+#     """
+#     Load the kit holders template from a JSON file.
+#     """
+#     with open(file_path, "r") as f:
+#         return json.load(f)
 
 def generate_all_kh_configurations(kit_holders, num_positions=4):
     kh_keys = list(kit_holders.keys())
@@ -131,38 +131,3 @@ def filter_distance_matrix(matrix, random_config):
                         filtered_matrix.append({"edge": f"({kh_content['position']}, {target})", "distance": distance + 2000})
 
     return filtered_matrix
-
-# Methods for the robot
-methods = ["exact", "nearest", "2-opt", "q_learning", "ql-nearest", "ql-2-opt"]
-def generate_json_input(filtered_matrix):
-    random_json_input = {
-        "route": "robot-pick-seq-opt",
-        "uuid": str(uuid.uuid4()),
-        "generated_at": int(time()),
-        "data": {
-            "method": random.choice(methods),
-            "start_node": "0.0",
-            "end_node": "0.0.0",
-            "distanceMatrix": filtered_matrix
-        }
-    }
-    return random_json_input
-#
-# # Generate random configuration
-# containers = copy.deepcopy(containers_template)
-# kit_holders = copy.deepcopy(kit_holders_template)
-# random_config = generate_random_configuration(containers, kit_holders)
-#
-# # Filter the distance matrix
-# filtered_matrix = filter_distance_matrix(distance_matrix, random_config)
-# # Generate the final JSON structure
-# random_json_input = generate_json_input(filtered_matrix)
-
-# # Save the results
-# with open("configurations_final.json", "w") as f:
-#     json.dump(random_json_input, f, indent=4)
-#
-# with open("configuration_final_sample.json", "w") as f:
-#     json.dump(random_config, f, indent=4)
-#
-# print("Filtered distance matrix and random configuration saved successfully.")

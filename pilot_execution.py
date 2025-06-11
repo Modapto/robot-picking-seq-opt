@@ -46,7 +46,6 @@ def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
         print(f"Local JSON input has been loaded from {json_file_path}.")
     else:
         raise ValueError("Input data is required, either via JSON file or directly.")
-    from collections import defaultdict, Counter
 
     raw_distance_matrix = input_data["data"]["distance_matrix"]
     container_types = input_data["data"]["containers_template"]
