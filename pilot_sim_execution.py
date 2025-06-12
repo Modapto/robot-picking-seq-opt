@@ -113,7 +113,7 @@ def run_simulation(input_data=None):
         phase_dict = {
             "phase": run_id + 1,
             "exact_cost": cost,
-            "time_details": seg_det,
+            # "time_details": seg_det,
             "improvement_exact":  imp_exact,
             "improvement_linear": imp_linear,
             "gr_sequence": gr_sequence_from_containers(gr_config),
@@ -124,15 +124,19 @@ def run_simulation(input_data=None):
         if cost < bl_exact_cost and cost < bl_linear_cost and cost < best_cost:
             best_cost  = cost
             best_phase = phase_dict
-
+    success = best_phase is not None
     end_time = int(time() * 1000)
     output_data = {
         "uuid": uuid,
         "produced_at": end_time,
         "data": {
+            "simulation_run": success,
+            "message": ("Improved GR configuration found."
+                        if success else
+                        "No GR configuration beat both baseline costs."),
             "baseline": {
-                "exact":  {"cost": bl_exact_cost,  "time_details": bl_exact_det},
-                "linear": {"cost": bl_linear_cost, "time_details": bl_linear_det},
+                "exact":  {"cost": bl_exact_cost },   #,  "time_details": bl_exact_det
+                "linear": {"cost": bl_linear_cost},   #, "time_details": bl_linear_det
                 "gr_sequence": baseline_gr_sequence,
             },
             "best_phase": best_phase,  # null if no qualifying phase

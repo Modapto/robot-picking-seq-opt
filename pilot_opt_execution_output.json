@@ -1,279 +1,268 @@
 {
-    "produced_at": 1749665267292,
+    "produced_at": 1749747805283,
     "data": {
         "optimization_run": true,
         "message": "Valid KH sequence optimization starts...",
-        "solutionTime": 9292,
-        "totalTime": 9292,
+        "solutionTime": 110,
+        "totalTime": 110,
         "optimization_results": {
-            "exact": {
-                "cost": 721088,
+            "linear": {
+                "cost": 897568,
                 "time_details": [
                     {
                         "from": "0.0",
-                        "to": "1.2.2",
-                        "distance": 11520,
-                        "component_picked": "Component_9"
-                    },
-                    {
-                        "from": "1.2.2",
-                        "to": "4.1",
-                        "distance": 31852,
-                        "component_placed": "Component_9"
-                    },
-                    {
-                        "from": "4.1",
-                        "to": "1.6.2",
-                        "distance": 19043,
-                        "component_picked": "Component_12"
-                    },
-                    {
-                        "from": "1.6.2",
-                        "to": "3.3",
-                        "distance": 19043,
-                        "component_placed": "Component_12"
-                    },
-                    {
-                        "from": "3.3",
-                        "to": "2.5.13",
-                        "distance": 8945,
-                        "component_picked": "Component_13"
-                    },
-                    {
-                        "from": "2.5.13",
-                        "to": "4.2",
-                        "distance": 22531,
-                        "component_placed": "Component_13"
-                    },
-                    {
-                        "from": "4.2",
-                        "to": "2.7.2",
-                        "distance": 8945,
-                        "component_picked": "Component_5"
-                    },
-                    {
-                        "from": "2.7.2",
-                        "to": "2.1",
-                        "distance": 28917,
-                        "component_placed": "Component_5"
-                    },
-                    {
-                        "from": "2.1",
-                        "to": "2.3.20",
-                        "distance": 8945,
-                        "component_picked": "Component_14"
-                    },
-                    {
-                        "from": "2.3.20",
-                        "to": "2.5",
-                        "distance": 8973,
-                        "component_placed": "Component_14"
-                    },
-                    {
-                        "from": "2.5",
-                        "to": "1.3.2",
-                        "distance": 9293,
-                        "component_picked": "Component_11"
-                    },
-                    {
-                        "from": "1.3.2",
-                        "to": "1.6",
-                        "distance": 22267,
-                        "component_placed": "Component_11"
-                    },
-                    {
-                        "from": "1.6",
-                        "to": "1.1.11",
-                        "distance": 9293,
-                        "component_picked": "Component_1"
-                    },
-                    {
-                        "from": "1.1.11",
-                        "to": "4.3",
-                        "distance": 35093,
-                        "component_placed": "Component_1"
-                    },
-                    {
-                        "from": "4.3",
-                        "to": "1.7.1",
-                        "distance": 9293,
-                        "component_picked": "Component_4"
-                    },
-                    {
-                        "from": "1.7.1",
-                        "to": "3.1",
-                        "distance": 22267,
-                        "component_placed": "Component_4"
-                    },
-                    {
-                        "from": "3.1",
-                        "to": "1.5.2",
-                        "distance": 9293,
-                        "component_picked": "Component_10"
-                    },
-                    {
-                        "from": "1.5.2",
-                        "to": "3.4",
-                        "distance": 9261,
-                        "component_placed": "Component_10"
-                    },
-                    {
-                        "from": "3.4",
-                        "to": "1.5.3",
-                        "distance": 9293,
-                        "component_picked": "Component_10"
-                    },
-                    {
-                        "from": "1.5.3",
-                        "to": "4.5",
-                        "distance": 22267,
-                        "component_placed": "Component_10"
-                    },
-                    {
-                        "from": "4.5",
-                        "to": "2.6.4",
-                        "distance": 19307,
-                        "component_picked": "Component_2"
-                    },
-                    {
-                        "from": "2.6.4",
-                        "to": "3.2",
-                        "distance": 19307,
-                        "component_placed": "Component_2"
-                    },
-                    {
-                        "from": "3.2",
-                        "to": "2.4.1",
-                        "distance": 19307,
-                        "component_picked": "Component_7"
-                    },
-                    {
-                        "from": "2.4.1",
-                        "to": "4.4",
-                        "distance": 25745,
-                        "component_placed": "Component_7"
-                    },
-                    {
-                        "from": "4.4",
                         "to": "2.7.1",
-                        "distance": 8945,
+                        "totalTime": 27834,
                         "component_picked": "Component_5"
                     },
                     {
                         "from": "2.7.1",
                         "to": "1.1",
-                        "distance": 35357,
+                        "totalTime": 35357,
                         "component_placed": "Component_5"
                     },
                     {
                         "from": "1.1",
-                        "to": "2.2.3",
-                        "distance": 19307,
-                        "component_picked": "Component_3"
-                    },
-                    {
-                        "from": "2.2.3",
-                        "to": "1.3",
-                        "distance": 19307,
-                        "component_placed": "Component_3"
-                    },
-                    {
-                        "from": "1.3",
                         "to": "2.1.1",
-                        "distance": 8945,
+                        "totalTime": 8945,
                         "component_picked": "Component_15"
                     },
                     {
                         "from": "2.1.1",
                         "to": "1.2",
-                        "distance": 8973,
+                        "totalTime": 8973,
                         "component_placed": "Component_15"
                     },
                     {
                         "from": "1.2",
-                        "to": "2.2.2",
-                        "distance": 19307,
+                        "to": "2.2.1",
+                        "totalTime": 19307,
                         "component_picked": "Component_3"
                     },
                     {
-                        "from": "2.2.2",
-                        "to": "2.3",
-                        "distance": 19307,
+                        "from": "2.2.1",
+                        "to": "1.3",
+                        "totalTime": 19307,
                         "component_placed": "Component_3"
                     },
                     {
-                        "from": "2.3",
-                        "to": "1.3.3",
-                        "distance": 9293,
-                        "component_picked": "Component_11"
-                    },
-                    {
-                        "from": "1.3.3",
-                        "to": "2.6",
-                        "distance": 9261,
-                        "component_placed": "Component_11"
-                    },
-                    {
-                        "from": "2.6",
-                        "to": "2.3.8",
-                        "distance": 8945,
-                        "component_picked": "Component_14"
-                    },
-                    {
-                        "from": "2.3.8",
-                        "to": "1.5",
-                        "distance": 22531,
-                        "component_placed": "Component_14"
-                    },
-                    {
-                        "from": "1.5",
-                        "to": "2.1.5",
-                        "distance": 8945,
-                        "component_picked": "Component_15"
-                    },
-                    {
-                        "from": "2.1.5",
-                        "to": "2.2",
-                        "distance": 22531,
-                        "component_placed": "Component_15"
-                    },
-                    {
-                        "from": "2.2",
-                        "to": "1.4.7",
-                        "distance": 19043,
+                        "from": "1.3",
+                        "to": "1.4.1",
+                        "totalTime": 25481,
                         "component_picked": "Component_16"
                     },
                     {
-                        "from": "1.4.7",
-                        "to": "2.4",
-                        "distance": 19043,
-                        "component_placed": "Component_16"
-                    },
-                    {
-                        "from": "2.4",
-                        "to": "1.4.11",
-                        "distance": 19043,
-                        "component_picked": "Component_16"
-                    },
-                    {
-                        "from": "1.4.11",
+                        "from": "1.4.1",
                         "to": "1.4",
-                        "distance": 25481,
+                        "totalTime": 25481,
                         "component_placed": "Component_16"
                     },
                     {
                         "from": "1.4",
-                        "to": "0.0.0",
-                        "distance": 7523
+                        "to": "2.3.1",
+                        "totalTime": 22531,
+                        "component_picked": "Component_14"
                     },
                     {
-                        "from": "0.0.0",
-                        "to": "0.0",
-                        "distance": 1
+                        "from": "2.3.1",
+                        "to": "1.5",
+                        "totalTime": 22531,
+                        "component_placed": "Component_14"
+                    },
+                    {
+                        "from": "1.5",
+                        "to": "1.3.1",
+                        "totalTime": 22267,
+                        "component_picked": "Component_11"
+                    },
+                    {
+                        "from": "1.3.1",
+                        "to": "1.6",
+                        "totalTime": 22267,
+                        "component_placed": "Component_11"
+                    },
+                    {
+                        "from": "1.6",
+                        "to": "2.7.1",
+                        "totalTime": 35357,
+                        "component_picked": "Component_5"
+                    },
+                    {
+                        "from": "2.7.1",
+                        "to": "2.1",
+                        "totalTime": 28917,
+                        "component_placed": "Component_5"
+                    },
+                    {
+                        "from": "2.1",
+                        "to": "2.1.1",
+                        "totalTime": 22531,
+                        "component_picked": "Component_15"
+                    },
+                    {
+                        "from": "2.1.1",
+                        "to": "2.2",
+                        "totalTime": 22531,
+                        "component_placed": "Component_15"
+                    },
+                    {
+                        "from": "2.2",
+                        "to": "2.2.1",
+                        "totalTime": 19307,
+                        "component_picked": "Component_3"
+                    },
+                    {
+                        "from": "2.2.1",
+                        "to": "2.3",
+                        "totalTime": 19307,
+                        "component_placed": "Component_3"
+                    },
+                    {
+                        "from": "2.3",
+                        "to": "1.4.1",
+                        "totalTime": 19043,
+                        "component_picked": "Component_16"
+                    },
+                    {
+                        "from": "1.4.1",
+                        "to": "2.4",
+                        "totalTime": 19043,
+                        "component_placed": "Component_16"
+                    },
+                    {
+                        "from": "2.4",
+                        "to": "2.3.1",
+                        "totalTime": 8945,
+                        "component_picked": "Component_14"
+                    },
+                    {
+                        "from": "2.3.1",
+                        "to": "2.5",
+                        "totalTime": 8973,
+                        "component_placed": "Component_14"
+                    },
+                    {
+                        "from": "2.5",
+                        "to": "1.3.1",
+                        "totalTime": 9293,
+                        "component_picked": "Component_11"
+                    },
+                    {
+                        "from": "1.3.1",
+                        "to": "2.6",
+                        "totalTime": 9261,
+                        "component_placed": "Component_11"
+                    },
+                    {
+                        "from": "2.6",
+                        "to": "1.7.1",
+                        "totalTime": 28653,
+                        "component_picked": "Component_4"
+                    },
+                    {
+                        "from": "1.7.1",
+                        "to": "3.1",
+                        "totalTime": 22267,
+                        "component_placed": "Component_4"
+                    },
+                    {
+                        "from": "3.1",
+                        "to": "2.6.1",
+                        "totalTime": 19307,
+                        "component_picked": "Component_2"
+                    },
+                    {
+                        "from": "2.6.1",
+                        "to": "3.2",
+                        "totalTime": 19307,
+                        "component_placed": "Component_2"
+                    },
+                    {
+                        "from": "3.2",
+                        "to": "1.6.1",
+                        "totalTime": 19043,
+                        "component_picked": "Component_12"
+                    },
+                    {
+                        "from": "1.6.1",
+                        "to": "3.3",
+                        "totalTime": 19043,
+                        "component_placed": "Component_12"
+                    },
+                    {
+                        "from": "3.3",
+                        "to": "1.5.1",
+                        "totalTime": 9293,
+                        "component_picked": "Component_10"
+                    },
+                    {
+                        "from": "1.5.1",
+                        "to": "3.4",
+                        "totalTime": 9261,
+                        "component_placed": "Component_10"
+                    },
+                    {
+                        "from": "3.4",
+                        "to": "1.2.1",
+                        "totalTime": 25481,
+                        "component_picked": "Component_9"
+                    },
+                    {
+                        "from": "1.2.1",
+                        "to": "4.1",
+                        "totalTime": 31852,
+                        "component_placed": "Component_9"
+                    },
+                    {
+                        "from": "4.1",
+                        "to": "2.5.1",
+                        "totalTime": 22531,
+                        "component_picked": "Component_13"
+                    },
+                    {
+                        "from": "2.5.1",
+                        "to": "4.2",
+                        "totalTime": 22531,
+                        "component_placed": "Component_13"
+                    },
+                    {
+                        "from": "4.2",
+                        "to": "1.1.1",
+                        "totalTime": 35093,
+                        "component_picked": "Component_1"
+                    },
+                    {
+                        "from": "1.1.1",
+                        "to": "4.3",
+                        "totalTime": 35093,
+                        "component_placed": "Component_1"
+                    },
+                    {
+                        "from": "4.3",
+                        "to": "2.4.1",
+                        "totalTime": 25745,
+                        "component_picked": "Component_7"
+                    },
+                    {
+                        "from": "2.4.1",
+                        "to": "4.4",
+                        "totalTime": 25745,
+                        "component_placed": "Component_7"
+                    },
+                    {
+                        "from": "4.4",
+                        "to": "1.5.1",
+                        "totalTime": 22267,
+                        "component_picked": "Component_10"
+                    },
+                    {
+                        "from": "1.5.1",
+                        "to": "4.5",
+                        "totalTime": 22267,
+                        "component_placed": "Component_10"
                     }
                 ]
-            },
-            "improvement_percentage": 19.662
+            }
         }
     }
 }
