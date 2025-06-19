@@ -126,10 +126,8 @@ def run_simulation(input_data=None):
             best_phase = phase_dict
     success = best_phase is not None
     end_time = int(time() * 1000)
+
     output_data = {
-        "uuid": uuid,
-        "produced_at": end_time,
-        "data": {
             "simulation_run": success,
             "message": ("Improved GR configuration found."
                         if success else
@@ -143,7 +141,6 @@ def run_simulation(input_data=None):
             # "phases": all_phases,           # ← uncomment if you still want them
             "solutionTime": end_time - total_time_start,
             "totalTime": end_time - total_time_start,
-        },
     }
 
     output_data = convert_to_native_types(output_data)

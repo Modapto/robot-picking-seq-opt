@@ -14,6 +14,9 @@ from heuristic_methods import *
 from exact_method import *
 from method_linear import *
 from pilot_opt_preprocessing import *
+import base64
+import pickle
+
 online = sys.argv[1]  # This argument will differentiate between local and remote runs
 
 # Function to convert data types to native Python types (e.g., for JSON serialization)
@@ -33,17 +36,26 @@ def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
     solution_time_start = int(time() * 1000)
     total_time_start = int(time() * 1000)
 
-    # Load input data
     if input_data and "data" in input_data:
-        print("Remote input data received.")
-        data = input_data["data"]
+        print("run_tsp received pre-decoded input.")
+        msg  = input_data               # already plain
+        data = msg["data"]
+
     elif json_file_path:
-        with open(json_file_path, 'r') as f:
-            input_data = json.load(f)
-        data = input_data["data"]
-        print(f"Local JSON input has been loaded from {json_file_path}.")
+        with open(json_file_path) as f:
+            msg = json.load(f)
+        # unwrap possible base64
+        if isinstance(msg["data"], dict) and "base64" in msg["data"]:
+            raw = base64.b64decode(msg["data"]["base64"])
+            try:
+                msg["data"] = pickle.loads(raw)
+            except pickle.UnpicklingError:
+                msg["data"] = json.loads(raw.decode())
+        data = msg["data"]
+        print(f"Local JSON input loaded from {json_file_path}.")
+
     else:
-        raise ValueError("Input data is required, either via JSON file or directly.")
+        raise ValueError("run_tsp needs either json_file_path or input_data")
 
     raw_distance_matrix = input_data["data"]["distance_matrix"]
     container_types = input_data["data"]["containers_template"]
@@ -111,18 +123,16 @@ def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
             else:
                 results = {"linear": results["linear"], "improvement_percentage": improvement}
 
-    output_data = {
-        "produced_at": int(time() * 1000),
-        "data": {
+    output_data =  {
             "optimization_run": is_valid,
             "message": validation_msg,
             "solutionTime": (int(time() * 1000) - solution_time_start),
             "totalTime": (int(time() * 1000) - total_time_start),
         }
-    }
+
 
     if is_valid:
-        output_data["data"]["optimization_results"] = results
+        output_data["optimization_results"] = results
 
     with open("pilot_opt_execution_output.json", 'w') as json_file:
         json.dump(convert_to_native_types(output_data), json_file, indent=4)
