@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import json, sys, traceback, base64, pickle
 from datetime import datetime
 from time import time
@@ -60,7 +59,7 @@ def callback(ch, method, properties, body):
         else:
             result = run_tsp(None, input_file, False)
 
-        payload = {
+        output = {
             "uuid": uuid,
             "generated_at": int(time() * 1000),
             "data": {
@@ -69,12 +68,12 @@ def callback(ch, method, properties, body):
         }
         ch.basic_publish(exchange='opt-result',
                          routing_key='robot-picking-seq',
-                         body=json.dumps(payload))
+                         body=json.dumps(output))
         print(f"{datetime.now():%d/%m/%Y %H:%M:%S}: Job {uuid} completed")
 
     except Exception as exc:
         traceback.print_exc()
-        err_payload = {
+        error_responce = {
             "uuid": uuid,
             "produced_at": int(time() * 1000),
             "data": {
@@ -85,12 +84,11 @@ def callback(ch, method, properties, body):
         }
         ch.basic_publish(exchange='opt-result',
                          routing_key='robot-picking-seq',
-                         body=json.dumps(err_payload))
+                         body=json.dumps(error_responce))
         print(f"{datetime.now():%d/%m/%Y %H:%M:%S}: Job {uuid} failed")
 
 
-# ───────────────────────── entry-point ─────────────────────────
-online = sys.argv[1]   # "1" = RabbitMQ,  "0" = local JSON
+online = sys.argv[1]
 
 if online == "1":
     host, port, user, pw = sys.argv[2:6]
