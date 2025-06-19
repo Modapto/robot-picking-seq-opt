@@ -134,7 +134,22 @@ def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
     if is_valid:
         output_data["optimization_results"] = results
 
-    with open("pilot_opt_execution_output.json", 'w') as json_file:
-        json.dump(convert_to_native_types(output_data), json_file, indent=4)
+    decoded_path = "pilot_opt_execution_output.json"
+    with open(decoded_path, "w") as f:
+        json.dump(convert_to_native_types(output_data), f, indent=4)
+
+    out_uuid = (input_data or {}).get("uuid") if input_data else msg.get("uuid", "no-uuid")
+    wrapper = {
+        "uuid": out_uuid,
+        "produced_at": int(time() * 1000),
+        "data": {
+            "base64": base64.b64encode(pickle.dumps(output_data)).decode()
+        }
+    }
+
+    encoded_path = "encoded_opt_output.json"
+    with open(encoded_path, "w") as f_enc:
+        json.dump(wrapper, f_enc, indent=4)
+    print(f"Encoded result written to {encoded_path}")
 
     return output_data

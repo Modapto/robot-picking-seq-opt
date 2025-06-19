@@ -1,4 +1,4 @@
-import json
+import json, pickle, base64
 import copy
 from time import time
 from pilot_sim_preprocessing import *
@@ -143,9 +143,23 @@ def run_simulation(input_data=None):
             "totalTime": end_time - total_time_start,
     }
 
-    output_data = convert_to_native_types(output_data)
-    with open("pilot_sim_execution_output.json", "w") as f:
-        json.dump(output_data, f, indent=4)
+    # ── 4 · SAVE DECODED FILE ──────────────────────────────────────
+    decoded_path = "pilot_sim_execution_output.json"
+    with open(decoded_path, "w") as f_dec:
+        json.dump(convert_to_native_types(output_data), f_dec, indent=4)
+    print(f"Decoded result written to {decoded_path}")
+
+    # ── 5 · SAVE ENCODED WRAPPER ───────────────────────────────────
+    encoded_blob = base64.b64encode(pickle.dumps(output_data)).decode()
+    wrapper = {
+        "uuid": uuid,
+        "produced_at": end_time,
+        "data": {"base64": encoded_blob}
+    }
+    encoded_path = "encoded_sim_output.json"
+    with open(encoded_path, "w") as f_enc:
+        json.dump(wrapper, f_enc, indent=4)
+    print(f"Encoded result written to {encoded_path}")
 
     print("Simulation completed and results saved.")
     return output_data
