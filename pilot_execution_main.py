@@ -120,7 +120,7 @@ def callback(ch, method, properties, body):
             output = run_tsp(None, input_file, False)
         # ------------------------------------------------------------------
         output = {'uuid': uuid,
-                  'generated_at': int(time() * 1000),
+                  'produced_at': int(time() * 1000),
                   'data': {'base64': base64.b64encode(pickle.dumps(output)).decode()}
                   }
 
