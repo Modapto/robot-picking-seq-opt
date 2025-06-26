@@ -20,7 +20,7 @@
       {"2.6": "Container_13"},
       {"2.7": "Container_14"}
     ],
-    "num_random_gr_configs": 10,
+    "num_random_gr_configs": 1000,
     "templates": {
     "kh_sequences_sim": [
        [{"1": "KH001"}, {"2": "KH001"}, {"3": "KH001"}, {"4": "KH003"}]
