@@ -3,7 +3,7 @@
   "uuid": "4cbbde67-4a2f-40e1-b8e4-aee532d9b08b",
   "generated_at": 1748963374,
   "data": {
-    "method": "simulation",
+    "method": "exact-linear",
     "gr_sequence": [
       {"1.1": "Container_1"},
       {"1.2": "Container_2"},
@@ -20,10 +20,10 @@
       {"2.6": "Container_13"},
       {"2.7": "Container_14"}
     ],
-    "num_random_gr_configs": 1000,
+    "num_random_gr_configs": 10,
     "templates": {
     "kh_sequences_sim": [
-       [{"1": "KH001"}, {"2": "KH001"}, {"3": "KH001"}, {"4": "KH003"}]
+       [{"1": "KH001"}, {"2": "KH002"}, {"3": "KH003"}, {"4": "KH003"}]
      ],
     "containers_sim": {
     "Container_1": {"gr_position": "1.1","contents" : [{"position":"1.1.1","type":"Component_1"},
@@ -11179,7 +11179,7 @@
     }
 ],
     "kh_sequences_opt": [
-       {"1": "KH001"}, {"2": "KH001"}, {"3": "KH001"}, {"4": "KH003"}
+       {"1": "KH001"}, {"2": "KH002"}, {"3": "KH003"}, {"4": "KH003"}
      ],
     "containers_opt": {
     "Container_1": {"contents" : [{"position":"1","type":"Component_1"},
