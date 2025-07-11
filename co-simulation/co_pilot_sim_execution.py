@@ -1,5 +1,4 @@
 import json, pickle, base64
-import copy
 from time import time
 from co_pilot_sim_preprocessing import *
 

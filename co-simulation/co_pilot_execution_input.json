@@ -23,7 +23,9 @@
     "num_random_gr_configs": 2,
     "templates": {
     "kh_sequences_sim": [
-       [{"1": "KH001"}, {"2": "KH002"}, {"3": "KH003"}, {"4": "KH003"}]
+       [{"1": "KH001"}, {"2": "KH002"}, {"3": "KH003"}, {"4": "KH003"}],
+        [{"1": "KH002"}, {"2": "KH003"}, {"3": "KH003"}, {"4": "KH001"}],
+        [{"1": "KH001"}, {"2": "KH003"}, {"3": "KH001"}, {"4": "KH001"}]
      ],
     "containers_sim": {
     "Container_1": {"gr_position": "1.1","contents" : [{"position":"1.1.1","type":"Component_1"},

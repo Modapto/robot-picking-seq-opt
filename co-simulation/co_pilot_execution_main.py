@@ -7,7 +7,7 @@ from co_pilot_opt_execution import run_tsp
 import base64
 import pickle
 import copy
-
+from co_kh_similation import *
 # ───────────────────── RabbitMQ callback (unchanged messaging) ────────────
 # ───────────────────── helper: decode & inject templates ─────────────────────
 def decode_data_block(msg: dict) -> None:
