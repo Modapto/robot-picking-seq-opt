@@ -1,6 +1,5 @@
 import random
 import copy
-from itertools import product
 from exact_method import run_exact_tsp
 from method_linear import linear_picking, total_cost
 from GraphCreation import create_directed_bipartite_graph
@@ -109,7 +108,6 @@ def shuffle_container_positions(containers_dict):
     Returns a *new* dict where each container ID keeps its own contents
     but is assigned a random, unique GR position.
     """
-    import copy, random
     shuffled = copy.deepcopy(containers_dict)
 
     # Take the existing list of positions (['1.1', '1.2', …, '2.7'])
