@@ -1,6 +1,7 @@
 import json, pickle, base64
 from time import time
-from co_pilot_sim_preprocessing import normalise_kh_sequences, containers_from_gr_sequence, gr_sequence_from_containers, generate_kh_configuration, shuffle_container_positions ,annotate_component_in_time_details ,calculate_full_sequence_cost
+from co_pilot_sim_KH import normalise_kh_sequences, generate_kh_configuration, annotate_component_in_time_details, calculate_full_sequence_cost
+from co_pilot_sim_GR import containers_from_gr_sequence, gr_sequence_from_containers, shuffle_container_positions, filter_distance_matrix
 
 def convert_to_native_types(data):
     if isinstance(data, dict):

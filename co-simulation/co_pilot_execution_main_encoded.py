@@ -4,7 +4,7 @@ from time import time
 import pika
 from co_pilot_sim_execution import run_simulation
 from co_pilot_opt_execution import run_tsp
-from co_kh_similation import translate_kh_sequences_sim
+from co_pilot_sim_KH import translate_kh_sequences_sim
 
 # ───────────────────── helper: decode & inject templates ─────────────────────
 def decode_data_block(msg: dict) -> None:
