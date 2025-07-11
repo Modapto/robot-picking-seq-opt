@@ -4,7 +4,6 @@ from time import time
 import pika
 from co_pilot_sim_execution import run_simulation
 from co_pilot_opt_execution import run_tsp
-from co_pilot_sim_KH import translate_kh_sequences_sim
 
 # ───────────────────── helper: decode & inject templates ─────────────────────
 def decode_data_block(msg: dict) -> None:
@@ -34,7 +33,7 @@ def inject_templates(msg: dict) -> None:
         data["containers_template"]  = templates["containers_sim"]
         data["kit_holders_template"] = templates["kit_holders_sim"]
         data["distance_matrix"]      = templates["distance_matrix_sim"]
-        data["kh_sequences"] = translate_kh_sequences_sim(templates["kh_sequences_sim"])
+        data["kh_sequences"]         = templates["kh_sequences_sim"]
     elif method in {"exact", "linear", "exact-linear"}:
         data["containers_template"]  = templates["containers_opt"]
         data["kit_holders_template"] = templates["kit_holders_opt"]

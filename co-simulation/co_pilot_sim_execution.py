@@ -20,15 +20,7 @@ def run_simulation(input_data=None):
         print("Remote input data received.")
         data = input_data["data"]
 
-        kh_seq = data.get("kh_sequences", [])
-        # If kh_seq is a dict, it likely needs translation/normalisation
-        if isinstance(kh_seq, dict):
-            data["kh_sequences"] = normalise_kh_sequences(kh_seq)
-        elif isinstance(kh_seq, list) and any(isinstance(k, dict) for k in kh_seq):
-            data["kh_sequences"] = normalise_kh_sequences(kh_seq)
-        else:
-            # Already translated (e.g., list of lists), no need to normalise again
-            data["kh_sequences"] = kh_seq
+        data["kh_sequences"] = normalise_kh_sequences(data.get("kh_sequences", []))
 
         if "gr_sequence" in data:                       # new style
             current_containers = containers_from_gr_sequence(
