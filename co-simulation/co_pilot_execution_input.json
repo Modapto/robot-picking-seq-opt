@@ -3,7 +3,7 @@
   "uuid": "4cbbde67-4a2f-40e1-b8e4-aee532d9b08b",
   "generated_at": 1748963374,
   "data": {
-    "method": "simulation",
+    "method": "exact-linear",
     "gr_sequence": [
       {"1.1": "Container_1"},
       {"1.2": "Container_2"},
