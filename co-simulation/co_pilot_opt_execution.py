@@ -7,12 +7,9 @@ import pika
 import sys
 import pandas as pd
 import numpy as np
-from instances_generator import *
-from parse_json import *
-from GraphCreation import *
-from heuristic_methods import *
-from exact_method import *
-from method_linear import *
+from co_GraphCreation import *
+from co_exact_method import *
+from co_method_linear import *
 from co_pilot_opt_preprocessing import *
 import base64
 import pickle

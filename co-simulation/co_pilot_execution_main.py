@@ -8,48 +8,6 @@ import base64
 import pickle
 import copy
 
-
-# def inject_templates(msg: dict) -> None:
-#     """
-#     • If msg['data'] is wrapped as  {'base64': "<b64-string>"}
-#       → decode / unpickle it in-place.
-#     • Then copy the correct templates into
-#         data.containers_template, kit_holders_template,
-#         distance_matrix, kh_sequences
-#       based on data.method
-#     """
-#     # ---------- unwrap base64-encoded block, if present ----------
-#     if isinstance(msg.get("data"), dict) and "base64" in msg["data"]:
-#         try:
-#             raw_bytes = base64.b64decode(msg["data"]["base64"])
-#             msg["data"] = pickle.loads(raw_bytes)
-#         except Exception as exc:
-#             raise ValueError(f"Failed to decode base64 data: {exc}")
-#
-#     data = msg["data"]            # <- now a **plain** dict
-#
-#     # data = msg["data"]
-#     templates = data.get("templates")
-#     if templates is None:
-#         raise ValueError("Missing 'templates' block in payload")
-#
-#     method = data["method"].lower()
-#
-#     if method == "simulation":
-#         data["containers_template"]  = templates["containers_sim"]
-#         data["kit_holders_template"] = templates["kit_holders_sim"]
-#         data["distance_matrix"]      = templates["distance_matrix_sim"]
-#         data["kh_sequences"] = templates["kh_sequences_sim"]
-#
-#     elif method in {"exact", "linear", "exact-linear"}:
-#         data["containers_template"]  = templates["containers_opt"]
-#         data["kit_holders_template"] = templates["kit_holders_opt"]
-#         data["distance_matrix"]      = templates["distance_matrix_opt"]
-#         data["kh_sequences"] = templates["kh_sequences_opt"]
-#     else:
-#         raise ValueError(f"Unknown method '{method}'")
-
-
 # ───────────────────── RabbitMQ callback (unchanged messaging) ────────────
 # ───────────────────── helper: decode & inject templates ─────────────────────
 def decode_data_block(msg: dict) -> None:
