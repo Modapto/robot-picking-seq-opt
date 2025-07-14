@@ -7,10 +7,10 @@ from co_parse_json import create_distance_matrices
 
 def normalise_kh_sequences(raw_seqs):
     """
-    Accepts either
-      [["KH002", "KH001"], …]                         # v2-old
-      [[{"1": "KH001"}, {"2": "KH003"}], …]           # new
-    and always returns List[List[str]].
+    accept
+      [["KH002", "KH001"], …]
+      [[{"1": "KH001"}, {"2": "KH003"}], …]
+    return List[List[str]].
     """
     if raw_seqs and raw_seqs[0] and isinstance(raw_seqs[0][0], dict):
         return [
