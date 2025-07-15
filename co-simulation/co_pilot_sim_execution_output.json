@@ -55,54 +55,54 @@
     },
     "best_phase": {
         "phase": 2,
-        "exact_cost": "2524810",
-        "improvement_exact": 2.5259,
-        "improvement_linear": 20.8626,
+        "exact_cost": "2443525",
+        "improvement_exact": 5.664,
+        "improvement_linear": 23.4104,
         "gr_sequence": [
             {
-                "1.1": "Container_10"
+                "1.1": "Container_13"
             },
             {
-                "1.2": "Container_5"
+                "1.2": "Container_2"
             },
             {
-                "1.3": "Container_12"
+                "1.3": "Container_5"
             },
             {
-                "1.4": "Container_13"
+                "1.4": "Container_11"
             },
             {
-                "1.5": "Container_9"
+                "1.5": "Container_1"
             },
             {
-                "1.6": "Container_2"
+                "1.6": "Container_6"
             },
             {
-                "1.7": "Container_11"
+                "1.7": "Container_3"
             },
             {
-                "2.1": "Container_7"
+                "2.1": "Container_4"
             },
             {
-                "2.2": "Container_8"
+                "2.2": "Container_7"
             },
             {
-                "2.3": "Container_4"
+                "2.3": "Container_10"
             },
             {
-                "2.4": "Container_14"
+                "2.4": "Container_9"
             },
             {
-                "2.5": "Container_6"
+                "2.5": "Container_14"
             },
             {
-                "2.6": "Container_1"
+                "2.6": "Container_12"
             },
             {
-                "2.7": "Container_3"
+                "2.7": "Container_8"
             }
         ]
     },
-    "solutionTime": 10918,
-    "totalTime": 10918
+    "solutionTime": 17587,
+    "totalTime": 17587
 }

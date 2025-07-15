@@ -1,8 +1,8 @@
 {
     "optimization_run": true,
     "message": "Valid KH sequence optimization starts...",
-    "solutionTime": 1991,
-    "totalTime": 1991,
+    "solutionTime": 2734,
+    "totalTime": 2734,
     "optimization_results": {
         "exact": {
             "cost": 734840,
