@@ -3,7 +3,7 @@
   "uuid": "4cbbde67-4a2f-40e1-b8e4-aee532d9b08b",
   "generated_at": 1748963374,
   "data": {
-    "method": "exact-linear",
+    "method": "simulation",
     "gr_sequence": [
       {"1.1": "Container_1"},
       {"1.2": "Container_2"},
@@ -25,7 +25,7 @@
     "kh_sequences_sim": [
        [{"1": "KH001"}, {"2": "KH002"}, {"3": "KH003"}, {"4": "KH003"}],
         [{"1": "KH002"}, {"2": "KH003"}, {"3": "KH003"}, {"4": "KH001"}],
-        [{"1": "KH001"}, {"2": "KH003"}, {"3": "KH001"}, {"4": "KH001"}]
+        [{"1": "KH001"}, {"2": "KH003"}, {"3": "KH001"}, {"4": "KH002"}]
      ],
     "containers_sim": {
     "Container_1": {"gr_position": "1.1","contents" : [{"position":"1.1.1","type":"Component_1"},

@@ -13,14 +13,30 @@ def translate_kh_sequences_sim(kh_sequences_sim):
         translated.append(phase_sequence)
     return translated
 
-@app.route('/simulation',methods=['POST'])
+# @app.route('/simulation',methods=['POST'])
+# def simulation():
+#     try:
+#         data = request.get_json()
+#         kh_sequences_sim = data["data"]["templates"]["kh_sequences_sim"]
+#         translated = translate_kh_sequences_sim(kh_sequences_sim)
+#         return jsonify({"kh_sequences": translated})
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 400
+#
+# app.run(host='0.0.0.0', port=81)
+
+@app.route('/simulation',methods=['GET', 'POST'])
 def simulation():
-    try:
+    if request.method == "POST":
         data = request.get_json()
         kh_sequences_sim = data["data"]["templates"]["kh_sequences_sim"]
-        translated = translate_kh_sequences_sim(kh_sequences_sim)
-        return jsonify({"kh_sequences": translated})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 400
+    else:
+        # for GET test — fallback to default local file
+        with open("co_pilot_execution_input.json") as f:
+            input_data = json.load(f)
+        kh_sequences_sim = input_data["data"]["templates"]["kh_sequences_sim"]
+
+    translated = translate_kh_sequences_sim(kh_sequences_sim)
+    return {"kh_sequences": translated}
 
 app.run(host='0.0.0.0', port=81)
