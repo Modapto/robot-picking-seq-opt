@@ -68,6 +68,21 @@ def normalise_kh_sequences(raw_seqs):
         ]
     return raw_seqs
 
+def gr_sequence_from_containers(containers_dict):
+    """
+    Turn {'Container_1': {'gr_position': '1.1', …}, …}
+    →  [ {'1.1': 'Container_1'}, {'1.2': 'Container_2'}, … ]
+    Positions are sorted row-major (row.column as ints).
+    """
+    tmp = [(meta["gr_position"], cid) for cid, meta in containers_dict.items()]
+
+    def sort_key(item):
+        row, col = map(int, item[0].split('.'))
+        return (row, col)
+
+    return [{pos: cid} for pos, cid in sorted(tmp, key=sort_key)]
+
+
 def containers_from_gr_sequence(gr_seq, containers_template):
     """
     Turns [{"1.1": "Container_1"}, …] into the classic
