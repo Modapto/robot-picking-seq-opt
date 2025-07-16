@@ -1,7 +1,7 @@
 import json
 import copy
 from time import time
-from configurations_final import (
+from configurations_final_dual import (
     load_distance_matrix,
     load_containers_template,
     load_kit_holders_template,
@@ -10,37 +10,12 @@ from configurations_final import (
 )
 from exact_method import run_exact_tsp
 from method_linear import linear_picking, total_cost
-from GraphCreation import create_directed_bipartite_graph
-from parse_json import create_distance_matrices
+from GraphCreation_dual import create_directed_bipartite_graph
+from parse_json_dual import create_distance_matrices
 
 
-def generate_unique_gr_configurations(num_configs, containers_template):
-    configurations = {}
-    while len(configurations) < num_configs:
-        config = randomize_containers(containers_template)
-        key = "-".join(f"{container['gr_position']}:{content['type']}" for container in config.values() for content in
-                       container["contents"])
-        if key not in configurations:
-            configurations[key] = config
-    return configurations
 
 
-def generate_kh_configuration(kh_setup, kit_holders_template):
-    configured_kh = {}
-    for idx, kh_id in enumerate(kh_setup, start=1):
-        if kh_id == "EMPTY":
-            continue
-        if kh_id in kit_holders_template:
-            kh_data = copy.deepcopy(kit_holders_template[kh_id])
-            for i, content in enumerate(kh_data["contents"], start=1):
-                content["position"] = f"{idx}.{i}"
-            configured_kh[f"KH{idx}"] = {
-                "kh_position": str(idx),
-                "contents": kh_data["contents"]
-            }
-        else:
-            configured_kh[f"KH{idx}"] = {"kh_position": kh_id, "contents": []}
-    return configured_kh
 
 
 def calculate_full_sequence_cost(distance_matrix, configuration, method="exact"):
@@ -132,7 +107,7 @@ def run_simulation(input_data=None):
         distance_matrix = load_distance_matrix()
         containers_template = load_containers_template()
         kit_holders_template = load_kit_holders_template()
-        kh_sequences = [["KH001", "KH002", "KH003", "KH001"], ["KH003", "KH002", "KH001", "KH002"]]
+        kh_sequences = [["KH001", "KH002", "KH003", "KH001"]]
         num_random_gr_configs = 2
         with open("current_config.json", "r") as f:
             current_config = json.load(f)

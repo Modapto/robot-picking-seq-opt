@@ -1,6 +1,6 @@
 {
     "uuid": "20575aa3-a69a-46e1-83b3-7e4ee2d68601",
-    "produced_at": 1746481293481,
+    "produced_at": 1749559001503,
     "data": {
         "phases": [
             {
@@ -232,7 +232,7 @@
                 "improvement_percentage": 19.7052
             }
         ],
-        "solutionTime": 4149,
-        "totalTime": 4151
+        "solutionTime": 3274,
+        "totalTime": 3275
     }
 }
