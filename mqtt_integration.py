@@ -1,0 +1,33 @@
+import paho.mqtt.publish as publish
+import numpy as np
+import json
+
+def set_message_body(event_id, description, production_module, pilot,
+                     timestamp, priority, event_type, source_component,
+                     smart_service, topic, results):
+    message_body = {'eventId':event_id, 'description':description, 'productionModule':production_module,
+                    'pilot':pilot, 'timestamp':timestamp, 'priority':priority, 'eventType':event_type,
+                    'sourceComponent':source_component, 'smartService':smart_service,
+                    'topic':topic, 'results':results}
+    return message_body
+
+def publish_message(broker, port, auth, event_id, description,
+                    production_module, pilot, timestamp, priority,
+                    event_type, source_component, smart_service, topic, results):
+    payload = set_message_body(event_id, description, production_module, pilot,
+                               timestamp, priority, event_type, source_component,
+                               smart_service, topic, results)
+    will = {'topic': topic, 'payload':json.dumps(payload, cls=NpEncoder), 'qos':0, 'retain':False}
+    publish.single(topic=topic, will=will, hostname=broker, port=port, auth=auth)
+
+
+# Extend the JSONEncoder class
+class NpEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        if isinstance(obj, np.floating):
+            return float(obj)
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return json.JSONEncoder.default(self, obj)
