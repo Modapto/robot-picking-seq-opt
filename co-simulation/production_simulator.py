@@ -31,7 +31,7 @@ def receive_kh_sequences():
 def return_kh_sequences():
     global kh_sequence
     if not kh_sequence:
-        return jsonify({"error!": "No KH sequence posted yet."}), 404
+        return jsonify({"error": "No KH sequence posted yet."}), 404
     translated = translate_kh_sequences_sim(kh_sequence)
     return jsonify({"kh_sequences": translated})
 
