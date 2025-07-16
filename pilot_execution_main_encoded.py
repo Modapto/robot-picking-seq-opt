@@ -4,6 +4,7 @@ from time import time
 import pika
 from pilot_sim_execution import run_simulation
 from pilot_opt_execution import run_tsp
+from mqtt_integration import publish_message
 
 
 # ───────────────────── helper: decode & inject templates ─────────────────────
@@ -48,6 +49,10 @@ def inject_templates(msg: dict) -> None:
 def callback(ch, method, properties, body):
     input_file = json.loads(body)
     uuid = input_file.get('uuid', 'unknown')
+    pilot = 'CRF'
+    priority = "High"
+    topic = mqtt_topic
+    source_component = 'robot-picking-seq-opt'
 
     try:
         print(f"{datetime.now():%d/%m/%Y %H:%M:%S}: Job {uuid} received")
@@ -56,8 +61,18 @@ def callback(ch, method, properties, body):
 
         if data["method"] == "simulation":
             result = run_simulation(input_file)
+            timestamp = datetime.now().isoformat()
+            publish_message(mqtt_broker, mqtt_port, mqtt_auth, uuid, 'Completion of simulation algorithm',
+                            production_module, pilot, timestamp, priority, 'Simulation Completion',
+                            source_component, 'Robot picking sequence simulation',
+                            topic, result)
         else:
             result = run_tsp(None, input_file, False)
+            timestamp = datetime.now().isoformat()
+            publish_message(mqtt_broker, mqtt_port, mqtt_auth, uuid, 'Completion of optimization algorithm',
+                            production_module, pilot, timestamp, priority, 'Optimization Completion',
+                            source_component, 'Robot picking sequence optimization',
+                            topic, result)
 
         output = {
             "uuid": uuid,
@@ -73,6 +88,12 @@ def callback(ch, method, properties, body):
 
     except Exception as exc:
         traceback.print_exc()
+        timestamp = datetime.now().isoformat()
+        error = {"message": f"Problem in input data: {exc}"}
+        publish_message(mqtt_broker, mqtt_port, mqtt_auth, uuid, 'Error in Simulation/Optimization service',
+                        production_module, pilot, timestamp, priority, 'Error',
+                        source_component, 'Error: Robot picking sequence optimization',
+                        topic, error)
         error_responce = {
             "uuid": uuid,
             "produced_at": int(time() * 1000),
@@ -89,9 +110,16 @@ def callback(ch, method, properties, body):
 
 
 online = sys.argv[1]
+mqtt_broker = ''
+mqtt_port = 0
+mqtt_auth = {'username': '', 'password': ''}
+mqtt_topic = ''
+production_module = ''
 
 if online == "1":
-    host, port, user, pw = sys.argv[2:6]
+    host, port, user, pw, mqtt_broker, mqtt_port, mqtt_username, mqtt_pw, mqtt_topic, production_module = sys.argv[2:12]
+    mqtt_port = int(mqtt_port)
+    mqtt_auth = {'username': mqtt_username, 'password': mqtt_pw}
     conn = pika.BlockingConnection(pika.ConnectionParameters(
         host, int(port), '/', pika.PlainCredentials(user, pw),
         heartbeat=1800, blocked_connection_timeout=900))
