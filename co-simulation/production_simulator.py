@@ -25,13 +25,13 @@ def receive_kh_sequences():
         translated = translate_kh_sequences_sim(kh_sequences_sim)
         return jsonify({"kh_sequences": translated})
     except Exception as e:
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"error!": str(e)}), 400
 
 @app.route('/simulation', methods=['GET'])
 def return_kh_sequences():
     global kh_sequence
     if not kh_sequence:
-        return jsonify({"error": "No KH sequence posted yet."}), 404
+        return jsonify({"error!": "No KH sequence posted yet."}), 404
     translated = translate_kh_sequences_sim(kh_sequence)
     return jsonify({"kh_sequences": translated})
 
