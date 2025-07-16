@@ -49,30 +49,31 @@ def inject_templates(msg: dict) -> None:
 def callback(ch, method, properties, body):
     input_file = json.loads(body)
     uuid = input_file.get('uuid', 'unknown')
-    pilot = 'CRF'
-    priority = "High"
-    topic = mqtt_topic
-    source_component = 'robot-picking-seq-opt'
 
     try:
         print(f"{datetime.now():%d/%m/%Y %H:%M:%S}: Job {uuid} received")
         inject_templates(input_file)              # decode & splice once
         data = input_file["data"]
+        production_module = data['productionModule']
+        smart_service = data['smartService']
+        pilot = 'CRF'
+        priority = "HIGH"
+        topic = mqtt_topic
+        source_component = 'robot-picking-seq-opt'
 
         if data["method"] == "simulation":
             result = run_simulation(input_file)
-            timestamp = datetime.now().isoformat()
-            publish_message(mqtt_broker, mqtt_port, mqtt_auth, uuid, 'Completion of simulation algorithm',
-                            production_module, pilot, timestamp, priority, 'Simulation Completion',
-                            source_component, 'Robot picking sequence simulation',
-                            topic, result)
+            description = 'Completion of simulation algorithm'
+            event_type = 'Simulation Completion'
         else:
             result = run_tsp(None, input_file, False)
-            timestamp = datetime.now().isoformat()
-            publish_message(mqtt_broker, mqtt_port, mqtt_auth, uuid, 'Completion of optimization algorithm',
-                            production_module, pilot, timestamp, priority, 'Optimization Completion',
-                            source_component, 'Robot picking sequence optimization',
-                            topic, result)
+            description = 'Completion of optimization algorithm'
+            event_type = 'Optimization Completion'
+
+        timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S:%f")
+        publish_message(mqtt_broker, mqtt_port, mqtt_auth, description,
+                        production_module, pilot, timestamp, priority, event_type,
+                        source_component, smart_service, topic, result)
 
         output = {
             "uuid": uuid,
@@ -88,12 +89,11 @@ def callback(ch, method, properties, body):
 
     except Exception as exc:
         traceback.print_exc()
-        timestamp = datetime.now().isoformat()
+        timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S:%f")
         error = {"message": f"Problem in input data: {exc}"}
-        publish_message(mqtt_broker, mqtt_port, mqtt_auth, uuid, 'Error in Simulation/Optimization service',
+        publish_message(mqtt_broker, mqtt_port, mqtt_auth, 'Error in Simulation/Optimization service',
                         production_module, pilot, timestamp, priority, 'Error',
-                        source_component, 'Error: Robot picking sequence optimization',
-                        topic, error)
+                        source_component, smart_service, topic, error)
         error_responce = {
             "uuid": uuid,
             "produced_at": int(time() * 1000),
@@ -114,10 +114,9 @@ mqtt_broker = ''
 mqtt_port = 0
 mqtt_auth = {'username': '', 'password': ''}
 mqtt_topic = ''
-production_module = ''
 
 if online == "1":
-    host, port, user, pw, mqtt_broker, mqtt_port, mqtt_username, mqtt_pw, mqtt_topic, production_module = sys.argv[2:12]
+    host, port, user, pw, mqtt_broker, mqtt_port, mqtt_username, mqtt_pw, mqtt_topic = sys.argv[2:11]
     mqtt_port = int(mqtt_port)
     mqtt_auth = {'username': mqtt_username, 'password': mqtt_pw}
     conn = pika.BlockingConnection(pika.ConnectionParameters(
