@@ -1,12 +1,12 @@
 {
-    "simulation_run": false,
-    "message": "No GR configuration beat both baseline costs.",
+    "simulation_run": true,
+    "message": "Improved GR configuration found.",
     "baseline": {
         "exact": {
-            "cost": "2590236"
+            "cost": "1647583"
         },
         "linear": {
-            "cost": "3190414"
+            "cost": "2025517"
         },
         "gr_sequence": [
             {
@@ -53,7 +53,56 @@
             }
         ]
     },
-    "best_phase": null,
-    "solutionTime": 14040,
-    "totalTime": 14040
+    "best_phase": {
+        "phase": 2,
+        "exact_cost": "1584072",
+        "improvement_exact": 3.8548,
+        "improvement_linear": 21.7942,
+        "gr_sequence": [
+            {
+                "1.1": "Container_7"
+            },
+            {
+                "1.2": "Container_13"
+            },
+            {
+                "1.3": "Container_10"
+            },
+            {
+                "1.4": "Container_5"
+            },
+            {
+                "1.5": "Container_1"
+            },
+            {
+                "1.6": "Container_9"
+            },
+            {
+                "1.7": "Container_12"
+            },
+            {
+                "2.1": "Container_3"
+            },
+            {
+                "2.2": "Container_2"
+            },
+            {
+                "2.3": "Container_4"
+            },
+            {
+                "2.4": "Container_8"
+            },
+            {
+                "2.5": "Container_11"
+            },
+            {
+                "2.6": "Container_14"
+            },
+            {
+                "2.7": "Container_6"
+            }
+        ]
+    },
+    "solutionTime": 9307,
+    "totalTime": 9307
 }

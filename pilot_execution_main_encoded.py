@@ -35,7 +35,7 @@ def inject_templates(msg: dict) -> None:
         data["containers_template"]  = templates["containers_sim"]
         data["kit_holders_template"] = templates["kit_holders_sim"]
         data["distance_matrix"]      = templates["distance_matrix_sim"]
-        resp = requests.post('http://localhost:81/simulation', json={"data": data})
+        resp = requests.post('http://localhost:10101/simulation', json={"data": data})
         print("FLASK RESPONSE STATUS:", resp.status_code)
         print("FLASK RAW TEXT:", resp.text)
         data["kh_sequences"] = resp.json()["kh_sequences"]
