@@ -2,10 +2,10 @@ import json, sys, traceback, base64, pickle
 from datetime import datetime
 from time import time
 import pika
-from pilot_sim_execution import run_simulation
+from pilot_co_sim_execution import run_simulation
 from pilot_opt_execution import run_tsp
 from mqtt_integration import publish_message
-
+import requests
 
 # ───────────────────── helper: decode & inject templates ─────────────────────
 def decode_data_block(msg: dict) -> None:
@@ -35,7 +35,10 @@ def inject_templates(msg: dict) -> None:
         data["containers_template"]  = templates["containers_sim"]
         data["kit_holders_template"] = templates["kit_holders_sim"]
         data["distance_matrix"]      = templates["distance_matrix_sim"]
-        data["kh_sequences"]         = templates["kh_sequences_sim"]
+        resp = requests.post('http://localhost:81/simulation', json={"data": data})
+        print("FLASK RESPONSE STATUS:", resp.status_code)
+        print("FLASK RAW TEXT:", resp.text)
+        data["kh_sequences"] = resp.json()["kh_sequences"]
     elif method in {"exact", "linear", "exact-linear"}:
         data["containers_template"]  = templates["containers_opt"]
         data["kit_holders_template"] = templates["kit_holders_opt"]
