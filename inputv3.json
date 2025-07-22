@@ -1,5 +1,6 @@
 {
   "route": "robot-picking-seq",
+  "uuid": "4cbbde67-4a2f-40e1-b8e4-aee532d9b08b",
   "data": {
     "productionModule": "59d308a1-2ca5-4eb9-b217-60bf141b4745",
     "smartService": "124123432-2ca5-4eb9-b217-3454354325",
