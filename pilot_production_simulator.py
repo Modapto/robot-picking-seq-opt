@@ -35,5 +35,5 @@ def return_kh_sequences():
     translated = translate_kh_sequences_sim(kh_sequence)
     return jsonify({"kh_sequences": translated})
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=10101)
+# if __name__ == "__main__":
+#     app.run(host='0.0.0.0', port=10101)

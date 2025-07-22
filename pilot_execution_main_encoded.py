@@ -5,7 +5,19 @@ import pika
 from pilot_co_sim_execution import run_simulation
 from pilot_opt_execution import run_tsp
 from mqtt_integration import publish_message
+from pilot_production_simulator import app
 import requests
+import threading
+
+class thread(threading.Thread):
+    def __init__(self, thread_name, thread_ID):
+        threading.Thread.__init__(self)
+        self.thread_name = thread_name
+        self.thread_ID = thread_ID
+
+        # helper function to execute the threads
+    def run(self):
+        app.run(host='0.0.0.0', port=10101);
 
 # ───────────────────── helper: decode & inject templates ─────────────────────
 def decode_data_block(msg: dict) -> None:
@@ -118,6 +130,10 @@ mqtt_port = 0
 mqtt_auth = {'username': '', 'password': ''}
 mqtt_topic = ''
 
+prodSim = thread("productionSimulator", 1000)
+prodSim.daemon = True
+prodSim.start()
+
 if online == "1":
     host, port, user, pw, mqtt_broker, mqtt_port, mqtt_username, mqtt_pw, mqtt_topic = sys.argv[2:11]
     mqtt_port = int(mqtt_port)
@@ -148,3 +164,4 @@ elif online == "0":
         run_tsp(None, local_msg, False)
 else:
     print("First arg: 0 (local) or 1 (RabbitMQ)")
+
