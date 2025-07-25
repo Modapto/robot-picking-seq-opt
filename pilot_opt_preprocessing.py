@@ -66,25 +66,25 @@ def extend_distance_matrix(gr_nodes, kh_nodes, original_matrix, fallback_distanc
     # Step 3: Add 0.0 → GR edges
     for gr_node in gr_nodes:
         distance = get_fallback_distance("0.0", gr_node)
-        extended.append({"edge": f"(0.0, {gr_node})", "distance": distance})
+        extended.append({"edge": f"(0.0, {gr_node})", "distance": distance + 2000})
 
     # Step 4: Add GR → KH edges (if types match)
     for gr_node, gr_type in gr_nodes.items():
         for kh_node, kh_type in kh_nodes.items():
             if gr_type == kh_type:
                 distance = get_fallback_distance(gr_node, kh_node)
-                extended.append({"edge": f"({gr_node}, {kh_node})", "distance": distance})
+                extended.append({"edge": f"({gr_node}, {kh_node})", "distance": distance + 2000})
 
     # ✅ Step 5: Add KH → GR edges (ALL combinations, regardless of type)
     for kh_node in kh_nodes:
         for gr_node in gr_nodes:
             distance = get_fallback_distance(kh_node, gr_node)
-            extended.append({"edge": f"({kh_node}, {gr_node})", "distance": distance})
+            extended.append({"edge": f"({kh_node}, {gr_node})", "distance": distance + 2000})
 
     # Step 6: Add KH → 0.0.0 edges
     for kh_node in kh_nodes:
         distance = get_fallback_distance(kh_node, "0.0.0")
-        extended.append({"edge": f"({kh_node}, 0.0.0)", "distance": distance})
+        extended.append({"edge": f"({kh_node}, 0.0.0)", "distance": distance + 2000})
 
     # Step 7: Add 0.0.0 → 0.0 edge
     distance = get_fallback_distance("0.0.0", "0.0")
