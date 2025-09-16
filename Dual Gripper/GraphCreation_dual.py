@@ -3,7 +3,13 @@ import random
 import networkx as nx
 import json
 from parse_json_dual import create_distance_matrices
-from simulator_v2_dual import *
+from configurations_final_dual import (
+    load_distance_matrix,
+    load_containers_template,
+    load_kit_holders_template,
+    randomize_containers,
+    filter_distance_matrix
+)
 from utilities import *
 import copy
 
@@ -85,25 +91,6 @@ def create_directed_bipartite_graph(a_to_b_matrix,active_kh_positions, large_num
 
     return B, set_1, set_2
 
-#
-# # Load input JSON
-# with open("random_json_input_dual.json", "r") as f:
-#     input_data = json.load(f)
-#     data = input_data["data"]
-#
-#
-# # Extract data components
-# distance_matrix = data["distance_matrix"]
-# containers_template = data["containers_template"]
-# kit_holders_template = data["kit_holders_template"]
-# current_config = data["current_config"]
-# kh_sequences = data.get("kh_sequences") or [data.get("kh_setup", [])]
-#
-# # Initial start and end nodes
-# start_node = data.get('start_node', '0.0')
-# end_node = data.get('end_node', '0.0.0')
-#
-# last_node_visited = start_node  # Track last node of each phase
 
 def main():
     for i, kh_setup in enumerate(kh_sequences):
