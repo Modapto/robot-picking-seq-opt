@@ -54,7 +54,7 @@ def create_directed_bipartite_graph(a_to_b_matrix,active_kh_positions, large_num
 
     # 3. Add final return edge 0.0.0 → 0.0
     B.add_edge('0.0.0', '0.0', weight=1)
-    print("Final return from 0.0.0 → 0.0 confirmed ✅")
+    print("Final return from 0.0.0 → 0.0 confirmed")
 
     # 4. Add bidirectional edges between KH and GR
     for kh in set_1:
@@ -66,7 +66,7 @@ def create_directed_bipartite_graph(a_to_b_matrix,active_kh_positions, large_num
                     B.add_edge(kh, gr, weight=weight_kh_to_gr)
                 if weight_gr_to_kh < 1000000:
                     B.add_edge(gr, kh, weight=weight_gr_to_kh)
-    print("🔎 KH nodes:", [n for n in set_1 if n != "0.0"])
+    print("KH nodes:", [n for n in set_1 if n != "0.0"])
 
     # Step 5: KH → KH
     for u in active_kh_positions:
@@ -144,8 +144,8 @@ def main():
 
         # print(
             # f"a_to_b_matrix created with shape: {a_to_b_matrix.shape if hasattr(a_to_b_matrix, 'shape') else 'unknown'}")
-        print("\n🔍 Matrix Index (rows):", matrix.index.tolist()[:50])
-        print("🔍 Matrix Columns:", matrix.columns.tolist()[:50])
+        print("Matrix Index (rows):", matrix.index.tolist()[:50])
+        print("Matrix Columns:", matrix.columns.tolist()[:50])
         print(matrix.iloc[:25, :25])
         active_kh_positions = []
         for kh_data in kh_config.values():
@@ -182,7 +182,7 @@ def print_sample_edges_with_weights(B, sample_size=5):
         elif is_u_gr and is_v_gr and "0.0.0" not in (u, v):
             categories["GR → GR"].append((u, v, data["weight"]))
 
-    print("\n🔍 Sample Edges by Type with Weights:\n")
+    print("Sample Edges by Type with Weights:\n")
     for label, edges in categories.items():
         print(f"▶ {label} ({len(edges)} total):")
         for u, v, w in random.sample(edges, min(len(edges), sample_size)):

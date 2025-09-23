@@ -81,8 +81,8 @@ def create_distance_matrices(input_json, large_number=1000000):
         distance = entry["distance"]
         df.at[source, target] = distance
 
-    print(f"✅ Distance matrix created with shape: {df.shape}")
-    print(f"ℹ️ Total unique nodes: {len(all_nodes)}")
+    print(f"Distance matrix created with shape: {df.shape}")
+    print(f"Total unique nodes: {len(all_nodes)}")
     kit_holders = sorted([n for n in sorted_nodes if len(n.split('.')) == 2 or n == '0.0'])
     gravity_racks = sorted([n for n in sorted_nodes if len(n.split('.')) == 3 or n == '0.0.0'])
     node_order = kit_holders + gravity_racks
