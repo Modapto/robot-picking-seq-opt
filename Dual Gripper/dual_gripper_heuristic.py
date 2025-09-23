@@ -7,154 +7,128 @@ def nearest_tsp_dual(
     end: str,
     set_kh: list,
     set_gr: list,
-    gr_types: dict,   # e.g., {'1.1.1':'Component_5', ...}
-    kh_types: dict,   # e.g., {'1.1':'Component_5', ...}
+    gr_types: dict,
+    kh_types: dict,
     max_load: int = 2,
-    large_value: float = 1e12,
-    verbose: bool = True
+    verbose: bool = False,
 ):
     """
-    Simple nearest-neighbor heuristic for dual-gripper.
-    - Allows GR→GR and KH→KH moves (whatever edges your graph provides).
-    - Won't visit `end` until all KH nodes are visited.
-    - Tracks an in-hand buffer (<= max_load) by component type to prefer sensible GR picks / KH placements.
-
-    Returns:
-        tour: list[str]
+    Dual-gripper nearest-neighbor heuristic with batching:
+      loop:
+        - pick until load == max_load (or no more useful GR)
+        - place until load == 0 (always to nearest needed KH by type)
+      end when all KH demands are satisfied.
     """
 
-    # --- helpers ---
-    def edge_w(u, v):
-        if G.has_edge(u, v):
-            return G[u][v].get('weight', large_value)
-        return large_value
+    def w(u, v):
+        return G[u][v]["weight"] if G.has_edge(u, v) else float("inf")
 
-    def nearest(current, candidates):
-        best = None
-        best_w = large_value
-        for c in candidates:
-            if c == current:      # no self transitions
-                continue
-            w = edge_w(current, c)
-            if w < best_w:
-                best_w = w
-                best = c
-        return best, best_w
+    # remaining KH demand per slot (slot id) grouped by type
+    remaining_slots_by_type = {}
+    for kh in set_kh:
+        t = kh_types.get(kh)
+        if t is None:
+            continue
+        remaining_slots_by_type.setdefault(t, set()).add(kh)
 
-    # remaining KH demand by type (unvisited KH slots)
-    rem_kh_by_type = Counter(kh_types.values())
+    def total_remaining():
+        return sum(len(s) for s in remaining_slots_by_type.values())
 
-    visited = {n: False for n in G.nodes}
-    # keep `end` unvisited until the end by design
-    for n in [start, end]:
-        if n in visited:
-            visited[n] = False
+    # helpers for nice debug
+    def bag_counts_bydict(in_hand_list):
+        counts = {}
+        for _, t in in_hand_list:
+            counts[t] = counts.get(t, 0) + 1
+        return counts
+
+    def demand_counts():
+        return {t: len(slots) for t, slots in remaining_slots_by_type.items()}
 
     tour = [start]
     current = start
-    visited[start] = True
 
-    # a small "hand" inventory: type -> count up to max_load
-    in_hand = Counter()
-
-    # sets as sets for faster ops
-    KH = set(set_kh)
-    GR = set(set_gr)
-
-    # convenience lists
-    KH_unv = set([n for n in set_kh if not visited.get(n, False)])
-    GR_unv = set([n for n in set_gr if not visited.get(n, False)])
-
-    def can_pick(gr_node):
-        """We pick from GR only if we have capacity and that type is still needed by any KH."""
-        if len(list(in_hand.elements())) >= max_load:
-            return False
-        t = gr_types.get(gr_node, None)
-        return t is not None and rem_kh_by_type[t] > 0
-
-    def can_place(kh_node):
-        """We place to KH only if KH not visited and we hold its type."""
-        if visited.get(kh_node, False):
-            return False
-        t = kh_types.get(kh_node, None)
-        return t is not None and in_hand[t] > 0
-
-    def all_kh_done():
-        return all(visited.get(k, False) for k in KH)
+    available_gr = {g for g in set_gr if g in G}  # GR pockets we haven't used
+    in_hand = []  # list of tuples (gr_node, type)
 
     if verbose:
-        print(f"[dual-NN] start={start}, end={end}, |KH|={len(KH)}, |GR|={len(GR)}")
+        print(f"[dual-NN] start={start}, end={end}, |KH|={len(set_kh)}, |GR|={len(set_gr)}")
 
-    # --- main loop ---
-    while not all_kh_done():
-        # 1) If we can place, prefer nearest placeable KH from current
-        placeable = [k for k in KH_unv if can_place(k) and G.has_edge(current, k)]
-        next_node, next_w = nearest(current, placeable) if placeable else (None, large_value)
+    while total_remaining() > 0:
+        # -------- PICK PHASE --------
+        while len(in_hand) < max_load:
+            useful_gr = [
+                g for g in available_gr
+                if (tg := gr_types.get(g)) in remaining_slots_by_type
+                and len(remaining_slots_by_type[tg]) > 0
+                and G.has_edge(current, g)
+            ]
+            if not useful_gr:
+                break
 
-        # 2) Else, if we have capacity, prefer nearest useful GR (whose type is still needed)
-        if next_node is None and len(list(in_hand.elements())) < max_load:
-            pickable = [g for g in GR_unv if can_pick(g) and G.has_edge(current, g)]
-            next_node, next_w = nearest(current, pickable) if pickable else (None, large_value)
+            next_gr = min(useful_gr, key=lambda g: w(current, g))
+            t = gr_types[next_gr]
 
-        # 3) Else, pure NN among any unvisited legal neighbors except `end`
-        if next_node is None:
-            neighs = [v for v in G.successors(current)
-                      if not visited.get(v, False)
-                      and v != end]  # don't go to end yet
-            next_node, next_w = nearest(current, neighs)
-
-        if next_node is None:
-            raise ValueError(f"No valid neighbor from {current}. Tour may be stuck.")
-
-        # apply move
-        tour.append(next_node)
-        visited[next_node] = True
-        if next_node in KH_unv:
-            KH_unv.remove(next_node)
-        if next_node in GR_unv:
-            GR_unv.remove(next_node)
-
-        # update in-hand / remaining demand
-        if next_node in GR:
-            t = gr_types.get(next_node, None)
-            if t is not None and len(list(in_hand.elements())) < max_load and rem_kh_by_type[t] > 0:
-                in_hand[t] += 1
-                if verbose:
-                    print(f" pick {next_node} (type {t}), in_hand={dict(in_hand)}")
-        elif next_node in KH:
-            t = kh_types.get(next_node, None)
-            if t is not None and in_hand[t] > 0:
-                in_hand[t] -= 1
-                rem_kh_by_type[t] -= 1
-                if verbose:
-                    print(f" place {next_node} (type {t}), in_hand={dict(in_hand)}, rem_kh={dict(rem_kh_by_type)}")
-
-        if verbose:
-            print(f"  → {current} -> {next_node} (w={next_w})")
-        current = next_node
-
-    # when all KH visited, go to end if possible, then back to start if exists
-    if current != end:
-        if G.has_edge(current, end):
-            tour.append(end)
             if verbose:
-                print(f"done with KH. going {current} -> {end}")
-        else:
-            # nearest hop chain to reach end (fallback)
-            neighs = [v for v in G.successors(current) if not (v == current)]
-            nxt, _ = nearest(current, neighs)
-            if nxt is None:
-                raise ValueError(f"Cannot reach {end} from {current}.")
-            tour.append(nxt)
-            current = nxt
-            if G.has_edge(current, end):
-                tour.append(end)
+                print(f" pick {next_gr} (type {t}), in_hand={bag_counts_bydict(in_hand)}")
+                print(f"  → {current} -> {next_gr} (w={w(current, next_gr)})")
 
-    # return to 0.0 if that edge exists (your graph usually has 0.0.0 -> 0.0)
+            tour.append(next_gr)
+            current = next_gr
+            in_hand.append((next_gr, t))
+            available_gr.remove(next_gr)
+
+        # No items in hand and no useful GR left → done
+        if not in_hand and not any(
+            (gr_types.get(g) in remaining_slots_by_type and len(remaining_slots_by_type[gr_types[g]]) > 0)
+            for g in available_gr
+        ):
+            break
+
+        # -------- PLACE PHASE --------
+        while in_hand:
+            best = None  # (dist, kh_node, item_index)
+            for idx, (_, t) in enumerate(in_hand):
+                slots = [kh for kh in remaining_slots_by_type.get(t, []) if G.has_edge(current, kh)]
+                if not slots:
+                    continue
+                kh_near = min(slots, key=lambda kh: w(current, kh))
+                dist = w(current, kh_near)
+                if best is None or dist < best[0]:
+                    best = (dist, kh_near, idx)
+
+            if best is None:
+                # Move to the nearest KH (any) to unblock (should be rare)
+                reachable_kh = [kh for kh in set_kh if G.has_edge(current, kh)]
+                if not reachable_kh:
+                    raise ValueError(f"No reachable KH from {current} while holding items.")
+                kh_near = min(reachable_kh, key=lambda kh: w(current, kh))
+                tour.append(kh_near)
+                current = kh_near
+                continue
+
+            dist, kh_target, idx = best
+            _, t = in_hand.pop(idx)
+
+            if verbose:
+                print(f" place {kh_target} (type {t}), in_hand={bag_counts_bydict(in_hand)}, rem_kh={demand_counts()}")
+                print(f"  → {current} -> {kh_target} (w={dist})")
+
+            tour.append(kh_target)
+            current = kh_target
+            remaining_slots_by_type[t].remove(kh_target)
+            if not remaining_slots_by_type[t]:
+                del remaining_slots_by_type[t]
+
+    # go to end, then return to start if possible
+    if G.has_edge(current, end):
+        if verbose:
+            print(f"done with KH. going {current} -> {end}")
+        tour.append(end)
+        current = end
     if G.has_edge(end, start):
-        tour.append(start)
         if verbose:
             print(f"return {end} -> {start}")
+        tour.append(start)
 
     return tour
 

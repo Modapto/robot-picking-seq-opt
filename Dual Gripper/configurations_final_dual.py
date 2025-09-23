@@ -1,6 +1,3 @@
-import random
-from itertools import product
-import uuid
 import copy
 
 def generate_kh_configuration(kh_setup, kit_holders_template):
