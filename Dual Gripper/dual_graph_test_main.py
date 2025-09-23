@@ -1,6 +1,42 @@
 import json
 import sys
 from collections import defaultdict
+from dual_gripper_heuristic import nearest_tsp_dual, total_cost
+
+from collections import Counter
+
+def parse_gr_node(n: str):
+    # '2.5.16' -> base='2.5', pos=16 (int)
+    a, b, c = n.split(".")
+    return f"{a}.{b}", int(c)
+
+def prune_gr_nodes_to_demand(gr_nodes: dict, kh_nodes: dict) -> dict:
+    """
+    Keep only the first-needed GR pockets by type to exactly cover KH demand.
+    Prefers earliest pockets (smallest position) and earlier lanes.
+    """
+    demand = Counter(kh_nodes.values())  # type -> count needed
+
+    # (type, base, pos, node) sorted by type, lane, pocket index
+    rows = []
+    for node, comp_type in gr_nodes.items():
+        base, pos = parse_gr_node(node)
+        rows.append((comp_type, base, pos, node))
+    rows.sort(key=lambda x: (x[0], x[1], x[2]))
+
+    keep = set()
+    taken = Counter()
+    for t, base, pos, node in rows:
+        need = demand.get(t, 0)
+        if need <= 0:
+            continue
+        if taken[t] < need:
+            keep.add(node)
+            taken[t] += 1
+
+    # Return only kept nodes
+    return {n: gr_nodes[n] for n in keep}
+
 
 def generate_kh_nodes(kh_sequences, kit_holder_types):
     kh_nodes = {}
@@ -264,6 +300,8 @@ def main():
         kit_holders_tpl = data.get("templates", {}).get("kit_holders_opt", data.get("kit_holders_opt", {}))
         kh_seq = data.get("templates", {}).get("kh_sequences_opt", data.get("kh_sequences_opt", []))
 
+
+
         # Build KH nodes exactly like you do earlier
         kh_nodes = generate_kh_nodes(kh_seq, kit_holders_tpl)  # dict like {'1.1': 'Component_5', ...}
         active_kh_nodes = sorted(kh_nodes.keys())
@@ -276,9 +314,25 @@ def main():
 
         print(f"Graph built: |V|={len(B.nodes)}, |E|={len(B.edges)}")
         print(f"Set 1 size: {len(set_1)} | Set 2 size: {len(set_2)}")
+        tour = nearest_tsp_dual(
+            G=B,
+            start="0.0",
+            end="0.0.0",
+            set_kh=set_1,  # your KH set from graph creation
+            set_gr=set_2,  # your GR set from graph creation
+            gr_types=gr_nodes,  # from generate_gr_nodes
+            kh_types=kh_nodes,  # from generate_kh_nodes
+            max_load=2,
+            verbose=True
+        )
+        cost, details = total_cost(B, tour)
+        print("tour:", tour)
+        print("cost:", cost)
 
     except ImportError:
         print("Skipped graph build — imports not available in this test context.)")
 
 if __name__ == "__main__":
     main()
+
+
