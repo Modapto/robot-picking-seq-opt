@@ -283,7 +283,7 @@ def main():
     print(f"Built nodes: GR={len(gr_nodes)}, KH={len(kh_nodes)}")
     print(f"Total candidate edges: {len(edges)}")
     print("— sample edges —")
-    for e in edges[:min(10, len(edges))]:
+    for e in edges[:min(855, len(edges))]:
         print("  ", e)
 
     violations = check_rules(edges, gr_nodes, kh_nodes)
