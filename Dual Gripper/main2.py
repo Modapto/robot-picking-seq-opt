@@ -105,8 +105,15 @@ def _get_distance(src, dst, lookup, default=10**9):
             return w
     return default
 
-# dual expansion (no self-loops; GR->GR only next index; KH->KH allowed; 0.0->*.1 only)
-def extend_distance_matrix_dual(gr_nodes, kh_nodes, kh_sequences_opt, min_edges, add_bias=2000):
+def extend_distance_matrix_dual(
+    gr_nodes,
+    kh_nodes,
+    kh_sequences_opt,
+    min_edges,
+    add_bias=2000,
+    allow_cross_rack_gr_pick2=False,   # NEW
+    cross_gr_extra_bias=0              # optional small bias if you want to discourage GR→GR hops
+):
     lookup = _build_lookup(min_edges)
     BIG = 10**8
     out = []
@@ -114,7 +121,7 @@ def extend_distance_matrix_dual(gr_nodes, kh_nodes, kh_sequences_opt, min_edges,
     gr_set = set(gr_nodes.keys())
     kh_set = set(kh_nodes.keys())
 
-    # 0.0 -> GR (only *.1 like in your short list)
+    # 0.0 -> GR (only *.1)
     for g in gr_set:
         r, c, i = _parse_gr(g)
         if i != "1":
@@ -160,7 +167,8 @@ def extend_distance_matrix_dual(gr_nodes, kh_nodes, kh_sequences_opt, min_edges,
             if w < BIG:
                 out.append({"edge": f"({u}, {v})", "distance": w})
 
-    # GR -> GR (same base, next index only, no self)
+    # GR -> GR
+    # (a) Always allow same-base next-index hops (old rule)
     by_base = defaultdict(set)
     for g in gr_set:
         r, c, i = _parse_gr(g)
@@ -178,6 +186,33 @@ def extend_distance_matrix_dual(gr_nodes, kh_nodes, kh_sequences_opt, min_edges,
                 if w < BIG:
                     out.append({"edge": f"({u}, {v})", "distance": w})
 
+    # (b) Optionally allow cross-rack GR→GR edges (for pick→pick across any racks)
+    if allow_cross_rack_gr_pick2:
+        gr_list = list(gr_set)
+        for u in gr_list:
+            ru, cu, iu = _parse_gr(u)
+            if ru is None:
+                continue
+            iu = int(iu)
+            for v in gr_list:
+                if u == v:
+                    continue
+                rv, cv, iv = _parse_gr(v)
+                if rv is None:
+                    continue
+                iv = int(iv)
+
+                # Do NOT create same-base edges here.
+                # - If same base and iv == iu+1, we already added it in (a) above.
+                # - If same base and anything else (backwards or skip), it's forbidden by rule.
+                if (ru, cu) == (rv, cv):
+                    continue
+
+                w = _get_distance(u, v, lookup)
+                if w < BIG:
+                    out.append({"edge": f"({u}, {v})", "distance": w + cross_gr_extra_bias})
+
+    # remove self loops
     cleaned = []
     for e in out:
         s, d = e["edge"].strip("()").split(", ")
@@ -209,11 +244,14 @@ def build_edges_from_input(data, use_prune=True):
         kh_sequences_opt=kh_sequences_opt,
         min_edges=min_edges,
         add_bias=2000,
+        allow_cross_rack_gr_pick2=True,  # <— enable cross-rack GR→GR for pick→pick
+        cross_gr_extra_bias=0  # optionally >0 if you want to penalize GR→GR hops
     )
+
     return edges, gr_nodes, kh_nodes
 
 
-def check_rules(edges, gr_nodes, kh_nodes):
+def check_rules(edges, gr_nodes, kh_nodes, allow_cross_rack_gr_pick2=False):
     gr_set = set(gr_nodes.keys())
     kh_set = set(kh_nodes.keys())
     lookup_type_gr = gr_nodes
@@ -246,16 +284,28 @@ def check_rules(edges, gr_nodes, kh_nodes):
             if lookup_type_gr[s] != lookup_type_kh[d]:
                 violations.append(f"GR→KH type mismatch: {s}({lookup_type_gr[s]}) -> {d}({lookup_type_kh[d]})")
 
-    # GR -> GR only same base and next index
+    # GR -> GR rule
     for e in edges:
         s, d = parse_edge(e)
         if s in gr_set and d in gr_set:
             rb, cb, i1 = _parse_gr(s)
             ra, ca, i2 = _parse_gr(d)
-            if (rb, cb) != (ra, ca) or int(i2) != int(i1) + 1:
-                violations.append(f"GR→GR wrong step: {s} -> {d}")
+            if allow_cross_rack_gr_pick2:
+                # Only forbid within-same-base if it is not next index (keep old invariant there)
+                if (rb, cb) == (ra, ca) and int(i2) != int(i1) + 1:
+                    violations.append(f"GR→GR wrong step (same-base must be +1): {s} -> {d}")
+            else:
+                # Old strict rule: same base AND must be next index
+                if (rb, cb) != (ra, ca) or int(i2) != int(i1) + 1:
+                    violations.append(f"GR→GR wrong step: {s} -> {d}")
 
-    # require 0.0.0 -> 0.0 exists
+    # KH -> KH self (already covered) — optional extra check
+    for e in edges:
+        s, d = parse_edge(e)
+        if s in kh_set and d in kh_set and s == d:
+            violations.append(f"KH→KH self? {s} -> {d}")
+
+    # require 0.0.0 -> 0.0
     if not any(e["edge"] == "(0.0.0, 0.0)" for e in edges):
         violations.append("Missing required edge: (0.0.0, 0.0)")
 
@@ -281,12 +331,13 @@ def main():
     print(f"Built nodes: GR={len(gr_nodes)}, KH={len(kh_nodes)}")
     print(f"Total candidate edges: {len(edges)}")
     print("— sample edges —")
-    for e in edges[:min(855, len(edges))]:
+    for e in edges[:min(5, len(edges))]:
         print("  ", e)
 
-    violations = check_rules(edges, gr_nodes, kh_nodes)
+    violations = check_rules(edges, gr_nodes, kh_nodes, allow_cross_rack_gr_pick2=True)
     if violations:
-        print("RULE CHECKS FAILED:")
+        if violations:
+            print("RULE CHECKS FAILED (cross-rack GR→GR allowed):")
         for v in violations[:50]:
             print("  -", v)
         if len(violations) > 50:

@@ -260,7 +260,7 @@ def check_rules(edges, gr_nodes, kh_nodes):
     return violations
 
 def main():
-    default_json = "random_json_input_dual.min2.json"  # <- set your default here
+    default_json = "input_dual_gripper.json"  # <- set your default here
 
     if len(sys.argv) < 2:
         json_path = default_json
