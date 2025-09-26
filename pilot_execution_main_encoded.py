@@ -69,20 +69,21 @@ def callback(ch, method, properties, body):
         print(f"{datetime.now():%d/%m/%Y %H:%M:%S}: Job {uuid} received")
         inject_templates(input_file)              # decode & splice once
         data = input_file["data"]
-        production_module = data['productionModule']
+        production_module = data['module']
         smart_service = data['smartService']
         pilot = 'CRF'
         priority = "HIGH"
         topic = mqtt_topic
-        source_component = 'robot-picking-seq-opt'
 
         if data["method"] == "simulation":
             result = run_simulation(input_file)
+            source_component = 'Robot picking sequence simulation method'
             description = 'Completion of simulation algorithm'
             event_type = 'Simulation Completion'
             topic = 'kh-picking-sequence-simulation'
         else:
             result = run_tsp(None, input_file, False)
+            source_component = 'Robot picking sequence optimization method'
             description = 'Completion of optimization algorithm'
             event_type = 'Optimization Completion'
             topic = 'kh-picking-sequence-optimization'
@@ -106,7 +107,7 @@ def callback(ch, method, properties, body):
 
     except Exception as exc:
         traceback.print_exc()
-        timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S:%f")
+        timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
         error = {"message": f"Problem in input data: {exc}"}
         publish_message(mqtt_broker, mqtt_port, mqtt_auth, 'Error in Simulation/Optimization service',
                         production_module, pilot, timestamp, priority, 'Error',
