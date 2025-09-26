@@ -80,10 +80,12 @@ def callback(ch, method, properties, body):
             result = run_simulation(input_file)
             description = 'Completion of simulation algorithm'
             event_type = 'Simulation Completion'
+            topic = 'kh-picking-sequence-simulation'
         else:
             result = run_tsp(None, input_file, False)
             description = 'Completion of optimization algorithm'
             event_type = 'Optimization Completion'
+            topic = 'kh-picking-sequence-optimization'
 
         timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S:%f")
         publish_message(mqtt_broker, mqtt_port, mqtt_auth, description,
@@ -135,7 +137,7 @@ prodSim.daemon = True
 prodSim.start()
 
 if online == "1":
-    host, port, user, pw, mqtt_broker, mqtt_port, mqtt_username, mqtt_pw, mqtt_topic = sys.argv[2:11]
+    host, port, user, pw, mqtt_broker, mqtt_port, mqtt_username, mqtt_pw = sys.argv[2:11]
     mqtt_port = int(mqtt_port)
     mqtt_auth = {'username': mqtt_username, 'password': mqtt_pw}
     conn = pika.BlockingConnection(pika.ConnectionParameters(
