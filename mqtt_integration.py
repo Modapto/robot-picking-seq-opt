@@ -1,6 +1,8 @@
 import paho.mqtt.publish as publish
 import numpy as np
 import json
+import traceback
+import datetime
 
 def set_message_body(description, production_module, pilot,
                      timestamp, priority, event_type, source_component,
@@ -18,7 +20,11 @@ def publish_message(broker, port, auth, description,
                                timestamp, priority, event_type, source_component,
                                smart_service, topic, results)
     # will = {'topic': topic, 'payload':json.dumps(payload, cls=NpEncoder), 'qos':0, 'retain':False}
-    publish.single(topic=topic, payload=json.dumps(payload, cls=NpEncoder), hostname=broker, port=port, auth=auth)
+    try:
+        publish.single(topic=topic, payload=json.dumps(payload, cls=NpEncoder), hostname=broker, port=port, auth=auth)
+    except Exception as e:
+        print(f"{datetime.datetime.now()}  - Cannot connect to message bus")
+        print(traceback.format_exc())
 
 
 # Extend the JSONEncoder class
