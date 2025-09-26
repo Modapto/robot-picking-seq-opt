@@ -5,7 +5,7 @@ import json
 def set_message_body(description, production_module, pilot,
                      timestamp, priority, event_type, source_component,
                      smart_service, topic, results):
-    message_body = {'eventId':'', 'description':description, 'productionModule':production_module,
+    message_body = {'eventId':'', 'description':description, 'module':production_module,
                     'pilot':pilot, 'timestamp':timestamp, 'priority':priority, 'eventType':event_type,
                     'sourceComponent':source_component, 'smartService':smart_service,
                     'topic':topic, 'results':results}
