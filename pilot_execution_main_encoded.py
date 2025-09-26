@@ -1,4 +1,4 @@
-import json, sys, traceback, base64, pickle
+import json, sys, copy, traceback, base64, pickle
 from datetime import datetime
 from time import time
 import pika
@@ -64,16 +64,14 @@ def inject_templates(msg: dict) -> None:
 def callback(ch, method, properties, body):
     input_file = json.loads(body)
     uuid = input_file.get('uuid', 'unknown')
-
     try:
         print(f"{datetime.now():%d/%m/%Y %H:%M:%S}: Job {uuid} received")
         inject_templates(input_file)              # decode & splice once
         data = input_file["data"]
-        production_module = data['module']
-        smart_service = data['smartService']
         pilot = 'CRF'
         priority = "HIGH"
-        topic = mqtt_topic
+        production_module = data['module']
+        smart_service = data['smartService']
 
         if data["method"] == "simulation":
             result = run_simulation(input_file)
