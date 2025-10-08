@@ -11179,7 +11179,7 @@
     }
 ],
     "kh_sequences_opt": [
-       {"1": "KH001"}, {"2": "KH002"}, {"3": "KH003"}, {"4": "KH003"}
+       {"1": "KH001"}, {"2": "KH002"}, {"3": "KH001"}, {"4": "KH003"}
      ],
     "containers_opt": {
     "Container_1": {"contents" : [{"position":"1","type":"Component_1"},
