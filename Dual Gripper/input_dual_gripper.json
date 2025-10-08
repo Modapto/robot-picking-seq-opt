@@ -3,7 +3,7 @@
   "uuid": "20575aa3-a69a-46e1-83b3-7e4ee2d68601",
   "generated_at": 1736414971,
   "data": {
-    "method": "exact-linear",
+    "method": "dual-linear",
     "gr_sequence": [
       {"1.1": "Container_1"},
       {"1.2": "Container_2"},
@@ -11179,7 +11179,7 @@
     }
 ],
     "kh_sequences_opt": [
-       {"1": "KH001"}, {"2": "KH002"}, {"3": "KH001"}, {"4": "KH003"}
+       {"1": "KH001"}, {"2": "KH002"}, {"3": "KH003"}, {"4": "KH003"}
      ],
     "containers_opt": {
     "Container_1": {"contents" : [{"position":"1","type":"Component_1"},
