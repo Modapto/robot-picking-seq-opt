@@ -16,7 +16,7 @@ def nearest_tsp(G, start, end, set_1, set_2, large_value=1000000):
     - large_value: A large value to represent unconnected nodes.
 
     Returns:
-    - tour: List of nodes representing the computed tour.
+
     """
     visit = {node: False for node in G.nodes}
     tour = [start]
