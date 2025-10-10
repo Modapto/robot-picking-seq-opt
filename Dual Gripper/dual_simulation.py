@@ -51,7 +51,8 @@ def run_dual_simulation(json_file_path=None, input_data=None):
         "linear_cost": base_eval["linear"]["cost"],
         "heuristic": base_eval["heuristic"],
         "linear": base_eval["linear"],
-        "gr_sequence": data["gr_sequence"]
+        "gr_sequence": data["gr_sequence"],
+        "phase": 0
     }
 
     phases = []
@@ -83,7 +84,8 @@ def run_dual_simulation(json_file_path=None, input_data=None):
                 "linear_cost": ev["linear"]["cost"],
                 "heuristic": ev["heuristic"],
                 "linear": ev["linear"],
-                "gr_sequence": try_data["gr_sequence"]
+                "gr_sequence": try_data["gr_sequence"],
+                "phase": k + 1,
             }
 
     out = {
@@ -91,11 +93,13 @@ def run_dual_simulation(json_file_path=None, input_data=None):
         "solutionTime": int(time() * 1000) - t0,
         "baseline": baseline,
         "best": {
+            "phase": best["phase"],
             "heuristic": best["heuristic"],
             "linear": best["linear"],
-            "gr_sequence": best["gr_sequence"]
-        },
-        "phases": phases
+            "gr_sequence": best["gr_sequence"],
+
+        }
+        # ,"phases": phases
     }
     with open(OUTPUT_PATH, "w") as f:
         json.dump(out, f, indent=2)
