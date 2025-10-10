@@ -9,7 +9,7 @@ from dual_gripper_heuristic import nearest_tsp_dual
 from linear_dual import linear_picking_dual
 
 # import helper functions & config from your optimization main
-from main import (
+from main_dual import (
     build_edges_from_input,
     check_rules,
     generate_kh_nodes,

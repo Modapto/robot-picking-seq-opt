@@ -1,4 +1,4 @@
-# main.py — run heuristic AND linear on a RELAXED GR→KH graph (for comparison)
+# main_dual.py — run heuristic AND linear on a RELAXED GR→KH graph (for comparison)
 import json
 import sys
 from collections import defaultdict, Counter
