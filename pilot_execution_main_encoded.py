@@ -86,7 +86,7 @@ def callback(ch, method, properties, body):
             event_type = 'Optimization Completion'
             topic = 'kh-picking-sequence-optimization'
 
-        timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S:%f")
+        timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
         publish_message(mqtt_broker, mqtt_port, mqtt_auth, description,
                         production_module, pilot, timestamp, priority, event_type,
                         source_component, smart_service, topic, result)
