@@ -1,11 +1,9 @@
-
-# dual_optimization.py
 import json, sys
 from time import time
 
 from dual_core import evaluate_methods_on_data
 
-DEFAULT_JSON = "input_dual_gripper.json"
+DEFAULT_JSON = "input_dual.json"
 OUTPUT_PATH  = "dual_optimization_output.json"
 
 USE_PRUNE = True

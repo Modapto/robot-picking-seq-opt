@@ -1,5 +1,3 @@
-
-# dual_simulation.py
 import json, sys, random
 from time import time
 
@@ -8,7 +6,7 @@ from dual_core import (
     shuffle_gr_sequence,
 )
 
-DEFAULT_JSON = "input_dual_gripper.json"
+DEFAULT_JSON = "input_dual.json"
 OUTPUT_PATH  = "dual_simulation_output.json"
 
 USE_PRUNE = True

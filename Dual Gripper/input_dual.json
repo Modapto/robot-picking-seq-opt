@@ -3,7 +3,7 @@
   "uuid": "20575aa3-a69a-46e1-83b3-7e4ee2d68601",
   "generated_at": 1736414971,
   "data": {
-    "method": "simulation",
+    "method": "heuristic",
     "gr_sequence": [
       {"1.1": "Container_1"},
       {"1.2": "Container_2"},
