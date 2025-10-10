@@ -13,7 +13,7 @@ def create_directed_bipartite_graph(a_to_b_matrix,active_kh_positions, large_num
         - 0.0.0 → 0.0 (final return)
         - KH ↔ GR (bidirectional)
         - KH → KH (excluding 0.0)
-        - GR → GR (excluding 0.0.0)
+
     """
     B = nx.DiGraph()
 
