@@ -8,7 +8,7 @@ from dual_gripper_heuristic import nearest_tsp_dual
 from linear_dual import linear_picking_dual
 
 # ====== CONFIG ======
-INPUT_PATH = "input_dual_gripper.json"
+INPUT_PATH = "input_dual.json"
 OUTPUT_PATH = "dual_optimization_output.json"
 
 ADD_EDGE_BIAS = 2000                 # small constant to avoid zero-weights in composed edges
@@ -263,7 +263,7 @@ def compute_path_cost(G, tour):
 
 
 def main():
-    # -------- load input --------
+    # load input
     if len(sys.argv) > 1:
         path = sys.argv[1]
     else:
@@ -277,19 +277,19 @@ def main():
     if method not in ("heuristic", "linear", "heuristic-linear"):
         raise ValueError("method must be one of: 'heuristic', 'linear', 'heuristic-linear'")
 
-    # -------- build edges & graph (RELAXED for both) --------
+    # build edges & graph
     edges, gr_types, kh_types = build_edges_from_input(
         data, use_prune=USE_PRUNE, require_type_match_gr_kh=False
     )
 
     a_to_b_matrix = create_distance_matrices({"data": {"distance_matrix": edges}})
-    # active KH nodes (axis for bipartite)
+
     templates = data.get("templates", {})
     kit_holders_tpl = templates.get("kit_holders_opt", data.get("kit_holders_opt", {}))
     kh_seq = templates.get("kh_sequences_opt", data.get("kh_sequences_opt", []))
     kh_nodes_again = generate_kh_nodes(kh_seq, kit_holders_tpl)
     active_kh_nodes = sorted(kh_nodes_again.keys())
-    # sanity
+
     missing = [n for n in active_kh_nodes if n not in a_to_b_matrix.index or n not in a_to_b_matrix.columns]
     if missing:
         raise ValueError(f"KH nodes not in matrix: {missing}")
@@ -302,7 +302,7 @@ def main():
     results = {}
     t0 = int(time() * 1000)
 
-    # ---- heuristic ----
+    # heuristic
     if method in ("heuristic", "heuristic-linear"):
         tour_h = nearest_tsp_dual(
             G=B,
@@ -319,7 +319,7 @@ def main():
         time_details_h = build_time_details_from_tour(B, tour_h, gr_types, kh_types)
         results["heuristic"] = {"cost": cost_h, "tour": tour_h, "time_details": time_details_h}
 
-    # ---- linear ----
+    # linear
     if method in ("linear", "heuristic-linear"):
         lin = linear_picking_dual(
             B=B,
@@ -336,7 +336,7 @@ def main():
         time_details_l = build_time_details_from_tour(B, tour_l, gr_types, kh_types)
         results["linear"] = {"cost": cost_l, "tour": tour_l, "time_details": time_details_l}
 
-    # ---- if compare, keep winner + improvement ----
+    # if compare, keep winner + improvement
     if method == "heuristic-linear" and ("heuristic" in results) and ("linear" in results):
         c_h = results["heuristic"]["cost"]
         c_l = results["linear"]["cost"]
@@ -356,7 +356,7 @@ def main():
 
     with open(OUTPUT_PATH, "w") as f:
         json.dump(out, f, indent=2)
-    print(f"✅ Wrote {OUTPUT_PATH}")
+    print(f"Wrote {OUTPUT_PATH}")
 
 if __name__ == "__main__":
     main()

@@ -1,8 +1,4 @@
-import random
 import networkx as nx
-import json
-from parse_json_dual import create_distance_matrices
-from configurations_final_dual import filter_distance_matrix, generate_kh_configuration
 
 def create_directed_bipartite_graph(a_to_b_matrix,active_kh_positions, large_number=1000000):
     """

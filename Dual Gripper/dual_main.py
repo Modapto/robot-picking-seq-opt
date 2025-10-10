@@ -9,7 +9,7 @@ import dual_optimization as opt
 import dual_simulation as sim
 
 
-DEFAULT_INPUT = "input_dual_gripper.json"
+DEFAULT_INPUT = "input_dual.json"
 
 ALLOWED_METHODS = {"simulation", "heuristic", "linear", "heuristic-linear"}
 
@@ -20,7 +20,7 @@ def _write_temp_input(msg: dict) -> str:
     return its path. We'll point the optimization/simulation modules at this file.
     """
     tmpdir = tempfile.mkdtemp(prefix="dual_main_")
-    path = os.path.join(tmpdir, "input_dual_gripper.json")
+    path = os.path.join(tmpdir, "input_dual.json")
     with open(path, "w") as f:
         json.dump(msg, f, indent=2)
     return path

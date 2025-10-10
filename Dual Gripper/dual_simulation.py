@@ -9,7 +9,7 @@ from dual_gripper_heuristic import nearest_tsp_dual
 from linear_dual import linear_picking_dual
 
 # ====== CONFIG ======
-INPUT_PATH = "input_dual_gripper.json"
+INPUT_PATH = "input_dual.json"
 OUTPUT_PATH = "dual_simulation_output.json"
 
 ADD_EDGE_BIAS = 2000
@@ -343,7 +343,7 @@ def main():
 
     with open(OUTPUT_PATH, "w") as f:
         json.dump(out, f, indent=2)
-    print(f"✅ Wrote {OUTPUT_PATH}")
+    print(f"Wrote {OUTPUT_PATH}")
 
 if __name__ == "__main__":
     main()

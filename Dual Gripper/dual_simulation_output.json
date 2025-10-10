@@ -3,7 +3,7 @@
   "message": "Simulation completed.",
   "baseline": {
     "dual_heuristic": {
-      "cost": "564593"
+      "cost": "535313"
     },
     "dual_linear": {
       "cost": "722825"
@@ -55,8 +55,8 @@
   },
   "best_phase": {
     "phase": 3,
-    "dual_heuristic_cost": "508306",
-    "improvement_heuristic": 9.9695,
+    "dual_heuristic_cost": "509603",
+    "improvement_heuristic": 4.8028,
     "improvement_linear": 6.0679,
     "gr_sequence": [
       {
@@ -103,6 +103,6 @@
       }
     ]
   },
-  "solutionTime": 690,
-  "totalTime": 690
+  "solutionTime": 686,
+  "totalTime": 686
 }
