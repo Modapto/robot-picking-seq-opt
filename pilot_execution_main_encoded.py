@@ -87,7 +87,7 @@ def callback(ch, method, properties, body):
         else:
             print("3. Starting optimization")
             result = run_tsp(None, input_file, False)
-            print("5. Finished optimization")
+            print("4. Finished optimization")
             source_component = 'Robot picking sequence optimization method'
             description = 'Completion of optimization algorithm'
             event_type = 'Optimization Completion'
