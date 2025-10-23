@@ -117,6 +117,7 @@ def callback(ch, method, properties, body):
         traceback.print_exc()
         timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
         error = {"message": f"Problem in input data: {exc}"}
+        print("5. EXCEPTION: MQTT publishing")
         publish_message(mqtt_broker, mqtt_port, mqtt_auth, 'Error in Simulation/Optimization service',
                         production_module, pilot, timestamp, priority, 'Error',
                         source_component, smart_service, topic, error)
@@ -129,6 +130,7 @@ def callback(ch, method, properties, body):
                 ).decode()
             }
         }
+        print("6. EXCEPTION: Rabbit publishing")
         ch.basic_publish(exchange='opt-result',
                          routing_key='robot-picking-seq',
                          body=json.dumps(error_responce))
