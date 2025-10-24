@@ -57,19 +57,25 @@ jobs:
           host: ${{ secrets.VM_HOST_IP }}
           username:  ${{ secrets.VM_USER }}
           key: ${{ secrets.VM_SSH_KEY }}
+          envs: CI_TOKEN,GITHUB_ACTOR,DOCKER_IMAGE
           script: |
             # Fail script on first error
             set -e 
+            
             # Login to GitHub Container Registry
-            echo "${{ secrets.CI_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            echo "$CI_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
             
             # Deploy new Image on Dev Environment
             cd /root/modapto/system-deployment/smart-services
-            docker compose pull ${{ env.DOCKER_IMAGE }}
-            docker compose up -d --no-deps ${{ env.DOCKER_IMAGE }}
-
+            docker compose pull $DOCKER_IMAGE
+            docker compose up -d --no-deps $DOCKER_IMAGE
+            
             # Remove unused images
             docker image prune -f
             
             # Logout
             docker logout ghcr.io
+        env:
+          CI_TOKEN: ${{ secrets.CI_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          DOCKER_IMAGE: ${{ env.DOCKER_IMAGE }}
