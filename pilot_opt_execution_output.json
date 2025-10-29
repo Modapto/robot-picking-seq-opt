@@ -1,260 +1,248 @@
 {
     "optimization_run": true,
     "message": "Valid KH sequence optimization starts...",
-    "solutionTime": 1388,
-    "totalTime": 1388,
+    "solutionTime": 1649,
+    "totalTime": 1649,
     "optimization_results": {
         "exact": {
-            "cost": 872358,
+            "cost": 804848,
             "time_details": [
                 {
                     "from": "0.0",
-                    "to": "1.2.2",
-                    "distance": 13520,
-                    "component_picked": "Component_9"
-                },
-                {
-                    "from": "1.2.2",
-                    "to": "4.1",
-                    "distance": 33852,
-                    "component_placed": "Component_9"
-                },
-                {
-                    "from": "4.1",
-                    "to": "2.7.1",
-                    "distance": 10945,
-                    "component_picked": "Component_5"
-                },
-                {
-                    "from": "2.7.1",
-                    "to": "3.1",
-                    "distance": 24531,
-                    "component_placed": "Component_5"
-                },
-                {
-                    "from": "3.1",
-                    "to": "1.5.2",
-                    "distance": 11293,
-                    "component_picked": "Component_10"
-                },
-                {
-                    "from": "1.5.2",
-                    "to": "4.5",
-                    "distance": 24267,
-                    "component_placed": "Component_10"
-                },
-                {
-                    "from": "4.5",
-                    "to": "1.6.5",
-                    "distance": 21043,
-                    "component_picked": "Component_12"
-                },
-                {
-                    "from": "1.6.5",
-                    "to": "2.3",
-                    "distance": 27481,
-                    "component_placed": "Component_12"
-                },
-                {
-                    "from": "2.3",
-                    "to": "2.3.22",
-                    "distance": 10945,
-                    "component_picked": "Component_14"
-                },
-                {
-                    "from": "2.3.22",
-                    "to": "1.5",
-                    "distance": 24531,
-                    "component_placed": "Component_14"
-                },
-                {
-                    "from": "1.5",
-                    "to": "2.1.8",
-                    "distance": 10945,
-                    "component_picked": "Component_15"
-                },
-                {
-                    "from": "2.1.8",
-                    "to": "3.2",
-                    "distance": 30917,
-                    "component_placed": "Component_15"
-                },
-                {
-                    "from": "3.2",
-                    "to": "1.4.1",
-                    "distance": 21043,
-                    "component_picked": "Component_16"
-                },
-                {
-                    "from": "1.4.1",
-                    "to": "1.4",
-                    "distance": 27481,
-                    "component_placed": "Component_16"
-                },
-                {
-                    "from": "1.4",
-                    "to": "2.2.5",
-                    "distance": 21307,
+                    "to": "2.2.1",
+                    "distance": 13784,
                     "component_picked": "Component_3"
                 },
                 {
-                    "from": "2.2.5",
+                    "from": "2.2.1",
                     "to": "1.3",
                     "distance": 21307,
                     "component_placed": "Component_3"
                 },
                 {
                     "from": "1.3",
-                    "to": "2.1.4",
+                    "to": "1.2.1",
+                    "distance": 21043,
+                    "component_picked": "Component_9"
+                },
+                {
+                    "from": "1.2.1",
+                    "to": "2.1",
+                    "distance": 21043,
+                    "component_placed": "Component_9"
+                },
+                {
+                    "from": "2.1",
+                    "to": "2.3.20",
+                    "distance": 10945,
+                    "component_picked": "Component_14"
+                },
+                {
+                    "from": "2.3.20",
+                    "to": "1.5",
+                    "distance": 24531,
+                    "component_placed": "Component_14"
+                },
+                {
+                    "from": "1.5",
+                    "to": "2.1.3",
                     "distance": 10945,
                     "component_picked": "Component_15"
                 },
                 {
-                    "from": "2.1.4",
+                    "from": "2.1.3",
                     "to": "1.2",
                     "distance": 10973,
                     "component_placed": "Component_15"
                 },
                 {
                     "from": "1.2",
-                    "to": "1.1.12",
-                    "distance": 11293,
-                    "component_picked": "Component_1"
+                    "to": "1.2.3",
+                    "distance": 21043,
+                    "component_picked": "Component_9"
                 },
                 {
-                    "from": "1.1.12",
-                    "to": "4.3",
-                    "distance": 37093,
-                    "component_placed": "Component_1"
+                    "from": "1.2.3",
+                    "to": "4.1",
+                    "distance": 33852,
+                    "component_placed": "Component_9"
                 },
                 {
-                    "from": "4.3",
+                    "from": "4.1",
                     "to": "1.7.1",
                     "distance": 11293,
                     "component_picked": "Component_4"
                 },
                 {
                     "from": "1.7.1",
-                    "to": "2.1",
-                    "distance": 30653,
+                    "to": "3.1",
+                    "distance": 24267,
                     "component_placed": "Component_4"
                 },
                 {
-                    "from": "2.1",
-                    "to": "1.3.2",
-                    "distance": 11293,
-                    "component_picked": "Component_11"
-                },
-                {
-                    "from": "1.3.2",
-                    "to": "1.6",
-                    "distance": 24267,
-                    "component_placed": "Component_11"
-                },
-                {
-                    "from": "1.6",
-                    "to": "2.2.6",
-                    "distance": 21307,
-                    "component_picked": "Component_3"
-                },
-                {
-                    "from": "2.2.6",
-                    "to": "3.3",
-                    "distance": 27745,
-                    "component_placed": "Component_3"
-                },
-                {
-                    "from": "3.3",
-                    "to": "1.4.9",
-                    "distance": 21043,
-                    "component_picked": "Component_16"
-                },
-                {
-                    "from": "1.4.9",
-                    "to": "3.4",
-                    "distance": 21043,
-                    "component_placed": "Component_16"
-                },
-                {
-                    "from": "3.4",
-                    "to": "1.5.3",
-                    "distance": 11293,
-                    "component_picked": "Component_10"
-                },
-                {
-                    "from": "1.5.3",
-                    "to": "2.4",
-                    "distance": 24267,
-                    "component_placed": "Component_10"
-                },
-                {
-                    "from": "2.4",
-                    "to": "1.3.3",
-                    "distance": 11293,
-                    "component_picked": "Component_11"
-                },
-                {
-                    "from": "1.3.3",
-                    "to": "3.6",
-                    "distance": 24267,
-                    "component_placed": "Component_11"
-                },
-                {
-                    "from": "3.6",
-                    "to": "2.5.10",
+                    "from": "3.1",
+                    "to": "2.5.5",
                     "distance": 10945,
                     "component_picked": "Component_13"
                 },
                 {
-                    "from": "2.5.10",
+                    "from": "2.5.5",
                     "to": "4.2",
                     "distance": 24531,
                     "component_placed": "Component_13"
                 },
                 {
                     "from": "4.2",
-                    "to": "2.6.3",
-                    "distance": 21307,
-                    "component_picked": "Component_2"
+                    "to": "1.5.2",
+                    "distance": 24267,
+                    "component_picked": "Component_10"
                 },
                 {
-                    "from": "2.6.3",
-                    "to": "2.2",
-                    "distance": 27745,
-                    "component_placed": "Component_2"
+                    "from": "1.5.2",
+                    "to": "2.5",
+                    "distance": 24267,
+                    "component_placed": "Component_10"
                 },
                 {
-                    "from": "2.2",
-                    "to": "2.3.15",
-                    "distance": 10945,
-                    "component_picked": "Component_14"
-                },
-                {
-                    "from": "2.3.15",
-                    "to": "3.5",
-                    "distance": 24531,
-                    "component_placed": "Component_14"
-                },
-                {
-                    "from": "3.5",
-                    "to": "2.4.16",
+                    "from": "2.5",
+                    "to": "2.4.9",
                     "distance": 21307,
                     "component_picked": "Component_7"
                 },
                 {
-                    "from": "2.4.16",
+                    "from": "2.4.9",
+                    "to": "2.4",
+                    "distance": 21307,
+                    "component_placed": "Component_7"
+                },
+                {
+                    "from": "2.4",
+                    "to": "1.3.1",
+                    "distance": 11293,
+                    "component_picked": "Component_11"
+                },
+                {
+                    "from": "1.3.1",
+                    "to": "1.6",
+                    "distance": 24267,
+                    "component_placed": "Component_11"
+                },
+                {
+                    "from": "1.6",
+                    "to": "1.1.2",
+                    "distance": 11293,
+                    "component_picked": "Component_1"
+                },
+                {
+                    "from": "1.1.2",
+                    "to": "4.3",
+                    "distance": 37093,
+                    "component_placed": "Component_1"
+                },
+                {
+                    "from": "4.3",
+                    "to": "1.6.3",
+                    "distance": 21043,
+                    "component_picked": "Component_12"
+                },
+                {
+                    "from": "1.6.3",
+                    "to": "3.3",
+                    "distance": 21043,
+                    "component_placed": "Component_12"
+                },
+                {
+                    "from": "3.3",
+                    "to": "1.5.1",
+                    "distance": 11293,
+                    "component_picked": "Component_10"
+                },
+                {
+                    "from": "1.5.1",
+                    "to": "4.5",
+                    "distance": 24267,
+                    "component_placed": "Component_10"
+                },
+                {
+                    "from": "4.5",
+                    "to": "2.6.7",
+                    "distance": 21307,
+                    "component_picked": "Component_2"
+                },
+                {
+                    "from": "2.6.7",
+                    "to": "3.2",
+                    "distance": 21307,
+                    "component_placed": "Component_2"
+                },
+                {
+                    "from": "3.2",
+                    "to": "1.5.3",
+                    "distance": 11293,
+                    "component_picked": "Component_10"
+                },
+                {
+                    "from": "1.5.3",
+                    "to": "3.4",
+                    "distance": 11261,
+                    "component_placed": "Component_10"
+                },
+                {
+                    "from": "3.4",
+                    "to": "2.5.21",
+                    "distance": 10945,
+                    "component_picked": "Component_13"
+                },
+                {
+                    "from": "2.5.21",
+                    "to": "2.2",
+                    "distance": 24531,
+                    "component_placed": "Component_13"
+                },
+                {
+                    "from": "2.2",
+                    "to": "1.4.8",
+                    "distance": 21043,
+                    "component_picked": "Component_16"
+                },
+                {
+                    "from": "1.4.8",
+                    "to": "1.4",
+                    "distance": 27481,
+                    "component_placed": "Component_16"
+                },
+                {
+                    "from": "1.4",
+                    "to": "1.1.12",
+                    "distance": 11293,
+                    "component_picked": "Component_1"
+                },
+                {
+                    "from": "1.1.12",
+                    "to": "2.3",
+                    "distance": 24267,
+                    "component_placed": "Component_1"
+                },
+                {
+                    "from": "2.3",
+                    "to": "2.4.15",
+                    "distance": 21307,
+                    "component_picked": "Component_7"
+                },
+                {
+                    "from": "2.4.15",
                     "to": "4.4",
                     "distance": 27745,
                     "component_placed": "Component_7"
                 },
                 {
                     "from": "4.4",
-                    "to": "2.7.2",
+                    "to": "2.7.1",
                     "distance": 10945,
                     "component_picked": "Component_5"
                 },
                 {
-                    "from": "2.7.2",
+                    "from": "2.7.1",
                     "to": "1.1",
                     "distance": 37357,
                     "component_placed": "Component_5"
@@ -271,6 +259,6 @@
                 }
             ]
         },
-        "improvement_percentage": 21.5556
+        "improvement_percentage": 16.6729
     }
 }

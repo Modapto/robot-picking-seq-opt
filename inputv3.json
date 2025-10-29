@@ -4,7 +4,7 @@
   "data": {
     "module": "59d308a1-2ca5-4eb9-b217-60bf141b4745",
     "smartService": "124123432-2ca5-4eb9-b217-3454354325",
-    "method": "simulation",
+    "method": "exact-linear",
     "gr_sequence": [  {"1.1": "Container_1"},  {"1.2": "Container_2"},  {"1.3": "Container_3"},  {"1.4": "Container_4"},  {"1.5": "Container_5"},  {"1.6": "Container_6"},  {"1.7": "Container_7"},  {"2.1": "Container_8"},  {"2.2": "Container_9"},  {"2.3": "Container_10"},  {"2.4": "Container_11"},  {"2.5": "Container_12"},  {"2.6": "Container_13"},  {"2.7": "Container_14"}],
     "num_random_gr_configs": 2,
     "templates": {
@@ -11165,7 +11165,7 @@
     }
 ],
     "kh_sequences_opt": [
-       {"1": "KH001"}, {"2": "KH002"}, {"3": "KH003"}, {"4": "KH003"}
+       {"1": "KH001"}, {"2": "KH003_1"}, {"3": "KH002"}, {"4": "KH003_2"}
      ],
     "containers_opt": {
     "Container_1": {"contents" : [{"position":"1","type":"Component_1"},
@@ -11312,7 +11312,12 @@
                            {"position": "2", "type": "Component_2"},
                            {"position": "3", "type": "Component_12"},
                            {"position": "4", "type": "Component_10"}]},
-    "KH003": {"contents": [{"position": "1", "type": "Component_9"},
+    "KH003_1": {"contents": [{"position": "1", "type": "Component_9"},
+                           {"position": "2", "type": "Component_13"},
+                           {"position": "3", "type": "Component_1"},
+                           {"position": "4", "type": "Component_7"},
+                           {"position": "5", "type": "Component_10"}]},
+    "KH003_2": {"contents": [{"position": "1", "type": "Component_9"},
                            {"position": "2", "type": "Component_13"},
                            {"position": "3", "type": "Component_1"},
                            {"position": "4", "type": "Component_7"},
