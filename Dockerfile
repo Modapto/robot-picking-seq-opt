@@ -15,4 +15,7 @@ WORKDIR /robot-picking-seq-opt
 COPY ./ ./
 RUN python -m pip install --upgrade pip
 RUN pip install -r requirements.txt
+
+ENV PYTHONUNBUFFERED=1
+
 ENTRYPOINT python pilot_execution_main_encoded.py $REMOTE $RB_HOST $RB_PORT $RB_USER $RB_PASS $MQTT_BROKER $MQTT_PORT $MQTT_USERNAME $MQTT_PW

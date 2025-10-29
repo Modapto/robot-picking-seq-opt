@@ -88,6 +88,23 @@ def run_dual_simulation(json_file_path=None, input_data=None):
                 "phase": k + 1,
             }
 
+    # ---- compute improvements vs baseline ----
+    base_h_cost = baseline["heuristic"]["cost"]
+    base_l_cost = baseline["linear"]["cost"]
+    best_h_cost = best["heuristic"]["cost"]
+    best_l_cost = best["linear"]["cost"]
+
+    # guard against divide-by-zero (shouldn't happen unless cost==0)
+    if base_h_cost:
+        heuristic_improvement_pct = round(((base_h_cost - best_h_cost) / base_h_cost) * 100, 4)
+    else:
+        heuristic_improvement_pct = 0.0
+
+    if base_l_cost:
+        linear_improvement_pct = round(((base_l_cost - best_l_cost) / base_l_cost) * 100, 4)
+    else:
+        linear_improvement_pct = 0.0
+
     out = {
         "message": f"Simulation ran {num_trials} randomized GR layouts (seed={seed}).",
         "solutionTime": int(time() * 1000) - t0,
@@ -98,6 +115,11 @@ def run_dual_simulation(json_file_path=None, input_data=None):
             "linear": best["linear"],
             "gr_sequence": best["gr_sequence"],
 
+        },
+        # new: improvement stats
+        "improvements": {
+            "heuristic_improvement_pct": heuristic_improvement_pct,
+            "linear_improvement_pct": linear_improvement_pct
         }
         # ,"phases": phases
     }
