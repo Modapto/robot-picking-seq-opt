@@ -7,7 +7,6 @@ import pika
 import sys
 import pandas as pd
 import numpy as np
-from instances_generator import *
 from parse_json import *
 from GraphCreation import *
 from heuristic_methods import *
