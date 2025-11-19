@@ -3,21 +3,30 @@ import networkx as nx
 
 def nearest_tsp(G, start, end, set_1, set_2, large_value=1000000):
     """
-    Function to implement the nearest neighbor heuristic for the bipartite TSP.
+    Nearest Neighbor heuristic for the bipartite TSP with pseudonodes.
 
-    Solve the TSP using the nearest neighbor heuristic, maintaining bipartite constraints.
+    Assumptions (as in your project):
+    - start       = '0.0'    (pseudonode, in set_1)
+    - end         = '0.0.0'  (pseudonode, in set_2)
+    - set_1       = ['0.0', KH nodes ...]
+    - set_2       = ['0.0.0', GR nodes ...]
+    - We alternate between set_1 and set_2.
+    - We NEVER visit `end` inside the loop; it is only appended at the end.
+    - We stop the loop once ALL KH nodes (set_1 except start) have been visited.
 
     Parameters:
-    - G: A directed graph representing the problem.
-    - start: The starting node ('0.0').
-    - end: The end node ('0.0.0').
-    - set_1: List of kit holder nodes.
-    - set_2: List of gravity rack nodes.
-    - large_value: A large value to represent unconnected nodes.
+    - G: directed graph with 'weight' on edges
+    - start: start node (e.g. '0.0')
+    - end: end node (e.g. '0.0.0')
+    - set_1: list of KH nodes (including start)
+    - set_2: list of GR nodes (including end)
+    - large_value: threshold to treat edges as "blocked"
 
     Returns:
-
+    - tour: list of nodes, e.g. [0.0, GR, KH, ..., 0.0.0, 0.0]
     """
+
+    # Track visited state for all nodes in the graph
     visit = {node: False for node in G.nodes}
     tour = [start]
     visit[start] = True
@@ -26,36 +35,64 @@ def nearest_tsp(G, start, end, set_1, set_2, large_value=1000000):
     print(f"set_1 (kit holders): {set_1}")
     print(f"set_2 (gravity racks and start/end node): {set_2}")
 
-    while len(tour) < len(set_1) + len(set_2) - 1:  # Ensure we visit all nodes before adding the end node
-        if current in set_2 and current != end:  # Ensure we don't move to `0.0.0` before all kit holders are visited
-            neighbors = [node for node in set_1 if not visit[node] and G.has_edge(current, node) and G[current][node]['weight'] < large_value]
-            next_node = min(neighbors, key=lambda node: G[current][node]['weight'], default=None)
-        else:  # If in set_1, choose next from set_2
-            neighbors = [node for node in set_2 if not visit[node] and node != end and G.has_edge(current, node) and G[current][node]['weight'] < large_value]
-            next_node = min(neighbors, key=lambda node: G[current][node]['weight'], default=None)
+    # Helper: are all KH nodes (except start) visited?
+    def all_kh_visited():
+        return all(visit[node] for node in set_1 if node != start)
 
-        if next_node is None:
-            raise ValueError(f"No valid neighbors found from {current}. The tour may be incomplete.")
+    # Main NN loop – we keep going until all KH nodes are visited
+    while True:
+        # If all KH nodes are visited, we break and later append `end`
+        if all_kh_visited():
+            print("All kit holders visited. Preparing to visit end node.")
+            break
+
+        # Choose neighbors according to bipartite constraints
+        if current in set_2 and current != end:
+            # We are at a GR node (or some set_2 node); go to an unvisited KH node
+            neighbors = [
+                node for node in set_1
+                if not visit[node]
+                and node != start   # don't go back to start inside loop
+                and node != end     # safety: don't treat end as a KH by mistake
+                and G.has_edge(current, node)
+                and G[current][node]['weight'] < large_value
+            ]
+        else:
+            # We are at a KH node; go to an unvisited GR node (but NOT `end`)
+            neighbors = [
+                node for node in set_2
+                if not visit[node]
+                and node != end     # do not visit end inside the loop
+                and G.has_edge(current, node)
+                and G[current][node]['weight'] < large_value
+            ]
+
+        # Pick nearest feasible neighbor
+        if not neighbors:
+            # We still haven't visited all KH nodes, but have no valid move
+            raise ValueError(
+                f"No valid neighbors found from {current}. "
+                f"The tour may be incomplete."
+            )
+
+        next_node = min(neighbors, key=lambda node: G[current][node]['weight'])
 
         tour.append(next_node)
         visit[next_node] = True
         current = next_node
 
-        # Debugging information
         print(f"Added node: {next_node}, Tour so far: {tour}")
 
-        # If all kit holders are visited, allow visiting the end node (0.0.0)
-        if all(visit[node] for node in set_1 if node != '0.0'):
-            print("All kit holders visited. Preparing to visit 0.0.0.")
-            break
-
-    # Add the end node to the tour
+    # After all KH nodes are visited, go to `end`
     tour.append(end)
+    print(f"Added end node: {end}, Tour so far: {tour}")
 
-    # Add the return leg from the end node to the start node
+    # Optional: return from end to start if edge exists
     if G.has_edge(end, start):
         tour.append(start)
-        print(f"Returning from {end} to {start}.")
+        print(f"Returning from {end} to {start}. Final tour: {tour}")
+    else:
+        print(f"No edge from {end} to {start}; tour ends at {end}.")
 
     return tour
 

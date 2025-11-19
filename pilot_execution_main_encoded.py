@@ -51,11 +51,13 @@ def inject_templates(msg: dict) -> None:
         print("FLASK RESPONSE STATUS:", resp.status_code)
         print("FLASK RAW TEXT:", resp.text)
         data["kh_sequences"] = resp.json()["kh_sequences"]
-    elif method in {"exact", "linear", "exact-linear"}:
+    elif method in {"exact", "linear", "exact-linear",
+        "nearest_complete", "2opt_complete", "exact_complete", "qlearning_complete", "all_complete"}:
         data["containers_template"]  = templates["containers_opt"]
         data["kit_holders_template"] = templates["kit_holders_opt"]
         data["distance_matrix"]      = templates["distance_matrix_opt"]
         data["kh_sequences"]         = templates["kh_sequences_opt"]
+        data["distance_matrix_opt"] = templates["distance_matrix_opt"]
     else:
         raise ValueError(f"Unknown method '{method}' ")
 

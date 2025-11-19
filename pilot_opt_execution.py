@@ -10,6 +10,7 @@ import numpy as np
 from parse_json import *
 from GraphCreation import *
 from heuristic_methods import *
+from reinforcement_learning import *
 from exact_method import *
 from method_linear import *
 from pilot_opt_preprocessing import *
@@ -76,6 +77,187 @@ def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
     else:
         validation_msg = "Valid KH sequence optimization starts..."
 
+    method = data["method"]
+
+    # ===================== COMPLETE GRAPH MODE =====================
+    if method in ["nearest_complete", "2opt_complete", "exact_complete", "qlearning_complete", "all_complete"]:
+        print(f"Running COMPLETE GRAPH mode with method = {method}")
+
+        distance_matrix_opt = data.get("distance_matrix_opt")
+        if distance_matrix_opt is None:
+            raise ValueError("distance_matrix_opt is required for *_complete methods")
+
+        # you can override these via JSON if you want
+        start_node_complete = data.get("start_node", "0.0")
+        end_node_complete = data.get("end_node", "0.0.0")
+
+        complete_input = {
+            "data": {
+                "distanceMatrix": distance_matrix_opt,
+                "start_node": start_node_complete,
+                "end_node": end_node_complete,
+            }
+        }
+
+        a_to_b_matrix = create_distance_matrices(complete_input)
+        print("Distance matrices (complete graph) created.")
+        B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
+        print(f"  ➤ COMPLETE graph created with {len(B.nodes)} nodes and {len(B.edges)} edges.")
+
+        # this dict will go into output_data["optimization_results"]
+        results = {}
+
+        # ---------- Nearest Neighbor ----------
+        if method in ["nearest_complete", "2opt_complete", "all_complete"]:
+            try:
+                print("Running Nearest Neighbor (complete graph)...")
+                start_time_nearest = int(time() * 1000)
+
+                nn_tour = nearest_tsp(B, start_node_complete, end_node_complete, set_1, set_2)
+                nn_cost, nn_time_details = total_cost(B, nn_tour)
+
+                exec_time_nearest = int(time() * 1000) - start_time_nearest
+
+                results["nearest"] = {
+                    "tour": nn_tour,
+                    "cost": nn_cost,
+                    "exec_time": exec_time_nearest,
+                    "time_details": nn_time_details
+                }
+                print(f"Nearest Neighbor (complete graph) cost: {nn_cost}")
+            except Exception as e:
+                print(f"Error in nearest_complete: {e}")
+                results["nearest"] = {
+                    "tour": [],
+                    "cost": None,
+                    "exec_time": None,
+                    "time_details": f"Error: {e}"
+                }
+
+        # ---------- 2-opt ----------
+        if method in ["2opt_complete", "all_complete"]:
+            try:
+                print("Running 2-opt (complete graph)...")
+                start_time_2opt = int(time() * 1000)
+
+                # initial tour: use nearest if available, otherwise compute once
+                if "nearest" in results and results["nearest"]["tour"]:
+                    simple_tour = results["nearest"]["tour"]
+                    simple_cost = results["nearest"]["cost"]
+                else:
+                    simple_tour = nearest_tsp(B, start_node_complete, end_node_complete, set_1, set_2)
+                    simple_cost, _ = total_cost(B, simple_tour)
+
+                opt_tour, _ = two_opt_for_bipartite(simple_tour, B, set_1, set_2, max_iterations=1000)
+                opt_cost, opt_time_details = total_cost(B, opt_tour)
+
+                exec_time_2opt = int(time() * 1000) - start_time_2opt
+
+                results["2-opt"] = {
+                    "tour": opt_tour,
+                    "cost": opt_cost,
+                    "exec_time": exec_time_2opt,
+                    "time_details": opt_time_details
+                }
+                print(f"2-opt (complete graph) cost: {opt_cost}")
+            except Exception as e:
+                print(f"Error in 2opt_complete: {e}")
+                results["2-opt"] = {
+                    "tour": [],
+                    "cost": None,
+                    "exec_time": None,
+                    "time_details": f"Error: {e}"
+                }
+
+        # ---------- Exact ----------
+        if method in ["exact_complete", "all_complete"]:
+            try:
+                print("Running Exact (complete graph)...")
+                start_time_exact = int(time() * 1000)
+
+                exact_tour, exact_cost, exact_time_details = run_exact_tsp(complete_input)
+                exec_time_exact = int(time() * 1000) - start_time_exact
+
+                results["exact"] = {
+                    "tour": exact_tour,
+                    "cost": exact_cost,
+                    "exec_time": exec_time_exact,
+                    "time_details": exact_time_details
+                }
+                print(f"Exact (complete graph) cost: {exact_cost}")
+            except Exception as e:
+                print(f"Error in exact_complete: {e}")
+                results["exact"] = {
+                    "tour": [],
+                    "cost": None,
+                    "exec_time": None,
+                    "time_details": f"Error: {e}"
+                }
+
+        # ---------- Q-learning ----------
+        if method in ["qlearning_complete", "all_complete"]:
+            try:
+                print("Running Q-learning (complete graph)...")
+                start_time_q = int(time() * 1000)
+
+                q_tour = q_learning_tsp(
+                    B,
+                    start_node_complete,
+                    end_node_complete,
+                    set_1,
+                    set_2,
+                    large_value=1000000,
+                    episodes=2000  # adjust if you want more/less training
+                )
+
+                q_cost, q_time_details = total_cost(B, q_tour)
+                exec_time_q = int(time() * 1000) - start_time_q
+
+                results["qlearning"] = {
+                    "tour": q_tour,
+                    "cost": q_cost,
+                    "exec_time": exec_time_q,
+                    "time_details": q_time_details
+                }
+                print(f"Q-learning (complete graph) cost: {q_cost}")
+            except Exception as e:
+                print(f"Error in qlearning_complete: {e}")
+                results["qlearning"] = {
+                    "tour": [],
+                    "cost": None,
+                    "exec_time": None,
+                    "time_details": f"Error: {e}"
+                }
+
+        # ---------- Build final output and return ----------
+        output_data = {
+            "optimization_run": is_valid,
+            "message": validation_msg,
+            "solutionTime": (int(time() * 1000) - solution_time_start),
+            "totalTime": (int(time() * 1000) - total_time_start),
+        }
+
+        if is_valid:
+            output_data["optimization_results"] = results
+
+        decoded_path = "pilot_opt_execution_output.json"
+        with open(decoded_path, "w") as f:
+            json.dump(convert_to_native_types(output_data), f, indent=4)
+
+        out_uuid = (input_data or {}).get("uuid") if input_data else msg.get("uuid", "no-uuid")
+        wrapper = {
+            "uuid": out_uuid,
+            "produced_at": int(time() * 1000),
+            "data": {
+                "base64": base64.b64encode(pickle.dumps(output_data)).decode()
+            }
+        }
+        encoded_path = "encoded_opt_output.json"
+        with open(encoded_path, "w") as f_enc:
+            json.dump(wrapper, f_enc, indent=4)
+        print(f"Encoded result written to {encoded_path}")
+
+        return output_data
 
     results = []
     # Step 1: Generate node maps
