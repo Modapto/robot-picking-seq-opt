@@ -1,4 +1,21 @@
+# REPOSITORY NAME (c) by the University of Piraues, Greece.
+#
+# REPOSITORY NAME is licensed under a
+# Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+#
+# You should have received a copy of the license along with this
+# work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
+
 def generate_kh_nodes(kh_sequences, kit_holder_types):
+    """
+    Generate KH node IDs and their component types.
+
+    For each KH position in `kh_sequences`, this function:
+      - Looks up the corresponding KH template in `kit_holder_types`,
+      - Reads its `contents` list,
+      - Builds node names of the form "<kh_pos>.<position>" (e.g. "1.3"),
+      - Maps each node name to its component type.
+    """
     kh_nodes = {}
     for entry in kh_sequences:
         for kh_pos, kh_id in entry.items():
@@ -12,6 +29,15 @@ def generate_kh_nodes(kh_sequences, kit_holder_types):
     return kh_nodes
 
 def generate_gr_nodes(gr_sequence, container_types):
+    """
+    Generate GR node IDs and their component types.
+
+    For each GR position in `gr_sequence`, this function:
+      - Finds the corresponding container in `container_types`,
+      - Reads its `contents`,
+      - Builds node names of the form "<gr_pos>.<position>" (e.g. "2.7.3"),
+      - Maps each node name to its component type.
+    """
     gr_nodes = {}
     for entry in gr_sequence:
         for gr_pos, container_id in entry.items():
@@ -26,6 +52,22 @@ def generate_gr_nodes(gr_sequence, container_types):
     return gr_nodes
 
 def extend_distance_matrix(gr_nodes, kh_nodes, original_matrix, fallback_distance=99999):
+    """
+     Extend a base distance matrix with GR/KH-specific edges.
+
+     The function:
+       - Builds a lookup from the original matrix of edges "(src, dst)" → distance.
+       - Defines a smart fallback rule to infer distances when an exact edge is missing,
+         using base coordinates (e.g. "1.1.2" → "1.1").
+       - Adds:
+           * 0.0 → GR edges,
+           * GR → KH edges (for matching component types),
+           * KH → GR edges (all combinations),
+           * KH → 0.0.0 edges,
+           * 0.0.0 → 0.0 edge.
+
+     All newly added edges are stored as dicts with "edge" and "distance" keys.
+     """
     extended = []
 
     # Step 1: Build original edge lookup
@@ -75,7 +117,7 @@ def extend_distance_matrix(gr_nodes, kh_nodes, original_matrix, fallback_distanc
                 distance = get_fallback_distance(gr_node, kh_node)
                 extended.append({"edge": f"({gr_node}, {kh_node})", "distance": distance + 2000})
 
-    # ✅ Step 5: Add KH → GR edges (ALL combinations, regardless of type)
+    # Step 5: Add KH → GR edges (ALL combinations, regardless of type)
     for kh_node in kh_nodes:
         for gr_node in gr_nodes:
             distance = get_fallback_distance(kh_node, gr_node)
@@ -93,6 +135,16 @@ def extend_distance_matrix(gr_nodes, kh_nodes, original_matrix, fallback_distanc
     return extended
 
 def generate_filtered_distance_matrix(extended_matrix, gr_nodes, kh_nodes):
+    """
+    Filter an extended distance matrix to keep only valid BTSP edges.
+
+    Rules kept:
+      - 0.0 → GR
+      - GR → KH
+      - KH → GR
+      - KH → 0.0.0
+      - 0.0.0 → 0.0
+    """
     filtered = []
 
     for entry in extended_matrix:
@@ -109,7 +161,7 @@ def generate_filtered_distance_matrix(extended_matrix, gr_nodes, kh_nodes):
         elif src in gr_nodes and dst in kh_nodes:
             filtered.append(entry)
 
-        # ✅ KH → GR (previously missing)
+        # KH → GR (previously missing)
         elif src in kh_nodes and dst in gr_nodes:
             filtered.append(entry)
 
@@ -138,6 +190,14 @@ def generate_filtered_distance_matrix(extended_matrix, gr_nodes, kh_nodes):
     return filtered
 
 def annotate_component_in_time_details(time_details, gr_nodes, kh_nodes):
+    """
+    Add component pick/place information to time detail steps.
+
+    For each movement step:
+      - GR → KH: marks "component_placed" with the GR component type.
+      - 0.0 → GR: marks "component_picked" with the GR component type.
+      - KH → GR: marks "component_picked" with the GR component type (next pick).
+    """
     enriched = []
     current_component = None
 
@@ -167,6 +227,15 @@ def annotate_component_in_time_details(time_details, gr_nodes, kh_nodes):
 
 
 def validate_component_availability(kh_sequences, kit_holder_types, container_types):
+    """
+    Validate that the requested KH sequences can be fulfilled by available containers.
+
+    The function:
+      - Counts how many components of each type are required by all KHs in
+        `kh_sequences` (based on `kit_holder_types`),
+      - Counts how many components of each type are available in `container_types`,
+      - Detects over-requested component types (required > available).
+    """
     from collections import Counter
 
     if kh_sequences and isinstance(kh_sequences[0], list):
@@ -198,7 +267,7 @@ def validate_component_availability(kh_sequences, kit_holder_types, container_ty
         for comp, (req, avail) in over_requested.items():
             message_lines.append(f"  - {comp}: requested {req}, available {avail}")
         message = "".join(message_lines)
-        print("⚠️", message)
+        print("Message: ", message)
         return False, message
 
     return True, ""

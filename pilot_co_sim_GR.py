@@ -1,7 +1,28 @@
+# REPOSITORY NAME (c) by the University of Piraues, Greece.
+#
+# REPOSITORY NAME is licensed under a
+# Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+#
+# You should have received a copy of the license along with this
+# work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
+
 import random
 import copy
 
 def filter_distance_matrix(matrix, random_config):
+    """
+       Build a filtered distance matrix for one random GR/KH configuration.
+
+       The function:
+         - Converts the full `matrix` (list of {"edge": "(u, v)", "distance": d}) into
+           a lookup dictionary.
+         - Keeps only edges that are relevant for the current `random_config`:
+             * 0.0 → all gravity racks (offset by +2000),
+             * 0.0.0 → 0.0,
+             * KH slots → 0.0.0 (offset by +2000),
+             * gravity rack component positions → matching KH slots with same type (offset by +2000),
+             * KH slots → all gravity racks whose IDs start with "1." or "2." (offset by +2000).
+       """
     filtered_matrix = []
     containers = random_config["containers"]
     kit_holders = random_config["kit_holders"]

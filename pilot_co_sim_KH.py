@@ -1,12 +1,21 @@
+# REPOSITORY NAME (c) by the University of Piraues, Greece.
+#
+# REPOSITORY NAME is licensed under a
+# Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+#
+# You should have received a copy of the license along with this
+# work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
+
 import copy
 from pilot_co_sim_GR import filter_distance_matrix
 from exact_method import run_exact_tsp
-from method_linear import linear_picking, total_cost
+from linear_method import linear_picking, total_cost
 from GraphCreation import create_directed_bipartite_graph
 from parse_json import create_distance_matrices
 
 def normalise_kh_sequences(raw_seqs):
     """
+    Normalize KH sequences to a unified list-of-strings format.
     accept
       [["KH002", "KH001"], …]
       [[{"1": "KH001"}, {"2": "KH003"}], …]
@@ -20,6 +29,15 @@ def normalise_kh_sequences(raw_seqs):
     return raw_seqs
 
 def generate_kh_configuration(kh_setup, kit_holders_template):
+    """
+    Generate a concrete KH configuration from a KH setup and template.
+
+    For each KH ID in `kh_setup`:
+        - If the ID is "EMPTY", it is skipped.
+        - If it exists in `kit_holders_template`, a deep copy is taken and
+          internal component positions are annotated as "<idx>.<i>".
+        - Otherwise, an empty KH entry is created with the given ID as position.
+    """
     configured_kh = {}
     for idx, kh_id in enumerate(kh_setup, start=1):
         if kh_id == "EMPTY":
@@ -37,6 +55,14 @@ def generate_kh_configuration(kh_setup, kit_holders_template):
     return configured_kh
 
 def annotate_component_in_time_details(time_details, gr_nodes, kh_nodes):
+    """
+    Enrich step-by-step time details with component pick/place information.
+
+    The function tracks the currently handled component based on GR and KH
+    transitions and adds:
+        - "component_picked" when moving from 0.0 or KH to GR,
+        - "component_placed" when moving from GR to KH.
+    """
     enriched = []
     current_component = None
 
@@ -65,6 +91,19 @@ def annotate_component_in_time_details(time_details, gr_nodes, kh_nodes):
     return enriched
 
 def calculate_full_sequence_cost(distance_matrix, configuration, method="exact"):
+    """
+    Calculate the total cost for a full multi-phase KH sequence.
+
+    For each KH setup in `configuration["kh_sequences"]`:
+        - Optionally duplicate the last visited node as "0.0" for the next phase.
+        - Generate the KH configuration for the current phase.
+        - Build a filtered distance matrix using the GR/KH configuration.
+        - Solve the bipartite TSP using either:
+            * "exact"  → run_exact_tsp on the filtered matrix, or
+            * "linear" → linear_picking on a constructed graph.
+        - Trim the phase tour at 0.0.0 (except for the last phase).
+        - Accumulate cost, full tour, and segmented time details.
+    """
     working_matrix = distance_matrix.copy()
     last_node_visited = "0.0"
     total_method_cost = 0

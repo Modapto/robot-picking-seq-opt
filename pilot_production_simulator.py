@@ -1,3 +1,11 @@
+# REPOSITORY NAME (c) by the University of Piraues, Greece.
+#
+# REPOSITORY NAME is licensed under a
+# Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+#
+# You should have received a copy of the license along with this
+# work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
+
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -6,6 +14,21 @@ app = Flask(__name__)
 kh_sequence = {}
 
 def translate_kh_sequences_sim(kh_sequences_sim):
+    """
+    Translate KH sequences from dict-based format to list-of-lists.
+
+    Input format example:
+        [
+          [ {"1": "KH001"}, {"2": "KH003"} ],
+          [ {"1": "KH002"}, {"2": "KH001"} ]
+        ]
+
+    Output format:
+        [
+          ["KH001", "KH003"],
+          ["KH002", "KH001"]
+        ]
+    """
     translated = []
     for phase in kh_sequences_sim:
         phase_sequence = []
@@ -17,6 +40,24 @@ def translate_kh_sequences_sim(kh_sequences_sim):
 
 @app.route('/simulation', methods=['POST'])
 def receive_kh_sequences():
+    """
+    Receive KH sequences via POST and store them in a global variable.
+
+    Expected JSON body structure:
+        {
+          "data": {
+            "templates": {
+              "kh_sequences_sim": [ ... ]
+            }
+          }
+        }
+
+    The endpoint:
+        - Extracts "kh_sequences_sim",
+        - Stores it in the global `kh_sequence`,
+        - Returns the translated list-of-lists format.
+
+    """
     global kh_sequence
     try:
         data = request.get_json()
@@ -29,6 +70,11 @@ def receive_kh_sequences():
 
 @app.route('/simulation', methods=['GET'])
 def return_kh_sequences():
+    """
+    Return the last posted KH sequences in translated form.
+
+    If no sequences have been posted yet, it returns a 404 error.
+    """
     global kh_sequence
     if not kh_sequence:
         return jsonify({"error!": "No KH sequence posted yet."}), 404

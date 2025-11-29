@@ -1,9 +1,20 @@
+# REPOSITORY NAME (c) by the University of Piraues, Greece.
+#
+# REPOSITORY NAME is licensed under a
+# Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+#
+# You should have received a copy of the license along with this
+# work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
+
 import json, pickle, base64
 from time import time
 from pilot_co_sim_KH import normalise_kh_sequences, generate_kh_configuration, annotate_component_in_time_details, calculate_full_sequence_cost
 from pilot_co_sim_GR import containers_from_gr_sequence, gr_sequence_from_containers, shuffle_container_positions, filter_distance_matrix
 
 def convert_to_native_types(data):
+    """
+    Recursively convert data to JSON-serializable native Python types.
+    """
     if isinstance(data, dict):
         return {k: convert_to_native_types(v) for k, v in data.items()}
     elif isinstance(data, list):
@@ -13,6 +24,27 @@ def convert_to_native_types(data):
     return str(data)
 
 def run_simulation(input_data=None):
+    """
+       Run the pilot co-simulation for multiple GR configurations.
+
+       The function expects `input_data` with a "data" field containing:
+         - kh_sequences / kh_setup
+         - gr_sequence or current_config (legacy)
+         - distance_matrix
+         - containers_template
+         - kit_holders_template
+         - num_random_gr_configs
+       It:
+         1. Builds the baseline configuration and evaluates it with exact and linear methods.
+         2. Generates several randomized GR configurations.
+         3. Evaluates each configuration (exact method) and computes improvements.
+         4. Selects the best configuration that beats both baseline costs.
+         5. Saves decoded and base64-encoded results to JSON files.
+
+       Parameters:
+           input_data (dict): Wrapper dictionary containing "data" (and "uuid") as received
+                              from the external caller or message bus.
+    """
     total_time_start = int(time() * 1000)
 
     # ──────────────────────── 1 · INPUT ────────────────────────

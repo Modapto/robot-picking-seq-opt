@@ -1,3 +1,11 @@
+# REPOSITORY NAME (c) by the University of Piraues, Greece.
+#
+# REPOSITORY NAME is licensed under a
+# Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+#
+# You should have received a copy of the license along with this
+# work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
+
 import json
 import pulp
 import networkx as nx
@@ -19,7 +27,6 @@ def classify_nodes(a_to_b_matrix):
     set_1 = [node for node in a_to_b_matrix.index if len(node.split('.')) == 2 and node != '0.0']  # Kit holders, exclude '0.0'
     set_2 = [node for node in a_to_b_matrix.index if len(node.split('.')) == 3 and node != '0.0.0']  # Gravity racks, exclude '0.0.0'
     return set_1, set_2
-
 
 def create_distances_dict(a_to_b_matrix, set_1, set_2):
     """
@@ -128,32 +135,14 @@ def check_connectivity(SetA, SetB, distances):
             print(f"No connections from {b} in Set B to any node in Set A")
 
 def analyze_sets(set_a, set_b, distances):
-    # print("-------------------------------------------------------------------")
-    # print("Set A:", set_a)
-    # print("Number of nodes in Set A:", len(set_a))
-    # print("Set B:", set_b)
-    # print("Number of nodes in Set B:", len(set_b))
+    """
+    Analyze basic properties of the two sets (set_a and set_b), focusing on connectivity.
+    This helper checks for nodes in each set that do not have any connections to the opposite set
+    based on the provided distances dictionary. Most debug prints are currently commented out.
 
-    # # Check if the sizes match
-    # if len(set_a) != len(set_b):
-    #     print("Warning: Set A and Set B do not contain the same number of nodes.")
-    # else:
-    #     print("Sets A and B contain the same number of nodes.")
-    # print("-------------------------------------------------------------------")
-    # Check for connectivity
+    """
     disconnected_nodes_a = [node for node in set_a if all((node, b) not in distances for b in set_b)]
     disconnected_nodes_b = [node for node in set_b if all((a, node) not in distances for a in set_a)]
-
-    # if disconnected_nodes_a or disconnected_nodes_b:
-    #     print("Disconnected nodes found!")
-    #     if disconnected_nodes_a:
-    #         print("Nodes in Set A with no connections:", disconnected_nodes_a)
-    #     if disconnected_nodes_b:
-    #         print("Nodes in Set B with no connections:", disconnected_nodes_b)
-    #     print("-------------------------------------------------------------------")
-    # else:
-    #     print("All nodes in Set A and Set B have at least one connection.")
-    #     print("-------------------------------------------------------------------")
 
 def eliminate_subtour(subtour, prob, x):
     """Add constraints to eliminate the specific subtour."""
@@ -168,13 +157,6 @@ def check_edges_in_distances(possible_edges, distances):
     for edge in possible_edges:
         if edge not in possible_edges:
             missing_edges.append(edge)
-
-    # for edge in possible_edges:
-    #     if edge in distances:
-    #         print(f"Edge {edge} has distance: {distances[edge]}")
-    #     else:
-    #         print(f"Edge {edge} is missing in distances")
-    #         missing_edges.append(edge)
 
     return missing_edges
 
@@ -201,6 +183,7 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
     # Check for missing edges
     missing_edges = check_edges_in_distances(possible_edges, distances)
 
+    # Debug code
     # # If there are missing edges, you might want to handle them before solving the TSP
     # if missing_edges:
     #     print("The following edges are missing from the distances dictionary:", missing_edges)
@@ -214,7 +197,7 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
     # Objective function: Minimize the total distance using valid edges from possible_edges
     prob += pulp.lpSum([distances[(i, j)] * x[i][j] for i, j in possible_edges])
 
-
+    # Debug code
     # print("1----------------------------------------------------")   # Debugging output
     # Constraints for the starting point 0.0 and ending point 0.0.0
     prob += pulp.lpSum([x['0.0'][j] for j in set_2 if ('0.0', j) in possible_edges]) == 1  # Start at 0.0 and go to set_2
@@ -222,13 +205,11 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
     # for name, constraint in prob.constraints.items():
     #     print(f"{name}: {constraint}")
 
-
     # print("2----------------------------------------------------")   # Debugging output
     prob += pulp.lpSum([x[i]['0.0.0'] for i in set_1 if (i, '0.0.0') in possible_edges]) == 1  # Go from set_1 to 0.0.0
     # print("Constraints:")
     # for name, constraint in prob.constraints.items():
     #     print(f"{name}: {constraint}")
-
 
     # print("4----------------------------------------------------")  # Debugging output
     for node in set_2:
@@ -289,7 +270,13 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
     return optimal_tour, nodes, x, prob
 
 def find_subtours(optimal_tour, nodes, set_1, set_2):
-    """Find subtours in the current solution."""
+    """
+    Detect subtours (cycles) in the current solution.
+    Parameters:
+        optimal_tour (list[tuple[str, str]]): Edges selected in the current solution.
+        nodes (list[str]): All nodes used in the MILP model (excluding '0.0.0').
+        set_1 (list[str]): Nodes in set 1 (kit holders).
+        set_2 (list[str]): Nodes in set 2 (gravity racks)."""
     graph = nx.DiGraph()
     graph.add_edges_from(optimal_tour)
 
@@ -309,6 +296,7 @@ def iterative_subtour_elimination(distances, possible_edges, set_a, set_b):
     subtour_constraints = []  # List to store constraints for subtour elimination
     while subtours:
         iteration_count += 1
+        # Debug code
         # print(f"Iteration {iteration_count}: Found {len(subtours)} subtour(s)")
         # for s_idx, subtour in enumerate(subtours):
         #     print(f"  Subtour {s_idx + 1}: {subtour}")
@@ -390,8 +378,25 @@ def plot_tour(optimal_tour, distances, set_a, set_b, possible_edges, title):
 
 def run_exact_tsp(input_data):
     """
-    Main function to run the exact TSP solver.
-    This function loads data from input_data (dict) and solves the TSP using iterative subtour elimination.
+    Run the exact TSP solver from a dictionary input.
+
+    This function:
+        - Builds the distance matrix from the raw input data,
+        - Classifies nodes into the two bipartite sets,
+        - Builds the distances dictionary and possible edges,
+        - Solves the BTSP using iterative subtour elimination,
+        - Reconstructs the ordered tour and computes total cost and time details.
+
+    Parameters:
+        input_data (dict): Input data structure used by `create_distance_matrices`
+                           to produce the distance matrix.
+
+    Returns:
+        tuple:
+            - ordered_tour (list[tuple[str, str]] or None): Ordered sequence of edges in the tour.
+            - exact_tour_cost (float or None): Total cost (distance) of the tour.
+            - time_details (list[dict] or None): List of step dictionaries with keys
+              "from", "to", and "distance".
     """
     try:
         # Create the distance matrix from input data (which should now be a dictionary)

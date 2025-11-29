@@ -1,6 +1,14 @@
+# REPOSITORY NAME (c) by the University of Piraues, Greece.
+#
+# REPOSITORY NAME is licensed under a
+# Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+#
+# You should have received a copy of the license along with this
+# work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
+
 import networkx as nx
 import matplotlib.pyplot as plt
-from parse_json import * # Import functions from the parse_json.py file
+from parse_json import *
 
 def create_directed_bipartite_graph(a_to_b_matrix):
     """
@@ -65,8 +73,6 @@ def create_directed_bipartite_graph(a_to_b_matrix):
     # Return the constructed graph and node sets
     return B, set_1, set_2
 
-
-# Function to plot the directed bipartite graph
 def plot_directed_bipartite_graph(B, set_1, set_2):
     """
     Plots a directed bipartite graph with weights on edges.

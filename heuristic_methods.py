@@ -1,3 +1,11 @@
+# REPOSITORY NAME (c) by the University of Piraues, Greece.
+#
+# REPOSITORY NAME is licensed under a
+# Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+#
+# You should have received a copy of the license along with this
+# work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
+
 import pandas as pd
 import networkx as nx
 
@@ -224,6 +232,13 @@ def ApplyTwoOptMoveForBipartite(top, tour):
         tour[idx] = modifiedSequence[idx]  # Update original tour list with modified one
 
 class TwoOptMove:
+    """
+    Helper class to store 2-opt move information.
+    Attributes:
+        positionOfFirst (int or None): Index of the first edge in the tour.
+        positionOfSecond (int or None): Index of the second edge in the tour.
+        moveCost (float): Cost difference introduced by the move (added - removed).
+    """
     def __init__(self):
         self.positionOfFirst = None
         self.positionOfSecond = None
