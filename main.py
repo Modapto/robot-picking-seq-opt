@@ -10,10 +10,10 @@ import json, sys, copy, traceback, base64, pickle
 from datetime import datetime
 from time import time
 import pika
-from pilot_co_sim_execution import run_simulation
-from pilot_opt_execution import run_tsp
+from co_sim_execution import run_simulation
+from opt_execution import run_tsp
 from mqtt_integration import publish_message
-from pilot_production_simulator import app
+from production_simulator import app
 import requests
 import threading
 

@@ -16,12 +16,12 @@ import sys
 import pandas as pd
 import numpy as np
 from parse_json import *
-from GraphCreation import *
+from graph_creation import *
 from heuristic_methods import *
 from reinforcement_learning_method import *
 from exact_method import *
 from linear_method import *
-from pilot_opt_preprocessing import *
+from opt_preprocessing import *
 import base64
 import pickle
 
@@ -270,7 +270,7 @@ def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
         if is_valid:
             output_data["optimization_results"] = results
 
-        decoded_path = "pilot_opt_execution_output.json"
+        decoded_path = "opt_execution_output.json"
         with open(decoded_path, "w") as f:
             json.dump(convert_to_native_types(output_data), f, indent=4)
 
@@ -345,7 +345,7 @@ def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
     if is_valid:
         output_data["optimization_results"] = results
 
-    decoded_path = "pilot_opt_execution_output.json"
+    decoded_path = "opt_execution_output.json"
     with open(decoded_path, "w") as f:
         json.dump(convert_to_native_types(output_data), f, indent=4)
 

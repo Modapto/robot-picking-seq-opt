@@ -7,10 +7,10 @@
 # work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
 
 import copy
-from pilot_co_sim_GR import filter_distance_matrix
+from co_sim_GR import filter_distance_matrix
 from exact_method import run_exact_tsp
 from linear_method import linear_picking, total_cost
-from GraphCreation import create_directed_bipartite_graph
+from graph_creation import create_directed_bipartite_graph
 from parse_json import create_distance_matrices
 
 def normalise_kh_sequences(raw_seqs):

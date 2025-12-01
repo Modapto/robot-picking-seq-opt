@@ -8,8 +8,8 @@
 
 import json, pickle, base64
 from time import time
-from pilot_co_sim_KH import normalise_kh_sequences, generate_kh_configuration, annotate_component_in_time_details, calculate_full_sequence_cost
-from pilot_co_sim_GR import containers_from_gr_sequence, gr_sequence_from_containers, shuffle_container_positions, filter_distance_matrix
+from co_sim_KH import normalise_kh_sequences, generate_kh_configuration, annotate_component_in_time_details, calculate_full_sequence_cost
+from co_sim_GR import containers_from_gr_sequence, gr_sequence_from_containers, shuffle_container_positions, filter_distance_matrix
 
 def convert_to_native_types(data):
     """
@@ -177,7 +177,7 @@ def run_simulation(input_data=None):
     }
 
     # ── 4 · SAVE DECODED FILE ──────────────────────────────────────
-    decoded_path = "pilot_sim_execution_output.json"
+    decoded_path = "sim_execution_output.json"
     with open(decoded_path, "w") as f_dec:
         json.dump(convert_to_native_types(output_data), f_dec, indent=4)
     print(f"Decoded result written to {decoded_path}")
