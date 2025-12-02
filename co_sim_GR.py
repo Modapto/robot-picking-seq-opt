@@ -9,20 +9,18 @@
 import random
 import copy
 
+# Build a filtered distance matrix for one random GR/KH configuration.
+#
+# The function:
+#  - Converts the full `matrix` (list of {"edge": "(u, v)", "distance": d}) into
+#    a lookup dictionary.
+#  - Keeps only edges that are relevant for the current `random_config`:
+#      * 0.0 → all gravity racks (offset by +2000),
+#      * 0.0.0 → 0.0,
+#      * KH slots → 0.0.0 (offset by +2000),
+#      * gravity rack component positions → matching KH slots with same type (offset by +2000),
+#      * KH slots → all gravity racks whose IDs start with "1." or "2." (offset by +2000).
 def filter_distance_matrix(matrix, random_config):
-    """
-       Build a filtered distance matrix for one random GR/KH configuration.
-
-       The function:
-         - Converts the full `matrix` (list of {"edge": "(u, v)", "distance": d}) into
-           a lookup dictionary.
-         - Keeps only edges that are relevant for the current `random_config`:
-             * 0.0 → all gravity racks (offset by +2000),
-             * 0.0.0 → 0.0,
-             * KH slots → 0.0.0 (offset by +2000),
-             * gravity rack component positions → matching KH slots with same type (offset by +2000),
-             * KH slots → all gravity racks whose IDs start with "1." or "2." (offset by +2000).
-       """
     filtered_matrix = []
     containers = random_config["containers"]
     kit_holders = random_config["kit_holders"]
@@ -71,11 +69,9 @@ def filter_distance_matrix(matrix, random_config):
 
     return filtered_matrix
 
+# Turns [{"1.1": "Container_1"}, …] into the classic
+# {"Container_1": {"gr_position": "1.1", "contents": …}, …}
 def containers_from_gr_sequence(gr_seq, containers_template):
-    """
-    Turns [{"1.1": "Container_1"}, …] into the classic
-    {"Container_1": {"gr_position": "1.1", "contents": …}, …}
-    """
     import copy
     cfg = {}
     for mapping in gr_seq:
@@ -89,12 +85,10 @@ def containers_from_gr_sequence(gr_seq, containers_template):
         cfg[cid] = c
     return cfg
 
+# Turn {'Container_1': {'gr_position': '1.1', …}, …}
+# →  [ {'1.1': 'Container_1'}, {'1.2': 'Container_2'}, … ]
+# Positions are sorted row-major (row.column as ints).
 def gr_sequence_from_containers(containers_dict):
-    """
-    Turn {'Container_1': {'gr_position': '1.1', …}, …}
-    →  [ {'1.1': 'Container_1'}, {'1.2': 'Container_2'}, … ]
-    Positions are sorted row-major (row.column as ints).
-    """
     tmp = [(meta["gr_position"], cid) for cid, meta in containers_dict.items()]
 
     def sort_key(item):
@@ -103,11 +97,9 @@ def gr_sequence_from_containers(containers_dict):
 
     return [{pos: cid} for pos, cid in sorted(tmp, key=sort_key)]
 
+# Returns a *new* dict where each container ID keeps its own contents
+# but is assigned a random, unique GR position.
 def shuffle_container_positions(containers_dict):
-    """
-    Returns a *new* dict where each container ID keeps its own contents
-    but is assigned a random, unique GR position.
-    """
     shuffled = copy.deepcopy(containers_dict)
 
     # Take the existing list of positions (['1.1', '1.2', …, '2.7'])

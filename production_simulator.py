@@ -13,22 +13,20 @@ app = Flask(__name__)
 # global variable to store kh_sequence
 kh_sequence = {}
 
+# Translate KH sequences from dict-based format to list-of-lists.
+#
+# Input format example:
+#     [
+#       [ {"1": "KH001"}, {"2": "KH003"} ],
+#       [ {"1": "KH002"}, {"2": "KH001"} ]
+#     ]
+#
+# Output format:
+#     [
+#       ["KH001", "KH003"],
+#       ["KH002", "KH001"]
+#     ]
 def translate_kh_sequences_sim(kh_sequences_sim):
-    """
-    Translate KH sequences from dict-based format to list-of-lists.
-
-    Input format example:
-        [
-          [ {"1": "KH001"}, {"2": "KH003"} ],
-          [ {"1": "KH002"}, {"2": "KH001"} ]
-        ]
-
-    Output format:
-        [
-          ["KH001", "KH003"],
-          ["KH002", "KH001"]
-        ]
-    """
     translated = []
     for phase in kh_sequences_sim:
         phase_sequence = []
@@ -39,25 +37,23 @@ def translate_kh_sequences_sim(kh_sequences_sim):
     return translated
 
 @app.route('/simulation', methods=['POST'])
+
+# Receive KH sequences via POST and store them in a global variable.
+#
+# Expected JSON body structure:
+#     {
+#       "data": {
+#         "templates": {
+#           "kh_sequences_sim": [ ... ]
+#         }
+#       }
+#     }
+#
+# The endpoint:
+#     - Extracts "kh_sequences_sim",
+#     - Stores it in the global `kh_sequence`,
+#     - Returns the translated list-of-lists format.
 def receive_kh_sequences():
-    """
-    Receive KH sequences via POST and store them in a global variable.
-
-    Expected JSON body structure:
-        {
-          "data": {
-            "templates": {
-              "kh_sequences_sim": [ ... ]
-            }
-          }
-        }
-
-    The endpoint:
-        - Extracts "kh_sequences_sim",
-        - Stores it in the global `kh_sequence`,
-        - Returns the translated list-of-lists format.
-
-    """
     global kh_sequence
     try:
         data = request.get_json()
@@ -69,12 +65,11 @@ def receive_kh_sequences():
         return jsonify({"error": str(e)}), 400
 
 @app.route('/simulation', methods=['GET'])
-def return_kh_sequences():
-    """
-    Return the last posted KH sequences in translated form.
 
-    If no sequences have been posted yet, it returns a 404 error.
-    """
+# Return the last posted KH sequences in translated form.
+#
+# If no sequences have been posted yet, it returns a 404 error.
+def return_kh_sequences():
     global kh_sequence
     if not kh_sequence:
         return jsonify({"error!": "No KH sequence posted yet."}), 404

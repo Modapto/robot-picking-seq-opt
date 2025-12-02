@@ -6,42 +6,36 @@
 # You should have received a copy of the license along with this
 # work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
 
-import json
 import pulp
 import networkx as nx
 import matplotlib.pyplot as plt
-import pandas as pd
 from parse_json import create_distance_matrices
 
+# Classify nodes into set_1 (kit holders) and set_2 (gravity racks), excluding special nodes.
+#
+# Parameters:
+# - a_to_b_matrix: DataFrame containing the distance matrix.
+#
+# Returns:
+# - set_1: List of kit holders.
+# - set_2: List of gravity racks.
 def classify_nodes(a_to_b_matrix):
-    """
-    Classify nodes into set_1 (kit holders) and set_2 (gravity racks), excluding special nodes.
-
-    Parameters:
-    - a_to_b_matrix: DataFrame containing the distance matrix.
-
-    Returns:
-    - set_1: List of kit holders.
-    - set_2: List of gravity racks.
-    """
     set_1 = [node for node in a_to_b_matrix.index if len(node.split('.')) == 2 and node != '0.0']  # Kit holders, exclude '0.0'
     set_2 = [node for node in a_to_b_matrix.index if len(node.split('.')) == 3 and node != '0.0.0']  # Gravity racks, exclude '0.0.0'
     return set_1, set_2
 
+# Function to create a distances dictionary from the matrix.
+#
+# Create a dictionary of distances from the distance matrix.
+#
+# Parameters:
+# - a_to_b_matrix: DataFrame containing distances.
+# - set_1: List of kit holders.
+# - set_2: List of gravity racks.
+#
+# Returns:
+# - distances: Dictionary mapping node pairs to distances.
 def create_distances_dict(a_to_b_matrix, set_1, set_2):
-    """
-    Function to create a distances dictionary from the matrix.
-
-    Create a dictionary of distances from the distance matrix.
-
-    Parameters:
-    - a_to_b_matrix: DataFrame containing distances.
-    - set_1: List of kit holders.
-    - set_2: List of gravity racks.
-
-    Returns:
-    - distances: Dictionary mapping node pairs to distances.
-    """
     distances = {}
 
     # Add connections between kit holders (set_1) and gravity racks (set_2)
@@ -92,18 +86,16 @@ def create_distances_dict(a_to_b_matrix, set_1, set_2):
 
     return distances
 
+# Function to extract all possible edges from the distances dictionary.
+#
+# Extract all possible edges from the distances dictionary.
+#
+# Parameters:
+# - distances: Dictionary of node pairs and distances.
+#
+# Returns:
+# - List of possible edges.
 def extract_possible_edges(distances):
-    """
-    Function to extract all possible edges from the distances dictionary.
-
-    Extract all possible edges from the distances dictionary.
-
-    Parameters:
-    - distances: Dictionary of node pairs and distances.
-
-    Returns:
-    - List of possible edges.
-    """
     possible_edges = [(i, j) for (i, j) in distances.keys()]
 
     # Remove the edge from '0.0' to '0.0.0', if present
@@ -116,17 +108,15 @@ def extract_possible_edges(distances):
 
     return possible_edges
 
+# Function to check the connectivity of the sets.
+#
+# Check if every node in Set A and Set B has at least one connection.
+#
+# Parameters:
+# - SetA: List of nodes in set A.
+# - SetB: List of nodes in set B.
+# - distances: Dictionary of distances.
 def check_connectivity(SetA, SetB, distances):
-    """
-    Function to check the connectivity of the sets.
-
-    Check if every node in Set A and Set B has at least one connection.
-
-    Parameters:
-    - SetA: List of nodes in set A.
-    - SetB: List of nodes in set B.
-    - distances: Dictionary of distances.
-    """
     for a in SetA:
         if all((a, b) not in distances for b in SetB):
             print(f"No connections from {a} in Set A to any node in Set B")
@@ -134,25 +124,22 @@ def check_connectivity(SetA, SetB, distances):
         if all((a, b) not in distances for a in SetA):
             print(f"No connections from {b} in Set B to any node in Set A")
 
+# Analyze basic properties of the two sets (set_a and set_b), focusing on connectivity.
+# This helper checks for nodes in each set that do not have any connections to the opposite set
+# based on the provided distances dictionary. Most debug prints are currently commented out.
 def analyze_sets(set_a, set_b, distances):
-    """
-    Analyze basic properties of the two sets (set_a and set_b), focusing on connectivity.
-    This helper checks for nodes in each set that do not have any connections to the opposite set
-    based on the provided distances dictionary. Most debug prints are currently commented out.
-
-    """
     disconnected_nodes_a = [node for node in set_a if all((node, b) not in distances for b in set_b)]
     disconnected_nodes_b = [node for node in set_b if all((a, node) not in distances for a in set_a)]
 
+# Add constraints to eliminate the specific subtour.
 def eliminate_subtour(subtour, prob, x):
-    """Add constraints to eliminate the specific subtour."""
     constraint_name = f"subtour_elimination_{len(prob.constraints)}"  # Give each constraint a unique name
     constraint = pulp.lpSum([x[i][j] for i in subtour for j in subtour if i != j]) <= len(subtour) - 1
     prob += constraint, constraint_name
     return prob.constraints[constraint_name]
 
+# Check if all edges in possible_edges exist in the distances dictionary.
 def check_edges_in_distances(possible_edges, distances):
-    """Check if all edges in possible_edges exist in the distances dictionary."""
     missing_edges = []
     for edge in possible_edges:
         if edge not in possible_edges:
@@ -160,22 +147,20 @@ def check_edges_in_distances(possible_edges, distances):
 
     return missing_edges
 
+# Function to solve the TSP.
+#
+# Solve the TSP with constraints ensuring alternating connections between sets.
+#
+# Parameters:
+# - distances: Dictionary of distances between nodes.
+# - possible_edges: List of valid edges.
+# - set_1: Nodes in set 1 (kit holders).
+# - set_2: Nodes in set 2 (gravity racks).
+# - plot_initial: Flag to plot the initial solution.
+#
+# Returns:
+# - optimal_tour: List of edges in the optimal tour.
 def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
-    """
-    Function to solve the TSP.
-
-    Solve the TSP with constraints ensuring alternating connections between sets.
-
-    Parameters:
-    - distances: Dictionary of distances between nodes.
-    - possible_edges: List of valid edges.
-    - set_1: Nodes in set 1 (kit holders).
-    - set_2: Nodes in set 2 (gravity racks).
-    - plot_initial: Flag to plot the initial solution.
-
-    Returns:
-    - optimal_tour: List of edges in the optimal tour.
-    """
     nodes = list(set([key[0] for key in distances.keys()] + [key[1] for key in distances.keys()]))
 
     # Remove node '0.0.0' because it is specifically visited at the end
@@ -269,22 +254,21 @@ def solve_tsp(distances, possible_edges, set_1, set_2, plot_initial=True):
 
     return optimal_tour, nodes, x, prob
 
+# Detect subtours (cycles) in the current solution.
+# Parameters:
+#     optimal_tour (list[tuple[str, str]]): Edges selected in the current solution.
+#     nodes (list[str]): All nodes used in the MILP model (excluding '0.0.0').
+#     set_1 (list[str]): Nodes in set 1 (kit holders).
+#     set_2 (list[str]): Nodes in set 2 (gravity racks).
 def find_subtours(optimal_tour, nodes, set_1, set_2):
-    """
-    Detect subtours (cycles) in the current solution.
-    Parameters:
-        optimal_tour (list[tuple[str, str]]): Edges selected in the current solution.
-        nodes (list[str]): All nodes used in the MILP model (excluding '0.0.0').
-        set_1 (list[str]): Nodes in set 1 (kit holders).
-        set_2 (list[str]): Nodes in set 2 (gravity racks)."""
     graph = nx.DiGraph()
     graph.add_edges_from(optimal_tour)
 
     subtours = list(nx.simple_cycles(graph))
     return [subtour for subtour in subtours if len(subtour) < len(nodes) - abs(len(set_1) - len(set_2))]
 
+# Solve the TSP with iterative subtour elimination.
 def iterative_subtour_elimination(distances, possible_edges, set_a, set_b):
-    """Solve the TSP with iterative subtour elimination."""
     optimal_tour, nodes, x, prob = solve_tsp(distances, possible_edges, set_a, set_b, plot_initial=True)
 
     if optimal_tour is None:
@@ -338,8 +322,8 @@ def iterative_subtour_elimination(distances, possible_edges, set_a, set_b):
     #           title=f"Final Solution After Subtour Elimination\nObjective Value: {pulp.value(prob.objective)}")
     return optimal_tour
 
+# Plot the optimal tour on the bipartite graph.
 def plot_tour(optimal_tour, distances, set_a, set_b, possible_edges, title):
-    """Plot the optimal tour on the bipartite graph."""
     B = nx.Graph()
 
     # Add nodes to the graph
@@ -376,28 +360,27 @@ def plot_tour(optimal_tour, distances, set_a, set_b, possible_edges, title):
     # Display the graph
     plt.show()
 
+
+# Run the exact TSP solver from a dictionary input.
+#
+# This function:
+#     - Builds the distance matrix from the raw input data,
+#     - Classifies nodes into the two bipartite sets,
+#     - Builds the distances dictionary and possible edges,
+#     - Solves the BTSP using iterative subtour elimination,
+#     - Reconstructs the ordered tour and computes total cost and time details.
+#
+# Parameters:
+#     input_data (dict): Input data structure used by `create_distance_matrices`
+#                        to produce the distance matrix.
+#
+# Returns:
+#     tuple:
+#         - ordered_tour (list[tuple[str, str]] or None): Ordered sequence of edges in the tour.
+#         - exact_tour_cost (float or None): Total cost (distance) of the tour.
+#         - time_details (list[dict] or None): List of step dictionaries with keys
+#           "from", "to", and "distance".
 def run_exact_tsp(input_data):
-    """
-    Run the exact TSP solver from a dictionary input.
-
-    This function:
-        - Builds the distance matrix from the raw input data,
-        - Classifies nodes into the two bipartite sets,
-        - Builds the distances dictionary and possible edges,
-        - Solves the BTSP using iterative subtour elimination,
-        - Reconstructs the ordered tour and computes total cost and time details.
-
-    Parameters:
-        input_data (dict): Input data structure used by `create_distance_matrices`
-                           to produce the distance matrix.
-
-    Returns:
-        tuple:
-            - ordered_tour (list[tuple[str, str]] or None): Ordered sequence of edges in the tour.
-            - exact_tour_cost (float or None): Total cost (distance) of the tour.
-            - time_details (list[dict] or None): List of step dictionaries with keys
-              "from", "to", and "distance".
-    """
     try:
         # Create the distance matrix from input data (which should now be a dictionary)
         a_to_b_matrix = create_distance_matrices(input_data)  # Adapt this to handle dict input properly
@@ -433,10 +416,9 @@ def run_exact_tsp(input_data):
         print(f"Error in exact method: {e}")
         return None, None, None
 
+
+# Reconstructs the tour starting from the given start_node.
 def reconstruct_tour(tour_edges, start_node):
-    """
-    Reconstructs the tour starting from the given start_node.
-    """
     # Build a mapping from each node to its neighbor, nodes_sequence
     nodes_seq = {}
     for i, j in tour_edges:

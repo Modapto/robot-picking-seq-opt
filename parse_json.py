@@ -9,19 +9,15 @@
 import json
 import pandas as pd
 
+# Function to create a distance matrix from a JSON input.
+#
+# Parameters:
+# - input_data: JSON file path (str) or a dictionary containing the input data.
+# - large_number: Value to replace NaN entries in the matrix for non-existent connections.
+#
+# Returns:
+# - a_to_b_matrix: DataFrame representing distances between nodes in a bipartite graph.
 def create_distance_matrices(input_data, large_number=1000000):
-    """
-    Function to create a distance matrix from a JSON input.
-
-    Parameters:
-    - input_data: JSON file path (str) or a dictionary containing the input data.
-    - large_number: Value to replace NaN entries in the matrix for non-existent connections.
-
-    Returns:
-    - a_to_b_matrix: DataFrame representing distances between nodes in a bipartite graph.
-    """
-
-    # If input_data is a file path (str), load the JSON content
     if isinstance(input_data, str):
         with open(input_data, 'r') as f:
             input_data = json.load(f)

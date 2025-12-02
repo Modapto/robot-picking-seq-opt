@@ -6,36 +6,33 @@
 # You should have received a copy of the license along with this
 # work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
 
-
+# Construct a linear (greedy) picking tour over a bipartite graph.
+#
+# The heuristic:
+#     - Iterates over positions in set_1 in sorted order.
+#     - For each position (kit holder), finds the closest matching rack in set_2
+#       that has an edge to this position.
+#     - From the current tour node, moves to the chosen rack, then from that rack
+#       to the corresponding position in set_1.
+#     - At the end, if possible, moves from the last node in the tour to end_node.
+#
+# Distances can optionally be overridden using a precomputed `filtered_matrix`.
+#
+# Parameters:
+#     B (networkx.Graph or networkx.DiGraph): Graph containing nodes and edges with 'weight'.
+#     start_node (str): Starting node of the tour (e.g. '0.0').
+#     end_node (str): Ending node of the tour (e.g. '0.0.0').
+#     set_1 (iterable[str]): Iterable of kit holder nodes (including the start node).
+#     set_2 (iterable[str]): Iterable of rack nodes.
+#     filtered_matrix (list[dict] or None): Optional list of dictionaries with keys
+#         - "edge" (str): String representation of an edge, e.g. "(u, v)".
+#         - "distance" (float): Distance value overriding the graph weight.
+#
+# Returns:
+#     dict: A dictionary with keys:
+#         - "tour" (list[str]): Sequence of visited nodes.
+#         - "total_cost" (float): Total cost of the constructed tour.
 def linear_picking(B, start_node, end_node, set_1, set_2, filtered_matrix=None):
-    """
-    Construct a linear (greedy) picking tour over a bipartite graph.
-
-    The heuristic:
-        - Iterates over positions in set_1 in sorted order.
-        - For each position (kit holder), finds the closest matching rack in set_2
-          that has an edge to this position.
-        - From the current tour node, moves to the chosen rack, then from that rack
-          to the corresponding position in set_1.
-        - At the end, if possible, moves from the last node in the tour to end_node.
-
-    Distances can optionally be overridden using a precomputed `filtered_matrix`.
-
-    Parameters:
-        B (networkx.Graph or networkx.DiGraph): Graph containing nodes and edges with 'weight'.
-        start_node (str): Starting node of the tour (e.g. '0.0').
-        end_node (str): Ending node of the tour (e.g. '0.0.0').
-        set_1 (iterable[str]): Iterable of kit holder nodes (including the start node).
-        set_2 (iterable[str]): Iterable of rack nodes.
-        filtered_matrix (list[dict] or None): Optional list of dictionaries with keys
-            - "edge" (str): String representation of an edge, e.g. "(u, v)".
-            - "distance" (float): Distance value overriding the graph weight.
-
-    Returns:
-        dict: A dictionary with keys:
-            - "tour" (list[str]): Sequence of visited nodes.
-            - "total_cost" (float): Total cost of the constructed tour.
-    """
     tour = [start_node]
     total_cost = 0
     distance_dict = {edge["edge"]: edge["distance"] for edge in filtered_matrix} if filtered_matrix else {}

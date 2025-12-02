@@ -6,14 +6,8 @@
 # You should have received a copy of the license along with this
 # work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
 
-import json
-import copy
-import traceback
-from datetime import datetime
 from time import *
-import pika
 import sys
-import pandas as pd
 import numpy as np
 from parse_json import *
 from graph_creation import *
@@ -27,10 +21,8 @@ import pickle
 
 online = sys.argv[1]  # This argument will differentiate between local and remote runs
 
+# Recursively convert data to JSON-serializable native Python types.
 def convert_to_native_types(data):
-    """
-    Recursively convert data to JSON-serializable native Python types.
-    """
     if isinstance(data, dict):
         return {k: convert_to_native_types(v) for k, v in data.items()}
     elif isinstance(data, list):
@@ -42,27 +34,25 @@ def convert_to_native_types(data):
     else:
         return data
 
+# Run the TSP-based optimization for pick-and-place operations.
+#
+# The function can be called in two ways:
+#  - With a JSON file path (local mode),
+#  - With a pre-decoded `input_data` dict (remote/service mode).
+#
+# It:
+#  - Parses and validates the input,
+#  - Builds or loads distance matrices and graphs,
+#  - Executes one or more optimization methods
+#    (nearest, 2-opt, exact, q-learning, linear, exact-linear, etc.),
+#  - Collects costs, tours, and time details,
+#  - Serializes results both in plain JSON and in base64-encoded form.
+#
+# Parameters:
+#  json_file_path (str or None): Path to a JSON file containing wrapped input data.
+#  input_data (dict or None): Already-decoded input dictionary as received from a caller.
+#  generate_new_instance (bool): Reserved flag (currently unused) for instance generation.
 def run_tsp(json_file_path=None, input_data=None, generate_new_instance=False):
-    """
-     Run the TSP-based optimization for pick-and-place operations.
-
-     The function can be called in two ways:
-         - With a JSON file path (local mode),
-         - With a pre-decoded `input_data` dict (remote/service mode).
-
-     It:
-         - Parses and validates the input,
-         - Builds or loads distance matrices and graphs,
-         - Executes one or more optimization methods
-           (nearest, 2-opt, exact, q-learning, linear, exact-linear, etc.),
-         - Collects costs, tours, and time details,
-         - Serializes results both in plain JSON and in base64-encoded form.
-
-     Parameters:
-         json_file_path (str or None): Path to a JSON file containing wrapped input data.
-         input_data (dict or None): Already-decoded input dictionary as received from a caller.
-         generate_new_instance (bool): Reserved flag (currently unused) for instance generation.
-     """
     solution_time_start = int(time() * 1000)
     total_time_start = int(time() * 1000)
 

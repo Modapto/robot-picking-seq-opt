@@ -6,34 +6,29 @@
 # You should have received a copy of the license along with this
 # work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
 
-import pandas as pd
-import networkx as nx
 
+# Nearest Neighbor heuristic for the bipartite TSP with pseudonodes.
+#
+# Assumptions (as in your project):
+# - start       = '0.0'    (pseudonode, in set_1)
+# - end         = '0.0.0'  (pseudonode, in set_2)
+# - set_1       = ['0.0', KH nodes ...]
+# - set_2       = ['0.0.0', GR nodes ...]
+# - We alternate between set_1 and set_2.
+# - We NEVER visit `end` inside the loop; it is only appended at the end.
+# - We stop the loop once ALL KH nodes (set_1 except start) have been visited.
+#
+# Parameters:
+# - G: directed graph with 'weight' on edges
+# - start: start node (e.g. '0.0')
+# - end: end node (e.g. '0.0.0')
+# - set_1: list of KH nodes (including start)
+# - set_2: list of GR nodes (including end)
+# - large_value: threshold to treat edges as "blocked"
+#
+# Returns:
+# - tour: list of nodes, e.g. [0.0, GR, KH, ..., 0.0.0, 0.0]
 def nearest_tsp(G, start, end, set_1, set_2, large_value=1000000):
-    """
-    Nearest Neighbor heuristic for the bipartite TSP with pseudonodes.
-
-    Assumptions (as in your project):
-    - start       = '0.0'    (pseudonode, in set_1)
-    - end         = '0.0.0'  (pseudonode, in set_2)
-    - set_1       = ['0.0', KH nodes ...]
-    - set_2       = ['0.0.0', GR nodes ...]
-    - We alternate between set_1 and set_2.
-    - We NEVER visit `end` inside the loop; it is only appended at the end.
-    - We stop the loop once ALL KH nodes (set_1 except start) have been visited.
-
-    Parameters:
-    - G: directed graph with 'weight' on edges
-    - start: start node (e.g. '0.0')
-    - end: end node (e.g. '0.0.0')
-    - set_1: list of KH nodes (including start)
-    - set_2: list of GR nodes (including end)
-    - large_value: threshold to treat edges as "blocked"
-
-    Returns:
-    - tour: list of nodes, e.g. [0.0, GR, KH, ..., 0.0.0, 0.0]
-    """
-
     # Track visited state for all nodes in the graph
     visit = {node: False for node in G.nodes}
     tour = [start]
@@ -104,20 +99,18 @@ def nearest_tsp(G, start, end, set_1, set_2, large_value=1000000):
 
     return tour
 
+# Function to calculate the total cost of a given tour.
+#
+# Calculate the total cost of a tour.
+#
+# Parameters:
+# - G: A graph representing the problem.
+# - tour: List of nodes representing the tour.
+#
+# Returns:
+# - cost: Total cost of the tour.
+# - time_details: List of details for each segment of the tour.
 def total_cost(G, tour):
-    """
-    Function to calculate the total cost of a given tour.
-
-    Calculate the total cost of a tour.
-
-    Parameters:
-    - G: A graph representing the problem.
-    - tour: List of nodes representing the tour.
-
-    Returns:
-    - cost: Total cost of the tour.
-    - time_details: List of details for each segment of the tour.
-    """
     cost = 0
     time_details = []
     for i in range(len(tour) - 1):
@@ -132,23 +125,21 @@ def total_cost(G, tour):
             })
     return cost, time_details
 
+# Function to find the best 2-opt move for a bipartite graph.
+#
+# Find the best 2-opt move for the bipartite TSP.
+#
+# Parameters:
+# - top: Dictionary to store the best move details.
+# - tour: Current tour as a list of nodes.
+# - G: Graph representing the problem.
+# - set_1: List of kit holder nodes.
+# - set_2: List of gravity rack nodes.
+# - start_node: The start node ('0.0').
+#
+# Updates:
+# - top: Updates the best move details if a better move is found.
 def FindBestTwoOptMoveForBipartite(top, tour, G, set_1, set_2, start_node='0.0'):
-    """
-    Function to find the best 2-opt move for a bipartite graph.
-
-    Find the best 2-opt move for the bipartite TSP.
-
-    Parameters:
-    - top: Dictionary to store the best move details.
-    - tour: Current tour as a list of nodes.
-    - G: Graph representing the problem.
-    - set_1: List of kit holder nodes.
-    - set_2: List of gravity rack nodes.
-    - start_node: The start node ('0.0').
-
-    Updates:
-    - top: Updates the best move details if a better move is found.
-    """
     number_of_neighboring_solutions = 0
 
     # Iterate through all pairs of edges in the tour
@@ -194,19 +185,18 @@ def FindBestTwoOptMoveForBipartite(top, tour, G, set_1, set_2, start_node='0.0')
     else:
         print(f"Start node {start_node} is not in the current tour.")
 
+#
+# Function to apply the best 2-opt move to the tour.
+#
+# Apply the best 2-opt move to the tour.
+#
+# Parameters:
+# - top: Dictionary containing details of the best 2-opt move.
+# - tour: Current tour as a list of nodes.
+#
+# Modifies:
+# - tour: Updates the tour to include the 2-opt move.
 def ApplyTwoOptMoveForBipartite(top, tour):
-    """
-    Function to apply the best 2-opt move to the tour.
-
-    Apply the best 2-opt move to the tour.
-
-    Parameters:
-    - top: Dictionary containing details of the best 2-opt move.
-    - tour: Current tour as a list of nodes.
-
-    Modifies:
-    - tour: Updates the tour to include the 2-opt move.
-    """
     modifiedSequence = []
 
     # Add nodes before the first edge in reverse order
@@ -231,14 +221,12 @@ def ApplyTwoOptMoveForBipartite(top, tour):
     for idx in range(len(tour)):
         tour[idx] = modifiedSequence[idx]  # Update original tour list with modified one
 
+# Helper class to store 2-opt move information.
+# Attributes:
+#     positionOfFirst (int or None): Index of the first edge in the tour.
+#     positionOfSecond (int or None): Index of the second edge in the tour.
+#     moveCost (float): Cost difference introduced by the move (added - removed).
 class TwoOptMove:
-    """
-    Helper class to store 2-opt move information.
-    Attributes:
-        positionOfFirst (int or None): Index of the first edge in the tour.
-        positionOfSecond (int or None): Index of the second edge in the tour.
-        moveCost (float): Cost difference introduced by the move (added - removed).
-    """
     def __init__(self):
         self.positionOfFirst = None
         self.positionOfSecond = None
@@ -249,23 +237,21 @@ class TwoOptMove:
         self.positionOfSecond = None
         self.moveCost = float('inf')  # Reset the move cost to infinity before each iteration
 
+# Function to perform the 2-opt meta-heuristic for the bipartite TSP.
+#
+# Perform the 2-opt meta-heuristic for a bipartite TSP.
+#
+# Parameters:
+# - tour: Initial tour as a list of nodes.
+# - G: Graph representing the problem.
+# - set_1: List of kit holder nodes.
+# - set_2: List of gravity rack nodes.
+# - max_iterations: Maximum number of iterations for the heuristic.
+#
+# Returns:
+# - best_tour: The best tour found.
+# - best_cost: The cost of the best tour.
 def two_opt_for_bipartite(tour, G, set_1, set_2, max_iterations=100000):
-    """
-    Function to perform the 2-opt meta-heuristic for the bipartite TSP.
-
-    Perform the 2-opt meta-heuristic for a bipartite TSP.
-
-    Parameters:
-    - tour: Initial tour as a list of nodes.
-    - G: Graph representing the problem.
-    - set_1: List of kit holder nodes.
-    - set_2: List of gravity rack nodes.
-    - max_iterations: Maximum number of iterations for the heuristic.
-
-    Returns:
-    - best_tour: The best tour found.
-    - best_cost: The cost of the best tour.
-    """
     best_tour = tour[:]
     best_cost, _ = total_cost(G, best_tour)  # Calculate the cost of the initial tour
     iteration = 0  # Counter to track the number of iterations

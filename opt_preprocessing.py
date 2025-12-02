@@ -6,16 +6,14 @@
 # You should have received a copy of the license along with this
 # work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
 
+# Generate KH node IDs and their component types.
+#
+# For each KH position in `kh_sequences`, this function:
+#   - Looks up the corresponding KH template in `kit_holder_types`,
+#   - Reads its `contents` list,
+#   - Builds node names of the form "<kh_pos>.<position>" (e.g. "1.3"),
+#   - Maps each node name to its component type.
 def generate_kh_nodes(kh_sequences, kit_holder_types):
-    """
-    Generate KH node IDs and their component types.
-
-    For each KH position in `kh_sequences`, this function:
-      - Looks up the corresponding KH template in `kit_holder_types`,
-      - Reads its `contents` list,
-      - Builds node names of the form "<kh_pos>.<position>" (e.g. "1.3"),
-      - Maps each node name to its component type.
-    """
     kh_nodes = {}
     for entry in kh_sequences:
         for kh_pos, kh_id in entry.items():

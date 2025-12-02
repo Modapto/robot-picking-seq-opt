@@ -6,7 +6,7 @@
 # You should have received a copy of the license along with this
 # work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
 
-import json, sys, copy, traceback, base64, pickle
+import json, sys, traceback, base64, pickle
 from datetime import datetime
 from time import time
 import pika
@@ -17,60 +17,53 @@ from production_simulator import app
 import requests
 import threading
 
+# Simple thread wrapper used to run the Flask-based production simulator
+# (`pilot_production_simulator.app`) in the background.
 class thread(threading.Thread):
-    """
-    Simple thread wrapper used to run the Flask-based production simulator
-    (`pilot_production_simulator.app`) in the background.
-    """
     def __init__(self, thread_name, thread_ID):
         threading.Thread.__init__(self)
         self.thread_name = thread_name
         self.thread_ID = thread_ID
 
-        # helper function to execute the threads
+    # Start the Flask app that exposes the /simulation endpoints.
+    # The server listens on host 0.0.0.0 and port 10101.
     def run(self):
-        """
-        Start the Flask app that exposes the /simulation endpoints.
-        The server listens on host 0.0.0.0 and port 10101.
-        """
+
         app.run(host='0.0.0.0', port=10101);
 
-# ───────────────────── helper: decode & inject templates ─────────────────────
+
+#
+# Replace msg['data'] in-place with a plain dict.
+# Handles:
+#     {'base64': <pickle>}  →  pickle.loads
+#     {'base64': <json>}    →  json.loads
+#     { ... }               →  already plain
 def decode_data_block(msg: dict) -> None:
-    """
-    Replace msg['data'] in-place with a plain dict.
-    Handles:
-        {'base64': <pickle>}  →  pickle.loads
-        {'base64': <json>}    →  json.loads
-        { ... }               →  already plain
-    """
     if isinstance(msg.get("data"), dict) and "base64" in msg["data"]:
         raw = base64.b64decode(msg["data"]["base64"])
         try:
             msg["data"] = pickle.loads(raw)
         except pickle.UnpicklingError:
             msg["data"] = json.loads(raw.decode())
-
+#
+# Decode the input message and inject the correct template blocks.
+#
+# Based on the value of `data["method"]`, this function:
+#     - Ensures `data` is a plain dict (via `decode_data_block`),
+#     - Selects the appropriate templates (simulation vs optimization),
+#     - Sets:
+#           data["containers_template"]
+#           data["kit_holders_template"]
+#           data["distance_matrix"]
+#           data["kh_sequences"]
+#       and, for *_complete methods, also:
+#           data["distance_matrix_opt"].
+#     - For simulation, it calls the internal Flask service to translate
+#       KH sequences before assigning `data["kh_sequences"]`.
+#
+# Raises:
+#     ValueError: If templates are missing or method is unknown.
 def inject_templates(msg: dict) -> None:
-    """
-    Decode the input message and inject the correct template blocks.
-
-    Based on the value of `data["method"]`, this function:
-        - Ensures `data` is a plain dict (via `decode_data_block`),
-        - Selects the appropriate templates (simulation vs optimization),
-        - Sets:
-              data["containers_template"]
-              data["kit_holders_template"]
-              data["distance_matrix"]
-              data["kh_sequences"]
-          and, for *_complete methods, also:
-              data["distance_matrix_opt"].
-        - For simulation, it calls the internal Flask service to translate
-          KH sequences before assigning `data["kh_sequences"]`.
-
-    Raises:
-        ValueError: If templates are missing or method is unknown.
-    """
     decode_data_block(msg)                 # ensure plain dict first
     data      = msg["data"]
     templates = data.get("templates")
@@ -98,23 +91,21 @@ def inject_templates(msg: dict) -> None:
 
 
 # ───────────────────────── RabbitMQ callback ─────────────────────────
+# RabbitMQ callback to process incoming jobs.
+#
+# Steps:
+#     1. Parse the incoming JSON message.
+#     2. Decode and inject templates (`inject_templates`).
+#     3. Decide whether to run simulation or optimization.
+#     4. Execute `run_simulation` or `run_tsp`.
+#     5. Publish results via MQTT.
+#     6. Publish encoded results back to RabbitMQ (`opt-result` exchange).
+#
+# On error:
+#     - Logs the traceback.
+#     - Sends an error message via MQTT.
+#     - Sends an error response back to RabbitMQ.
 def callback(ch, method, properties, body):
-    """
-    RabbitMQ callback to process incoming jobs.
-
-    Steps:
-        1. Parse the incoming JSON message.
-        2. Decode and inject templates (`inject_templates`).
-        3. Decide whether to run simulation or optimization.
-        4. Execute `run_simulation` or `run_tsp`.
-        5. Publish results via MQTT.
-        6. Publish encoded results back to RabbitMQ (`opt-result` exchange).
-
-    On error:
-        - Logs the traceback.
-        - Sends an error message via MQTT.
-        - Sends an error response back to RabbitMQ.
-    """
     input_file = json.loads(body)
     uuid = input_file.get('uuid', 'unknown')
     try:

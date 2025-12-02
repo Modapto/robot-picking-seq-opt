@@ -14,24 +14,22 @@ ALPHA = 0.1  # Learning rate: how much new information overrides old knowledge
 GAMMA = 0.55  # Discount factor: importance of future rewards
 EPSILON = 0.1  # Exploration factor: probability of exploring new actions
 
+# Function to perform Q-learning for the bipartite TSP.
+#
+# Solve the bipartite TSP using Q-learning.
+#
+# Parameters:
+# - G: Graph representing the problem.
+# - start: Start node ('0.0').
+# - end: End node ('0.0.0').
+# - set_1: List of kit holder nodes.
+# - set_2: List of gravity rack nodes.
+# - large_value: Large value representing invalid connections.
+# - episodes: Number of episodes for training.
+#
+# Returns:
+# - best_tour: The best tour found using Q-values.
 def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=20000):
-    """
-    Function to perform Q-learning for the bipartite TSP.
-
-    Solve the bipartite TSP using Q-learning.
-
-    Parameters:
-    - G: Graph representing the problem.
-    - start: Start node ('0.0').
-    - end: End node ('0.0.0').
-    - set_1: List of kit holder nodes.
-    - set_2: List of gravity rack nodes.
-    - large_value: Large value representing invalid connections.
-    - episodes: Number of episodes for training.
-
-    Returns:
-    - best_tour: The best tour found using Q-values.
-    """
     # Initialize the Q-table: Each node has a dictionary of its neighbors with Q-values
     q_table = {node: {neighbor: 0 for neighbor in G.neighbors(node)} for node in G.nodes}
 
@@ -100,24 +98,21 @@ def q_learning_tsp(G, start, end, set_1, set_2, large_value=1000000, episodes=20
 
     return best_tour
 
-
+# Function to calculate rewards during Q-learning.
+#
+# Calculate the reward for moving from current to next_node.
+#
+# Parameters:
+# - G: Graph representing the problem.
+# - current: Current node.
+# - next_node: Next node.
+# - set_1: List of kit holder nodes.
+# - set_2: List of gravity rack nodes.
+# - large_value: Large value representing invalid connections.
+#
+# Returns:
+# - Reward value for the transition.
 def get_reward(G, current, next_node, set_1, set_2, large_value):
-    """
-    Function to calculate rewards during Q-learning.
-
-    Calculate the reward for moving from current to next_node.
-
-    Parameters:
-    - G: Graph representing the problem.
-    - current: Current node.
-    - next_node: Next node.
-    - set_1: List of kit holder nodes.
-    - set_2: List of gravity rack nodes.
-    - large_value: Large value representing invalid connections.
-
-    Returns:
-    - Reward value for the transition.
-    """
     if current in set_1 and next_node in set_2:  # Valid transition from set_1 to set_2
         weight = G[current][next_node]['weight']
         if weight >= large_value:
@@ -131,24 +126,22 @@ def get_reward(G, current, next_node, set_1, set_2, large_value):
     else:
         return -float('inf')  # Invalid transition
 
+# Function to extract the best tour based on Q-values.
+#
+# Generate the best tour based on the learned Q-values.
+#
+# Parameters:
+# - q_table: Learned Q-values for each state-action pair.
+# - G: Graph representing the problem.
+# - start: Start node.
+# - end: End node.
+# - set_1: List of kit holder nodes.
+# - set_2: List of gravity rack nodes.
+# - large_value: Large value representing invalid connections.
+#
+# Returns:
+# - tour: List of nodes representing the best tour.
 def best_q_tour(q_table, G, start, end, set_1, set_2, large_value):
-    """
-    Function to extract the best tour based on Q-values.
-
-    Generate the best tour based on the learned Q-values.
-
-    Parameters:
-    - q_table: Learned Q-values for each state-action pair.
-    - G: Graph representing the problem.
-    - start: Start node.
-    - end: End node.
-    - set_1: List of kit holder nodes.
-    - set_2: List of gravity rack nodes.
-    - large_value: Large value representing invalid connections.
-
-    Returns:
-    - tour: List of nodes representing the best tour.
-    """
     tour = [start]
     current = start
     visit = {node: False for node in q_table}
@@ -188,20 +181,18 @@ def best_q_tour(q_table, G, start, end, set_1, set_2, large_value):
     tour.append(start)
     return tour
 
+# Function to calculate the total cost of a tour.
+#
+# Calculate the total cost of a tour.
+#
+# Parameters:
+# - G: Graph representing the problem.
+# - tour: List of nodes in the tour.
+#
+# Returns:
+# - cost: Total cost of the tour.
+# - time_details: List of details for each segment of the tour.
 def total_costRL(G, tour):
-    """
-    Function to calculate the total cost of a tour.
-
-    Calculate the total cost of a tour.
-
-    Parameters:
-    - G: Graph representing the problem.
-    - tour: List of nodes in the tour.
-
-    Returns:
-    - cost: Total cost of the tour.
-    - time_details: List of details for each segment of the tour.
-    """
     cost = 0
     time_details = []
     for i in range(len(tour) - 1):
