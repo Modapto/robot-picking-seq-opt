@@ -46,6 +46,41 @@ Some typical fields inside `data` are:
   A `templates` block with `containers_sim`, `kit_holders_sim`, `kh_sequences_sim`, `distance_matrix_sim`,  
   together with a baseline `gr_sequence` and `num_random_gr_configs` specifying how many random GR configurations to test. The service uses these templates to build concrete instances, randomize Gravity Rack layouts and evaluate the resulting sequences.
 
+### Repository Files 
+This repository contains the code and example artefacts for the single-gripper robot picking sequence optimization.  
+The main logic is implemented in Python modules (optimization, simulation, graph creation, heuristics, exact solver, etc.), while the files below are ready-made inputs/outputs you can inspect or reuse:
+
+- `input_data.json`  
+  Plain, decoded example input for a single-gripper optimization or simulation run.
+
+- `encoded_input.json`  
+  Same logical content as `input_data.json`, but wrapped in the encoded format used by optEngine / the message bus:  
+  a top-level `uuid` plus a `data.base64` field that carries the payload as a Base64-encoded blob.
+
+- `opt_execution_output.json`  
+  Human-readable (decoded) result of an optimization run (e.g. `exact`, `linear`, or `exact-linear`).  
+  Contains the total cost, detailed `time_details` (with `from`, `to`, and `component_*` info), and data such as `solutionTime` and `totalTime`.
+
+- `sim_execution_output.json`  
+  Human-readable (decoded) result of a **simulation** run.  
+  Includes baseline costs, the baseline `gr_sequence`, and the best GR configuration found across multiple random trials.
+
+- `encoded_opt_output.json`  
+  Encoded version of the optimization result (similar content to `opt_execution_output.json`), with the full result stored under `data.base64`.  
+  This is what is pushed back to optEngine / the message bus.
+
+- `encoded_sim_output.json`  
+  Encoded version of the simulation result (similar structure to `encoded_opt_output.json`, but for simulation).
+
+- `q_values.csv`  
+  Exported Q-learning Q-table from complete-graph experiments in the single-gripper case.  
+
+These files are examples generated from specific industrial scenarios and are meant as references for:
+
+- understanding the expected input format, and  
+- validating the structure of your own outputs when integrating with optEngine or when running locally.
+
+
 ### Data and examples
 
 Reference JSON examples and industrial input data (distance matrices, container and KH templates) for the real-world MODAPTO application can be obtained from the following Zenodo record:
