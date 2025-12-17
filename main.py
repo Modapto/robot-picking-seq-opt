@@ -1,536 +1,224 @@
-import json
-import traceback
+# REPOSITORY NAME (c) by the University of Piraues, Greece.
+#
+# REPOSITORY NAME is licensed under a
+# Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+#
+# You should have received a copy of the license along with this
+# work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
+
+import json, sys, traceback, base64, pickle
 from datetime import datetime
-from time import *
+from time import time
 import pika
-import sys
-import pandas as pd
-import numpy as np
-from instances_generator import *
-from parse_json import *
-from GraphCreation import *
-from heuristic_methods import *
-from reinforcement_learning import *
-from exact_method import *
-from rl_heuristics import *
-from method_linear import *
-# from simulator import *
-from simulator_v2 import *
-online = sys.argv[1]  # This argument will differentiate between local and remote runs
+from co_sim_execution import run_simulation
+from opt_execution import run_tsp
+from mqtt_integration import publish_message
+from production_simulator import app
+import requests
+import threading
 
-# Function to convert data types to native Python types (e.g., for JSON serialization)
-def convert_to_native_types(data):
-    if isinstance(data, dict):
-        return {k: convert_to_native_types(v) for k, v in data.items()}
-    elif isinstance(data, list):
-        return [convert_to_native_types(v) for v in data]
-    elif isinstance(data, pd.DataFrame):
-        return data.applymap(lambda x: int(x) if isinstance(x, (np.integer, np.int32, np.int64)) else x).to_dict()
-    elif isinstance(data, (np.integer, np.int32, np.int64)):
-        return int(data)
+# Simple thread wrapper used to run the Flask-based production simulator
+# (`pilot_production_simulator.app`) in the background.
+class thread(threading.Thread):
+    def __init__(self, thread_name, thread_ID):
+        threading.Thread.__init__(self)
+        self.thread_name = thread_name
+        self.thread_ID = thread_ID
+
+    # Start the Flask app that exposes the /simulation endpoints.
+    # The server listens on host 0.0.0.0 and port 10101.
+    def run(self):
+
+        app.run(host='0.0.0.0', port=10101);
+
+
+#
+# Replace msg['data'] in-place with a plain dict.
+# Handles:
+#     {'base64': <pickle>}  →  pickle.loads
+#     {'base64': <json>}    →  json.loads
+#     { ... }               →  already plain
+def decode_data_block(msg: dict) -> None:
+    if isinstance(msg.get("data"), dict) and "base64" in msg["data"]:
+        raw = base64.b64decode(msg["data"]["base64"])
+        try:
+            msg["data"] = pickle.loads(raw)
+        except pickle.UnpicklingError:
+            msg["data"] = json.loads(raw.decode())
+#
+# Decode the input message and inject the correct template blocks.
+#
+# Based on the value of `data["method"]`, this function:
+#     - Ensures `data` is a plain dict (via `decode_data_block`),
+#     - Selects the appropriate templates (simulation vs optimization),
+#     - Sets:
+#           data["containers_template"]
+#           data["kit_holders_template"]
+#           data["distance_matrix"]
+#           data["kh_sequences"]
+#       and, for *_complete methods, also:
+#           data["distance_matrix_opt"].
+#     - For simulation, it calls the internal Flask service to translate
+#       KH sequences before assigning `data["kh_sequences"]`.
+#
+# Raises:
+#     ValueError: If templates are missing or method is unknown.
+def inject_templates(msg: dict) -> None:
+    decode_data_block(msg)                 # ensure plain dict first
+    data      = msg["data"]
+    templates = data.get("templates")
+    if templates is None:
+        raise ValueError("Missing 'templates' block")
+
+    method = data["method"].lower()
+    if method == "simulation":
+        data["containers_template"]  = templates["containers_sim"]
+        data["kit_holders_template"] = templates["kit_holders_sim"]
+        data["distance_matrix"]      = templates["distance_matrix_sim"]
+        resp = requests.post('http://localhost:10101/simulation', json={"data": data})
+        print("FLASK RESPONSE STATUS:", resp.status_code)
+        print("FLASK RAW TEXT:", resp.text)
+        data["kh_sequences"] = resp.json()["kh_sequences"]
+    elif method in {"exact", "linear", "exact-linear",
+        "nearest_complete", "2opt_complete", "exact_complete", "qlearning_complete", "all_complete"}:
+        data["containers_template"]  = templates["containers_opt"]
+        data["kit_holders_template"] = templates["kit_holders_opt"]
+        data["distance_matrix"]      = templates["distance_matrix_opt"]
+        data["kh_sequences"]         = templates["kh_sequences_opt"]
+        data["distance_matrix_opt"] = templates["distance_matrix_opt"]
     else:
-        return data
+        raise ValueError(f"Unknown method '{method}' ")
 
-# def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
-#     total_time_start = int(time() * 1000)
+
+# ───────────────────────── RabbitMQ callback ─────────────────────────
+# RabbitMQ callback to process incoming jobs.
 #
-#     # Load input data
-#     if input_data and "data" in input_data:
-#         print("Remote input data received.")
-#         data = input_data["data"]
-#         distance_matrix = data["distance_matrix"]
-#         containers_template = data["containers_template"]
-#         kit_holders_template = data["kit_holders_template"]
-#         kh_setup = data["kh_setup"]
-#         current_config = data["current_config"]
-#     elif json_file_path:
-#         with open(json_file_path, 'r') as f:
-#             input_data = json.load(f)
-#         data = input_data["data"]
-#         distance_matrix = data["distance_matrix"]
-#         containers_template = data["containers_template"]
-#         kit_holders_template = data["kit_holders_template"]
-#         kh_setup = data["kh_setup"]
-#         current_config = data["current_config"]
-#         print(f"Local JSON input has been loaded from {json_file_path}.")
-#     else:
-#         raise ValueError("Input data is required, either via JSON file or directly.")
+# Steps:
+#     1. Parse the incoming JSON message.
+#     2. Decode and inject templates (`inject_templates`).
+#     3. Decide whether to run simulation or optimization.
+#     4. Execute `run_simulation` or `run_tsp`.
+#     5. Publish results via MQTT.
+#     6. Publish encoded results back to RabbitMQ (`opt-result` exchange).
 #
-#     # Generate KH configuration
-#     kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
-#
-#     # Generate filtered distance matrix based on current configuration
-#     filtered_matrix = filter_distance_matrix(distance_matrix, {
-#         "containers": current_config["containers"],
-#         "kit_holders": kh_config
-#     })
-#
-#     # Parse the filtered distance matrix
-#     a_to_b_matrix = create_distance_matrices({
-#         "data": {
-#             "distanceMatrix": filtered_matrix
-#         }
-#     })
-#     print(a_to_b_matrix)
-#     # Create the bipartite graph
-#     B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
-#     start_node = data.get('start_node', '0.0')
-#     end_node = data.get('end_node', '0.0.0')
-#     method = data['method']
-#     print(set_1, set_2)
-#     results = {}
-#     solution_time_start = int(time() * 1000)
-#     simple_tour = None
-#     improvement = 0
-#
-#     # Run methods based on the input's method
-#     if method == "nearest" or method == "all":
-#         try:
-#             print("Running Nearest Neighbor TSP...")
-#             simple_tour = nearest_tsp(B, start_node, end_node, set_1, set_2)
-#             simple_tour_cost, time_details = total_cost(B, simple_tour)
-#             results["nearest"] = {
-#                 "tour": simple_tour,
-#                 "cost": simple_tour_cost,
-#                 "time_details": time_details,
-#                 "totalLoadingTime": simple_tour_cost
-#             }
-#             print(f"Nearest Neighbor TSP. Cost: {simple_tour_cost}")
-#         except ValueError as e:
-#             print(f"Error in nearest method: {e}")
-#
-#     if method == "2-opt" or method == "all":
-#         if simple_tour or method == "2-opt":
-#             try:
-#                 print("Running 2-opt TSP...")
-#                 if not simple_tour and method == "2-opt":
-#                     print("No previous tour found. Using Nearest Neighbor to generate initial tour for 2-opt.")
-#                     simple_tour = nearest_tsp(B, start_node, end_node, set_1, set_2)
-#                     simple_tour_cost, time_details = total_cost(B, simple_tour)
-#                     print(f"Nearest Neighbor TSP. Cost: {simple_tour_cost}")
-#
-#                 # Run 2-opt optimization on the simple tour
-#                 optimized_tour, optimized_tour_cost = two_opt_for_bipartite(simple_tour, B, set_1, set_2, max_iterations=1000)
-#                 optimized_tour_cost, time_details = total_cost(B, optimized_tour)
-#
-#                 # Compare costs and choose the better solution
-#                 if optimized_tour_cost < simple_tour_cost:
-#                     print(f"2-opt improved the tour. Cost reduced from {simple_tour_cost} to {optimized_tour_cost}")
-#                     best_tour = optimized_tour
-#                     best_cost = optimized_tour_cost
-#                 else:
-#                     print(f"2-opt did not improve the tour. Keeping the Nearest Neighbor solution.")
-#
-#                     best_tour = simple_tour
-#                     best_cost = simple_tour_cost
-#                     print(f"2-opt TSP. Cost: {best_cost}")
-#                 results["2-opt"] = {
-#                     "tour": best_tour,
-#                     "cost": best_cost,
-#                     "time_details": time_details,
-#                     "totalLoadingTime": best_cost
-#                 }
-#             except ValueError as e:
-#                 print(f"Error in 2-opt method: {e}")
-#
-#     if method == "q-learning" or method == "all":
-#         try:
-#             print("Running Q-Learning TSP...")
-#             q_learning_tour = q_learning_tsp(B, start_node, end_node, set_1, set_2)
-#             q_learning_tour_cost, time_details = total_costRL(B, q_learning_tour)
-#             results["q-learning"] = {
-#                 "tour": q_learning_tour,
-#                 "cost": q_learning_tour_cost,
-#                 "time_details": time_details,
-#                 "totalLoadingTime": q_learning_tour_cost
-#             }
-#             print(f"Q-Learning TSP completed. Cost: {q_learning_tour_cost}")
-#         except ValueError as e:
-#             print(f"Error in q-learning method: {e}")
-#
-#     if method == "exact" or method == "all":
-#         try:
-#             print("Running Exact Method TSP...")
-#             # Use the filtered matrix for the exact method
-#             exact_input = {
-#                 "data": {
-#                     "distanceMatrix": filtered_matrix,
-#                     "start_node": start_node,
-#                     "end_node": end_node
-#                 }
-#             }
-#             exact_tour, exact_tour_cost, time_details = run_exact_tsp(exact_input)
-#
-#             if exact_tour:
-#                 results["exact"] = {
-#                     "tour": exact_tour,
-#                     "cost": exact_tour_cost,
-#                     "time_details": time_details,
-#                     "totalLoadingTime": exact_tour_cost
-#                 }
-#                 print(f"Exact Method TSP completed. Cost: {exact_tour_cost}")
-#                 total_loading_time = exact_tour_cost  # Update total loading time
-#         except ValueError as e:
-#             print(f"Error in exact method: {e}")
-#
-#     if method == "linear" or method == "all":
-#         try:
-#             print("Running Linear Method TSP...")
-#             linear_tour = linear_picking(B, start_node, end_node, set_1, set_2)
-#             linear_tour_cost, time_details = total_cost(B, linear_tour['tour'])
-#
-#             if linear_tour:
-#                 results["linear"] = {
-#                     "tour": linear_tour,
-#                     "cost": linear_tour_cost,
-#                     "time_details": time_details,
-#                     "totalLoadingTime": linear_tour_cost
-#                 }
-#                 print(f"Linear Method TSP completed. Cost: {linear_tour_cost}")
-#         except ValueError as e:
-#             print(f"Error in exact method: {e}")
-#
-#     if method == "exact-linear" or method == "all":
-#         try:
-#             print("Running Exact + Linear Method TSP...")
-#             # Use filtered_matrix explicitly for the exact method
-#             exact_input = {
-#                 "data": {
-#                     "distanceMatrix": filtered_matrix,
-#                     "start_node": start_node,
-#                     "end_node": end_node
-#                 }
-#             }
-#             exact_tour, exact_tour_cost, time_details_exact = run_exact_tsp(exact_input)
-#
-#             # Run linear picking method
-#             linear_tour = linear_picking(B, start_node, end_node, set_1, set_2)
-#             linear_tour_cost, time_details_linear = total_cost(B, linear_tour['tour'])
-#
-#             # Calculate improvement only if exact_tour_cost is valid
-#             if exact_tour_cost is not None and linear_tour_cost > 0:
-#                 improvement = ((linear_tour_cost - exact_tour_cost) / linear_tour_cost) * 100
-#             else:
-#                 improvement = None
-#
-#             # Choose the better method
-#             if improvement and improvement > 0:
-#                 results["exact"] = {
-#                     "tour": exact_tour,
-#                     "cost": exact_tour_cost,
-#                     "time_details": time_details_exact,
-#                     "totalLoadingTime": exact_tour_cost
-#                 }
-#                 print(f"Exact Method TSP is better. Cost: {exact_tour_cost}")
-#             else:
-#                 results["linear"] = {
-#                     "tour": linear_tour,
-#                     "cost": linear_tour_cost,
-#                     "time_details": time_details_linear,
-#                     "totalLoadingTime": linear_tour_cost
-#                 }
-#                 print(f"Linear Method TSP is better. Cost: {linear_tour_cost}")
-#
-#         except ValueError as e:
-#             print(f"Error in exact method: {e}")
-#
-#     if method == "all" and results:
-#         min_cost_method = min(results, key=lambda k: results[k]["cost"])
-#         results = {min_cost_method: results[min_cost_method]}
-#         print(f"Selected method with minimum cost: {min_cost_method}")
-#
-#     end_time = int(time() * 1000)
-#
-#     picking_seq = []
-#     for method_name, result in results.items():
-#         if "time_details" in result:
-#             picking_seq.append({"method": method_name})
-#             picking_seq.extend(result["time_details"])
-#             total_loading_time = result["totalLoadingTime"]
-#
-#     # Generate output in the OLD format
-#     output_data = {
-#         "uuid": input_data['uuid'],
-#         "produced_at": int(time() * 1000),
-#         "data": {
-#             "pickingSeq": picking_seq,
-#             "totalLoadingTime": total_loading_time,
-#             "solutionTime": (end_time - solution_time_start),
-#             "totalTime": (end_time - total_time_start),
-#             "improvement": round(improvement, 3)
-#         }
-#     }
-#     # convert data to native types before saving
-#     output_data = convert_to_native_types(output_data)
-#
-#     # Save the output to a JSON file
-#     output_json_file_path = "output_tsp_results.json"
-#     with open(output_json_file_path, 'w') as json_file:
-#         json.dump(output_data, json_file, indent=4)
-#     print(f"Output saved to {output_json_file_path}")
-#
-#     return output_data
-
-print('test')
-
-def run_tsp(json_file_path, input_data=None, generate_new_instance=False):
-    total_time_start = int(time() * 1000)
-
-    # Load input data
-    if input_data and "data" in input_data:
-        print("Remote input data received.")
-        data = input_data["data"]
-    elif json_file_path:
-        with open(json_file_path, 'r') as f:
-            input_data = json.load(f)
-        data = input_data["data"]
-        print(f"Local JSON input has been loaded from {json_file_path}.")
-    else:
-        raise ValueError("Input data is required, either via JSON file or directly.")
-
-    # Extract data components
-    distance_matrix = data["distance_matrix"]
-    containers_template = data["containers_template"]
-    kit_holders_template = data["kit_holders_template"]
-    current_config = data["current_config"]
-    kh_sequences = data.get("kh_sequences") or [data.get("kh_setup", [])]
-
-    # Initial start and end nodes
-    start_node = data.get('start_node', '0.0')
-    end_node = data.get('end_node', '0.0.0')
-
-    results = []
-    solution_time_start = int(time() * 1000)
-    last_node_visited = start_node  # Track last node of each phase
-
-    for i, kh_setup in enumerate(kh_sequences):
-        print(f"\n>>> Running Phase {i + 1} with KH Setup: {kh_setup}")
-
-        # Generate KH configuration for the current phase
-        kh_config = generate_kh_configuration(kh_setup, kit_holders_template)
-
-        # Generate filtered distance matrix
-        filtered_matrix = filter_distance_matrix(distance_matrix, {
-            "containers": current_config["containers"],
-            "kit_holders": kh_config
-        })
-        # Duplicate Last Visited Node for Next Phase
-        if i > 0:
-            duplicated_node = last_node_visited
-            renamed_node = "0.0"
-            print(f"Duplicating last visited node ({duplicated_node}) and renaming duplicate as `{renamed_node}`.")
-            if duplicated_node not in kh_setup:
-                kh_setup.insert(0, duplicated_node)
-                print(f"Updated kh_setup: {kh_setup}")
-
-            # Use distance_matrix for duplication
-            new_filtered_matrix = filtered_matrix.copy()
-            duplicated_edges_added = 0
-            for edge in distance_matrix:  # Source from full distance_matrix
-                if edge["edge"].startswith(f"({duplicated_node},"):
-                    new_edge = {
-                        "edge": edge["edge"].replace(f"({duplicated_node},", f"({renamed_node},"),
-                        "distance": edge["distance"] + 2000  # Match filter_distance_matrix adjustment
-                    }
-                    # Replace existing "0.0" edge
-                    new_filtered_matrix = [e for e in new_filtered_matrix if e["edge"] != new_edge["edge"]]
-                    new_filtered_matrix.append(new_edge)
-                    duplicated_edges_added += 1
-                    print(f"Added duplicated edge: {new_edge}")
-                if edge["edge"].endswith(f", {duplicated_node})"):
-                    new_edge = {
-                        "edge": edge["edge"].replace(f", {duplicated_node})", f", {renamed_node})"),
-                        "distance": edge["distance"] + 2000
-                    }
-                    new_filtered_matrix.append(new_edge)
-                    duplicated_edges_added += 1
-            filtered_matrix = new_filtered_matrix
-            print(f"Total duplicated edges added: {duplicated_edges_added}")
-            print(f"Updated filtered_matrix length: {len(filtered_matrix)}")
-            print(f"Edges with '0.0': {[e for e in filtered_matrix if '0.0' in e['edge']][:5]}")
-        # Parse distance matrix
-        print("Parsing distance matrix into a_to_b_matrix...")
-        a_to_b_matrix = create_distance_matrices({"data": {"distanceMatrix": filtered_matrix}})
-        print(
-            f"a_to_b_matrix created with shape: {a_to_b_matrix.shape if hasattr(a_to_b_matrix, 'shape') else 'unknown'}")
-
-        # Create bipartite graph
-        print("Creating directed bipartite graph...")
-        B, set_1, set_2 = create_directed_bipartite_graph(a_to_b_matrix)
-        print(f"Graph B nodes: {len(B.nodes())}, edges: {len(B.edges())}")
-        print(f"Set 1 (kit holders): {set_1}")
-        print(f"Set 2 (gravity racks): {set_2}")
-
-        method = data["method"]
-        print(f"Selected method: {method}")
-        phase_results = {}
-
-        ## Run the selected method(s)
-        exact_tour = None
-        exact_tour_cost = None
-        time_details_exact = None
-
-        linear_tour = None
-        linear_tour_cost = None
-        time_details_linear = None
-
-        # Run Exact Method
-        if method in ["exact", "exact-linear"]:
-            print("Running Exact Method TSP...")
-            exact_input = {
-                "data": {
-                    "distanceMatrix": filtered_matrix,
-                    "start_node": "0.0",
-                    "end_node": end_node if i == len(kh_sequences) - 1 else None
-                }
-            }
-            print(f"Exact method input: {exact_input['data'].keys()}")
-            exact_tour, exact_tour_cost, time_details_exact = run_exact_tsp(exact_input)
-            print(f"Exact tour: {exact_tour}")
-            print(f"Exact tour cost: {exact_tour_cost}")
-            print(f"Exact time details length: {len(time_details_exact)}")
-
-            if i < len(kh_sequences) - 1:
-                print("Adjusting exact tour for next phase...")
-                for j in range(len(exact_tour) - 1, -1, -1):
-                    if exact_tour[j][1] == "0.0.0":
-                        last_node_visited = exact_tour[j][0]
-                        exact_tour = exact_tour[:j]
-                        print(f"Trimmed exact tour at '0.0.0', new last node: {last_node_visited}")
-                        break
-                time_details_exact = [step for step in time_details_exact if step["to"] not in ["0.0.0", "0.0"]]
-                exact_tour_cost = sum(step["distance"] for step in time_details_exact)
-                print(f"Updated exact tour: {exact_tour}")
-                print(f"Updated exact tour cost: {exact_tour_cost}")
-                print(f"Updated exact time details length: {len(time_details_exact)}")
-
-            phase_results["exact"] = {
-                "cost": exact_tour_cost,
-                "time_details": time_details_exact
-            }
-            print("Exact method results stored in phase_results")
-
-        # Run Linear Method
-        if method in ["linear", "exact-linear"]:
-            print("Running Linear Method TSP...")
-            linear_tour = linear_picking(B, start_node, end_node, set_1, set_2, filtered_matrix=filtered_matrix)
-            print(f"Linear tour: {linear_tour['tour']}")
-            print(f"Initial linear tour cost: {linear_tour['total_cost']}")
-            linear_tour_cost, time_details_linear = total_cost(B, linear_tour['tour'], filtered_matrix=filtered_matrix)
-            print(f"Computed linear tour cost: {linear_tour_cost}")
-            print(f"Linear time details length: {len(time_details_linear)}")
-            print(f"Sample of linear time details: {time_details_linear[:3]}")  # First 3 for brevity
-
-            # Fix: Remove Final Move to `0.0.0` Before Next Phase
-            if i < len(kh_sequences) - 1:
-                print("Adjusting linear tour for next phase...")
-                for j in range(len(linear_tour['tour']) - 1, -1, -1):
-                    if linear_tour['tour'][j] == "0.0.0":
-                        last_node_visited = linear_tour['tour'][j - 1]
-                        linear_tour['tour'] = linear_tour['tour'][:j]
-                        print(f"Trimmed linear tour at '0.0.0', new last node: {last_node_visited}")
-                        break
-                time_details_linear = [step for step in time_details_linear if step["to"] not in ["0.0.0", "0.0"]]
-                linear_tour_cost = sum(step["totalTime"] for step in time_details_linear)
-                print(f"Updated linear tour: {linear_tour['tour']}")
-                print(f"Updated linear tour cost: {linear_tour_cost}")
-                print(f"Updated linear time details length: {len(time_details_linear)}")
-
-            phase_results["linear"] = {
-                "cost": linear_tour_cost,
-                "time_details": time_details_linear
-            }
-            print("Linear method results stored in phase_results")
-
-
-        # Compare Exact and Linear in Exact-Linear Mode
-        if method == "exact-linear":
-            print("Comparing Exact and Linear Methods...")
-            if exact_tour_cost is not None and linear_tour_cost is not None:
-                improvement = round(((linear_tour_cost - exact_tour_cost) / linear_tour_cost) * 100, 4)
-                phase_results["improvement_percentage"] = improvement
-                if improvement > 0:
-                    print(f"Exact Method is better by {improvement:.2f}%. Using Exact Method. Cost: {exact_tour_cost}")
-                    phase_results = {"exact": phase_results["exact"], "improvement_percentage": improvement}
-                else:
-                    print(f"Linear Method is better by {-improvement:.2f}%. Using Linear Method. Cost: {linear_tour_cost}")
-                    phase_results = {"linear": phase_results["linear"], "improvement_percentage": improvement}
-
-        results.append(phase_results)
-
-    # Save the final results
-    end_time = int(time() * 1000)
-    output_data = {
-        "uuid": input_data['uuid'],
-        "produced_at": int(time() * 1000),
-        "data": {
-            "phases": results,
-            "solutionTime": (end_time - solution_time_start),
-            "totalTime": (end_time - total_time_start),
-        }
-    }
-    output_data = convert_to_native_types(output_data)
-
-    # Save to JSON file
-    output_json_file_path = "output_tsp_results.json"
-    with open(output_json_file_path, 'w') as json_file:
-        json.dump(output_data, json_file, indent=4)
-
-    print(f"Output saved to {output_json_file_path}")
-    return output_data
-
-
+# On error:
+#     - Logs the traceback.
+#     - Sends an error message via MQTT.
+#     - Sends an error response back to RabbitMQ.
 def callback(ch, method, properties, body):
     input_file = json.loads(body)
-    uuid = input_file['uuid']
-    data = input_file['data']
-
+    uuid = input_file.get('uuid', 'unknown')
     try:
-        print("%s: Job with uuid: %s received" % (datetime.now().strftime("%d/%m/%Y %H:%M:%S"), uuid))
-        input_postman_file_path = "input_postman.json"
-        output_postman_file_path = "output_postman.json"
-        #Run the TSP algorithm for the JSON input
-        if data.get("method") == "simulation":
-            output = run_simulation(input_file)
+        print(f"{datetime.now():%d/%m/%Y %H:%M:%S}: Job {uuid} received")
+        inject_templates(input_file)              # decode & splice once
+        print("1. Input decoded")
+        data = input_file["data"]
+        print(data)
+        pilot = 'CRF'
+        priority = "HIGH"
+        production_module = data['module']
+        smart_service = data['smartService']
+        print("2. Required fields mapped")
+
+        if data["method"] == "simulation":
+            print("3. Starting simulation")
+            result = run_simulation(input_file)
+            print("4. Finished simulation")
+            source_component = 'Robot picking sequence simulation method'
+            description = 'Completion of simulation algorithm'
+            event_type = 'Simulation Completion'
+            topic = 'kh-picking-sequence-simulation'
         else:
-            output = run_tsp(None, input_file, False)
+            print("3. Starting optimization")
+            result = run_tsp(None, input_file, False)
+            print("4. Finished optimization")
+            source_component = 'Robot picking sequence optimization method'
+            description = 'Completion of optimization algorithm'
+            event_type = 'Optimization Completion'
+            topic = 'kh-picking-sequence-optimization'
 
-        print("%s: Publishing results to queue." % (datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+        timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
-        output = json.dumps(output)
-        channel.basic_publish(exchange='opt-result', routing_key='robot-picking-seq', body=output)
-        print("%s: Job with uuid: %s completed" % (datetime.now().strftime("%d/%m/%Y %H:%M:%S"), uuid))
-    except Exception as e:
-        #print(Exception, e)
-        print(traceback.format_exc())
-        error_message = {"message": "Problem in input data: " + str(e)}
-        error_responce = {"uuid": uuid, "data": error_message, "produced_at": int(time() * 1000)}
-        error_responce = json.dumps(error_responce)
-        channel.basic_publish(exchange='opt-result', routing_key='robot-picking-seq', body=error_responce)
-        print("%s: Job with uuid: %s failed" % (datetime.now().strftime("%d/%m/%Y %H:%M:%S"), uuid))
+        print("5. MQTT publishing")
+        publish_message(mqtt_broker, mqtt_port, mqtt_auth, description,
+                        production_module, pilot, timestamp, priority, event_type,
+                        source_component, smart_service, topic, result)
+
+        output = {
+            "uuid": uuid,
+            "produced_at": int(time() * 1000),
+            "data": {
+                "base64": base64.b64encode(pickle.dumps(result)).decode()
+            }
+        }
+        print("6. Rabbit publishing")
+        ch.basic_publish(exchange='opt-result',
+                         routing_key='robot-picking-seq',
+                         body=json.dumps(output))
+        print(f"{datetime.now():%d/%m/%Y %H:%M:%S}: Job {uuid} completed")
+
+    except Exception as exc:
+        traceback.print_exc()
+        timestamp = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+        error = {"message": f"Problem in input data: {exc}"}
+        print("5. EXCEPTION: MQTT publishing")
+        publish_message(mqtt_broker, mqtt_port, mqtt_auth, 'Error in Simulation/Optimization service',
+                        production_module, pilot, timestamp, priority, 'Error',
+                        source_component, smart_service, topic, error)
+        error_responce = {
+            "uuid": uuid,
+            "produced_at": int(time() * 1000),
+            "data": {
+                "base64": base64.b64encode(
+                    pickle.dumps({"message": f"Problem in input data: {exc}"})
+                ).decode()
+            }
+        }
+        print("6. EXCEPTION: Rabbit publishing")
+        ch.basic_publish(exchange='opt-result',
+                         routing_key='robot-picking-seq',
+                         body=json.dumps(error_responce))
+        print(f"{datetime.now():%d/%m/%Y %H:%M:%S}: Job {uuid} failed")
 
 
-# Main Execution
-if online == "1":  # Remote mode with RabbitMQ
-    host = sys.argv[2]
-    port = sys.argv[3]
-    username = sys.argv[4]
-    password = sys.argv[5]
-    credentials = pika.PlainCredentials(username, password)
-    params = pika.ConnectionParameters(host, port, '/', credentials, heartbeat=1860, blocked_connection_timeout=930)
-    connection = pika.BlockingConnection(params)
-    channel = connection.channel()
-    channel.basic_consume(queue='robot-picking-seq_job', auto_ack=True, on_message_callback=callback)
+online = sys.argv[1]
+mqtt_broker = ''
+mqtt_port = 0
+mqtt_auth = {'username': '', 'password': ''}
+mqtt_topic = ''
+
+prodSim = thread("productionSimulator", 1000)
+prodSim.daemon = True
+prodSim.start()
+
+if online == "1":
+    host, port, user, pw, mqtt_broker, mqtt_port, mqtt_username, mqtt_pw = sys.argv[2:11]
+    mqtt_port = int(mqtt_port)
+    mqtt_auth = {'username': mqtt_username, 'password': mqtt_pw}
+    conn = pika.BlockingConnection(pika.ConnectionParameters(
+        host, int(port), '/', pika.PlainCredentials(user, pw),
+        heartbeat=1800, blocked_connection_timeout=900))
+    channel = conn.channel()
+    channel.basic_consume(queue='robot-picking-seq_job',
+                          auto_ack=True,
+                          on_message_callback=callback)
+    print(" [*] Waiting for messages.")
     channel.start_consuming()
 
-elif online == "0":  # Local mode with JSON file input
+elif online == "0":
     filename = sys.argv[2]
-    with open(filename, 'r') as f:
-        input_data = json.load(f)
+    with open(filename) as f:
+        local_msg = json.load(f)
 
-    if input_data["data"]["method"] == "simulation":
-        print("Running simulation...")
-        run_simulation(input_data)
+    inject_templates(local_msg)            # decode & splice once
+    data = local_msg["data"]
+
+    if data["method"] == "simulation":
+        print("Running simulation locally …")
+        run_simulation(local_msg)
     else:
-        print("Running optimization...")
-        run_tsp(json_file_path=filename, input_data=None, generate_new_instance=False)
+        print("Running optimisation locally …")
+        run_tsp(None, local_msg, False)
+else:
+    print("First arg: 0 (local) or 1 (RabbitMQ)")
+
