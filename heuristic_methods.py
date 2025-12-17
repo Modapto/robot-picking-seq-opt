@@ -1,23 +1,35 @@
-import pandas as pd
-import networkx as nx
+# REPOSITORY NAME (c) by the University of Piraues, Greece.
+#
+# REPOSITORY NAME is licensed under a
+# Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.
+#
+# You should have received a copy of the license along with this
+# work.  If not, see <http://creativecommons.org/licenses/by-nc-nd/3.0/>.
 
+
+# Nearest Neighbor heuristic for the bipartite TSP with pseudonodes.
+#
+# Assumptions (as in your project):
+# - start       = '0.0'    (pseudonode, in set_1)
+# - end         = '0.0.0'  (pseudonode, in set_2)
+# - set_1       = ['0.0', KH nodes ...]
+# - set_2       = ['0.0.0', GR nodes ...]
+# - We alternate between set_1 and set_2.
+# - We NEVER visit `end` inside the loop; it is only appended at the end.
+# - We stop the loop once ALL KH nodes (set_1 except start) have been visited.
+#
+# Parameters:
+# - G: directed graph with 'weight' on edges
+# - start: start node (e.g. '0.0')
+# - end: end node (e.g. '0.0.0')
+# - set_1: list of KH nodes (including start)
+# - set_2: list of GR nodes (including end)
+# - large_value: threshold to treat edges as "blocked"
+#
+# Returns:
+# - tour: list of nodes, e.g. [0.0, GR, KH, ..., 0.0.0, 0.0]
 def nearest_tsp(G, start, end, set_1, set_2, large_value=1000000):
-    """
-    Function to implement the nearest neighbor heuristic for the bipartite TSP.
-
-    Solve the TSP using the nearest neighbor heuristic, maintaining bipartite constraints.
-
-    Parameters:
-    - G: A directed graph representing the problem.
-    - start: The starting node ('0.0').
-    - end: The end node ('0.0.0').
-    - set_1: List of kit holder nodes.
-    - set_2: List of gravity rack nodes.
-    - large_value: A large value to represent unconnected nodes.
-
-    Returns:
-
-    """
+    # Track visited state for all nodes in the graph
     visit = {node: False for node in G.nodes}
     tour = [start]
     visit[start] = True
@@ -26,53 +38,79 @@ def nearest_tsp(G, start, end, set_1, set_2, large_value=1000000):
     print(f"set_1 (kit holders): {set_1}")
     print(f"set_2 (gravity racks and start/end node): {set_2}")
 
-    while len(tour) < len(set_1) + len(set_2) - 1:  # Ensure we visit all nodes before adding the end node
-        if current in set_2 and current != end:  # Ensure we don't move to `0.0.0` before all kit holders are visited
-            neighbors = [node for node in set_1 if not visit[node] and G.has_edge(current, node) and G[current][node]['weight'] < large_value]
-            next_node = min(neighbors, key=lambda node: G[current][node]['weight'], default=None)
-        else:  # If in set_1, choose next from set_2
-            neighbors = [node for node in set_2 if not visit[node] and node != end and G.has_edge(current, node) and G[current][node]['weight'] < large_value]
-            next_node = min(neighbors, key=lambda node: G[current][node]['weight'], default=None)
+    # Helper: are all KH nodes (except start) visited?
+    def all_kh_visited():
+        return all(visit[node] for node in set_1 if node != start)
 
-        if next_node is None:
-            raise ValueError(f"No valid neighbors found from {current}. The tour may be incomplete.")
+    # Main NN loop – we keep going until all KH nodes are visited
+    while True:
+        # If all KH nodes are visited, we break and later append `end`
+        if all_kh_visited():
+            print("All kit holders visited. Preparing to visit end node.")
+            break
+
+        # Choose neighbors according to bipartite constraints
+        if current in set_2 and current != end:
+            # We are at a GR node (or some set_2 node); go to an unvisited KH node
+            neighbors = [
+                node for node in set_1
+                if not visit[node]
+                and node != start   # don't go back to start inside loop
+                and node != end     # safety: don't treat end as a KH by mistake
+                and G.has_edge(current, node)
+                and G[current][node]['weight'] < large_value
+            ]
+        else:
+            # We are at a KH node; go to an unvisited GR node (but NOT `end`)
+            neighbors = [
+                node for node in set_2
+                if not visit[node]
+                and node != end     # do not visit end inside the loop
+                and G.has_edge(current, node)
+                and G[current][node]['weight'] < large_value
+            ]
+
+        # Pick nearest feasible neighbor
+        if not neighbors:
+            # We still haven't visited all KH nodes, but have no valid move
+            raise ValueError(
+                f"No valid neighbors found from {current}. "
+                f"The tour may be incomplete."
+            )
+
+        next_node = min(neighbors, key=lambda node: G[current][node]['weight'])
 
         tour.append(next_node)
         visit[next_node] = True
         current = next_node
 
-        # Debugging information
         print(f"Added node: {next_node}, Tour so far: {tour}")
 
-        # If all kit holders are visited, allow visiting the end node (0.0.0)
-        if all(visit[node] for node in set_1 if node != '0.0'):
-            print("All kit holders visited. Preparing to visit 0.0.0.")
-            break
-
-    # Add the end node to the tour
+    # After all KH nodes are visited, go to `end`
     tour.append(end)
+    print(f"Added end node: {end}, Tour so far: {tour}")
 
-    # Add the return leg from the end node to the start node
+    # Optional: return from end to start if edge exists
     if G.has_edge(end, start):
         tour.append(start)
-        print(f"Returning from {end} to {start}.")
+        print(f"Returning from {end} to {start}. Final tour: {tour}")
+    else:
+        print(f"No edge from {end} to {start}; tour ends at {end}.")
 
     return tour
 
+# Function to calculate the total cost of a given tour.
+#
+# Calculate the total cost of a tour.
+#
+# Parameters:
+# - G: A graph representing the problem.
+# - tour: List of nodes representing the tour.
+#
+# Returns:
+# - cost: Total cost of the tour.
+# - time_details: List of details for each segment of the tour.
 def total_cost(G, tour):
-    """
-    Function to calculate the total cost of a given tour.
-
-    Calculate the total cost of a tour.
-
-    Parameters:
-    - G: A graph representing the problem.
-    - tour: List of nodes representing the tour.
-
-    Returns:
-    - cost: Total cost of the tour.
-    - time_details: List of details for each segment of the tour.
-    """
     cost = 0
     time_details = []
     for i in range(len(tour) - 1):
@@ -87,23 +125,21 @@ def total_cost(G, tour):
             })
     return cost, time_details
 
+# Function to find the best 2-opt move for a bipartite graph.
+#
+# Find the best 2-opt move for the bipartite TSP.
+#
+# Parameters:
+# - top: Dictionary to store the best move details.
+# - tour: Current tour as a list of nodes.
+# - G: Graph representing the problem.
+# - set_1: List of kit holder nodes.
+# - set_2: List of gravity rack nodes.
+# - start_node: The start node ('0.0').
+#
+# Updates:
+# - top: Updates the best move details if a better move is found.
 def FindBestTwoOptMoveForBipartite(top, tour, G, set_1, set_2, start_node='0.0'):
-    """
-    Function to find the best 2-opt move for a bipartite graph.
-
-    Find the best 2-opt move for the bipartite TSP.
-
-    Parameters:
-    - top: Dictionary to store the best move details.
-    - tour: Current tour as a list of nodes.
-    - G: Graph representing the problem.
-    - set_1: List of kit holder nodes.
-    - set_2: List of gravity rack nodes.
-    - start_node: The start node ('0.0').
-
-    Updates:
-    - top: Updates the best move details if a better move is found.
-    """
     number_of_neighboring_solutions = 0
 
     # Iterate through all pairs of edges in the tour
@@ -149,19 +185,18 @@ def FindBestTwoOptMoveForBipartite(top, tour, G, set_1, set_2, start_node='0.0')
     else:
         print(f"Start node {start_node} is not in the current tour.")
 
+#
+# Function to apply the best 2-opt move to the tour.
+#
+# Apply the best 2-opt move to the tour.
+#
+# Parameters:
+# - top: Dictionary containing details of the best 2-opt move.
+# - tour: Current tour as a list of nodes.
+#
+# Modifies:
+# - tour: Updates the tour to include the 2-opt move.
 def ApplyTwoOptMoveForBipartite(top, tour):
-    """
-    Function to apply the best 2-opt move to the tour.
-
-    Apply the best 2-opt move to the tour.
-
-    Parameters:
-    - top: Dictionary containing details of the best 2-opt move.
-    - tour: Current tour as a list of nodes.
-
-    Modifies:
-    - tour: Updates the tour to include the 2-opt move.
-    """
     modifiedSequence = []
 
     # Add nodes before the first edge in reverse order
@@ -186,6 +221,11 @@ def ApplyTwoOptMoveForBipartite(top, tour):
     for idx in range(len(tour)):
         tour[idx] = modifiedSequence[idx]  # Update original tour list with modified one
 
+# Helper class to store 2-opt move information.
+# Attributes:
+#     positionOfFirst (int or None): Index of the first edge in the tour.
+#     positionOfSecond (int or None): Index of the second edge in the tour.
+#     moveCost (float): Cost difference introduced by the move (added - removed).
 class TwoOptMove:
     def __init__(self):
         self.positionOfFirst = None
@@ -197,23 +237,21 @@ class TwoOptMove:
         self.positionOfSecond = None
         self.moveCost = float('inf')  # Reset the move cost to infinity before each iteration
 
+# Function to perform the 2-opt meta-heuristic for the bipartite TSP.
+#
+# Perform the 2-opt meta-heuristic for a bipartite TSP.
+#
+# Parameters:
+# - tour: Initial tour as a list of nodes.
+# - G: Graph representing the problem.
+# - set_1: List of kit holder nodes.
+# - set_2: List of gravity rack nodes.
+# - max_iterations: Maximum number of iterations for the heuristic.
+#
+# Returns:
+# - best_tour: The best tour found.
+# - best_cost: The cost of the best tour.
 def two_opt_for_bipartite(tour, G, set_1, set_2, max_iterations=100000):
-    """
-    Function to perform the 2-opt meta-heuristic for the bipartite TSP.
-
-    Perform the 2-opt meta-heuristic for a bipartite TSP.
-
-    Parameters:
-    - tour: Initial tour as a list of nodes.
-    - G: Graph representing the problem.
-    - set_1: List of kit holder nodes.
-    - set_2: List of gravity rack nodes.
-    - max_iterations: Maximum number of iterations for the heuristic.
-
-    Returns:
-    - best_tour: The best tour found.
-    - best_cost: The cost of the best tour.
-    """
     best_tour = tour[:]
     best_cost, _ = total_cost(G, best_tour)  # Calculate the cost of the initial tour
     iteration = 0  # Counter to track the number of iterations
